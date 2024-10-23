@@ -7,12 +7,15 @@ HEADERS = -I./libft -I./include -I $(LIBMLX)/include
 LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 SRCS_DIR = src
-SRCS_SUBDIR = builtins execution pre_handler tools entities
+SRCS_SUBDIR = pre_handler tools entities renderer vector fclass
 VPATH = $(SRCS_DIR) $(addprefix $(SRCS_DIR)/, $(SRCS_SUBDIR))
-SRCS =	main.c magic_s.c \
-		error.c \
+SRCS =	main.c \
+		error.c magic_s.c \
 		validate.c init.c file.c map.c \
-		light.c shape.c
+		light.c shape.c ambient.c camera.c sphere.c \
+		color.c \
+		vector_calculate.c vector_tools.c \
+		fclass.c \
 
 OBJS_DIR = objs
 OBJS = $(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:49:56 by likong            #+#    #+#             */
-/*   Updated: 2024/10/22 16:25:50 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/23 19:37:25 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,22 @@ t_shape	*copy_shape(t_shape *shape)
 	else if (res->type == CYLINDER)
 		res->data.cylinder = shape->data.cylinder;
 	return (res);
+}
+
+t_shape	*shape_new(void *data, t_shape_type type, int id)
+{
+	t_shape	*shape;
+
+	shape = ft_calloc(1, sizeof(t_shape));
+	if (!shape)
+		return (NULL);
+	shape->id = id;
+	shape->type = type;
+	if (shape->type == PLANE)
+		shape->data.plane = *(t_plane *)data;
+	else if (shape->type == SPHERE)
+		shape->data.sphere = *(t_sphere *)data;
+	else if (shape->type == CYLINDER)
+		shape->data.cylinder = *(t_cylinder *)data;
+	return (shape);
 }

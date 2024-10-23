@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:51 by likong            #+#    #+#             */
-/*   Updated: 2024/10/22 19:27:09 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/23 18:27:33 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,31 @@ typedef struct s_color
 	int green;
 	int	blue;
 }	t_color;
+
+typedef struct	s_fclass
+{
+	int		size;
+	void	**array;
+	void	*(*cpy)(void *);
+	int		(*cmp)(void *, void *);
+	void	(*print)(void *);
+	void	(*del)(void *);
+}	t_fclass;
+
+typedef struct s_ambient
+{
+	double		brightness;
+	t_color		color;
+}	t_ambient;
+
+//FOV : Horizontal field of view in degrees in range [0,180]:
+typedef struct s_camera
+{
+	t_vector	coordinate;
+	t_vector	normal;
+	int			fov;
+}	t_camera;
+
 
 typedef struct s_light
 {
@@ -90,6 +115,8 @@ typedef struct s_scene
 	t_fclass	*light;
 	t_fclass	*shapes;
 	char		**map;
+	t_ambient	ambient;
+	t_camera	camera;
 }	t_scene;
 
 #endif
