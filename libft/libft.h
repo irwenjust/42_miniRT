@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:43:48 by likong            #+#    #+#             */
-/*   Updated: 2024/10/22 21:15:28 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/23 20:10:17 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,6 @@ typedef struct s_str
 	char	*start;
 	char	*end;
 }	t_str;
-
-typedef struct	s_fclass
-{
-	int		size;
-	void	**array;
-	void	*(*cpy)(void *);
-	int		(*cmp)(void *, void *);
-	void	(*print)(void *);
-	void	(*del)(void *);
-}	t_fclass;
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -95,13 +85,12 @@ int		check_white(char c);
 char	**split_plus(char *str, char c);
 bool	ft_strchr_sep(char *s, int c, char sep);
 char	*ft_strreplace(char *str, char *old, char *new);
-
-//New function for fake class
-t_fclass	*fclass_new(void *(*cpy)(void *), int (*cmp)(void *, void *),
-	void (*print)(void *), void (*del)(void *));
+double	ft_atod(char *str);
+int		ft_within_range(int num, int min, int max);
 	
 //New function for matrix
 void	*ft_matrix_new(size_t lines);
 size_t	ft_matrix_size(void *matrix);
+void	*append_matrix(void *matrix, void *data, void *(*copy)(void *));
 
 #endif
