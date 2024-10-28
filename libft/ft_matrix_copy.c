@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_matrix_append.c                                 :+:      :+:    :+:   */
+/*   ft_matrix_copy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 20:05:26 by likong            #+#    #+#             */
-/*   Updated: 2024/10/24 10:40:12 by likong           ###   ########.fr       */
+/*   Created: 2024/10/24 10:41:11 by likong            #+#    #+#             */
+/*   Updated: 2024/10/24 10:44:56 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*append_matrix(void *matrix, void *data, void *(*copy)(void *))
+void	*copy_matrix(void *matrix, void *(*copy)(void *))
 {
 	void	**res;
 	size_t	i;
 
-	i = -1;
-	res = ft_calloc(ft_matrix_size(matrix) + 2, sizeof(void *));
-	if(!res)
+	res = ft_calloc(ft_matrix_size(matrix) + 1, sizeof(void *));
+	if (!res)
 		return (NULL);
+	i = -1;
 	while (((void **)matrix)[++i])
 	{
 		if (copy)
@@ -28,6 +28,5 @@ void	*append_matrix(void *matrix, void *data, void *(*copy)(void *))
 		else
 			res[i] = ((void **)matrix)[i];
 	}
-	res[i] = data;
 	return (res);
 }

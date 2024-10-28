@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:43:48 by likong            #+#    #+#             */
-/*   Updated: 2024/10/23 20:10:17 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/24 10:45:05 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ int		ft_within_range(int num, int min, int max);
 void	*ft_matrix_new(size_t lines);
 size_t	ft_matrix_size(void *matrix);
 void	*append_matrix(void *matrix, void *data, void *(*copy)(void *));
+void	*copy_matrix(void *matrix, void *(*copy)(void *));
 
 #endif
