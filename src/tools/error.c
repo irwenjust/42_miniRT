@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:24:37 by likong            #+#    #+#             */
-/*   Updated: 2024/10/23 10:16:17 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/28 18:22:38 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,22 @@
 
 static void	delete_fclass(t_fclass *fclass)
 {
-	if (!fclass->array)
-	{
-		write(1, "here\n", 5);
+	if (!fclass)
 		return ;
-	}
 	free_matrix((char **)fclass->array);
 	free(fclass);
+}
+
+int	quit()  //may change to void
+{
+	delete_scene();
+	exit(SUCCESS);
+}
+
+void	nc_free(void *ptr)
+{
+	if (ptr)
+		free(ptr);
 }
 
 void	delete_scene()
@@ -28,6 +37,17 @@ void	delete_scene()
 	delete_fclass(s()->light);
 	delete_fclass(s()->shapes);
 	free_matrix(s()->map);
+	// if (s()->win.img)
+	// 	mlx_delete_image(s()->win.mlx, s()->win.img);
+	// if (s()->win.mlx)
+	// 	mlx_terminate(s()->win.mlx);
+	if (s()->win.img)
+		mlx_destroy_image(s()->win.mlx, s()->win.img);
+	if (s()->win.disp)
+		mlx_destroy_window(s()->win.mlx, s()->win.disp);
+	if (s()->win.mlx)
+		mlx_destroy_display(s()->win.mlx);
+	nc_free(s()->win.mlx);
 }
 
 void	show_message(char *message)

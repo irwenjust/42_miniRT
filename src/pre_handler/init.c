@@ -6,11 +6,33 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:24:56 by likong            #+#    #+#             */
-/*   Updated: 2024/10/23 20:31:22 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/28 19:12:49 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+static void	init_windows()
+{
+	// s()->win.mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
+	// if (!s()->win.mlx)
+	// 	show_message("error happend when create MLX42");
+	s()->win.mlx = mlx_init();
+	if (!s()->win.mlx)
+		show_message("error happend when create MLX42");
+	s()->win.width = WIDTH;
+	s()->win.height = HEIGHT;
+	s()->win.disp = mlx_new_window(s()->win.mlx, WIDTH, HEIGHT, "miniRT");
+	if (!s()->win.disp)
+		show_message("error happend when create MLX42 windows");
+	s()->win.img = mlx_new_image(s()->win.mlx, s()->win.width, s()->win.height);
+	if (!s()->win.img)
+		show_message("error happend when create MLX42 image");
+	s()->win.addr = mlx_get_data_addr(s()->win.img, &s()->win.bpp, 
+		&s()->win.line_len, &s()->win.endian);
+	if (!s()->win.addr)
+		show_message("error happend when initial MLX42 image address");
+}
 
 static void	init_map(char *file_name)
 {
@@ -59,30 +81,10 @@ void	init_scene(char *file_name)
 	if (ft_matrix_size(s()->map) == 0)
 		show_message("the file is empty");
 	parse_map(counter);
-	if (counter[0] == 0)
-		show_message("No ambient in the scene");
-	else if (counter[1] == 0)
-		show_message("No camera in the scene");
-	else if (counter[2] == 0)
-		show_message("No light in the scene");
-	else if (counter[0] > 1 || counter[1] > 1 || counter[2] > 1)
-		show_message("too many ambient/camera/light in the scene");
+	check_counter(counter);
+	init_viewport();
+	init_windows();
+	draw_image();
+	mlx_hook(s()->win.disp, DestroyNotify, StructureNotifyMask, quit, NULL); // need to adjust later maybe
+	mlx_loop(s()->win.mlx);
 }
-
-// void	init_point(void)
-// {
-// 	ft_bzero(p(), sizeof(t_point));
-// 	p()->x = 4.3;
-// 	p()->y = -4.2;
-// 	p()->z = 3.1;
-// 	p()->type = 1;
-// }
-
-// void	init_vector(void)
-// {
-// 	ft_bzero(v(), sizeof(t_vector));
-// 	v()->x = 4.3;
-// 	v()->y = -4.2;
-// 	v()->z = 3.1;
-// 	v()->type = 0;
-// }

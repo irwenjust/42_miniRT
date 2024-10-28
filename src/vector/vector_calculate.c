@@ -6,11 +6,26 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:18:48 by likong            #+#    #+#             */
-/*   Updated: 2024/10/23 18:13:03 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/24 14:48:07 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+inline t_vector	vector_cross(t_vector v1, t_vector v2)
+{
+	t_vector	res;
+
+	res.x = v1.y * v2.z - v1.z * v2.y;
+	res.y = v1.z * v2.x - v1.x * v2.z;
+	res.z = v1.x * v2.y - v1.y * v2.x;
+	return (res);
+}
+
+inline double	vector_dot(t_vector v1, t_vector v2)
+{
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+}
 
 inline t_vector	normalize_vector(t_vector a)
 {

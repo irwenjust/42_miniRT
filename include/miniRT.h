@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/10/23 20:14:59 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/28 18:54:22 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@
 # define Y 1
 # define Z 2
 
+//Some standard color
+# define BLACK (t_color){0XFF, 0XFF, 0XFF, 0XFF}
+
+//about windows setting (16:9)
+# define SCALE 0.5625
+# define WIDTH 1600
+# define HEIGHT (WIDTH * SCALE)
+
+# define PI 3.141592653589
+# define RADIAN(angle) ((angle * PI) / 180.0f)
+
+# define UPVECTOR (t_vector){0.0, 1.0, 0.0}
+
 # define ERROR(s) printf("Error: %s\n", s)
 
 /*
@@ -35,6 +48,7 @@ stdio: printf
 fcntl: O_RDONLY
 stdlib: malloc, free
 */
+// #include <MLX42/MLX42.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -43,7 +57,8 @@ stdlib: malloc, free
 
 #include "libft.h"
 #include "structure.h"
-#include "../MLX42/include/MLX42/MLX42.h"
+#include "../mlx_linux/mlx.h"
+#include <X11/X.h>
 #include "../libft/get_next_line/get_next_line.h"
 
 //
@@ -54,9 +69,14 @@ void	delete_scene();
 
 //show error message
 void	show_message(char *message);
+int		quit();
+
+//check part
+void	check_counter(int counter[3]);
 
 //initial part
 void	init_scene(char *file_name);
+void	init_viewport();
 
 //validate
 bool	validate_filename(char *f_name);
@@ -68,7 +88,6 @@ void		push_to_fclass(t_fclass *fclass, void *element);
 
 //shape part
 t_shape	*copy_shape(t_shape *shape);
-void	print_shape(t_shape *shape);
 t_shape	*shape_new(void *data, t_shape_type type, int id);
 
 //light part
@@ -89,36 +108,20 @@ bool	save_camera(int counter[3], char **tmp, t_camera *camera);
 
 //color part
 t_color	save_color(char **rgb);
+void	draw_image();
 
 //vector part
 t_vector		save_vector(char **strs);
 t_vector		normalize_vector(t_vector a);
 double			vector_len(t_vector a);
+t_vector		vector_cross(t_vector v1, t_vector v2);
+double			vector_dot(t_vector v1, t_vector v2);
 
 //sphere part
 bool	save_sphere(char **tmp, t_fclass *fclass);
 
+//debug part
+void	print_shape(t_shape *shape);
 
-// typedef struct s_point
-// {
-// 	double	x;
-// 	double	y;
-// 	double	z;
-// 	int		type;
-// }	t_point;
-
-// typedef struct s_vector
-// {
-// 	double	x;
-// 	double	y;
-// 	double	z;
-// 	int		type;
-// }	t_vector;
-
-// t_point		*p(void);
-// t_vector	*v(void);
-
-// void		init_point(void);
-// void		init_vector(void);
 
 #endif

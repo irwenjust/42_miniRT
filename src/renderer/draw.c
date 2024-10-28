@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 12:44:24 by likong            #+#    #+#             */
-/*   Updated: 2024/10/28 15:23:58 by likong           ###   ########.fr       */
+/*   Created: 2024/10/28 18:08:46 by likong            #+#    #+#             */
+/*   Updated: 2024/10/28 18:20:43 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_color	save_color(char **rgb)
+static void	put_pixel(t_color c, int x, int y)
 {
-	return ((t_color){
-		.red = ft_within_range(ft_atoi(rgb[R]), 0, 255),
-		.green = ft_within_range(ft_atoi(rgb[G]), 0, 255),
-		.blue = ft_within_range(ft_atoi(rgb[B]), 0, 255),
-		.alpha = ft_within_range(0XFF, 0, 255)
-	});
+	char *dst;
+
+	dst = s()->win.addr + (y * WIDTH + x) * (s()->win.bpp / 8);
+	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
+}
+
+void	draw_image()
+{
+	int	x;
+	int y;
+
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		while (++x < WIDTH)
+			put_pixel(BLACK, X, Y);
+	}
+	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
 }

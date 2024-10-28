@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 12:44:24 by likong            #+#    #+#             */
-/*   Updated: 2024/10/28 15:23:58 by likong           ###   ########.fr       */
+/*   Created: 2024/10/24 17:54:05 by likong            #+#    #+#             */
+/*   Updated: 2024/10/24 17:54:54 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_color	save_color(char **rgb)
+void	check_counter(int counter[3])
 {
-	return ((t_color){
-		.red = ft_within_range(ft_atoi(rgb[R]), 0, 255),
-		.green = ft_within_range(ft_atoi(rgb[G]), 0, 255),
-		.blue = ft_within_range(ft_atoi(rgb[B]), 0, 255),
-		.alpha = ft_within_range(0XFF, 0, 255)
-	});
+	if (counter[0] == 0)
+		show_message("No ambient in the scene");
+	else if (counter[1] == 0)
+		show_message("No camera in the scene");
+	else if (counter[2] == 0)
+		show_message("No light in the scene");
+	else if (counter[0] > 1 || counter[1] > 1 || counter[2] > 1)
+		show_message("too many ambient/camera/light in the scene");
 }

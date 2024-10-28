@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:54:26 by likong            #+#    #+#             */
-/*   Updated: 2024/10/23 10:49:25 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:19:08 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		show_message("need and only need one argument");
 	init_scene(argv[1]);
+	// print_shape((t_shape *)s()->shapes->array[3]);
 	delete_scene();
 	
 	// init_point();

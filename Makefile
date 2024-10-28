@@ -1,21 +1,25 @@
-NAME = miniRT
-CFLAGS = -Wextra -Wall -Werror
-LIBMLX = ./MLX42
-LIBFT = -L./libft -lft
+NAME	= miniRT
+CFLAGS	= -Wextra -Wall -Werror -O3
+# LIBMLX	= ./MLX42
+LIBFT	= -L./libft -lft
+MLX		= minilibx-linux
 
-HEADERS = -I./libft -I./include -I $(LIBMLX)/include
-LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+HEADERS = -I./libft -I./include -I ./$(MLX)
+MLXFLAGS = -L ./$(MLX) -lmlx -lXext -lX11 -lm -lpthread
+
+# LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 SRCS_DIR = src
-SRCS_SUBDIR = pre_handler tools entities renderer vector fclass
+SRCS_SUBDIR = pre_handler tools entities renderer vector fclass debug
 VPATH = $(SRCS_DIR) $(addprefix $(SRCS_DIR)/, $(SRCS_SUBDIR))
 SRCS =	main.c \
-		error.c magic_s.c \
+		error.c magic_s.c check.c \
 		validate.c init.c file.c map.c \
-		light.c shape.c ambient.c camera.c sphere.c \
-		color.c \
+		light.c shape.c ambient.c camera.c sphere.c viewport.c \
+		color.c draw.c \
 		vector_calculate.c vector_tools.c \
 		fclass.c \
+		debug_shape.c 
 
 OBJS_DIR = objs
 OBJS = $(SRCS:.c=.o)
@@ -26,17 +30,10 @@ TARGETS = $(addprefix $(OBJS_DIR)/, $(OBJS))
 REPO_URL=https://github.com/codam-coding-college/MLX42.git
 REPO_DIR=MLX42
 
-all: clone libmlx $(NAME)
-
-clone:
-	@if [ ! -d "$(REPO_DIR)" ]; then \
-		git clone $(REPO_URL); \
-	else \
-		echo "$(REPO_DIR) already exists."; \
-	fi
+all: $(NAME)
  
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+# libmlx:
+# 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(OBJS_DIR)/%.o: %.c
 	@cc $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
@@ -46,7 +43,7 @@ $(OBJS_DIR):
 
 $(NAME): $(OBJS_DIR) $(TARGETS)
 	@$(MAKE) -C ./libft
-	@cc $(CFLAGS) $(TARGETS) $(LIBFT) $(LIBS) -o $(NAME) -lreadline
+	@cc $(CFLAGS) $(TARGETS) -o $(NAME) $(LIBFT) $(MLXFLAGS) -lreadline
 
 # run: $(NAME)
 # 	@./$(NAME)

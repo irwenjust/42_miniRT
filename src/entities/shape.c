@@ -6,16 +6,11 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:49:56 by likong            #+#    #+#             */
-/*   Updated: 2024/10/23 19:37:25 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/24 10:12:52 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-void	print_shape(t_shape *shape)
-{
-	printf("ID: %d\n", shape->id);
-}
 
 t_shape	*copy_shape(t_shape *shape)
 {
