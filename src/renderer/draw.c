@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 18:08:46 by likong            #+#    #+#             */
-/*   Updated: 2024/10/29 08:48:49 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/29 15:21:15 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	draw_image()
 	{
 		x = -1;
 		while (++x < WIDTH)
-			put_pixel(BLACK, X, Y);
+			put_pixel(BLUE, x, y);
 	}
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
 }

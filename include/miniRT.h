@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/10/29 08:59:26 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/29 15:20:42 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define Z 2
 
 //Some standard color
-# define BLACK (t_color){12, 12, 12, 12}
+# define BLUE (t_color){137, 196, 244, 0}
 
 //about windows setting (16:9)
 # define SCALE 0.5625
