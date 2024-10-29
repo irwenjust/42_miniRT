@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:24:56 by likong            #+#    #+#             */
-/*   Updated: 2024/10/28 19:12:49 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/29 08:59:31 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	init_scene(char *file_name)
 	init_viewport();
 	init_windows();
 	draw_image();
+	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, keypress, NULL);
 	mlx_hook(s()->win.disp, DestroyNotify, StructureNotifyMask, quit, NULL); // need to adjust later maybe
 	mlx_loop(s()->win.mlx);
 }

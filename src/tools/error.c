@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:24:37 by likong            #+#    #+#             */
-/*   Updated: 2024/10/28 18:22:38 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/29 08:59:13 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ static void	delete_fclass(t_fclass *fclass)
 		return ;
 	free_matrix((char **)fclass->array);
 	free(fclass);
+}
+
+int	keypress(int keycode)
+{
+	if (keycode == ESC)
+		quit();
+	draw_image();
+	return (keycode);
 }
 
 int	quit()  //may change to void

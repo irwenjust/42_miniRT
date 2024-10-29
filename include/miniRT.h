@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/10/28 18:54:22 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/29 08:59:26 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define SUCCESS 0
 # define FAIL_STD 1
+
+# define ESC 65307
 
 # define AMBIENT 0
 # define CAMERA 1
@@ -29,7 +31,7 @@
 # define Z 2
 
 //Some standard color
-# define BLACK (t_color){0XFF, 0XFF, 0XFF, 0XFF}
+# define BLACK (t_color){12, 12, 12, 12}
 
 //about windows setting (16:9)
 # define SCALE 0.5625
@@ -70,6 +72,8 @@ void	delete_scene();
 //show error message
 void	show_message(char *message);
 int		quit();
+int		keypress(int keycode);
+
 
 //check part
 void	check_counter(int counter[3]);
