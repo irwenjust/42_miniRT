@@ -1,14 +1,18 @@
 NAME	= miniRT
 CFLAGS	= -Wextra -Wall -Werror -O3
-# LIBMLX	= ./MLX42
+
+# libft
 LIBFT	= -L./libft -lft
-MLX		= minilibx-linux
 
-HEADERS = -I./libft -I./include -I ./$(MLX)
-MLXFLAGS = -L ./$(MLX) -lmlx -lXext -lX11 -lm -lpthread
+# mlx
+MLX_URL = https://github.com/42Paris/minilibx-linux.git
+MLX_DIR = ./minilibx-linux
+MLX = -L ./$(MLX_DIR) -lmlx -lXext -lX11 -lm -lpthread
 
-# LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+#header
+HEADERS = -I./include -I./libft -I ./$(MLX_DIR)
 
+# src files
 SRCS_DIR = src
 SRCS_SUBDIR = pre_handler tools entities renderer vector fclass debug
 VPATH = $(SRCS_DIR) $(addprefix $(SRCS_DIR)/, $(SRCS_SUBDIR))
@@ -25,15 +29,13 @@ OBJS_DIR = objs
 OBJS = $(SRCS:.c=.o)
 TARGETS = $(addprefix $(OBJS_DIR)/, $(OBJS))
 
-# MLX42
 
-REPO_URL=https://github.com/codam-coding-college/MLX42.git
-REPO_DIR=MLX42
+all: clone $(NAME)
 
-all: $(NAME)
- 
-# libmlx:
-# 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+clone:
+	@if [ ! -d "$(MLX_DIR)" ]; then \
+		git clone $(MLX_URL); \
+	fi
 
 $(OBJS_DIR)/%.o: %.c
 	@cc $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
@@ -42,11 +44,9 @@ $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
 $(NAME): $(OBJS_DIR) $(TARGETS)
+	@$(MAKE) -C $(MLX_DIR)
 	@$(MAKE) -C ./libft
-	@cc $(CFLAGS) $(TARGETS) -o $(NAME) $(LIBFT) $(MLXFLAGS) -lreadline
-
-# run: $(NAME)
-# 	@./$(NAME)
+	@cc $(CFLAGS) $(TARGETS) $(LIBFT) $(MLX) -o $(NAME) -lreadline
 
 clean:
 	@rm -rf $(OBJS_DIR)
