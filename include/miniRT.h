@@ -14,7 +14,7 @@
 # define MINIRT_H
 
 # define SUCCESS 0
-# define FAIL_STD 1
+# define FAILURE 1
 
 # define ESC 65307
 
@@ -59,7 +59,7 @@ stdlib: malloc, free
 
 #include "libft.h"
 #include "structure.h"
-#include "../mlx_linux/mlx.h"
+#include "../minilibx-linux/mlx.h"
 #include <X11/X.h>
 #include "../libft/get_next_line/get_next_line.h"
 

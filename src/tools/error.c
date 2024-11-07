@@ -62,5 +62,5 @@ void	show_message(char *message)
 {
 	delete_scene();
 	printf("Error: %s\n", message);
-	exit(FAIL_STD);
+	exit(FAILURE);
 }
