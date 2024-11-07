@@ -70,20 +70,19 @@ t_scene	*s(void);
 void	delete_scene();
 
 //show error message
-void	show_message(char *message);
-int		quit();
-int		keypress(int keycode);
+void	error_exit(char *message);
 
 
-//check part
-void	check_counter(int counter[3]);
+//hook.c
+int		ft_keypress(int keycode);
+int		ft_quit();
 
 //initial part
 void	init_scene(char *file_name);
-void	init_viewport();
 
 //validate
 bool	validate_filename(char *f_name);
+int		get_nof_validrows(char *file_name);
 
 //New function for fake class
 t_fclass	*fclass_new(void *(*cpy)(void *), int (*cmp)(void *, void *),
@@ -97,12 +96,10 @@ t_shape	*shape_new(void *data, t_shape_type type, int id);
 //light part
 t_light	*copy_light(t_light *light);
 void	print_light(t_light *light);
-
-//file part
-int		get_nof_validrows(char *file_name);
+bool save_light(int counter[3], char **arg, t_fclass *light);
 
 //map part
-void	parse_map(int counter[3]);
+void	parse_args();
 
 //ambient part
 bool	save_ambient(int counter[3], char **tmp, t_ambient *ambient);

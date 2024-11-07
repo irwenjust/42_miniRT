@@ -12,23 +12,24 @@
 
 #include "miniRT.h"
 
-static bool	check_save(char **tmp, t_sphere *sphere)
+static bool	check_save(char **arg, t_sphere *sphere)
 {
 	char	**coordinate;
 	char	**rgb;
 
-	coordinate = ft_split(tmp[1], ',');
+	coordinate = ft_split(arg[1], ',');
 	if (!coordinate)
-		return (ERROR("error when split sphere's coodinate"), false);
-	rgb = ft_split(tmp[3], ',');
+		return (ERROR("sphere: error when split coodinate"), false);
+	rgb = ft_split(arg[3], ',');
 	if (!rgb)
 	{
 		free_matrix(coordinate);
-		return (ERROR("error when split sphere's color"), false);
+		return (ERROR("sphere: error when split color"), false);
 	}
-	*sphere = (t_sphere){
+	*sphere = (t_sphere)
+	{
 		.center = save_vector(coordinate),
-		.radius = ft_atod(tmp[2]) / 2.0,
+		.radius = ft_atod(arg[2]) / 2.0,
 		.color = save_color(rgb)
 	};
 	free_matrix(coordinate);
@@ -38,16 +39,16 @@ static bool	check_save(char **tmp, t_sphere *sphere)
 	return (true);
 }
 
-bool	save_sphere(char **tmp, t_fclass *fclass)
+bool	save_sphere(char **arg, t_fclass *fclass)
 {
 	t_shape		*shape;
 	t_sphere	sphere;
 
-	if (ft_matrix_size(tmp) != 4)
-		return (ERROR("sphere needs 4 arguments"), false);
+	if (ft_matrix_size(arg) != 4)
+		return (ERROR("sphere: needs 4 arguments"), false);
 	//more check here
-	if (!check_save(tmp, &sphere))
-		return (ERROR("radius too small or previous error in sphere"), false);
+	if (!check_save(arg, &sphere))
+		return (ERROR("sphere: radius too small or previous error"), false);
 	shape = shape_new(&sphere, SPHERE, fclass->size);
 	push_to_fclass(fclass, shape);
 	return (true);

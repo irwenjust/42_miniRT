@@ -12,25 +12,33 @@
 
 #include "miniRT.h"
 
-bool	save_camera(int counter[3], char **tmp, t_camera *camera)
+bool	save_camera(int counter[3], char **arg, t_camera *camera)
 {
-	char	**pos;
+	char	**coord;
 	char	**normal;
 
-	if (ft_matrix_size(tmp) != 4)
-		return (ERROR("camera needs 4 arguments"), false);
+	if (ft_matrix_size(arg) != 4)
+		return (ERROR("camera: needs 4 arguments"), false);
 	//miss syntax check
-	pos = ft_split(tmp[1], ',');
-	normal = ft_split(tmp[2], ',');
-	camera->coordinate = save_vector(pos);
+		//validate_arg(); //TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//coord
+	coord = ft_split(arg[1], ',');
+		//check coord TODO
+	camera->coordinate = save_vector(coord);
+	//normal
+	normal = ft_split(arg[2], ',');
+		//check normal TODO	
 	camera->normal = normalize_vector(save_vector(normal));
-	free_matrix(pos);
-	free_matrix(normal);
 	if (vector_len(camera->normal) < 1e-8)
-		return (ERROR("normal vector is too small in camera"), false);
-	camera->fov = ft_atoi(tmp[3]);
+		return (ERROR("camera: normal vector is too small"), false);
+	//fov
+	camera->fov = ft_atoi(arg[3]);
 	if (camera->fov < 0 || camera->fov > 180)
-		return (ERROR("normal vector's visual is out of range"), false);
+		return (ERROR("camera: normal vector's visual is out of range"), false);
+	//count
 	counter[1]++;
+	//clean
+	free_matrix(coord);
+	free_matrix(normal);
 	return (camera);
 }
