@@ -20,19 +20,7 @@ static void	delete_fclass(t_fclass *fclass)
 	free(fclass);
 }
 
-int	keypress(int keycode)
-{
-	if (keycode == ESC)
-		quit();
-	draw_image();
-	return (keycode);
-}
 
-int	quit()  //may change to void
-{
-	delete_scene();
-	exit(SUCCESS);
-}
 
 void	nc_free(void *ptr)
 {
@@ -44,7 +32,7 @@ void	delete_scene()
 {
 	delete_fclass(s()->light);
 	delete_fclass(s()->shapes);
-	free_matrix(s()->map);
+	free_matrix(s()->args);
 	// if (s()->win.img)
 	// 	mlx_delete_image(s()->win.mlx, s()->win.img);
 	// if (s()->win.mlx)
@@ -58,7 +46,7 @@ void	delete_scene()
 	nc_free(s()->win.mlx);
 }
 
-void	show_message(char *message)
+void	error_exit(char *message)
 {
 	delete_scene();
 	printf("Error: %s\n", message);

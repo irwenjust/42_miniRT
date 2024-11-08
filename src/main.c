@@ -15,8 +15,14 @@
 int	main(int argc, char **argv)
 {
 	if (argc != 2)
-		show_message("need and only need one argument");
+		error_exit("need and only need one argument");
 	init_scene(argv[1]);
+
+	draw_image();
+
+	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, ft_keypress, NULL);
+	mlx_hook(s()->win.disp, DestroyNotify, StructureNotifyMask, ft_quit, NULL); // need to adjust later maybe
+	mlx_loop(s()->win.mlx);
 	// print_shape((t_shape *)s()->shapes->array[3]);
 	delete_scene();
 	

@@ -131,7 +131,7 @@ typedef struct s_scene
 {
 	t_fclass	*light;
 	t_fclass	*shapes;
-	char		**map;
+	char		**args; //map
 	t_ambient	ambient;
 	t_camera	camera;
 	double		w_view;

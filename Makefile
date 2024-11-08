@@ -10,19 +10,19 @@ MLX_DIR = ./minilibx-linux
 MLX = -L ./$(MLX_DIR) -lmlx -lXext -lX11 -lm -lpthread
 
 #header
-HEADERS = -I./include -I./libft -I ./$(MLX_DIR)
+HEADERS = -I ./include -I ./libft -I ./$(MLX_DIR)
 
 # src files
 SRCS_DIR = src
-SRCS_SUBDIR = pre_handler tools entities renderer vector fclass debug
+SRCS_SUBDIR = fclass init parser renderer tools vector debug
 VPATH = $(SRCS_DIR) $(addprefix $(SRCS_DIR)/, $(SRCS_SUBDIR))
 SRCS =	main.c \
-		error.c magic_s.c check.c \
-		validate.c init.c file.c map.c \
-		light.c shape.c ambient.c camera.c sphere.c viewport.c \
-		color.c draw.c \
-		vector_calculate.c vector_tools.c \
 		fclass.c \
+		init.c validate.c \
+		parse_args.c parse_tool.c ambient.c camera.c light.c shape.c  sphere.c \
+		color.c draw.c \
+		error.c hook.c magic_s.c \
+		vector_calculate.c vector_tools.c \
 		debug_shape.c 
 
 OBJS_DIR = objs

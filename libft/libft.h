@@ -80,7 +80,7 @@ void	ft_list_remove_if(t_list **begin_list, void *data_ref, \
 	bool (*cmp)(), void (*free_fct)());
 
 //New function
-void	free_matrix(char **matrix);
+
 int		check_white(char c);
 char	**split_plus(char *str, char c);
 bool	ft_strchr_sep(char *s, int c, char sep);
@@ -93,5 +93,6 @@ void	*ft_matrix_new(size_t lines);
 size_t	ft_matrix_size(void *matrix);
 void	*append_matrix(void *matrix, void *data, void *(*copy)(void *));
 void	*copy_matrix(void *matrix, void *(*copy)(void *));
+void	free_matrix(char **matrix);
 
 #endif

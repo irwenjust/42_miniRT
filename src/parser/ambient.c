@@ -12,21 +12,26 @@
 
 #include "miniRT.h"
 
-bool	save_ambient(int counter[3], char **tmp, t_ambient *ambient)
+bool	parse_ambient(int counter[3], char **arg, t_ambient *ambient)
 {
 	char	**rgb;
 
-	if (ft_matrix_size(tmp) != 3)
-		return (ERROR("ambient needs 3 arguments"), false);
-	//more check here
-	if (ft_atod(tmp[1]) < 0.0 || ft_atod(tmp[1]) > 1.0)
-		return (ERROR("error happend in lighting ratio range"), false);
-	rgb = ft_split(tmp[2], ',');
+	if (ft_matrix_size(arg) != 3)
+		return (ERROR("ambient: needs 3 arguments"), false);
+	if (!check_syntax(arg, "001"))
+		return (ERROR("ambient: Misconfiguration in commas/numbers"), false);
+	//brightness
+	ambient->brightness = ft_atod(arg[1]);
+	if (ambient->brightness < 0.0 || ambient->brightness > 1.0)
+		return (ERROR("ambient: error in lighting ratio range"), false);
+	//rgb
+	rgb = ft_split(arg[2], ',');
 	if (!rgb)
-		return (ERROR("error happend in split ambient color"), false);
-	ambient->brightness = ft_atod(tmp[1]);
+		return (ERROR("ambient: error in split color"), false);
 	ambient->color = save_color(rgb);
-	free_matrix(rgb);
+	//count
 	counter[0]++;
+	//clean
+	free_matrix(rgb);
 	return (true);
 }
