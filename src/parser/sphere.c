@@ -39,7 +39,7 @@ static bool	check_save(char **arg, t_sphere *sphere)
 	return (true);
 }
 
-bool	save_sphere(char **arg, t_fclass *fclass)
+bool	parse_sphere(char **arg, t_fclass *fclass)
 {
 	t_shape		*shape;
 	t_sphere	sphere;
@@ -47,6 +47,8 @@ bool	save_sphere(char **arg, t_fclass *fclass)
 	if (ft_matrix_size(arg) != 4)
 		return (ERROR("sphere: needs 4 arguments"), false);
 	//more check here
+	if (!check_syntax(arg, "0101"))
+		return (ERROR("ambient: Misconfiguration in commas/numbers"), false);
 	if (!check_save(arg, &sphere))
 		return (ERROR("sphere: radius too small or previous error"), false);
 	shape = shape_new(&sphere, SPHERE, fclass->size);

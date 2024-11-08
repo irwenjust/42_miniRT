@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,19 +13,19 @@
 #include "miniRT.h"
 
 /*check each line of args if valid or not*/
-static bool	check_args(int counter[3], char **arg)
+static bool	parse_line(int counter[3], char **arg)
 {
 	if (!ft_strcmp("A", arg[0]))
-		return (save_ambient(counter, arg, &s()->ambient));
+		return (parse_ambient(counter, arg, &s()->ambient));
 	else if (!ft_strcmp("C", arg[0]))
-		return (save_camera(counter, arg, &s()->camera));
+		return (parse_camera(counter, arg, &s()->camera));
 	else if (!ft_strcmp("L", arg[0]))
 	{
 		counter[2]++;
 		return (true);  // check light later
 	}
 	else if (!ft_strcmp("sp", arg[0]))
-		return (save_sphere(arg, s()->shapes));
+		return (parse_sphere(arg, s()->shapes));
 	else if (!ft_strcmp("pl", arg[0]))
 		return (true);  // check plane later
 	else if (!ft_strcmp("cy", arg[0]))
@@ -60,7 +60,7 @@ void	parse_args()
 		tmp = ft_split(s()->args[i], ' ');
 		if (!tmp)
 			error_exit("mistake happend when split file content");
-		if (!check_args(counter, tmp))
+		if (!parse_line(counter, tmp))
 		{
 			free_matrix(tmp);
 			error_exit("mistake happend for file format");

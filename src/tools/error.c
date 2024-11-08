@@ -30,7 +30,7 @@ void	nc_free(void *ptr)
 
 void	delete_scene()
 {
-	//delete_fclass(s()->light);
+	delete_fclass(s()->light);
 	delete_fclass(s()->shapes);
 	free_matrix(s()->args);
 	// if (s()->win.img)

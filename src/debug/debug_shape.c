@@ -28,3 +28,12 @@ void	print_shape(t_shape *shape)
 	if (shape->type == SPHERE)
 		print_sphere(shape->data.sphere);
 }
+
+void	print_light(t_light *light)
+{
+	printf("Light coordinate: %1lf,%1lf,%1lf\n",
+		light->coordinate.x, light->coordinate.y, light->coordinate.z);
+	printf("Light brightness level: %1lf\n", light->brightness);
+	printf("Light color: %d,%d,%d\n",
+		light->color.red, light->color.green, light->color.blue);
+}

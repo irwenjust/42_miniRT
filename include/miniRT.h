@@ -18,6 +18,8 @@
 
 # define ESC 65307
 
+# define HAS_COMMA '1'
+
 # define AMBIENT 0
 # define CAMERA 1
 # define LIGHT 2
@@ -66,6 +68,27 @@ stdlib: malloc, free
 //
 t_scene	*s(void);
 
+/*init*/
+//initial part
+void	init_scene(char *file_name);
+//validate
+bool	validate_filename(char *f_name);
+int		get_nof_validrows(char *file_name);
+
+/*parser*/
+void	parse_args();
+//ambient part
+bool	parse_ambient(int counter[3], char **tmp, t_ambient *ambient);
+//camera part
+bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
+//sphere part
+bool	parse_sphere(char **tmp, t_fclass *fclass);
+//parse tool
+bool check_syntax(char **arg, char *commas);
+
+
+
+
 //free the scene
 void	delete_scene();
 
@@ -77,12 +100,7 @@ void	error_exit(char *message);
 int		ft_keypress(int keycode);
 int		ft_quit();
 
-//initial part
-void	init_scene(char *file_name);
 
-//validate
-bool	validate_filename(char *f_name);
-int		get_nof_validrows(char *file_name);
 
 //New function for fake class
 t_fclass	*fclass_new(void *(*cpy)(void *), int (*cmp)(void *, void *),
@@ -96,16 +114,10 @@ t_shape	*shape_new(void *data, t_shape_type type, int id);
 //light part
 t_light	*copy_light(t_light *light);
 void	print_light(t_light *light);
-bool save_light(int counter[3], char **arg, t_fclass *light);
+bool parse_light(int counter[3], char **arg, t_fclass *light);
 
-//map part
-void	parse_args();
 
-//ambient part
-bool	save_ambient(int counter[3], char **tmp, t_ambient *ambient);
 
-//camera part
-bool	save_camera(int counter[3], char **tmp, t_camera *camera);
 
 //color part
 t_color	save_color(char **rgb);
@@ -118,8 +130,7 @@ double			vector_len(t_vector a);
 t_vector		vector_cross(t_vector v1, t_vector v2);
 double			vector_dot(t_vector v1, t_vector v2);
 
-//sphere part
-bool	save_sphere(char **tmp, t_fclass *fclass);
+
 
 //debug part
 void	print_shape(t_shape *shape);

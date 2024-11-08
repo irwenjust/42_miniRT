@@ -8,7 +8,7 @@ ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c \
 ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
 ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c \
 ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstlast_bonus.c ft_lstmap_bonus.c \
-ft_lstnew_bonus.c ft_lstsize_bonus.c ft_free_matrix.c ft_check_white.c \
+ft_lstnew_bonus.c ft_lstsize_bonus.c ft_matrix_free.c ft_check_white.c \
 ft_split_plus.c ft_strcmp.c ft_isnum.c ft_strlen_sep.c ft_lstdel_node.c \
 ft_strchr_sep.c ft_strreplace.c ft_matrix_new.c ft_matrix_append.c \
 ft_matrix_size.c ft_atod.c ft_within_range.c ft_matrix_copy.c
@@ -21,7 +21,7 @@ ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strmapi.o ft_strncmp.o ft_strnstr.o \
 ft_strrchr.o ft_strtrim.o ft_substr.o ft_tolower.o ft_toupper.o \
 ft_lstadd_back_bonus.o ft_lstadd_front_bonus.o ft_lstclear_bonus.o \
 ft_lstdelone_bonus.o ft_lstiter_bonus.o ft_lstlast_bonus.o ft_lstmap_bonus.o \
-ft_lstnew_bonus.o ft_lstsize_bonus.o ft_free_matrix.o ft_check_white.o \
+ft_lstnew_bonus.o ft_lstsize_bonus.o ft_matrix_free.o ft_check_white.o \
 ft_split_plus.o ft_strcmp.o ft_isnum.o ft_strlen_sep.o ft_lstdel_node.o \
 ft_strchr_sep.o ft_strreplace.o ft_matrix_new.o ft_matrix_append.o \
 ft_matrix_size.o ft_atod.o ft_within_range.o ft_matrix_copy.o

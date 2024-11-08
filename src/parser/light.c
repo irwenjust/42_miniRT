@@ -12,15 +12,6 @@
 
 #include "miniRT.h"
 
-void	print_light(t_light *light)
-{
-	printf("Light coordinate: %1lf,%1lf,%1lf\n",
-		light->coordinate.x, light->coordinate.y, light->coordinate.z);
-	printf("Light brightness level: %1lf\n", light->brightness);
-	printf("Light color: %d,%d,%d\n",
-		light->color.red, light->color.green, light->color.blue);
-}
-
 t_light	*copy_light(t_light *light)
 {
 	t_light	*res;
@@ -32,11 +23,11 @@ t_light	*copy_light(t_light *light)
 	return (res);
 }
 
-//to modify
-//bool save_light(int counter[3], char **arg, t_fclass *light)
+//bool parse_light(int counter[3], char **arg, t_fclass *fclass)
 //{
 //	char **coord;
 //	char **rgb;
+//	t_light *light;
 
 //	if (ft_matrix_size(arg) != 4)
 //		return (ERROR("light: needs 4 arguments"), false);
@@ -52,12 +43,10 @@ t_light	*copy_light(t_light *light)
 //	if (!rgb)
 //		return (ERROR("ambient: error in split color"), false);
 	
-//	light->coordinate = save_vector(coord);
-//	light->brightness = ft_atod(arg[2]);
-//	light->color = save_color(rgb);
+//	light = light_new();
+//	push_to_fclass(fclass, light);
 //	free_matrix(coord);
 //	free_matrix(rgb);
 //	counter[2]++;
 //	return (true);
-	
 //}

@@ -12,14 +12,14 @@
 
 #include "miniRT.h"
 
-bool	save_ambient(int counter[3], char **arg, t_ambient *ambient)
+bool	parse_ambient(int counter[3], char **arg, t_ambient *ambient)
 {
 	char	**rgb;
 
 	if (ft_matrix_size(arg) != 3)
 		return (ERROR("ambient: needs 3 arguments"), false);
-	//more check here
-		//validate_arg(); //TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	if (!check_syntax(arg, "001"))
+		return (ERROR("ambient: Misconfiguration in commas/numbers"), false);
 	//brightness
 	ambient->brightness = ft_atod(arg[1]);
 	if (ambient->brightness < 0.0 || ambient->brightness > 1.0)

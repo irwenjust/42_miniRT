@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-bool	save_camera(int counter[3], char **arg, t_camera *camera)
+bool	parse_camera(int counter[3], char **arg, t_camera *camera)
 {
 	char	**coord;
 	char	**normal;
@@ -21,6 +21,8 @@ bool	save_camera(int counter[3], char **arg, t_camera *camera)
 		return (ERROR("camera: needs 4 arguments"), false);
 	//miss syntax check
 		//validate_arg(); //TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	if (!check_syntax(arg, "0110"))
+		return (ERROR("camera: Misconfiguration in commas/numbers"), false);
 	//coord
 	coord = ft_split(arg[1], ',');
 		//check coord TODO
