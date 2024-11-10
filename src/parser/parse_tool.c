@@ -23,33 +23,34 @@ static int	count_symbol(char *str, char c)
 	return (count);
 }
 
-static bool check_double(char **double)
+static bool check_nbr(char **nbr)
 {
 	int	i;
-	char **nbr;
+	char **token;
 	int dot_nbr;
 
 	i = -1;
-	while (double[++i])
+	while (nbr[++i])
 	{
-		dot_nbr = count_symbol(double[i], '.');
+		dot_nbr = count_symbol(nbr[i], '.');
 		if (dot_nbr > 1)
-			return (ERROR("check double: too many dots"), false);
+			return (ERROR("check nbr: too many dots"), false);
 		else if (dot_nbr == 0)
-			nbr = double[i];
+			token = nbr[i];
 		else
 		{
-			nbr = ft_split(double[i], '.');
-			if (!nbr)
-				return (ERROR("check double: split error"), false);
+			token = ft_split(nbr[i], '.');
+			if (!token)
+				return (ERROR("check nbr: split error"), false);
 		}
-		if (!ft_isnum(nbr[0]) || (dot_nbr == 1 && !ft_isnum(nbr[1])))
-			return (ERROR("check double: not number"), false);
+		if (!ft_isnum(token[0]) || (dot_nbr == 1 && !ft_isnum(token[1])))
+			return (ERROR("check nbr: not number"), false);
 	}
 	return (true);
 
 }
 
+/*check syntax comma and is valid nbr or not*/
 bool	check_syntax(char **arg, char *commas)
 {
 	int		i;
@@ -69,7 +70,7 @@ bool	check_syntax(char **arg, char *commas)
 			valid = (count_symbol(arg[i], ',') == 2 && token_size == 3);
 		else
 			valid = (count_symbol(arg[i], ',') == 0 && token_size == 1);
-		if (!check_double(token))
+		if (!check_nbr(token))
 			valid = false;
 		free_matrix(token);
 		if (!valid)
