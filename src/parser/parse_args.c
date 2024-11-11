@@ -21,8 +21,9 @@ static bool	parse_line(int counter[3], char **arg)
 		return (parse_camera(counter, arg, &s()->camera));
 	else if (!ft_strcmp("L", arg[0]))
 	{
-		counter[2]++;
-		return (true);  // check light later
+		// counter[2]++;
+		// return (true);  // check light later
+		return (parse_light(counter, arg, &s()->light));
 	}
 	else if (!ft_strcmp("sp", arg[0]))
 		return (parse_sphere(arg, s()->shapes));

@@ -85,7 +85,7 @@ bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
 bool	parse_sphere(char **tmp, t_fclass *fclass);
 //parse tool
 bool check_syntax(char **arg, char *commas);
-
+bool check_rgb(char *rgb);
 
 
 

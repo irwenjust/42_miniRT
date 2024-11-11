@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-static int	count_comma(char *str, char c)
+static int	count_symbol(char *str, char c)
 {
 	int	count;
 
@@ -23,12 +23,34 @@ static int	count_comma(char *str, char c)
 	return (count);
 }
 
-//static bool check_double()
-//{
+static bool check_nbr(char **nbr)
+{
+	int	i;
+	char **token;
+	int dot_nbr;
 
+	i = -1;
+	while (nbr[++i])
+	{
+		dot_nbr = count_symbol(nbr[i], '.');
+		if (dot_nbr > 1)
+			return (ERROR("check nbr: too many dots"), false);
+		else if (dot_nbr == 0)
+			token = nbr[i];
+		else
+		{
+			token = ft_split(nbr[i], '.');
+			if (!token)
+				return (ERROR("check nbr: split error"), false);
+		}
+		if (!ft_isnum(token[0]) || (dot_nbr == 1 && !ft_isnum(token[1])))
+			return (ERROR("check nbr: not number"), false);
+	}
+	return (true);
 
-//}
+}
 
+/*check syntax comma and is valid nbr or not*/
 bool	check_syntax(char **arg, char *commas)
 {
 	int		i;
@@ -45,11 +67,11 @@ bool	check_syntax(char **arg, char *commas)
 			return (ERROR("check syntax: split error"), false);
 		token_size = ft_matrix_size(token);
 		if (commas[i] == HAS_COMMA)
-			valid = (count_comma(arg[i], ',') == 2 && token_size == 3);
+			valid = (count_symbol(arg[i], ',') == 2 && token_size == 3);
 		else
-			valid = (count_comma(arg[i], ',') == 0 && token_size == 1);
-		//if (!check_double(token))
-		//	valid = false;
+			valid = (count_symbol(arg[i], ',') == 0 && token_size == 1);
+		if (!check_nbr(token))
+			valid = false;
 		free_matrix(token);
 		if (!valid)
 			return (false);
@@ -57,7 +79,26 @@ bool	check_syntax(char **arg, char *commas)
 	return (true);
 }
 
-//bool check_rgb()
-//{
+bool check_rgb(char *rgb)
+{
+	int i;
+	bool valid;
+	char **token;
 
-//}
+	i = -1;
+	valid = true;
+	token = ft_split(rgb, ',');
+	if (!token)
+		return (ERROR("check rgb: split error"), false);
+	while (token[++i])
+	{
+		if (!ft_isnum(token[i]))
+			valid = false;
+		if (ft_atoi(token[i] < 0 || ft_atoi(token[i] > 255)))
+			valid = false;
+		free_matrix(token);
+		if (!valid)
+			return (ERROR("check rgb: wrong rgb number"), false);
+	}
+	return (valid);
+}
