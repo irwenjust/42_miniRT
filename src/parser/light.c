@@ -23,7 +23,7 @@ t_light	*copy_light(t_light *light)
 	return (res);
 }
 
-t_light *light_new(char **coord, char **brightness, char **rgb)
+t_light *light_new(char **coord, char *brightness, char **rgb)
 {
 	t_light *new;
 
@@ -48,8 +48,8 @@ bool parse_light(int counter[3], char **arg, t_fclass *fclass)
 	if (ft_matrix_size(arg) != 4)
 		return (ERROR("light: needs 4 arguments"), false);
 	//check syntax
-	if (!check_syntax(arg, "0101"))
-		return (ERROR("light: Misconfiguration in commas/numbers"), false);
+	//if (!check_syntax(arg, "0101"))
+	//	return (ERROR("light: Misconfiguration in commas/numbers"), false);
 	//check britghtness
 	if (ft_atod(arg[2]) < 0.0 || ft_atod(arg[2]) > 1.0)
 		return (ERROR("light: error happend in lighting ratio range"), false);

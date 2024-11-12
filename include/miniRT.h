@@ -34,6 +34,10 @@
 
 //Some standard color
 # define BLUE (t_color){137, 196, 244, 0}
+# define BLACK		(t_color){0, 0, 0, 0}
+# define WHITE		(t_color){0, 255, 255, 255}
+# define RED		(t_color){255, 0, 0, 0}
+# define GREEN		(t_color){0, 255, 0, 0}
 
 //about windows setting (16:9)
 # define SCALE 0.5625
