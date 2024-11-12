@@ -23,7 +23,7 @@ static bool	parse_line(int counter[3], char **arg)
 	{
 		// counter[2]++;
 		// return (true);  // check light later
-		return (parse_light(counter, arg, &s()->light));
+		return (parse_light(counter, arg, s()->light));
 	}
 	else if (!ft_strcmp("sp", arg[0]))
 		return (parse_sphere(arg, s()->shapes));

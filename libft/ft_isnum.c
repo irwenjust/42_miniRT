@@ -20,7 +20,11 @@ int	ft_isnum(char *str)
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	while (str[i])
+	{
+		if (ft_strcmp(&str[i], "\n"))
+			break ;
 		if (!ft_isdigit(str[i++]))
 			return (0);
+	}
 	return (1);
 }

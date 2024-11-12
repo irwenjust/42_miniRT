@@ -20,8 +20,8 @@ bool	parse_camera(int counter[3], char **arg, t_camera *camera)
 	//check
 	if (ft_matrix_size(arg) != 4)
 		return (ERROR("camera: needs 4 arguments"), false);
-	if (!check_syntax(arg, "0110"))
-		return (ERROR("camera: Misconfiguration in commas/numbers"), false);
+	//if (!check_syntax(arg, "0110"))
+	//	return (ERROR("camera: Misconfiguration in commas/numbers"), false);
 	//coord
 	coord = ft_split(arg[1], ',');
 	if (!coord)

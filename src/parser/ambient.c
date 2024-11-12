@@ -35,5 +35,6 @@ bool	parse_ambient(int counter[3], char **arg, t_ambient *ambient)
 	//count and clean
 	counter[0]++;
 	free_matrix(rgb);
+	
 	return (true);
 }

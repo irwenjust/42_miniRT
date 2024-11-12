@@ -46,8 +46,8 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 
 	if (ft_matrix_size(arg) != 4)
 		return (ERROR("sphere: needs 4 arguments"), false);
-	if (!check_syntax(arg, "0101"))
-		return (ERROR("sphere: Misconfiguration in commas/numbers"), false);
+	//if (!check_syntax(arg, "0101"))
+	//	return (ERROR("sphere: Misconfiguration in commas/numbers"), false);
 	if (!check_save(arg, &sphere))
 		return (ERROR("sphere: radius too small or previous error"), false);
 	shape = shape_new(&sphere, SPHERE, fclass->size);
