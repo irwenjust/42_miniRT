@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"minirt.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"stdint.h": "c"
 	}
 }

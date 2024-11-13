@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_calculate.c                                 :+:      :+:    :+:   */
+/*   vector_op_plus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,6 +11,22 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+//magnitude, normalization, dot product, cross product
+
+inline t_vector	vector_normalize(t_vector a)
+{
+	double	ori_len;
+	double	adj_len;
+
+	ori_len = sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+	if (ori_len > 1e-8)  //maybe need adjust this later
+	{
+		adj_len = 1.0 / ori_len;
+		return ((t_vector){a.x * adj_len, a.y * adj_len, a.z * adj_len});
+	}
+	return (a);
+}
 
 inline t_vector	vector_cross(t_vector v1, t_vector v2)
 {
@@ -25,18 +41,4 @@ inline t_vector	vector_cross(t_vector v1, t_vector v2)
 inline double	vector_dot(t_vector v1, t_vector v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
-}
-
-inline t_vector	normalize_vector(t_vector a)
-{
-	double	ori_len;
-	double	adj_len;
-
-	ori_len = sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
-	if (ori_len > 1e-8)  //maybe need adjust this later
-	{
-		adj_len = 1.0 / ori_len;
-		return ((t_vector){a.x * adj_len, a.y * adj_len, a.z * adj_len});
-	}
-	return (a);
 }

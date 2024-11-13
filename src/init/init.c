@@ -47,6 +47,15 @@ static void	init_args(char *file_name)
 	close (fd);
 }
 
+static void	init_viewport()
+{
+	s()->view_w = tan(RADIAN(s()->camera.fov / 2.0));
+	s()->view_h = s()->view_w * SCALE;
+	s()->normal_w = vector_normalize(vector_cross(s()->camera.normal,UPVECTOR));
+	s()->normal_h = vector_normalize(vector_cross(s()->camera.normal, s()->normal_w));
+	s()->normal_w = vector_normalize(vector_cross(s()->camera.normal, s()->normal_h));
+}
+
 static void	init_windows()
 {
 	// s()->win.mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
@@ -67,15 +76,6 @@ static void	init_windows()
 		&s()->win.line_len, &s()->win.endian);
 	if (!s()->win.addr)
 		error_exit("error happend when initial MLX42 image address");
-}
-
-static void	init_viewport()
-{
-	s()->w_view = tan(RADIAN(s()->camera.fov / 2.0));
-	s()->h_view = s()->w_view * SCALE;
-	s()->vec_w = normalize_vector(vector_cross(s()->camera.normal,UPVECTOR));
-	s()->vec_h = normalize_vector(vector_cross(s()->camera.normal, s()->vec_w));
-	s()->vec_w = normalize_vector(vector_cross(s()->camera.normal, s()->vec_h));
 }
 
 void	init_scene(char *file_name)

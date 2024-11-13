@@ -23,7 +23,7 @@ t_light	*copy_light(t_light *light)
 	return (res);
 }
 
-t_light *light_new(char **coord, char *brightness, char **rgb)
+t_light *new_light(char **coord, char *brightness, char **rgb)
 {
 	t_light *new;
 
@@ -32,9 +32,9 @@ t_light *light_new(char **coord, char *brightness, char **rgb)
 		return (NULL);
 	*new = (t_light)
 	{
-		.coordinate = save_vector(coord),
+		.coordinate = parse_vector(coord),
 		.brightness = ft_atod(brightness),
-		.color = save_color(rgb),
+		.color = parse_color(rgb),
 	};
 	return (new);
 }
@@ -62,7 +62,7 @@ bool parse_light(int counter[3], char **arg, t_fclass *fclass)
 	if (!coord || !rgb)
 		return (ERROR("light: error in split coord or color"), false);
 	//push to light
-	light = light_new(coord, arg[2], rgb); //TODO
+	light = new_light(coord, arg[2], rgb); //TODO
 	if (!light)
 		return (ERROR("light: error in create new light"), false);
 	push_to_fclass(fclass, light);

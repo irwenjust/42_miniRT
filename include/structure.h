@@ -15,6 +15,8 @@
 
 #include "miniRT.h"
 
+/*enum*/
+//shape type
 typedef enum	s_shape_type
 {
 	SPHERE,
@@ -22,6 +24,9 @@ typedef enum	s_shape_type
 	CYLINDER
 }	t_shape_type;
 
+/*structure*/
+/*basic*/
+//vector and coordinate struct
 typedef struct s_vector 
 {
 	double	x;
@@ -29,6 +34,7 @@ typedef struct s_vector
 	double	z;
 }	t_vector;
 
+//color struct
 typedef struct s_color
 {
 	int	red;
@@ -37,6 +43,9 @@ typedef struct s_color
 	int	alpha;
 }	t_color;
 
+
+/*fclass and entities*/
+//fclass
 typedef struct	s_fclass
 {
 	int		size;
@@ -47,13 +56,17 @@ typedef struct	s_fclass
 	void	(*del)(void *);
 }	t_fclass;
 
+/*env part*/
+//env light
 typedef struct s_ambient
 {
 	double		brightness;
 	t_color		color;
 }	t_ambient;
 
-//FOV : Horizontal field of view in degrees in range [0,180]:
+/*camera struct
+FOV : Horizontal field of view in degrees in range [0,180]:
+*/
 typedef struct s_camera
 {
 	t_vector	coordinate;
@@ -61,7 +74,7 @@ typedef struct s_camera
 	int			fov;
 }	t_camera;
 
-
+//light
 typedef struct s_light
 {
 	t_vector	coordinate;
@@ -69,7 +82,8 @@ typedef struct s_light
 	t_color		color;
 }	t_light;
 
-
+/*shape part*/
+//entities
 typedef struct s_cylinder
 {
 	t_vector	center;
@@ -79,14 +93,12 @@ typedef struct s_cylinder
 	t_color		color;
 }	t_cylinder;
 
-
 typedef struct s_plane
 {
 	t_vector	coordinate;
 	t_vector	normal;
 	t_color		color;
 }	t_plane;
-
 
 typedef struct s_sphere
 {
@@ -95,14 +107,13 @@ typedef struct s_sphere
 	t_color		color;
 }	t_sphere;
 
-
+//shape manage
 typedef union s_shape_data
 {
 	t_sphere	sphere;
 	t_plane		plane;
 	t_cylinder	cylinder;
 }	t_shape_data;
-
 
 typedef struct s_shape
 {
@@ -111,6 +122,7 @@ typedef struct s_shape
 	t_shape_data	data;
 }	t_shape;
 
+/*macro struct*/
 typedef struct s_windows
 {
 	// mlx_t	*mlx;
@@ -126,7 +138,6 @@ typedef struct s_windows
 	int		endian;
 }	t_windows;
 
-
 typedef struct s_scene
 {
 	t_fclass	*light;
@@ -134,11 +145,51 @@ typedef struct s_scene
 	char		**args; //map
 	t_ambient	ambient;
 	t_camera	camera;
-	double		w_view;
-	double		h_view;
-	t_vector	vec_w;
-	t_vector	vec_h;
+	double		view_w;
+	double		view_h;
+	t_vector	normal_w; //go right
+	t_vector	normal_h; //go down
 	t_windows	win;
 }	t_scene;
+
+/*math struct*/
+typedef struct s_equation
+{
+	double a;
+	double b;
+	double c;
+	double root1;
+	double root2;
+} t_equation;
+
+/*render struct*/
+typedef struct s_ray
+{
+	t_vector start;
+	t_vector direct;
+} t_ray;
+
+/**
+ * @brief Describes an intersection point in the scene between 
+ * a ray and a shape.
+ * 
+ * @param shape The shape that was hit
+ * @param ray The ray that hit the shape
+ * @param point The intersection point
+ * @param normal The normal of the shape in the intersection point
+ * @param color The color of the hit shape
+ * @param a Used to know where the ray hit in a cylinder's axis
+ * @param t The distance between the hit the ray's origin
+ */
+typedef struct s_hit
+{
+	t_shape	*shape;
+	t_ray	ray;
+	//t_vector	hit_point;
+	//t_vector	hit_normal;
+	t_color	color;
+	//t_vector	hit_position; //a
+	double	distance; //t
+} t_hit;
 
 #endif

@@ -14,15 +14,16 @@ HEADERS = -I ./include -I ./libft -I ./$(MLX_DIR)
 
 # src files
 SRCS_DIR = src
-SRCS_SUBDIR = fclass init parser renderer tools vector debug
+SRCS_SUBDIR = entities fclass init parser renderer tools vector debug
 VPATH = $(SRCS_DIR) $(addprefix $(SRCS_DIR)/, $(SRCS_SUBDIR))
 SRCS =	main.c \
+		ambient.c camera.c light.c shape.c  sphere.c \
 		fclass.c \
 		init.c validate.c \
-		parse_args.c parse_tool.c ambient.c camera.c light.c shape.c  sphere.c \
-		color.c draw.c \
-		error.c hook.c magic_s.c \
-		vector_calculate.c vector_tools.c \
+		parse_args.c parse_tool.c \
+		intersect.c pixel.c render.c \
+		equation.c error.c hook.c magic_s.c \
+		vector_op_basic.c vector_op_plus.c vector_tools.c \
 		debug_shape.c 
 
 OBJS_DIR = objs

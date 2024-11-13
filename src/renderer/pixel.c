@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   pixel.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,12 +12,10 @@
 
 #include "miniRT.h"
 
-t_color	save_color(char **rgb)
+void	put_pixel(t_color c, int x, int y)
 {
-	return ((t_color){
-		.red = ft_within_range(ft_atoi(rgb[R]), 0, 255),
-		.green = ft_within_range(ft_atoi(rgb[G]), 0, 255),
-		.blue = ft_within_range(ft_atoi(rgb[B]), 0, 255),
-		.alpha = ft_within_range(0XFF, 0, 255)
-	});
+	char *dst;
+
+	dst = s()->win.addr + (y * WIDTH + x) * (s()->win.bpp / 8);
+	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
 }

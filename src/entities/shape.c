@@ -30,7 +30,7 @@ t_shape	*copy_shape(t_shape *shape)
 	return (res);
 }
 
-t_shape	*shape_new(void *data, t_shape_type type, int id)
+t_shape	*new_shape(void *data, t_shape_type type, int id)
 {
 	t_shape	*shape;
 
