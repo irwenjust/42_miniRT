@@ -32,9 +32,9 @@ t_light *light_new(char **coord, char *brightness, char **rgb)
 		return (NULL);
 	*new = (t_light)
 	{
-		.coordinate = save_vector(coord),
+		.coordinate = parse_vector(coord),
 		.brightness = ft_atod(brightness),
-		.color = save_color(rgb),
+		.color = parse_color(rgb),
 	};
 	return (new);
 }

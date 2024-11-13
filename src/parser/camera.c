@@ -26,12 +26,12 @@ bool	parse_camera(int counter[3], char **arg, t_camera *camera)
 	coord = ft_split(arg[1], ',');
 	if (!coord)
 		return (ERROR("camera: split error"), false);
-	camera->coordinate = save_vector(coord); //同color，可以直接传值吗？
+	camera->coordinate = parse_vector(coord); //同color，可以直接传值吗？
 	//normal
 	normal = ft_split(arg[2], ',');
 	if (!normal)
 		return (ERROR("camera: split error"), false);
-	camera->normal = normalize_vector(save_vector(normal));
+	camera->normal = vector_normalize(parse_vector(normal));
 	if (vector_len(camera->normal) < 1e-8)
 		return (ERROR("camera: normal vector is too small"), false);
 	//fov

@@ -20,9 +20,9 @@ SRCS =	main.c \
 		fclass.c \
 		init.c validate.c \
 		parse_args.c parse_tool.c ambient.c camera.c light.c shape.c  sphere.c \
-		color.c draw.c \
+		draw.c pixel.c\
 		error.c hook.c magic_s.c \
-		vector_calculate.c vector_tools.c \
+		vector_op_basic.c vector_op_plus.c vector_tools.c \
 		debug_shape.c 
 
 OBJS_DIR = objs

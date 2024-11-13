@@ -12,16 +12,21 @@
 
 #include "miniRT.h"
 
+//??????????
 double	vector_len(t_vector a)
 {
 	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
 }
 
-t_vector	save_vector(char **strs)
+t_vector	parse_vector(char **strs)
 {
 	return ((t_vector){
 		.x = ft_atod(strs[X]),
 		.y = ft_atod(strs[Y]),
 		.z = ft_atod(strs[Z])
 	});
+}
+inline t_vector	new_vector(double x, double y, double z)
+{
+	return ((t_vector){x, y, z});
 }

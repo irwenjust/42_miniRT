@@ -141,4 +141,33 @@ typedef struct s_scene
 	t_windows	win;
 }	t_scene;
 
+typedef struct s_ray
+{
+	t_vector point;
+	t_vector direct;
+} t_ray;
+
+/**
+ * @brief Describes an intersection point in the scene between 
+ * a ray and a shape.
+ * 
+ * @param shape The shape that was hit
+ * @param ray The ray that hit the shape
+ * @param point The intersection point
+ * @param normal The normal of the shape in the intersection point
+ * @param color The color of the hit shape
+ * @param a Used to know where the ray hit in a cylinder's axis
+ * @param t The distance between the hit the ray's origin
+ */
+typedef struct s_hit
+{
+	t_shape	*shape;
+	t_ray	ray;
+	//t_vector	hit_point;
+	//t_vector	hit_normal;
+	t_color	color;
+	//t_vector	hit_position; //a
+	double	distance; //t
+} t_hit;
+
 #endif

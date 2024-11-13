@@ -28,9 +28,9 @@ static bool	check_save(char **arg, t_sphere *sphere)
 	}
 	*sphere = (t_sphere)
 	{
-		.center = save_vector(coordinate),
+		.center = parse_vector(coordinate),
 		.radius = ft_atod(arg[2]) / 2.0,
-		.color = save_color(rgb)
+		.color = parse_color(rgb)
 	};
 	free_matrix(coordinate);
 	free_matrix(rgb);

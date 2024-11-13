@@ -31,7 +31,7 @@ bool	parse_ambient(int counter[3], char **arg, t_ambient *ambient)
 	rgb = ft_split(arg[2], ',');
 	if (!rgb)
 		return (ERROR("ambient: error in split color"), false);
-	ambient->color = save_color(rgb); //之后会用吗，可以改成arg[2]吗
+	ambient->color = parse_color(rgb); //之后会用吗，可以改成arg[2]吗
 	//count and clean
 	counter[0]++;
 	free_matrix(rgb);
