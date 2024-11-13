@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 		error_exit("need and only need one argument");
 	init_scene(argv[1]);
 
-	draw_image();
+	render();
 
 	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, ft_keypress, NULL);
 	mlx_hook(s()->win.disp, DestroyNotify, StructureNotifyMask, ft_quit, NULL); // need to adjust later maybe

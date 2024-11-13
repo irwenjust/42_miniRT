@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   intersect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 18:08:46 by likong            #+#    #+#             */
-/*   Updated: 2024/10/29 15:21:15 by likong           ###   ########.fr       */
+/*   Created: 2024/11/13 16:35:32 by yzhan             #+#    #+#             */
+/*   Updated: 2024/11/13 16:35:33 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	draw_image()
+bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter)
 {
-	int	x;
-	int y;
-	y = -1;
-	while (++y < HEIGHT)
-	{
-		x = -1;
-		while (++x < WIDTH)
-			put_pixel(BLUE, x, y);
-	}
-	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
+	if (shape->type == SPHERE)
+		return (inter_sphere(&shape->data.sphere, ray, inter));
+	//(void)ray;
+	//(void)inter;
+	return (false);
 }
+

@@ -62,6 +62,7 @@ stdlib: malloc, free
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
+#include <stdint.h>
 
 #include "libft.h"
 #include "structure.h"
@@ -81,19 +82,6 @@ int		get_nof_validrows(char *file_name);
 
 /*parser*/
 void	parse_args();
-//ambient part
-bool	parse_ambient(int counter[3], char **tmp, t_ambient *ambient);
-//camera part
-bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
-//light part
-bool parse_light(int counter[3], char **arg, t_fclass *light);
-t_light *light_new(char **coord, char *brightness, char **rgb);
-t_light	*copy_light(t_light *light);
-//sphere part
-bool	parse_sphere(char **tmp, t_fclass *fclass);
-//shape part
-t_shape	*copy_shape(t_shape *shape);
-t_shape	*shape_new(void *data, t_shape_type type, int id);
 //parse tool
 bool check_syntax(char **arg, char *commas);
 bool check_rgb(char *rgb);
@@ -101,9 +89,29 @@ t_color	parse_color(char **rgb);
 
 /*render*/
 //draw
-void	draw_image();
+void render();
 //pixel
 void	put_pixel(t_color c, int x, int y);
+//intersect
+bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter);
+
+
+/*entities*/
+//ambient part
+bool	parse_ambient(int counter[3], char **tmp, t_ambient *ambient);
+//camera part
+bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
+//light part
+bool parse_light(int counter[3], char **arg, t_fclass *light);
+t_light *new_light(char **coord, char *brightness, char **rgb);
+t_light	*copy_light(t_light *light);
+//shape part
+t_shape	*copy_shape(t_shape *shape);
+t_shape	*new_shape(void *data, t_shape_type type, int id);
+//sphere part
+bool	parse_sphere(char **tmp, t_fclass *fclass);
+bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter);
+
 
 /*vector part*/
 //vector op basic
@@ -118,6 +126,10 @@ t_vector		vector_normalize(t_vector a);
 double			vector_len(t_vector a);
 t_vector		parse_vector(char **strs);
 t_vector	new_vector(double x, double y, double z);
+
+/*tools*/
+//equation
+double solve(t_equation *equation);
 
 
 //free the scene
