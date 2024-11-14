@@ -24,7 +24,7 @@ static bool	parse_line(int counter[3], char **arg)
 	else if (!ft_strcmp("sp", arg[0]))
 		return (parse_sphere(arg, s()->shapes));
 	else if (!ft_strcmp("pl", arg[0]))
-		return (true);  // check plane later
+		return (parse_plane(arg, s()->shapes));  // check plane later
 	else if (!ft_strcmp("cy", arg[0]))
 		return (true);  // check cylinder later
 	else

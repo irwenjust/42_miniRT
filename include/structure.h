@@ -95,7 +95,7 @@ typedef struct s_cylinder
 
 typedef struct s_plane
 {
-	t_vector	coordinate;
+	t_vector	center;
 	t_vector	normal;
 	t_color		color;
 }	t_plane;
@@ -185,7 +185,7 @@ typedef struct s_hit
 {
 	t_shape	*shape;
 	t_ray	ray;
-	//t_vector	hit_point;
+	t_vector	hit_point;
 	//t_vector	hit_normal;
 	t_color	color;
 	//t_vector	hit_position; //a

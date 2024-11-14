@@ -12,6 +12,31 @@
 
 #include "miniRT.h"
 
+//static bool	new_shpere(char **arg, t_sphere *sphere)
+//{
+//	char	**coord;
+//	char	**rgb;
+
+//	coord = ft_split(arg[1], ',');
+//	if (!coord)
+//		return (ERROR("sphere: fail to split coordinate"), false);
+//	rgb = ft_split(arg[3], ',');
+//	if (!rgb)
+//	{
+//		free_matrix(coord);
+//		return (ERROR("sphere: fail to split color"), false);
+//	}
+//	*sphere = (t_sphere)
+//	{
+//		.center = parse_vector(coord),
+//		.radius = ft_atod(arg[2]) / 2.0,
+//		.color = parse_color(rgb)
+//	};
+//	free_matrix(coord);
+//	free_matrix(rgb);
+//	return (true);
+//}
+
 static bool	new_shpere(char **arg, t_sphere *sphere)
 {
 	char	**coord;
@@ -20,23 +45,16 @@ static bool	new_shpere(char **arg, t_sphere *sphere)
 	coord = ft_split(arg[1], ',');
 	if (!coord)
 		return (ERROR("sphere: fail to split coordinate"), false);
+	sphere->center = parse_vector(coord);
+	free_matrix(coord);
 	rgb = ft_split(arg[3], ',');
 	if (!rgb)
-	{
-		free_matrix(coord);
 		return (ERROR("sphere: fail to split color"), false);
-	}
-	*sphere = (t_sphere)
-	{
-		.center = parse_vector(coord),
-		.radius = ft_atod(arg[2]) / 2.0,
-		.color = parse_color(rgb)
-	};
-	free_matrix(coord);
+	sphere->color = parse_color(rgb);
 	free_matrix(rgb);
+	sphere->radius = ft_atod(arg[2]) / 2.0;
 	return (true);
 }
-
 
 bool	parse_sphere(char **arg, t_fclass *fclass)
 {

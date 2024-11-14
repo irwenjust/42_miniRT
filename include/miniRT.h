@@ -103,7 +103,6 @@ bool	parse_ambient(int counter[3], char **tmp, t_ambient *ambient);
 bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
 //light part
 bool parse_light(int counter[3], char **arg, t_fclass *light);
-//t_light *new_light(char **coord, char *brightness, char **rgb);
 t_light	*copy_light(t_light *light);
 //shape part
 t_shape	*copy_shape(t_shape *shape);
@@ -111,7 +110,9 @@ t_shape	*new_shape(void *data, t_shape_type type, int id);
 //sphere part
 bool	parse_sphere(char **tmp, t_fclass *fclass);
 bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter);
-
+//plane part
+bool parse_plane(char **arg, t_fclass *fclass);
+bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter);
 
 /*vector part*/
 //vector op basic
