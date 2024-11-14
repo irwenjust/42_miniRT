@@ -23,7 +23,16 @@ t_light	*copy_light(t_light *light)
 	return (res);
 }
 
-t_light *new_light(char **coord, char *brightness, char **rgb)
+static bool check_light(char **arg)
+{
+	if (ft_atod(arg[2]) < 0.0 || ft_atod(arg[2]) > 1.0)
+		return (ERROR("light: wrong brightness ratio range"), false);
+	if (!check_rgb(arg[3]))
+		return (ERROR("light: wrong color value"), false);
+	return (true);
+}
+
+static t_light *new_light(char **coord, char *brightness, char **rgb)
 {
 	t_light *new;
 
@@ -45,29 +54,25 @@ bool parse_light(int counter[3], char **arg, t_fclass *fclass)
 	char **rgb;
 	t_light *light;
 
-	if (ft_matrix_size(arg) != 4)
-		return (ERROR("light: needs 4 arguments"), false);
-	//check syntax
-	//if (!check_syntax(arg, "0101"))
-	//	return (ERROR("light: Misconfiguration in commas/numbers"), false);
-	//check britghtness
-	if (ft_atod(arg[2]) < 0.0 || ft_atod(arg[2]) > 1.0)
-		return (ERROR("light: error happend in lighting ratio range"), false);
-	//check color
-	if (!check_rgb(arg[3]))
-		return (ERROR("light: error in color"), false);
-	//get data
+	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0101"))
+		return (ERROR("light: wrong args format"), false);
+	if (!check_light(arg))
+		return (false);
 	coord = ft_split(arg[1], ',');
+	if (!coord)
+		return (ERROR("light: fail to split coordinate"), false);
 	rgb = ft_split(arg[3], ',');
-	if (!coord || !rgb)
-		return (ERROR("light: error in split coord or color"), false);
-	//push to light
-	light = new_light(coord, arg[2], rgb); //TODO
-	if (!light)
-		return (ERROR("light: error in create new light"), false);
-	push_to_fclass(fclass, light);
+	if (!rgb)
+	{
+		free_matrix(coord);
+		return (ERROR("light: fail to split color"), false);
+	}
+	light = new_light(coord, arg[2], rgb);
 	free_matrix(coord);
 	free_matrix(rgb);
+	if (!light)
+		return (ERROR("light: fail to create new light"), false);
+	push_to_fclass(fclass, light);
 	counter[2]++;
 	return (true);
 }

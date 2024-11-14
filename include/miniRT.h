@@ -103,7 +103,7 @@ bool	parse_ambient(int counter[3], char **tmp, t_ambient *ambient);
 bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
 //light part
 bool parse_light(int counter[3], char **arg, t_fclass *light);
-t_light *new_light(char **coord, char *brightness, char **rgb);
+//t_light *new_light(char **coord, char *brightness, char **rgb);
 t_light	*copy_light(t_light *light);
 //shape part
 t_shape	*copy_shape(t_shape *shape);
