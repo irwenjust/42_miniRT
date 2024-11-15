@@ -20,7 +20,3 @@ void	put_pixel(t_color c, int x, int y)
 	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
 }
 
-t_vector	ray_at(t_ray *ray, double t)
-{
-	return (vector_add(ray->start, vector_multiple(ray->direct, t)));
-}

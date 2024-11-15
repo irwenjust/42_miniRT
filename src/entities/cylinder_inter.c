@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder_inter.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 15:37:43 by yzhan             #+#    #+#             */
+/*   Updated: 2024/11/15 15:37:47 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
 bool	check_cap(t_cylinder *cy, t_vector cap, t_hit *inter, double t)
@@ -5,12 +17,12 @@ bool	check_cap(t_cylinder *cy, t_vector cap, t_hit *inter, double t)
 	double	len;
 	t_vector	point;
 
-	point = ray_at(&inter->ray, t);
+	point = point_on_ray(&inter->ray, t);
 	len = vector_len(vector_subtract(point, cap));
 	len += 1e-8;
 	if (len <= cy->radius && t > 1e-8 && t < inter->distance)
 	{
-		inter->hit_position = cap;
+		inter->cy_hit_pos = cap;
 		inter->distance = t;
 		return (true);
 	}
@@ -25,9 +37,9 @@ static bool	check_wall(t_cylinder *cy, t_hit *inter, double distance)
 	double	m;
 	double	len;
 
-	point = ray_at(&inter->ray, distance);
+	point = point_on_ray(&inter->ray, distance);
 	co = vector_subtract(inter->ray.start, cy->up);
-	m = vector_dot(inter->ray.direct, cy->normal) * distance + \
+	m = vector_dot(inter->ray.normal, cy->normal) * distance + \
 		vector_dot(co, cy->normal);
 	a = vector_add(cy->up, vector_multiple(cy->normal, m));
 	len = vector_len(vector_subtract(point, a));
@@ -36,7 +48,7 @@ static bool	check_wall(t_cylinder *cy, t_hit *inter, double distance)
 	if (m >= 0 && m <= cy->height && len <= cy->radius \
 		&& distance > 1e-8 && distance < inter->distance)
 	{
-		inter->hit_position = a;
+		inter->cy_hit_pos = a;
 		inter->distance = distance;
 		return (true);
 	}
@@ -86,8 +98,8 @@ bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter)
 	equation.root1 = -1;
 	equation.root2 = -1;
 	vec = vector_subtract(ray->start, cylinder->up);
-	equation.a = vector_dot(ray->direct, ray->direct) - pow(vector_dot(ray->direct, cylinder->normal), 2);
-	equation.b = 2 * (vector_dot(ray->direct, vec) - (vector_dot(ray->direct, cylinder->normal) * vector_dot(vec, cylinder->normal)));
+	equation.a = vector_dot(ray->normal, ray->normal) - pow(vector_dot(ray->normal, cylinder->normal), 2);
+	equation.b = 2 * (vector_dot(ray->normal, vec) - (vector_dot(ray->normal, cylinder->normal) * vector_dot(vec, cylinder->normal)));
 	equation.c = vector_dot(vec, vec) - pow(vector_dot(vec, cylinder->normal), 2) - pow(cylinder->radius, 2);
 	solve(&equation);
 	if (equation.root1 <= 0 && equation.root2 <= 0)
