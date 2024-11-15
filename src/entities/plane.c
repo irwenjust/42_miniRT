@@ -43,7 +43,6 @@ bool parse_plane(char **arg, t_fclass *fclass)
 	t_shape *shape;
 	t_plane plane;
 	
-
 	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0111"))
 		return (ERROR("plane: wrong args format"), false);
 	if (!check_rgb(arg[3]))
@@ -52,6 +51,7 @@ bool parse_plane(char **arg, t_fclass *fclass)
 		return (ERROR("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size);
 	push_to_fclass(fclass, shape);
+	//print_shape(shape);
 	return (true);
 }
 

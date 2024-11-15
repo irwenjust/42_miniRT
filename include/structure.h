@@ -91,6 +91,8 @@ typedef struct s_cylinder
 	double		radius;
 	double		height;
 	t_color		color;
+	t_vector	up;
+	t_vector	down;
 }	t_cylinder;
 
 typedef struct s_plane
@@ -186,9 +188,9 @@ typedef struct s_hit
 	t_shape	*shape;
 	t_ray	ray;
 	t_vector	hit_point;
-	//t_vector	hit_normal;
+	t_vector	hit_normal;
 	t_color	color;
-	//t_vector	hit_position; //a
+	t_vector	hit_position; //a
 	double	distance; //t
 } t_hit;
 

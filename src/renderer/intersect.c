@@ -19,7 +19,7 @@ bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter)
 	if (shape->type == PLANE)
 		return (inter_plane(&shape->data.plane, ray, inter));
 	if (shape->type == CYLINDER)
-		return (false);
+		return (inter_cylinder(&shape->data.cylinder, ray, inter));
 	return (false);
 }
 

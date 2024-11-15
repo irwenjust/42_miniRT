@@ -81,6 +81,8 @@ bool check_intersect(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	t_hit	tmp;
 
 	i = -1;
+	tmp.distance = INFINITY;
+	tmp.shape = NULL;
 	if (!shapes)
 		return (false);
 	while (++i < shapes->size)
@@ -89,13 +91,16 @@ bool check_intersect(t_fclass *shapes, t_ray *ray, t_hit *closest)
 		shape = shapes->array[i];
 		if (!is_intersect(shape, ray, &tmp))
 			continue ;
+		if (tmp.distance > closest->distance)
+			continue ;
 		*closest = tmp;
 		closest->ray = *ray;
 		closest->shape = shape;
 		//NOT FINISHED
-		
+		closest->hit_point = ray_at(ray, closest->distance);
+		closest->hit_normal = vector_normalize(shape_normal(closest, ray));
 	}
-	return (true);
+	return (closest->shape != NULL);
 }
 
 /**

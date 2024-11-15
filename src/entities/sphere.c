@@ -12,31 +12,6 @@
 
 #include "miniRT.h"
 
-//static bool	new_shpere(char **arg, t_sphere *sphere)
-//{
-//	char	**coord;
-//	char	**rgb;
-
-//	coord = ft_split(arg[1], ',');
-//	if (!coord)
-//		return (ERROR("sphere: fail to split coordinate"), false);
-//	rgb = ft_split(arg[3], ',');
-//	if (!rgb)
-//	{
-//		free_matrix(coord);
-//		return (ERROR("sphere: fail to split color"), false);
-//	}
-//	*sphere = (t_sphere)
-//	{
-//		.center = parse_vector(coord),
-//		.radius = ft_atod(arg[2]) / 2.0,
-//		.color = parse_color(rgb)
-//	};
-//	free_matrix(coord);
-//	free_matrix(rgb);
-//	return (true);
-//}
-
 static bool	new_shpere(char **arg, t_sphere *sphere)
 {
 	char	**coord;
@@ -63,10 +38,10 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 
 	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0101"))
 		return (ERROR("sphere: wrong args format"), false);
-	if (!check_rgb(arg[3]))
-		return (ERROR("light: wrong color value"), false);
 	if (ft_atod(arg[2]) / 2.0 < 1e-8)
 		return (ERROR("light: wrong radius value"), false);
+	if (!check_rgb(arg[3]))
+		return (ERROR("light: wrong color value"), false);
 	if (!new_shpere(arg, &sphere))
 		return (ERROR("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size);
@@ -108,4 +83,14 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter)
 		return (true);
 	}
 	return (false);
+}
+
+t_vector	sphere_normal(t_hit *inter, t_ray *ray)
+{
+	t_vector	point;
+	t_vector	normal;
+
+	point = ray_at(ray, inter->distance);
+	normal = vector_subtract(point, inter->shape->data.sphere.center);
+	return (normal);
 }

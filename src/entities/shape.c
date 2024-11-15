@@ -47,3 +47,13 @@ t_shape	*new_shape(void *data, t_shape_type type, int id)
 		shape->data.cylinder = *(t_cylinder *)data;
 	return (shape);
 }
+
+t_vector	shape_normal(t_hit *inter, t_ray *ray)
+{
+	if (inter->shape->type == PLANE)
+		return (inter->shape->data.plane.normal);
+	else if (inter->shape->type == SPHERE)
+		return (sphere_normal(inter, ray));
+	else
+		return (cylinder_normal(inter, ray));
+}

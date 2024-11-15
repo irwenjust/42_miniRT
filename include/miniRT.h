@@ -107,12 +107,19 @@ t_light	*copy_light(t_light *light);
 //shape part
 t_shape	*copy_shape(t_shape *shape);
 t_shape	*new_shape(void *data, t_shape_type type, int id);
+t_vector	shape_normal(t_hit *inter, t_ray *ray);
 //sphere part
 bool	parse_sphere(char **tmp, t_fclass *fclass);
 bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter);
+t_vector	sphere_normal(t_hit *inter, t_ray *ray);
 //plane part
 bool parse_plane(char **arg, t_fclass *fclass);
 bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter);
+//cylinder part
+bool parse_cylinder(char **arg, t_fclass *fclass);
+bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter);
+t_vector	cylinder_normal(t_hit *inter, t_ray *ray);
+
 
 /*vector part*/
 //vector op basic
@@ -127,11 +134,13 @@ t_vector		vector_normalize(t_vector a);
 double			vector_len(t_vector a);
 t_vector		parse_vector(char **strs);
 t_vector	new_vector(double x, double y, double z);
+bool	vector_compare(t_vector v1, t_vector v2);
 
 /*tools*/
 //equation
 double solve(t_equation *equation);
 
+t_vector	ray_at(t_ray *ray, double t);
 
 //free the scene
 void	delete_scene();
