@@ -168,7 +168,7 @@ typedef struct s_equation
 typedef struct s_ray
 {
 	t_vector start;
-	t_vector direct;
+	t_vector normal;
 } t_ray;
 
 /**
@@ -177,11 +177,11 @@ typedef struct s_ray
  * 
  * @param shape The shape that was hit
  * @param ray The ray that hit the shape
- * @param point The intersection point
- * @param normal The normal of the shape in the intersection point
+ * @param hit_point The intersection point
+ * @param hit_normal The normal of the shape in the intersection point
  * @param color The color of the hit shape
- * @param a Used to know where the ray hit in a cylinder's axis
- * @param t The distance between the hit the ray's origin
+ * @param cy_hit_pos Used to know where the ray hit in a cylinder's axis
+ * @param distance The distance between the hit the ray's origin
  */
 typedef struct s_hit
 {
@@ -190,8 +190,8 @@ typedef struct s_hit
 	t_vector	hit_point;
 	t_vector	hit_normal;
 	t_color	color;
-	t_vector	hit_position; //a
-	double	distance; //t
+	t_vector	cy_hit_pos;
+	double	distance;
 } t_hit;
 
 #endif

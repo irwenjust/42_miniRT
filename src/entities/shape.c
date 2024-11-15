@@ -48,12 +48,12 @@ t_shape	*new_shape(void *data, t_shape_type type, int id)
 	return (shape);
 }
 
-t_vector	shape_normal(t_hit *inter, t_ray *ray)
+t_vector	normalize_shape(t_hit *inter, t_ray *ray)
 {
 	if (inter->shape->type == PLANE)
 		return (inter->shape->data.plane.normal);
 	else if (inter->shape->type == SPHERE)
-		return (sphere_normal(inter, ray));
+		return (normalize_sphere(inter, ray));
 	else
-		return (cylinder_normal(inter, ray));
+		return (normalize_cylinder(inter, ray));
 }

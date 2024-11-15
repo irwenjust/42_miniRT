@@ -90,10 +90,14 @@ t_color	parse_color(char **rgb);
 /*render*/
 //draw
 void render();
+//ray
+t_ray make_ray(t_vector cur);
+t_vector	point_on_ray(t_ray *ray, double t);
+//intersect
+bool check_intersect(t_fclass *shapes, t_ray *ray, t_hit *closest);
 //pixel
 void	put_pixel(t_color c, int x, int y);
-//intersect
-bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter);
+
 
 
 /*entities*/
@@ -107,18 +111,18 @@ t_light	*copy_light(t_light *light);
 //shape part
 t_shape	*copy_shape(t_shape *shape);
 t_shape	*new_shape(void *data, t_shape_type type, int id);
-t_vector	shape_normal(t_hit *inter, t_ray *ray);
+t_vector	normalize_shape(t_hit *inter, t_ray *ray);
 //sphere part
 bool	parse_sphere(char **tmp, t_fclass *fclass);
 bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter);
-t_vector	sphere_normal(t_hit *inter, t_ray *ray);
+t_vector	normalize_sphere(t_hit *inter, t_ray *ray);
 //plane part
 bool parse_plane(char **arg, t_fclass *fclass);
 bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter);
 //cylinder part
 bool parse_cylinder(char **arg, t_fclass *fclass);
 bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter);
-t_vector	cylinder_normal(t_hit *inter, t_ray *ray);
+t_vector	normalize_cylinder(t_hit *inter, t_ray *ray);
 
 
 /*vector part*/
@@ -140,7 +144,7 @@ bool	vector_compare(t_vector v1, t_vector v2);
 //equation
 double solve(t_equation *equation);
 
-t_vector	ray_at(t_ray *ray, double t);
+
 
 //free the scene
 void	delete_scene();

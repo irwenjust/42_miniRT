@@ -51,7 +51,6 @@ bool parse_plane(char **arg, t_fclass *fclass)
 		return (ERROR("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size);
 	push_to_fclass(fclass, shape);
-	//print_shape(shape);
 	return (true);
 }
 
@@ -60,11 +59,11 @@ bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter)
 	t_equation equation;
 	t_vector vec;
 
-	if (vector_dot(ray->direct, plane->normal) != 0.0)
+	if (vector_dot(ray->normal, plane->normal) != 0.0)
 	{
 		vec = vector_subtract(ray->start, plane->center);
 		equation.a = 0;
-		equation.b = vector_dot(ray->direct, plane->normal);
+		equation.b = vector_dot(ray->normal, plane->normal);
 		equation.c = vector_dot(vec, plane->normal);
 		solve(&equation);
 		if (equation.root1 > 1e-8)

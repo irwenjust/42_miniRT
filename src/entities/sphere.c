@@ -65,14 +65,11 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter)
 	t_equation equation;
 	t_vector vec;
 
-	//init
 	equation.root1 = -1.0f;
-	//the vector from the sphere's center to the ray's origin.
 	vec = vector_subtract(ray->start, sphere->center);
-
-	equation.a = vector_dot(ray->direct, ray->direct);
-	equation.b = 2.0f * vector_dot(vec, ray->direct);
-	equation.c = vector_dot(vec, vec) - pow(sphere->radius, 2); //pow is math lib
+	equation.a = vector_dot(ray->normal, ray->normal);
+	equation.b = 2.0f * vector_dot(vec, ray->normal);
+	equation.c = vector_dot(vec, vec) - pow(sphere->radius, 2);
 	if (solve(&equation) > 0 && (equation.root1 > 1e-8 || equation.root2 > 1e-8))
 	{
 		if (equation.root1 > 1e-8)
@@ -85,12 +82,12 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter)
 	return (false);
 }
 
-t_vector	sphere_normal(t_hit *inter, t_ray *ray)
+t_vector	normalize_sphere(t_hit *inter, t_ray *ray)
 {
 	t_vector	point;
 	t_vector	normal;
 
-	point = ray_at(ray, inter->distance);
+	point = point_on_ray(ray, inter->distance);
 	normal = vector_subtract(point, inter->shape->data.sphere.center);
 	return (normal);
 }
