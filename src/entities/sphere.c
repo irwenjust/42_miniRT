@@ -12,30 +12,22 @@
 
 #include "miniRT.h"
 
-static bool	check_save(char **arg, t_sphere *sphere)
+static bool	new_shpere(char **arg, t_sphere *sphere)
 {
-	char	**coordinate;
+	char	**coord;
 	char	**rgb;
 
-	coordinate = ft_split(arg[1], ',');
-	if (!coordinate)
-		return (ERROR("sphere: error when split coodinate"), false);
+	coord = ft_split(arg[1], ',');
+	if (!coord)
+		return (ERROR("sphere: fail to split coordinate"), false);
+	sphere->center = parse_vector(coord);
+	free_matrix(coord);
 	rgb = ft_split(arg[3], ',');
 	if (!rgb)
-	{
-		free_matrix(coordinate);
-		return (ERROR("sphere: error when split color"), false);
-	}
-	*sphere = (t_sphere)
-	{
-		.center = parse_vector(coordinate),
-		.radius = ft_atod(arg[2]) / 2.0,
-		.color = parse_color(rgb)
-	};
-	free_matrix(coordinate);
+		return (ERROR("sphere: fail to split color"), false);
+	sphere->color = parse_color(rgb);
 	free_matrix(rgb);
-	if (sphere->radius < 1e-8) // maybe need to adjust value
-		return (false);
+	sphere->radius = ft_atod(arg[2]) / 2.0;
 	return (true);
 }
 
@@ -44,12 +36,14 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	t_shape		*shape;
 	t_sphere	sphere;
 
-	if (ft_matrix_size(arg) != 4)
-		return (ERROR("sphere: needs 4 arguments"), false);
-	//if (!check_syntax(arg, "0101"))
-	//	return (ERROR("sphere: Misconfiguration in commas/numbers"), false);
-	if (!check_save(arg, &sphere))
-		return (ERROR("sphere: radius too small or previous error"), false);
+	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0101"))
+		return (ERROR("sphere: wrong args format"), false);
+	if (ft_atod(arg[2]) / 2.0 < 1e-8)
+		return (ERROR("light: wrong radius value"), false);
+	if (!check_rgb(arg[3]))
+		return (ERROR("light: wrong color value"), false);
+	if (!new_shpere(arg, &sphere))
+		return (ERROR("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size);
 	push_to_fclass(fclass, shape);
 	return (true);
@@ -89,4 +83,14 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter)
 		return (true);
 	}
 	return (false);
+}
+
+t_vector	sphere_normal(t_hit *inter, t_ray *ray)
+{
+	t_vector	point;
+	t_vector	normal;
+
+	point = ray_at(ray, inter->distance);
+	normal = vector_subtract(point, inter->shape->data.sphere.center);
+	return (normal);
 }

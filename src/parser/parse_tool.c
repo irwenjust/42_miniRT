@@ -72,7 +72,7 @@ bool	check_syntax(char **arg, char *commas)
 			valid = (count_symbol(arg[i], ',') == 2 && token_size == 3);
 		else
 			valid = (count_symbol(arg[i], ',') == 0 && token_size == 1);
-		if (i > 0 && !check_nbr(token))
+		if ((i > 0 && !check_nbr(token)) || token[token_size - 1][0] == '\n')
 			valid = false;
 		free_matrix(token);
 		if (!valid)

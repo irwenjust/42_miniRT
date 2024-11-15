@@ -17,30 +17,23 @@ bool	parse_camera(int counter[3], char **arg, t_camera *camera)
 	char	**coord;
 	char	**normal;
 
-	//check
-	if (ft_matrix_size(arg) != 4)
-		return (ERROR("camera: needs 4 arguments"), false);
-	//if (!check_syntax(arg, "0110"))
-	//	return (ERROR("camera: Misconfiguration in commas/numbers"), false);
-	//coord
+	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0110"))
+		return (ERROR("camera: wrong args format"), false);
 	coord = ft_split(arg[1], ',');
 	if (!coord)
-		return (ERROR("camera: split error"), false);
+		return (ERROR("camera: fail to split coordinate"), false);
 	camera->coordinate = parse_vector(coord); //同color，可以直接传值吗？
-	//normal
+	free_matrix(coord);
 	normal = ft_split(arg[2], ',');
 	if (!normal)
-		return (ERROR("camera: split error"), false);
+		return (ERROR("camera: fail to split normal"), false);
 	camera->normal = vector_normalize(parse_vector(normal));
+	free_matrix(normal);
 	if (vector_len(camera->normal) < 1e-8)
 		return (ERROR("camera: normal vector is too small"), false);
-	//fov
 	camera->fov = ft_atoi(arg[3]);
 	if (camera->fov < 0 || camera->fov > 180)
 		return (ERROR("camera: normal vector's visual is out of range"), false);
-	//count and clean
 	counter[1]++;
-	free_matrix(coord);
-	free_matrix(normal);
 	return (camera);
 }
