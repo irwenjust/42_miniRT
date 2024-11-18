@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   equation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:01 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/13 16:35:04 by yzhan            ###   ########.fr       */
+/*   Updated: 2024/11/18 17:52:25 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double solve(t_equation *equation)
 
 	if (equation->a == 0.0 && equation->b != 0.0)
 	{
-		equation->root1 = -equation->c / equation->b;
+		equation->t1 = -equation->c / equation->b;
 		return (0);
 	}
 	else
@@ -36,8 +36,8 @@ double solve(t_equation *equation)
 		res = calculate(equation);
 		if (res < 0)
 			return (-1);
-		equation->root1 = (-equation->b - sqrt(res)) / (2 * equation->a);
-		equation->root2 = (-equation->b + sqrt(res)) / (2 * equation->a);
+		equation->t1 = (-equation->b - sqrt(res)) / (2 * equation->a);
+		equation->t2 = (-equation->b + sqrt(res)) / (2 * equation->a);
 		return (res);
 	}
 }
