@@ -73,17 +73,17 @@ static double inter_cap(t_cylinder *cylinder, t_ray *ray, t_vector cap)
 
 static double valid_cylinder_hit(t_cylinder *cylinder, t_ray *ray, t_equation *eq, t_hit *inter)
 {
-	double root3;
-	double root4;
+	double t3;
+	double t4;
 
-	root3 = inter_cap(cylinder, ray, cylinder->up);
-	root4 = inter_cap(cylinder, ray, cylinder->down);
+	t3 = inter_cap(cylinder, ray, cylinder->up);
+	t4 = inter_cap(cylinder, ray, cylinder->down);
 	inter->distance = INFINITY;
 	inter->ray = *ray;
-	check_wall(cylinder, inter, eq->root1);
-	check_wall(cylinder, inter, eq->root2);
-	check_cap(cylinder, cylinder->up, inter, root3);
-	check_cap(cylinder, cylinder->down, inter, root4);
+	check_wall(cylinder, inter, eq->t1);
+	check_wall(cylinder, inter, eq->t2);
+	check_cap(cylinder, cylinder->up, inter, t3);
+	check_cap(cylinder, cylinder->down, inter, t4);
 	if (inter->distance == INFINITY)
 		return (0);
 	return (inter->distance);
@@ -95,14 +95,14 @@ bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter)
 	t_vector vec;
 	double distance;
 
-	equation.root1 = -1;
-	equation.root2 = -1;
+	equation.t1 = -1;
+	equation.t2 = -1;
 	vec = vector_subtract(ray->start, cylinder->up);
 	equation.a = vector_dot(ray->normal, ray->normal) - pow(vector_dot(ray->normal, cylinder->normal), 2);
 	equation.b = 2 * (vector_dot(ray->normal, vec) - (vector_dot(ray->normal, cylinder->normal) * vector_dot(vec, cylinder->normal)));
 	equation.c = vector_dot(vec, vec) - pow(vector_dot(vec, cylinder->normal), 2) - pow(cylinder->radius, 2);
 	solve(&equation);
-	if (equation.root1 <= 0 && equation.root2 <= 0)
+	if (equation.t1 <= 0 && equation.t2 <= 0)
 		return (false);
 	distance = valid_cylinder_hit(cylinder, ray, &equation, inter);
 	if (distance > 0.0f)

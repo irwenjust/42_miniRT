@@ -160,8 +160,8 @@ typedef struct s_equation
 	double a;
 	double b;
 	double c;
-	double root1;
-	double root2;
+	double t1;
+	double t2;
 } t_equation;
 
 /*render struct*/
