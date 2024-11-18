@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:18:48 by likong            #+#    #+#             */
-/*   Updated: 2024/10/24 14:48:07 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/18 15:27:29 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,9 @@ inline t_vector	vector_cross(t_vector v1, t_vector v2)
 inline double	vector_dot(t_vector v1, t_vector v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+}
+
+inline double	vector_cos(t_vector v1, t_vector v2)
+{
+	return (vector_dot(v1, v2) / (vector_len(v1) * vector_len(v2)));
 }

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:40:33 by likong            #+#    #+#             */
-/*   Updated: 2024/10/22 16:55:40 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/18 17:14:04 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static t_light *new_light(char **coord, char *brightness, char **rgb)
 		return (NULL);
 	*new = (t_light)
 	{
-		.coordinate = parse_vector(coord),
+		.point = parse_vector(coord),
 		.brightness = ft_atod(brightness),
 		.color = parse_color(rgb),
 	};
@@ -75,4 +75,21 @@ bool parse_light(int counter[3], char **arg, t_fclass *fclass)
 	push_to_fclass(fclass, light);
 	counter[2]++;
 	return (true);
+}
+
+void	use_Light(t_hit *closest)
+{
+	t_color	color;
+	t_light	*light;
+
+	light = fclass_index(s()->light, 0);
+	if (!light)
+	{
+		ft_putstr_fd("Cannot find any light\n", 2);
+		return ;
+	}
+	color = check_ambient(closest->color);
+	if (!is_obscured(closest))
+		color = add_color(color, diffuse(light, closest, light->brightness));
+	closest->color = color;
 }

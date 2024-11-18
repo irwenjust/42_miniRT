@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:15 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/13 16:35:18 by yzhan            ###   ########.fr       */
+/*   Updated: 2024/11/18 15:16:21 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void render()
 			closest.distance = INFINITY;
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
-			check_intersect(s()->shapes, &ray, &closest);
-				//4-if intersect, update closest color based on other env
+			if (check_intersect(s()->shapes, &ray, &closest))
+				use_Light(&closest); //4-if intersect, update closest color based on other env
 			put_pixel(closest.color, cur.x, cur.y);
 		}
 	}

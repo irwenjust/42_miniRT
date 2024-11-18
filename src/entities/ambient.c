@@ -6,11 +6,16 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:17:45 by likong            #+#    #+#             */
-/*   Updated: 2024/10/23 13:34:36 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/18 14:01:41 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+t_color	check_ambient(t_color color)
+{
+	return (add_bright_to_color(color, s()->ambient.brightness));
+}
 
 bool	parse_ambient(int counter[3], char **arg, t_ambient *ambient)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:32 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/13 16:35:33 by yzhan            ###   ########.fr       */
+/*   Updated: 2024/11/18 15:11:06 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief Find the intersect point for each shape
  */
-static bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter)
+bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter)
 {
 	if (shape->type == SPHERE)
 		return (inter_sphere(&shape->data.sphere, ray, inter));

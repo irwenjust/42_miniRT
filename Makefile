@@ -21,7 +21,7 @@ SRCS =	main.c \
 		fclass.c \
 		init.c validate.c \
 		parse_args.c parse_tool.c \
-		intersect.c pixel.c ray.c render.c \
+		intersect.c pixel.c ray.c render.c color.c obscured.c reflect.c \
 		equation.c error.c hook.c magic_s.c \
 		vector_op_basic.c vector_op_plus.c vector_tools.c \
 		debug_shape.c 

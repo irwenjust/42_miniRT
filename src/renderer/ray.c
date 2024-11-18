@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:38:22 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/15 15:38:24 by yzhan            ###   ########.fr       */
+/*   Updated: 2024/11/18 14:34:57 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_ray make_ray(t_vector cur)
 	tmp = vector_add(tmp, s()->camera.normal);
 	tmp = vector_add(tmp, s()->camera.coordinate);
 	ray.start = s()->camera.coordinate;
-	ray.normal = vector_normalize(vector_subtract(tmp, ray.start));
+	ray.normal = vector_normalize(vector_sub(tmp, ray.start));
 	return (ray);
 }
 

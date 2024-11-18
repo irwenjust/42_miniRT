@@ -6,11 +6,18 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:30:41 by likong            #+#    #+#             */
-/*   Updated: 2024/10/24 10:49:26 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/18 13:42:49 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+void	*fclass_index(t_fclass *fclass, int i)
+{
+	if (fclass && i < fclass->size)
+		return (fclass->array[i]);
+	return (NULL);
+}
 
 void	push_to_fclass(t_fclass *fclass, void *element)
 {

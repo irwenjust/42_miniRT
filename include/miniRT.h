@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/10/29 15:20:42 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/18 17:15:02 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define Y 1
 # define Z 2
 
+# define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
+
 //Some standard color
 # define BLUE (t_color){137, 196, 244, 0}
 # define BLACK		(t_color){0, 0, 0, 0}
@@ -48,6 +50,7 @@
 # define RADIAN(angle) ((angle * PI) / 180.0f)
 
 # define UPVECTOR (t_vector){0.0, 1.0, 0.0}
+# define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001} // The value could consider modify
 
 # define ERROR(s) printf("Error: %s\n", s)
 
@@ -83,9 +86,13 @@ int		get_nof_validrows(char *file_name);
 /*parser*/
 void	parse_args();
 //parse tool
-bool check_syntax(char **arg, char *commas);
-bool check_rgb(char *rgb);
+bool 	check_syntax(char **arg, char *commas);
+bool 	check_rgb(char *rgb);
+
+//color part
 t_color	parse_color(char **rgb);
+t_color	add_bright_to_color(t_color color, double brightness);
+t_color	add_color(t_color c1, t_color c2);
 
 /*render*/
 //draw
@@ -94,20 +101,27 @@ void render();
 t_ray make_ray(t_vector cur);
 t_vector	point_on_ray(t_ray *ray, double t);
 //intersect
-bool check_intersect(t_fclass *shapes, t_ray *ray, t_hit *closest);
+bool	check_intersect(t_fclass *shapes, t_ray *ray, t_hit *closest);
+bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter);
+
 //pixel
 void	put_pixel(t_color c, int x, int y);
 
-
+//obscured part
+bool	is_obscured(t_hit *closest);
 
 /*entities*/
 //ambient part
 bool	parse_ambient(int counter[3], char **tmp, t_ambient *ambient);
+t_color	check_ambient(t_color color);
+
 //camera part
 bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
 //light part
-bool parse_light(int counter[3], char **arg, t_fclass *light);
+bool	parse_light(int counter[3], char **arg, t_fclass *light);
 t_light	*copy_light(t_light *light);
+void	use_Light(t_hit *closest);
+
 //shape part
 t_shape	*copy_shape(t_shape *shape);
 t_shape	*new_shape(void *data, t_shape_type type, int id);
@@ -128,12 +142,13 @@ t_vector	normalize_cylinder(t_hit *inter, t_ray *ray);
 /*vector part*/
 //vector op basic
 t_vector		vector_add(t_vector v1, t_vector v2);
-t_vector		vector_subtract(t_vector v1, t_vector v2);
+t_vector		vector_sub(t_vector v1, t_vector v2);
 t_vector	vector_multiple(t_vector v1, double scalar);
 //vector op plus
 t_vector		vector_cross(t_vector v1, t_vector v2);
 double			vector_dot(t_vector v1, t_vector v2);
 t_vector		vector_normalize(t_vector a);
+double			vector_cos(t_vector v1, t_vector v2);
 //vector tools
 double			vector_len(t_vector a);
 t_vector		parse_vector(char **strs);
@@ -144,7 +159,8 @@ bool	vector_compare(t_vector v1, t_vector v2);
 //equation
 double solve(t_equation *equation);
 
-
+//reflect part
+t_color	diffuse(t_light *light, t_hit *inter, double k);
 
 //free the scene
 void	delete_scene();
@@ -160,7 +176,7 @@ int		ft_quit();
 t_fclass	*fclass_new(void *(*cpy)(void *), int (*cmp)(void *, void *),
 	void (*print)(void *), void (*del)(void *));
 void		push_to_fclass(t_fclass *fclass, void *element);
-
+void		*fclass_index(t_fclass *fclass, int i);
 
 //debug part
 void	print_shape(t_shape *shape);

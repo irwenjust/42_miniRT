@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:51 by likong            #+#    #+#             */
-/*   Updated: 2024/10/28 13:56:32 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/18 14:49:53 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_camera
 //light
 typedef struct s_light
 {
-	t_vector	coordinate;
+	t_vector	point;
 	double		brightness;
 	t_color		color;
 }	t_light;

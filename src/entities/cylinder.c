@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:38:02 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/15 15:38:03 by yzhan            ###   ########.fr       */
+/*   Updated: 2024/11/18 14:34:04 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_vector	normalize_cylinder(t_hit *inter, t_ray *ray)
 	t_vector	normal;
 
 	point = point_on_ray(ray, inter->distance);
-	normal = vector_subtract(point, inter->cy_hit_pos);
+	normal = vector_sub(point, inter->cy_hit_pos);
 	if (vector_compare(inter->cy_hit_pos, inter->shape->data.cylinder.up))
 		normal = vector_multiple(inter->shape->data.cylinder.normal, -1);
 	else if (vector_compare(inter->cy_hit_pos, inter->shape->data.cylinder.down))

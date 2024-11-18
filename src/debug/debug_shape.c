@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 10:11:39 by likong            #+#    #+#             */
-/*   Updated: 2024/10/24 11:26:51 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/18 15:47:17 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	print_shape(t_shape *shape)
 void	print_light(t_light *light)
 {
 	printf("Light coordinate: %1lf,%1lf,%1lf\n",
-		light->coordinate.x, light->coordinate.y, light->coordinate.z);
+		light->point.x, light->point.y, light->point.z);
 	printf("Light brightness level: %1lf\n", light->brightness);
 	printf("Light color: %d,%d,%d\n",
 		light->color.red, light->color.green, light->color.blue);

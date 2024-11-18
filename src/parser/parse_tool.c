@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tool.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 14:55:29 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/08 14:57:19 by yzhan            ###   ########.fr       */
+/*   Updated: 2024/11/18 13:54:21 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,4 @@ bool check_rgb(char *rgb)
 	if (!valid)
 			return (ERROR("check rgb: wrong rgb number"), false);
 	return (valid);
-}
-
-t_color	parse_color(char **rgb)
-{
-	return ((t_color){
-		.red = ft_within_range(ft_atoi(rgb[R]), 0, 255),
-		.green = ft_within_range(ft_atoi(rgb[G]), 0, 255),
-		.blue = ft_within_range(ft_atoi(rgb[B]), 0, 255),
-		.alpha = ft_within_range(0XFF, 0, 255)
-	});
 }

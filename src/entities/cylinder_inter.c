@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_inter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:37:43 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/15 15:37:47 by yzhan            ###   ########.fr       */
+/*   Updated: 2024/11/18 17:51:02 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	check_cap(t_cylinder *cy, t_vector cap, t_hit *inter, double t)
 	t_vector	point;
 
 	point = point_on_ray(&inter->ray, t);
-	len = vector_len(vector_subtract(point, cap));
+	len = vector_len(vector_sub(point, cap));
 	len += 1e-8;
 	if (len <= cy->radius && t > 1e-8 && t < inter->distance)
 	{
@@ -38,11 +38,11 @@ static bool	check_wall(t_cylinder *cy, t_hit *inter, double distance)
 	double	len;
 
 	point = point_on_ray(&inter->ray, distance);
-	co = vector_subtract(inter->ray.start, cy->up);
+	co = vector_sub(inter->ray.start, cy->up);
 	m = vector_dot(inter->ray.normal, cy->normal) * distance + \
 		vector_dot(co, cy->normal);
 	a = vector_add(cy->up, vector_multiple(cy->normal, m));
-	len = vector_len(vector_subtract(point, a));
+	len = vector_len(vector_sub(point, a));
 	m -= 1e-8;
 	len -= 1e-8;
 	if (m >= 0 && m <= cy->height && len <= cy->radius \
@@ -97,7 +97,7 @@ bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter)
 
 	equation.t1 = -1;
 	equation.t2 = -1;
-	vec = vector_subtract(ray->start, cylinder->up);
+	vec = vector_sub(ray->start, cylinder->up);
 	equation.a = vector_dot(ray->normal, ray->normal) - pow(vector_dot(ray->normal, cylinder->normal), 2);
 	equation.b = 2 * (vector_dot(ray->normal, vec) - (vector_dot(ray->normal, cylinder->normal) * vector_dot(vec, cylinder->normal)));
 	equation.c = vector_dot(vec, vec) - pow(vector_dot(vec, cylinder->normal), 2) - pow(cylinder->radius, 2);

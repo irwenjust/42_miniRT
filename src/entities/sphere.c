@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:50:15 by likong            #+#    #+#             */
-/*   Updated: 2024/10/24 11:27:20 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/18 17:51:41 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter)
 	t_vector vec;
 
 	equation.t1 = -1.0f;
-	vec = vector_subtract(ray->start, sphere->center);
+	vec = vector_sub(ray->start, sphere->center);
 	equation.a = vector_dot(ray->normal, ray->normal);
 	equation.b = 2.0f * vector_dot(vec, ray->normal);
 	equation.c = vector_dot(vec, vec) - pow(sphere->radius, 2);
@@ -101,6 +101,6 @@ t_vector	normalize_sphere(t_hit *inter, t_ray *ray)
 	t_vector	normal;
 
 	point = point_on_ray(ray, inter->distance);
-	normal = vector_subtract(point, inter->shape->data.sphere.center);
+	normal = vector_sub(point, inter->shape->data.sphere.center);
 	return (normal);
 }

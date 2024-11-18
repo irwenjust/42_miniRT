@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 15:39:03 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/14 15:39:05 by yzhan            ###   ########.fr       */
+/*   Updated: 2024/11/18 14:34:27 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter)
 
 	if (vector_dot(ray->normal, plane->normal) != 0.0)
 	{
-		vec = vector_subtract(ray->start, plane->center);
+		vec = vector_sub(ray->start, plane->center);
 		equation.a = 0;
 		equation.b = vector_dot(ray->normal, plane->normal);
 		equation.c = vector_dot(vec, plane->normal);
