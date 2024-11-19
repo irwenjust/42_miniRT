@@ -17,7 +17,7 @@ SRCS_DIR = src
 SRCS_SUBDIR = entities fclass init parser renderer tools vector debug
 VPATH = $(SRCS_DIR) $(addprefix $(SRCS_DIR)/, $(SRCS_SUBDIR))
 SRCS =	main.c \
-		ambient.c camera.c cylinder.c cylinder_inter.c light.c plane.c shape.c  sphere.c \
+		ambient.c camera.c cylinder.c cylinder_tool.c light.c plane.c shape.c  sphere.c \
 		fclass.c \
 		init.c validate.c \
 		parse_args.c parse_tool.c \

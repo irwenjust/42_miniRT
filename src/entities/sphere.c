@@ -96,12 +96,3 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter)
 	return (false);
 }
 
-t_vector	normalize_sphere(t_hit *inter, t_ray *ray)
-{
-	t_vector	point;
-	t_vector	normal;
-
-	point = point_on_ray(ray, inter->distance);
-	normal = vector_sub(point, inter->shape->data.sphere.center);
-	return (normal);
-}

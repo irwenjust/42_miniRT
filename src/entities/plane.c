@@ -6,11 +6,12 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 15:39:03 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/18 14:34:27 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/19 16:32:05 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
 
 static bool new_plane(char **arg, t_plane *plane)
 {
@@ -28,7 +29,7 @@ static bool new_plane(char **arg, t_plane *plane)
 		return (ERROR("plane: fail to split normal"), false);
 	plane->normal = vector_normalize(parse_vector(normal));
 	free_matrix(normal);
-	if (vector_len(plane->normal) < 1e-8)
+	if (vector_magnitude(plane->normal) < 1e-8)
 		return (ERROR("plane: normal vector is too small"), false);
 	rgb = ft_split(arg[3], ',');
 	if (!rgb)

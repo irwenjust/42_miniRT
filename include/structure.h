@@ -183,7 +183,7 @@ typedef struct s_ray
  * @param hit_point The intersection point
  * @param hit_normal The normal of the shape in the intersection point
  * @param color The color of the hit shape
- * @param cy_hit_pos Used to know where the ray hit in a cylinder's axis
+ * @param cy_hp Used to know where the ray hit in a cylinder's axis
  * @param distance The distance between the hit the ray's origin
  */
 typedef struct s_hit
@@ -193,7 +193,7 @@ typedef struct s_hit
 	t_vector	hit_point;
 	t_vector	hit_normal;
 	t_color	color;
-	t_vector	cy_hit_pos;
+	t_vector	cy_hp;
 	double	distance;
 } t_hit;
 

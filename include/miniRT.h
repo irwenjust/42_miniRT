@@ -113,6 +113,7 @@ t_vector	point_on_ray(t_ray *ray, double t);
 //intersect
 bool	check_intersect(t_fclass *shapes, t_ray *ray, t_hit *closest);
 bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter);
+t_vector	get_normal(t_hit *inter);
 
 //pixel
 void	put_pixel(t_color c, int x, int y);
@@ -131,23 +132,20 @@ bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
 bool	parse_light(int counter[3], char **arg, t_fclass *light);
 t_light	*copy_light(t_light *light);
 void	use_Light(t_hit *closest);
-
 //shape part
 t_shape	*copy_shape(t_shape *shape);
 t_shape	*new_shape(void *data, t_shape_type type, int id);
-t_vector	normalize_shape(t_hit *inter, t_ray *ray);
 //sphere part
 bool	parse_sphere(char **tmp, t_fclass *fclass);
 bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter);
-t_vector	normalize_sphere(t_hit *inter, t_ray *ray);
 //plane part
 bool parse_plane(char **arg, t_fclass *fclass);
 bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter);
 //cylinder part
 bool parse_cylinder(char **arg, t_fclass *fclass);
 bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter);
-t_vector	normalize_cylinder(t_hit *inter, t_ray *ray);
-
+//cylinder tool
+double	check_cy_hit(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *inter);
 
 /*vector part*/
 //vector op basic
@@ -155,15 +153,14 @@ t_vector		vector_add(t_vector v1, t_vector v2);
 t_vector		vector_sub(t_vector v1, t_vector v2);
 t_vector	vector_multiple(t_vector v1, double scalar);
 //vector op plus
+double			vector_magnitude(t_vector a);
+t_vector		vector_normalize(t_vector a);
 t_vector		vector_cross(t_vector v1, t_vector v2);
 double			vector_dot(t_vector v1, t_vector v2);
-t_vector		vector_normalize(t_vector a);
-double			vector_cos(t_vector v1, t_vector v2);
 //vector tools
-double			vector_len(t_vector a);
 t_vector		parse_vector(char **strs);
-t_vector	new_vector(double x, double y, double z);
 bool	vector_compare(t_vector v1, t_vector v2);
+double			vector_cos(t_vector v1, t_vector v2);
 
 /*tools*/
 //equation

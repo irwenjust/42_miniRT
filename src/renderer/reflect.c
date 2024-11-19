@@ -21,7 +21,7 @@ t_color	diffuse(t_light *light, t_hit *inter, double brightness)
 	double		attenuation;
 
 	light_dir = vector_sub(light->point, inter->hit_point);
-	attenuation = MIN(1.0, 60.0 / vector_len(light_dir));
+	attenuation = MIN(1.0, 60.0 / vector_magnitude(light_dir));
 	cos_angle = vector_cos(inter->hit_normal, light_dir);
 	diffuse_ratio = brightness * cos_angle * attenuation;
 	color = add_bright_to_color(inter->color, diffuse_ratio);

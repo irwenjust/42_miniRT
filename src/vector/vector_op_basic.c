@@ -16,15 +16,15 @@
 
 inline t_vector		vector_add(t_vector v1, t_vector v2)
 {
-	return (new_vector(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z));
+	return ((t_vector){v1.x + v2.x, v1.y + v2.y, v1.z + v2.z});
 }
 
 inline t_vector		vector_sub(t_vector v1, t_vector v2)
 {
-	return (new_vector(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z));
+	return ((t_vector){v1.x - v2.x, v1.y - v2.y, v1.z - v2.z});
 }
 
 inline t_vector	vector_multiple(t_vector v1, double scalar)
 {
-	return (new_vector(v1.x * scalar, v1.y * scalar, v1.z * scalar));
+	return ((t_vector){v1.x * scalar, v1.y * scalar, v1.z * scalar});
 }
