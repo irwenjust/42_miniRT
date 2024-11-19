@@ -14,16 +14,27 @@
 
 //magnitude, normalization, dot product, cross product
 
-inline t_vector	vector_normalize(t_vector a)
+inline double	vector_len(t_vector a)
+{
+	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
+}
+
+/**
+ * @brief normalize a given vector, convert it into a unit vector(length 1)
+ * if the length of vector is too small, close to 0, return itself
+ * if not, convert it.
+ * 
+ */
+inline t_vector	vector_normalize(t_vector vec)
 {
 	double	ori_len;
 	double	adj_len;
 
-	ori_len = sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
-	if (ori_len > 1e-8)  //maybe need adjust this later
+	ori_len = vector_len(vec);
+	if (ori_len > 1e-8)
 	{
 		adj_len = 1.0 / ori_len;
-		return ((t_vector){a.x * adj_len, a.y * adj_len, a.z * adj_len});
+		return ((t_vector){vec.x * adj_len, vec.y * adj_len, vec.z * adj_len});
 	}
 	return (a);
 }

@@ -55,8 +55,8 @@ bool parse_cylinder(char **arg, t_fclass *fclass)
 		return (ERROR("cylinder: wrong color value"), false);
 	if (!new_cylinder(arg, &cylinder))
 		return (ERROR("cylinder: fail to create new shpere"), false);
-	cylinder.up = vector_add(cylinder.center, vector_multiple(cylinder.normal, -cylinder.height / 2.0));
-	cylinder.down = vector_add(cylinder.center, vector_multiple(cylinder.normal, cylinder.height / 2.0));
+	cylinder.cap_u = vector_add(cylinder.center, vector_multiple(cylinder.normal, -cylinder.height / 2.0));
+	cylinder.cap_b = vector_add(cylinder.center, vector_multiple(cylinder.normal, cylinder.height / 2.0));
 	shape = new_shape(&cylinder, CYLINDER, fclass->size);
 	push_to_fclass(fclass, shape);
 	return (true);
@@ -69,9 +69,9 @@ t_vector	normalize_cylinder(t_hit *inter, t_ray *ray)
 
 	point = point_on_ray(ray, inter->distance);
 	normal = vector_sub(point, inter->cy_hit_pos);
-	if (vector_compare(inter->cy_hit_pos, inter->shape->data.cylinder.up))
+	if (vector_compare(inter->cy_hit_pos, inter->shape->data.cylinder.cap_u))
 		normal = vector_multiple(inter->shape->data.cylinder.normal, -1);
-	else if (vector_compare(inter->cy_hit_pos, inter->shape->data.cylinder.down))
+	else if (vector_compare(inter->cy_hit_pos, inter->shape->data.cylinder.cap_b))
 		normal = inter->shape->data.cylinder.normal;
 	return (normal);
 }

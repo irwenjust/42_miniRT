@@ -167,7 +167,7 @@ bool	vector_compare(t_vector v1, t_vector v2);
 
 /*tools*/
 //equation
-double solve(t_equation *equation);
+bool solve(t_equation *equation);
 
 //reflect part
 t_color	diffuse(t_light *light, t_hit *inter, double k);

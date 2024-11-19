@@ -38,10 +38,10 @@ static bool	check_wall(t_cylinder *cy, t_hit *inter, double distance)
 	double	len;
 
 	point = point_on_ray(&inter->ray, distance);
-	co = vector_sub(inter->ray.start, cy->up);
+	co = vector_sub(inter->ray.start, cy->cap_u);
 	m = vector_dot(inter->ray.normal, cy->normal) * distance + \
 		vector_dot(co, cy->normal);
-	a = vector_add(cy->up, vector_multiple(cy->normal, m));
+	a = vector_add(cy->cap_u, vector_multiple(cy->normal, m));
 	len = vector_len(vector_sub(point, a));
 	m -= 1e-8;
 	len -= 1e-8;
@@ -76,40 +76,69 @@ static double valid_cylinder_hit(t_cylinder *cylinder, t_ray *ray, t_equation *e
 	double t3;
 	double t4;
 
-	t3 = inter_cap(cylinder, ray, cylinder->up);
-	t4 = inter_cap(cylinder, ray, cylinder->down);
+	t3 = inter_cap(cylinder, ray, cylinder->cap_u);
+	t4 = inter_cap(cylinder, ray, cylinder->cap_b);
 	inter->distance = INFINITY;
 	inter->ray = *ray;
 	check_wall(cylinder, inter, eq->t1);
 	check_wall(cylinder, inter, eq->t2);
-	check_cap(cylinder, cylinder->up, inter, t3);
-	check_cap(cylinder, cylinder->down, inter, t4);
+	check_cap(cylinder, cylinder->cap_u, inter, t3);
+	check_cap(cylinder, cylinder->cap_b, inter, t4);
 	if (inter->distance == INFINITY)
 		return (0);
 	return (inter->distance);
 }
 
+/**
+ * @brief
+ * cylinder equation is |(P-C) - [(P-C)*N]*N|^2 = r^2
+ * 		P is a point on the cylinder surface
+ * 		C is a point on the cylinder axis(cap)
+ * 		N is cylinder direction
+ * P is the R(t) = O + tD
+ * The eqaution is: |(O + tD - C) - [(O + tD - C)*N]*N|^2 = r^2
+ * set V = O-C
+ * 		|V + tD - (V*N + tD*N)*N|^2 - r^2 = 0
+ * 		|t[D - (D*N)N] + [V-(V*N)N]|^2 - r^2 = 0
+ * 		t^2*[D-(D*N)N]^2 + 2t*[D-(D*N)N]*[V-(V*N)N] + [V-(V*N)N]^2 -r^2 = 0
+ * So at^2 + bt + c = 0:
+ * 		a = [D-(D*N)N]^2 = D*D -2(D*N)^2 + (D*N)^2*N^2
+ * 		b = 2*[D-(D*N)N]*[V-(V*N)N] = 2*(D*V - D(V*N)N -V(D*N)N + (D*N)(V*N)*N^2
+ * 		c = [V-(V*N)N]^2 -r^2 = V^2 - 2(V*N)^2 + (V*N)^2*N^2 - r^2
+ * as normal * normal = 1, so D*D = N*N = 1
+ * 		a = 1 - (D*N)^2
+ * 		b = 2 * [D*V - (D*N)(V*N)]
+ * 		c = V^2 - (V*N)^2 - r^2
+ * 
+ * @param vec vector from ray origin to cylinder cap center
+ * @param dn dot_product(D, N), D is ray normal, N is cylinder norml
+ * @param vn dot_product(vec, N) 
+ */
 bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter)
 {
 	t_equation equation;
 	t_vector vec;
+	double dn;
+	double vn;
 	double distance;
 
+	vec = vector_sub(ray->start, cylinder->cap_u);
+	dn = vector_dot(ray->normal, cylinder->normal);
+	vn = vector_dot(vec, cylinder->normal);
+	equation.a = 1 - pow(dn, 2);
+	equation.b = 2 * (vector_dot(ray->normal, vec) - (dn * vn));
+	equation.c = vector_dot(vec, vec) - pow(vn, 2) - pow(cylinder->radius, 2);
 	equation.t1 = -1;
 	equation.t2 = -1;
-	vec = vector_sub(ray->start, cylinder->up);
-	equation.a = vector_dot(ray->normal, ray->normal) - pow(vector_dot(ray->normal, cylinder->normal), 2);
-	equation.b = 2 * (vector_dot(ray->normal, vec) - (vector_dot(ray->normal, cylinder->normal) * vector_dot(vec, cylinder->normal)));
-	equation.c = vector_dot(vec, vec) - pow(vector_dot(vec, cylinder->normal), 2) - pow(cylinder->radius, 2);
-	solve(&equation);
-	if (equation.t1 <= 0 && equation.t2 <= 0)
-		return (false);
-	distance = valid_cylinder_hit(cylinder, ray, &equation, inter);
-	if (distance > 0.0f)
+	if (solve(&equation) && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
 	{
-		inter->distance = distance;
-		inter->color = cylinder->color;
-		return (true);
+		distance = valid_cylinder_hit(cylinder, ray, &equation, inter);
+		if (distance > 0.0f)
+		{
+			inter->distance = distance;
+			inter->color = cylinder->color;
+			return (true);
+		}
 	}
 	return (false);
 }

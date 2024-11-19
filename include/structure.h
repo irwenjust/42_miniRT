@@ -91,8 +91,8 @@ typedef struct s_cylinder
 	double		radius;
 	double		height;
 	t_color		color;
-	t_vector	up;
-	t_vector	down;
+	t_vector	cap_u;
+	t_vector	cap_b;
 }	t_cylinder;
 
 typedef struct s_plane
@@ -154,7 +154,10 @@ typedef struct s_scene
 	t_windows	win;
 }	t_scene;
 
-/*math struct*/
+/**
+ * @brief equation structrue
+ * @param t scalar parameter, how far it traversal along the ray
+ */
 typedef struct s_equation
 {
 	double a;

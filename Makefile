@@ -55,6 +55,7 @@ clean:
 
 fclean: clean
 	@rm -rf $(NAME)
+	@rm -rf $(MLX_DIR)
 	@$(MAKE) -C ./libft fclean
 
 re: fclean all

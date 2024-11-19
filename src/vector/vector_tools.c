@@ -12,11 +12,8 @@
 
 #include "miniRT.h"
 
-//??????????
-double	vector_len(t_vector a)
-{
-	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
-}
+
+
 
 t_vector	parse_vector(char **strs)
 {
