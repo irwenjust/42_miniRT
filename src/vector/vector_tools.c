@@ -12,12 +12,9 @@
 
 #include "miniRT.h"
 
-//??????????
-double	vector_len(t_vector a)
-{
-	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
-}
-
+/**
+ * @brief parse input string value into a vector format
+ */
 t_vector	parse_vector(char **strs)
 {
 	return ((t_vector){
@@ -27,12 +24,23 @@ t_vector	parse_vector(char **strs)
 	});
 }
 
-inline t_vector	new_vector(double x, double y, double z)
-{
-	return ((t_vector){x, y, z});
-}
-
+/**
+ * @brief Check whether input vector are identical
+ * fabs function in math.h return the absolute value of inputs
+ */
 bool	vector_compare(t_vector v1, t_vector v2)
 {
-	return (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z);
+	return (
+		fabs(v1.x - v2.x) < 1e-8 &&
+		fabs(v1.y - v2.y) < 1e-8 &&
+		fabs(v1.z - v2.z) < 1e-8
+	);
+}
+
+/**
+ * @brief Calculate the cosine of the angle between two vectors
+ */
+inline double	vector_cos(t_vector v1, t_vector v2)
+{
+	return (vector_dot(v1, v2) / (vector_magnitude(v1) * vector_magnitude(v2)));
 }

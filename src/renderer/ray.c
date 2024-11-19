@@ -48,8 +48,9 @@ t_ray make_ray(t_vector cur)
 
 /**
  * @brief Calculate a point along ray based on a given distance
+ * the equation is R(t) = O + tD
  */
-inline t_vector	point_on_ray(t_ray *ray, double distance)
+inline t_vector	point_on_ray(t_ray *ray, double t)
 {
-	return (vector_add(ray->start, vector_multiple(ray->normal, distance)));
+	return (vector_add(ray->start, vector_multiple(ray->normal, t)));
 }

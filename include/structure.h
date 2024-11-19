@@ -91,8 +91,8 @@ typedef struct s_cylinder
 	double		radius;
 	double		height;
 	t_color		color;
-	t_vector	up;
-	t_vector	down;
+	t_vector	cap_u;
+	t_vector	cap_b;
 }	t_cylinder;
 
 typedef struct s_plane
@@ -154,7 +154,10 @@ typedef struct s_scene
 	t_windows	win;
 }	t_scene;
 
-/*math struct*/
+/**
+ * @brief equation structrue
+ * @param t scalar parameter, how far it traversal along the ray
+ */
 typedef struct s_equation
 {
 	double a;
@@ -180,7 +183,7 @@ typedef struct s_ray
  * @param hit_point The intersection point
  * @param hit_normal The normal of the shape in the intersection point
  * @param color The color of the hit shape
- * @param cy_hit_pos Used to know where the ray hit in a cylinder's axis
+ * @param cy_hp Used to know where the ray hit in a cylinder's axis
  * @param distance The distance between the hit the ray's origin
  */
 typedef struct s_hit
@@ -190,7 +193,7 @@ typedef struct s_hit
 	t_vector	hit_point;
 	t_vector	hit_normal;
 	t_color	color;
-	t_vector	cy_hit_pos;
+	t_vector	cy_hp;
 	double	distance;
 } t_hit;
 

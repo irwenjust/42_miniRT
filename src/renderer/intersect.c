@@ -27,6 +27,33 @@ bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter)
 }
 
 /**
+ * @brief get the normal vector at the intersection point of ray and shape
+ * For cylinder, if the hit_point is on caps, the normaal is constant
+ * 
+ * 
+ */
+t_vector	get_normal(t_hit *inter)
+{
+	t_vector	point;
+	t_vector	normal;
+
+	point = inter->hit_point;
+	if (inter->shape->type == PLANE)
+		normal = inter->shape->data.plane.normal;
+	else if (inter->shape->type == SPHERE)
+		normal = vector_sub(point, inter->shape->data.sphere.center);
+	else
+	{
+		normal = vector_sub(point, inter->cy_hp);
+		if (vector_compare(inter->cy_hp, inter->shape->data.cylinder.cap_u))
+			normal = vector_multiple(inter->shape->data.cylinder.normal, -1);
+		else if (vector_compare(inter->cy_hp, inter->shape->data.cylinder.cap_b))
+			normal = inter->shape->data.cylinder.normal;
+	}
+	return (vector_normalize(normal));
+}
+
+/**
  * @brief Check whether the ray is intersecting with any shapes and
  * find the closest intersect point.
  * Main step:
@@ -61,7 +88,7 @@ bool check_intersect(t_fclass *shapes, t_ray *ray, t_hit *closest)
 		closest->ray = *ray;
 		closest->shape = shape;
 		closest->hit_point = point_on_ray(ray, closest->distance);
-		closest->hit_normal = vector_normalize(normalize_shape(closest, ray));
+		closest->hit_normal = get_normal(closest);
 	}
 	return (closest->shape != NULL);
 }

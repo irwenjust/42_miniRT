@@ -22,14 +22,14 @@ bool	parse_camera(int counter[3], char **arg, t_camera *camera)
 	coord = ft_split(arg[1], ',');
 	if (!coord)
 		return (ERROR("camera: fail to split coordinate"), false);
-	camera->coordinate = parse_vector(coord); //同color，可以直接传值吗？
+	camera->coordinate = parse_vector(coord);
 	free_matrix(coord);
 	normal = ft_split(arg[2], ',');
 	if (!normal)
 		return (ERROR("camera: fail to split normal"), false);
 	camera->normal = vector_normalize(parse_vector(normal));
 	free_matrix(normal);
-	if (vector_len(camera->normal) < 1e-8)
+	if (vector_magnitude(camera->normal) < 1e-8)
 		return (ERROR("camera: normal vector is too small"), false);
 	camera->fov = ft_atoi(arg[3]);
 	if (camera->fov < 0 || camera->fov > 180)

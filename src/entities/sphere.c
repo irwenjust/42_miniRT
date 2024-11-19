@@ -78,12 +78,13 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter)
 	t_equation equation;
 	t_vector vec;
 
-	equation.t1 = -1.0f;
 	vec = vector_sub(ray->start, sphere->center);
 	equation.a = vector_dot(ray->normal, ray->normal);
 	equation.b = 2.0f * vector_dot(vec, ray->normal);
 	equation.c = vector_dot(vec, vec) - pow(sphere->radius, 2);
-	if (solve(&equation) > 0 && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
+	equation.t1 = -1;
+	equation.t2 = -1;
+	if (solve(&equation) && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
 	{
 		if (equation.t1 > 1e-8)
 			inter->distance = equation.t1;
@@ -95,12 +96,3 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter)
 	return (false);
 }
 
-t_vector	normalize_sphere(t_hit *inter, t_ray *ray)
-{
-	t_vector	point;
-	t_vector	normal;
-
-	point = point_on_ray(ray, inter->distance);
-	normal = vector_sub(point, inter->shape->data.sphere.center);
-	return (normal);
-}

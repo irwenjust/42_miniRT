@@ -33,7 +33,7 @@ bool	is_obscured(t_hit *closest)
 		if (shape->id == closest->shape->id)
 			continue ;
 		if (is_intersect(shape, &ray, &tmp) && tmp.distance <
-			vector_len(vector_sub(light->point, closest->hit_point)))
+			vector_magnitude(vector_sub(light->point, closest->hit_point)))
 			return (true);
 	}
 	return (false);
