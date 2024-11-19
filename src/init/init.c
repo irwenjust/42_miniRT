@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:24:56 by likong            #+#    #+#             */
-/*   Updated: 2024/10/29 08:59:31 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/19 14:15:03 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ static void	init_viewport()
 
 static void	init_windows()
 {
-	// s()->win.mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
-	// if (!s()->win.mlx)
-	// 	error_exit("error happend when create MLX42");
 	s()->win.mlx = mlx_init();
 	if (!s()->win.mlx)
 		error_exit("error happend when create MLX42");

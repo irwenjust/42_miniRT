@@ -23,7 +23,7 @@ SRCS =	main.c \
 		parse_args.c parse_tool.c \
 		intersect.c pixel.c ray.c render.c color.c obscured.c reflect.c \
 		equation.c error.c hook.c magic_s.c \
-		vector_op_basic.c vector_op_plus.c vector_tools.c \
+		vector_op_basic.c vector_op_plus.c vector_tools.c vector_rotate.c \
 		debug_shape.c 
 
 OBJS_DIR = objs

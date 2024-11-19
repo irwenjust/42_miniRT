@@ -6,11 +6,38 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:54:26 by likong            #+#    #+#             */
-/*   Updated: 2024/10/28 10:19:08 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/19 14:14:08 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+// static int resize_win()
+// {
+// 	XWindowAttributes attrs;
+// 	XGetWindowAttributes(s()->win.display, s()->win.window, &attrs);
+// 	// XEvent *xevent = (XEvent *)event;
+
+// 	if (attrs.width != s()->win.width || attrs.height != s()->win.height)
+// 	{
+// 		s()->win.width = attrs.width;
+// 		s()->win.height = attrs.height;
+		
+// 		// mlx_clear_window(s()->win.mlx, s()->win.disp);
+// 	}
+// 	// if (xevent->type == ConfigureNotify)
+// 	// {
+// 	// 	int new_width = xevent->xconfigure.width;
+// 	// 	int new_height = xevent->xconfigure.height;
+
+// 	// 	if (new_width != s()->view_w || new_height != s()->view_h)
+// 	// 	{
+// 	// 		s()->view_h = new_height;
+// 	// 		s()->view_w = new_width;
+// 	// 	}
+// 	// }
+// 	return (0);
+// }
 
 int	main(int argc, char **argv)
 {
@@ -21,17 +48,12 @@ int	main(int argc, char **argv)
 	
 	render();
 
+	// mlx_hook(s()->win.disp, ConfigureNotify, StructureNotifyMask, resize_win, NULL);
+	// mlx_loop_hook(s()->win.mlx, (void *)resize_win, NULL);
 	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, ft_keypress, NULL);
 	mlx_hook(s()->win.disp, DestroyNotify, StructureNotifyMask, ft_quit, NULL); // need to adjust later maybe
 	mlx_loop(s()->win.mlx);
 	// print_shape((t_shape *)s()->shapes->array[3]);
 	delete_scene();
-	
-	// init_point();
-	// init_vector();
-
-	// printf("point x: %lf, point y: %lf, point z: %lf, point type: %d\n", p()->x, p()->y, p()->z, p()->type);
-	// printf("vector x: %lf, vector y: %lf, vector z: %lf, vector type: %d\n", v()->x, v()->y, v()->z, v()->type);
-	
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/11/19 10:26:01 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/19 19:10:08 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@
 # define D 100
 # define Q 113
 # define E 101
+// # define B 98
+// # define C 99
+
+# define U 117
+# define I 105
+# define O 111
+# define J 106
+# define K 107
+# define L 108
+
+# define ROTATE 0.1
 
 # define HAS_COMMA '1'
 
@@ -157,6 +168,9 @@ double			vector_magnitude(t_vector a);
 t_vector		vector_normalize(t_vector a);
 t_vector		vector_cross(t_vector v1, t_vector v2);
 double			vector_dot(t_vector v1, t_vector v2);
+
+t_vector	vector_rotate(t_vector vec, int axis, double angle);
+
 //vector tools
 t_vector		parse_vector(char **strs);
 bool	vector_compare(t_vector v1, t_vector v2);

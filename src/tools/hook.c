@@ -16,6 +16,18 @@ int	ft_keypress(int keycode)
 		s()->camera.coordinate.z += 5;
 	else if (keycode == E)
 		s()->camera.coordinate.z -= 5;
+	else if (keycode == I)
+		s()->camera.normal = vector_rotate(s()->camera.normal, Z, ROTATE);
+	else if (keycode == K)
+		s()->camera.normal = vector_rotate(s()->camera.normal, Z, (-ROTATE));
+	else if (keycode == J)
+		s()->camera.normal = vector_rotate(s()->camera.normal, Y, -ROTATE);
+	else if (keycode == L)
+		s()->camera.normal = vector_rotate(s()->camera.normal, Y, ROTATE);
+	else if (keycode == U)
+		s()->camera.normal = vector_rotate(s()->camera.normal, X, -ROTATE);
+	else if (keycode == O)
+		s()->camera.normal = vector_rotate(s()->camera.normal, X, ROTATE);
 	//why dra_image here???
 	//draw_image();
 	render();
