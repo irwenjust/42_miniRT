@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:24:20 by likong            #+#    #+#             */
-/*   Updated: 2024/11/19 19:05:13 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/20 09:41:49 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_vector	vector_rotate(t_vector vec, int axis, double angle)
 		res.x = vec.x * cos(angle) - vec.y * sin(angle);
 		res.y = vec.x * sin(angle) + vec.y * cos(angle);
 		printf("here: x: %f, y: %f, z: %f\n", res.x, res.y, res.z);
+		printf("vec: x: %f, y: %f\n", vec.x, vec.y);
 	}
 	return (vector_normalize(res));
 }
