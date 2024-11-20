@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-bool	is_obscured(t_hit *closest)
+static bool	is_obscured(t_hit *closest)
 {
 	int		i;
 	t_ray	ray;
@@ -37,4 +37,21 @@ bool	is_obscured(t_hit *closest)
 			return (true);
 	}
 	return (false);
+}
+
+void	check_illumination(t_hit *closest)
+{
+	t_color	color;
+	t_light	*light;
+
+	light = fclass_index(s()->light, 0);
+	if (!light)
+	{
+		ft_putstr_fd("Cannot find any light\n", 2);
+		return ;
+	}
+	color = check_ambient(closest->color);
+	if (!is_obscured(closest))
+		color = add_color(color, diffuse(light, closest, light->brightness));
+	closest->color = color;
 }

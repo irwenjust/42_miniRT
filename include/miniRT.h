@@ -116,33 +116,29 @@ t_color	add_bright_to_color(t_color color, double brightness);
 t_color	add_color(t_color c1, t_color c2);
 
 /*render*/
-//draw
+//renderer
 void render();
-//ray
+//ray part
 t_ray make_ray(t_vector cur);
 t_vector	point_on_ray(t_ray *ray, double t);
-//intersect
-bool	check_intersect(t_fclass *shapes, t_ray *ray, t_hit *closest);
+//intersect part
+bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest);
 bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter);
-t_vector	get_normal(t_hit *inter);
+//illumination part
+void	check_illumination(t_hit *closest);
+//reflect part
+t_color	diffuse(t_light *light, t_hit *inter, double k);
 
-//pixel
-void	put_pixel(t_color c, int x, int y);
-
-//obscured part
-bool	is_obscured(t_hit *closest);
 
 /*entities*/
 //ambient part
 bool	parse_ambient(int counter[3], char **tmp, t_ambient *ambient);
 t_color	check_ambient(t_color color);
-
 //camera part
 bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
 //light part
 bool	parse_light(int counter[3], char **arg, t_fclass *light);
 t_light	*copy_light(t_light *light);
-void	use_Light(t_hit *closest);
 //shape part
 t_shape	*copy_shape(t_shape *shape);
 t_shape	*new_shape(void *data, t_shape_type type, int id);
@@ -168,9 +164,8 @@ double			vector_magnitude(t_vector a);
 t_vector		vector_normalize(t_vector a);
 t_vector		vector_cross(t_vector v1, t_vector v2);
 double			vector_dot(t_vector v1, t_vector v2);
-
+//vector rotate
 t_vector	vector_rotate(t_vector vec, int axis, double angle);
-
 //vector tools
 t_vector		parse_vector(char **strs);
 bool	vector_compare(t_vector v1, t_vector v2);
@@ -180,8 +175,6 @@ double			vector_cos(t_vector v1, t_vector v2);
 //equation
 bool solve(t_equation *equation);
 
-//reflect part
-t_color	diffuse(t_light *light, t_hit *inter, double k);
 
 //free the scene
 void	delete_scene();

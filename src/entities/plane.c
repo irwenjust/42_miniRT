@@ -86,7 +86,6 @@ bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter)
 		equation.c = vector_dot(vec, plane->normal);
 		equation.t1 = -1;
 		equation.t2 = -1;
-		//solve(&equation);
 		if (solve(&equation) && equation.t1 > 1e-8)
 		{
 			inter->distance = equation.t1;
