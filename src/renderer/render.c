@@ -23,7 +23,7 @@
  * 		x = WIDTH ---> x = 1, the right edge of screen
  * 		x = WIDTH / 2 ---> x = 0, the center of screen
  */
-t_vector	convert_viewport(double x, double y)
+static t_vector	convert_viewport(double x, double y)
 {
 	t_vector	converted;
 
@@ -31,6 +31,14 @@ t_vector	convert_viewport(double x, double y)
 	converted.y = ((y / HEIGHT) * 2.0f) - 1;
 	converted.z = 0;
 	return (converted);
+}
+
+static void	put_pixel(t_color c, int x, int y)
+{
+	char *dst;
+
+	dst = s()->win.addr + (y * WIDTH + x) * (s()->win.bpp / 8);
+	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
 }
 
 /**
@@ -65,8 +73,8 @@ void render()
 			closest.distance = INFINITY;
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
-			if (check_intersect(s()->shapes, &ray, &closest))
-				use_Light(&closest); //4-if intersect, update closest color based on other env
+			if (check_intersection(s()->shapes, &ray, &closest))
+				check_illumination(&closest); //4-if intersect, update closest color based on other env
 			put_pixel(closest.color, cur.x, cur.y);
 		}
 	}

@@ -30,9 +30,8 @@ bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter)
  * @brief get the normal vector at the intersection point of ray and shape
  * For cylinder, if the hit_point is on caps, the normaal is constant
  * 
- * 
  */
-t_vector	get_normal(t_hit *inter)
+static t_vector	get_normal(t_hit *inter)
 {
 	t_vector	point;
 	t_vector	normal;
@@ -66,7 +65,7 @@ t_vector	get_normal(t_hit *inter)
  * @param shape Get current shape
  * @param tmp The tmp cloeset intersected point
  */
-bool check_intersect(t_fclass *shapes, t_ray *ray, t_hit *closest)
+bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 {
 	int i;
 	t_shape *shape;

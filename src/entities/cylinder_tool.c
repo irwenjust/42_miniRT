@@ -13,29 +13,41 @@
 #include "miniRT.h"
 
 /**
+ * @brief Check wall hit validation.
+ * find the hit point then map ray to cylinder axis, and calculate the offset of
+ * this mapping point with cap center. This value should smaller than cylinder
+ * height; Then the calculate the len between hit point and it mapping point on
+ * axis, this len should be smaller than cap radius.
  * 
+ * @param vec the vector from cap_u to ray origin
+ * @param hit the intersect point of ray with cylinder
+ * @param hit_a the vector from cap_u to the mapping hit point on axis
+ * @param offset map ray to cylinder axis with t distance, and map vec to axis
+ * to get the offset of hit point to cap_u
+ * @param len the distance between hit and hit_a
  */
-static bool	check_wall(t_cylinder *cy, t_hit *inter, double distance)
+static bool	check_wall(t_cylinder *cy, t_hit *inter, double t)
 {
-	t_vector	point;
-	t_vector	co;
-	t_vector	a;
-	double	m;
+	t_vector	vec;
+	t_vector	hit;
+	t_vector	hit_a;
+	double	offset;
+	
 	double	len;
 
-	point = point_on_ray(&inter->ray, distance);
-	co = vector_sub(inter->ray.start, cy->cap_u);
-	m = vector_dot(inter->ray.normal, cy->normal) * distance + \
-		vector_dot(co, cy->normal);
-	a = vector_add(cy->cap_u, vector_multiple(cy->normal, m));
-	len = vector_magnitude(vector_sub(point, a));
-	m -= 1e-8;
+	if (t < 1e-8 || t > inter->distance)
+		return (false);
+	hit = point_on_ray(&inter->ray, t);
+	vec = vector_sub(inter->ray.start, cy->cap_u);
+	offset = vector_dot(inter->ray.normal, cy->normal) * t + vector_dot(vec, cy->normal);
+	hit_a = vector_add(cy->cap_u, vector_multiple(cy->normal, offset));
+	len = vector_magnitude(vector_sub(hit, hit_a));
+	offset -= 1e-8;
 	len -= 1e-8;
-	if (m >= 0 && m <= cy->height && len <= cy->radius \
-		&& distance > 1e-8 && distance < inter->distance)
+	if (offset >= 0 && offset <= cy->height && len <= cy->radius)
 	{
-		inter->cy_hp = a;
-		inter->distance = distance;
+		inter->cy_hp = hit_a;
+		inter->distance = t;
 		return (true);
 	}
 	return (false);
@@ -76,6 +88,10 @@ bool	check_cap(t_cylinder *cy, t_vector cap, t_hit *inter, double t)
 }
 */
 
+/**
+ * @brief check whether there is a intersect point of ray and plane
+ * If intersect, check the position of hit point is inside the cap range or not
+ */
 static bool check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
 {
 	t_plane plane;
@@ -102,7 +118,10 @@ static bool check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
 }
 
 /**
- * 
+ * @brief check whether there is any hit point
+ * Check wall hit first, if both two t is valid, not need to calculate the cap hit
+ * If wall hit less than two, calculate is there any valid cap hit.
+ * Then, there should be at least one valid hit point.
  */
 double check_cy_hit(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *inter)
 {

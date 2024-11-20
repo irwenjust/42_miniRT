@@ -77,19 +77,4 @@ bool parse_light(int counter[3], char **arg, t_fclass *fclass)
 	return (true);
 }
 
-void	use_Light(t_hit *closest)
-{
-	t_color	color;
-	t_light	*light;
 
-	light = fclass_index(s()->light, 0);
-	if (!light)
-	{
-		ft_putstr_fd("Cannot find any light\n", 2);
-		return ;
-	}
-	color = check_ambient(closest->color);
-	if (!is_obscured(closest))
-		color = add_color(color, diffuse(light, closest, light->brightness));
-	closest->color = color;
-}
