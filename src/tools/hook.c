@@ -1,10 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hook.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/20 15:44:24 by likong            #+#    #+#             */
+/*   Updated: 2024/11/20 16:09:26 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
-int	ft_keypress(int keycode)
+int	key_press(int keycode)
 {
 	if (keycode == ESC)
 		ft_quit();
-	else if (keycode == W || keycode == UP)
+	//why dra_image here???
+	//draw_image();
+	render();
+	return (keycode);
+}
+
+int	key_keep_press(int keycode)
+{
+	if (keycode == W || keycode == UP)
 		s()->camera.coordinate.y += 5;
 	else if (keycode == S || keycode == DOWN)
 		s()->camera.coordinate.y -= 5;
@@ -30,7 +50,7 @@ int	ft_keypress(int keycode)
 		s()->camera.normal = vector_rotate(s()->camera.normal, X, ROTATE);
 	//why dra_image here???
 	//draw_image();
-	render();
+	fake_render();
 	return (keycode);
 }
 

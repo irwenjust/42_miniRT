@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/11/19 19:10:08 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/20 15:44:59 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,9 @@ t_color	add_color(t_color c1, t_color c2);
 
 /*render*/
 //renderer
-void render();
+void	render();
+void	fake_render();
+
 //ray part
 t_ray make_ray(t_vector cur);
 t_vector	point_on_ray(t_ray *ray, double t);
@@ -183,7 +185,8 @@ void	delete_scene();
 void	error_exit(char *message);
 
 //hook.c
-int		ft_keypress(int keycode);
+int		key_press(int keycode);
+int		key_keep_press(int keycode);
 int		ft_quit();
 
 //New function for fake class

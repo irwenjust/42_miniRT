@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:15 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/18 15:16:21 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/20 15:59:59 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	put_pixel(t_color c, int x, int y)
  * @param closest The closest intersect point
  * @param ray The ray from camera direct to current viewpoint
  */
-void render()
+void	render()
 {
 	t_vector cur;
 	t_vector converted_cur;
@@ -77,6 +77,34 @@ void render()
 				check_illumination(&closest); //4-if intersect, update closest color based on other env
 			put_pixel(closest.color, cur.x, cur.y);
 		}
+	}
+	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
+}
+
+void	fake_render()
+{
+	t_vector cur;
+	t_vector converted_cur;
+	t_hit closest;
+	t_ray ray;
+
+	cur.y = 0;
+	while (cur.y < HEIGHT)
+	{
+		cur.x = 0;
+		while (cur.x < WIDTH)
+		{
+			closest.color = BLACK;
+			closest.shape = NULL;
+			closest.distance = INFINITY;
+			converted_cur = convert_viewport(cur.x, cur.y);
+			ray = make_ray(converted_cur);
+			if (check_intersection(s()->shapes, &ray, &closest))
+				check_illumination(&closest); //4-if intersect, update closest color based on other env
+			put_pixel(closest.color, cur.x, cur.y);
+			cur.x += 3;
+		}
+		cur.y += 3;
 	}
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
 }
