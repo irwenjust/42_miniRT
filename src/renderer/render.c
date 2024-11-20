@@ -61,7 +61,7 @@ void	render()
 	t_vector converted_cur;
 	t_hit closest;
 	t_ray ray;
-
+	
 	cur.y = -1;
 	while (++cur.y < HEIGHT)
 	{
@@ -79,6 +79,7 @@ void	render()
 		}
 	}
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
+	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 9 / 10));
 }
 
 void	fake_render()
@@ -107,4 +108,5 @@ void	fake_render()
 		cur.y += 3;
 	}
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
+	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 9 / 10));
 }

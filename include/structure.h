@@ -132,6 +132,7 @@ typedef struct s_windows
 	void	*mlx;
 	void	*disp;
 	void	*img;
+	void	*menu;
 	char	*addr;
 	int		height;
 	int		width;
