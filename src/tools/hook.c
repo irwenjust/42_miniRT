@@ -12,27 +12,32 @@
 
 #include "miniRT.h"
 
+
+
 int	key_press(int keycode)
 {
 	if (keycode == ESC)
 		ft_quit();
 	if (keycode == V)
-		s()->menu.mode = VIEW;
-	if (keycode == C)
-		s()->menu.mode = CAMERA;
-	if (keycode == B)
-		s()->menu.mode = LIGHT;
-	if (keycode == M)
-		s()->menu.mode = SHAPE;
-	//why dra_image here???
-	//draw_image();
-	// render();
-	display_menu();
+		change_menu(VIEW);
+	else if (keycode == C)
+		change_menu(CAMERA);
+	else if (keycode == B)
+		change_menu(LIGHT);
+	else if (keycode == M)
+		change_menu(SHAPE);
+	else if (s()->menu.mode != VIEW)
+	{
+		render();
+		// printf("2\n");
+	}
 	return (keycode);
 }
 
 int	key_keep_press(int keycode)
 {
+	if (s()->menu.mode == VIEW)
+		return (keycode);
 	if (keycode == W || keycode == UP)
 		s()->camera.coordinate.y += 5;
 	else if (keycode == S || keycode == DOWN)
@@ -60,6 +65,7 @@ int	key_keep_press(int keycode)
 	//why dra_image here???
 	//draw_image();
 	fake_render();
+	
 	return (keycode);
 }
 

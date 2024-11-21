@@ -10,6 +10,7 @@ void display_menu()
     int y;
 
     y = HEIGHT * 0.9 + 20;
+    mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 0.9));
     if (s()->menu.mode == VIEW)
     {
         display(10, y,  0xFFFFFF, "-View Mode-");
@@ -25,3 +26,13 @@ void display_menu()
         display(10, y,  0xFFFFFF, "-empty-");
 }
 
+void change_menu(t_mode mode)
+{
+	if	(s()->menu.mode != mode)
+	{
+		s()->menu.mode = mode;
+		// render();
+		display_menu();
+		// printf("1 %s\n", MENUKEY);
+	}
+}
