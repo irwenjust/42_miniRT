@@ -65,4 +65,5 @@ void	parse_args()
 		free_matrix(tmp);
 	}
 	check_counter(counter);
+	
 }

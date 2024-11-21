@@ -17,6 +17,7 @@
 # define FAILURE 1
 
 # define ESC 65307
+# define SPACE 9
 # define UP 65362
 # define DOWN 65364
 # define LEFT 65361
@@ -37,6 +38,7 @@
 # define J 106
 # define K 107
 # define L 108
+# define N 110
 
 # define MENUKEY "VCBM"
 
@@ -146,7 +148,8 @@ bool	parse_light(int counter[3], char **arg, t_fclass *light);
 t_light	*copy_light(t_light *light);
 //shape part
 t_shape	*copy_shape(t_shape *shape);
-t_shape	*new_shape(void *data, t_shape_type type, int id);
+// t_shape	*new_shape(void *data, t_shape_type type, int id);
+t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id);
 //sphere part
 bool	parse_sphere(char **tmp, t_fclass *fclass);
 bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter);

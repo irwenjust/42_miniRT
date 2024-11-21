@@ -84,6 +84,20 @@ typedef struct s_light
 
 /*shape part*/
 //entities
+typedef struct s_sphere
+{
+	t_vector	center;
+	double		radius;
+	t_color		color;
+}	t_sphere;
+
+typedef struct s_plane
+{
+	t_vector	center;
+	t_vector	normal;
+	t_color		color;
+}	t_plane;
+
 typedef struct s_cylinder
 {
 	t_vector	center;
@@ -94,20 +108,6 @@ typedef struct s_cylinder
 	t_vector	cap_u;
 	t_vector	cap_b;
 }	t_cylinder;
-
-typedef struct s_plane
-{
-	t_vector	center;
-	t_vector	normal;
-	t_color		color;
-}	t_plane;
-
-typedef struct s_sphere
-{
-	t_vector	center;
-	double		radius;
-	t_color		color;
-}	t_sphere;
 
 //shape manage
 typedef union s_shape_data
@@ -122,6 +122,9 @@ typedef struct s_shape
 	int				id;
 	t_shape_type	type;
 	t_shape_data	data;
+	int sp_id;
+	int pl_id;
+	int cy_id;
 }	t_shape;
 
 /**
@@ -203,9 +206,11 @@ typedef struct s_scene
 	char		**args; //map
 	t_fclass	*light;
 	t_fclass	*shapes;
+	int		shape_nbr[3];
 	t_ambient	ambient;
 	t_camera	camera;
-	t_menu menu;
+	t_menu		menu;
+	int			select;
 	double		view_w;
 	double		view_h;
 	t_vector	normal_w; //go right
