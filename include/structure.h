@@ -124,37 +124,6 @@ typedef struct s_shape
 	t_shape_data	data;
 }	t_shape;
 
-/*macro struct*/
-typedef struct s_windows
-{
-	// mlx_t	*mlx;
-	// mlx_image_t	*img;
-	void	*mlx;
-	void	*disp;
-	void	*img;
-	void	*menu;
-	char	*addr;
-	int		height;
-	int		width;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_windows;
-
-typedef struct s_scene
-{
-	t_fclass	*light;
-	t_fclass	*shapes;
-	char		**args; //map
-	t_ambient	ambient;
-	t_camera	camera;
-	double		view_w;
-	double		view_h;
-	t_vector	normal_w; //go right
-	t_vector	normal_h; //go down
-	t_windows	win;
-}	t_scene;
-
 /**
  * @brief equation structrue
  * @param t scalar parameter, how far it traversal along the ray
@@ -197,5 +166,53 @@ typedef struct s_hit
 	t_vector	cy_hp;
 	double	distance;
 } t_hit;
+
+typedef enum s_mode
+{
+	VIEW,
+	CAMERA,
+	LIGHT,
+	SHAPE
+}	t_mode;
+
+/*macro struct*/
+typedef struct s_menu
+{
+	t_mode mode;
+	
+} t_menu;
+
+typedef struct s_windows
+{
+	// mlx_t	*mlx;
+	// mlx_image_t	*img;
+	void	*mlx;
+	void	*disp;
+	void	*img;
+	void	*menu;
+	char	*addr;
+	int		height;
+	int		width;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_windows;
+
+typedef struct s_scene
+{
+	char		**args; //map
+	t_fclass	*light;
+	t_fclass	*shapes;
+	t_ambient	ambient;
+	t_camera	camera;
+	t_menu menu;
+	double		view_w;
+	double		view_h;
+	t_vector	normal_w; //go right
+	t_vector	normal_h; //go down
+	t_windows	win;
+}	t_scene;
+
+
 
 #endif

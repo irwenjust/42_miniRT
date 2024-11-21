@@ -79,7 +79,8 @@ void	render()
 		}
 	}
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
-	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 9 / 10));
+	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 0.9));
+	display_menu();
 }
 
 void	fake_render()
@@ -108,5 +109,5 @@ void	fake_render()
 		cur.y += 3;
 	}
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
-	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 9 / 10));
+	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 0.9));
 }

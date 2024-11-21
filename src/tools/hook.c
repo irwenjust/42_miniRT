@@ -16,9 +16,18 @@ int	key_press(int keycode)
 {
 	if (keycode == ESC)
 		ft_quit();
+	if (keycode == V)
+		s()->menu.mode = VIEW;
+	if (keycode == C)
+		s()->menu.mode = CAMERA;
+	if (keycode == B)
+		s()->menu.mode = LIGHT;
+	if (keycode == M)
+		s()->menu.mode = SHAPE;
 	//why dra_image here???
 	//draw_image();
-	render();
+	// render();
+	display_menu();
 	return (keycode);
 }
 

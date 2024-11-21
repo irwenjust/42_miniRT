@@ -15,9 +15,7 @@
 void	*ft_matrix_new(size_t lines)
 {
 	void	*res;
-	size_t	i;
 
-	i = 0;
 	res = ft_calloc(lines + 1, sizeof(char *));
 	if (!res)
 		return (NULL);
