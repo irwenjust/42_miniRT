@@ -50,17 +50,17 @@ int	key_keep_press(int keycode)
 		s()->camera.coordinate.z += 5;
 	else if (keycode == E)
 		s()->camera.coordinate.z -= 5;
-	else if (keycode == I)
+	else if (keycode == U) //I
 		s()->camera.normal = vector_rotate(s()->camera.normal, Z, ROTATE);
-	else if (keycode == K)
+	else if (keycode == O) //K
 		s()->camera.normal = vector_rotate(s()->camera.normal, Z, (-ROTATE));
-	else if (keycode == J)
+	else if (keycode == L) //J
 		s()->camera.normal = vector_rotate(s()->camera.normal, Y, -ROTATE);
-	else if (keycode == L)
+	else if (keycode == J) //L
 		s()->camera.normal = vector_rotate(s()->camera.normal, Y, ROTATE);
-	else if (keycode == U)
+	else if (keycode == K) //U
 		s()->camera.normal = vector_rotate(s()->camera.normal, X, -ROTATE);
-	else if (keycode == O)
+	else if (keycode == I) //O
 		s()->camera.normal = vector_rotate(s()->camera.normal, X, ROTATE);
 	//why dra_image here???
 	//draw_image();

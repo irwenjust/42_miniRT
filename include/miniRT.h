@@ -30,7 +30,7 @@
 # define V 118 //view mode
 # define C 99 //camera mode
 # define B 98 //light bulb mode
-# define M 109 //shape mode
+# define M 109 //model mode
 # define U 117
 # define I 105
 # define O 111
@@ -182,6 +182,8 @@ bool solve(t_equation *equation);
 
 /*menu*/
 void display_menu();
+//menu tool
+void	display(int x, int y, int color, char *text);
 void change_menu(t_mode mode);
 
 //free the scene
