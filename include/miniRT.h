@@ -38,6 +38,8 @@
 # define K 107
 # define L 108
 
+# define MENUKEY "VCBM"
+
 # define ROTATE 0.1
 
 # define HAS_COMMA '1'
@@ -180,6 +182,7 @@ bool solve(t_equation *equation);
 
 /*menu*/
 void display_menu();
+void change_menu(t_mode mode);
 
 //free the scene
 void	delete_scene();

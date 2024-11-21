@@ -45,6 +45,7 @@ int	main(int argc, char **argv)
 		error_exit("need and only need one argument");
 	init_scene(argv[1]);
 	render();
+	// display_menu();
 	
 	mlx_key_hook(s()->win.disp, key_press, NULL);
 	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, key_keep_press, NULL);
