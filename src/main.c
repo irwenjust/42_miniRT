@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:54:26 by likong            #+#    #+#             */
-/*   Updated: 2024/11/20 15:56:21 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/21 16:05:38 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // 	}
 // 	// if (xevent->type == ConfigureNotify)
 // 	// {
-// 	// 	int new_width = xevent->xconfigure.width;
+// 	// 	int new_width = xevent->xconfigure.width;dc
 // 	// 	int new_height = xevent->xconfigure.height;
 
 // 	// 	if (new_width != s()->view_w || new_height != s()->view_h)
@@ -39,6 +39,17 @@
 // 	return (0);
 // }
 
+static int	control_center()
+{
+	// if (change_menu())
+	if (s()->menu.mode == VIEW)
+	{
+		render();
+		// printf("2\n");
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	if (argc != 2)
@@ -49,12 +60,14 @@ int	main(int argc, char **argv)
 	
 	mlx_key_hook(s()->win.disp, key_press, NULL);
 	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, key_keep_press, NULL);
+	// mlx_hook(s()->win.disp, KeyRelease, KeyReleaseMask, key_release, NULL);
 	// mlx_loop_hook(s()->win.mlx, );
 	// render();
 	// print_shape((t_shape *)s()->shapes->array[2]);
 	// mlx_hook(s()->win.disp, ConfigureNotify, StructureNotifyMask, resize_win, NULL);
 	// mlx_loop_hook(s()->win.mlx, (void *)resize_win, NULL);
 	mlx_hook(s()->win.disp, DestroyNotify, StructureNotifyMask, ft_quit, NULL); // need to adjust later maybe
+	mlx_loop_hook(s()->win.mlx, control_center, NULL);
 	mlx_loop(s()->win.mlx);
 	// print_shape((t_shape *)s()->shapes->array[1]);
 	delete_scene();
