@@ -39,6 +39,8 @@ void	delete_scene()
 	// 	mlx_terminate(s()->win.mlx);
 	if (s()->win.img)
 		mlx_destroy_image(s()->win.mlx, s()->win.img);
+	if (s()->win.menu)
+		mlx_destroy_image(s()->win.mlx, s()->win.menu);
 	if (s()->win.disp)
 		mlx_destroy_window(s()->win.mlx, s()->win.disp);
 	if (s()->win.mlx)

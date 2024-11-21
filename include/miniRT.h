@@ -27,9 +27,10 @@
 # define D 100
 # define Q 113
 # define E 101
-// # define B 98
-// # define C 99
-
+# define V 118 //view mode
+# define C 99 //camera mode
+# define B 98 //light bulb mode
+# define M 109 //shape mode
 # define U 117
 # define I 105
 # define O 111
@@ -41,13 +42,13 @@
 
 # define HAS_COMMA '1'
 
-# define AMBIENT 0
-# define CAMERA 1
-# define LIGHT 2
+// # define AMBIENT 0
+// # define CAMERA 1
+// # define LIGHT 2
 
-# define R 0
-# define G 1
-# define B 2
+// # define R 0
+// # define G 1
+// # define B 2
 
 # define X 0
 # define Y 1
@@ -177,6 +178,8 @@ double			vector_cos(t_vector v1, t_vector v2);
 //equation
 bool solve(t_equation *equation);
 
+/*menu*/
+void display_menu();
 
 //free the scene
 void	delete_scene();

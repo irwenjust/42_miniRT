@@ -90,4 +90,5 @@ void	init_scene(char *file_name)
 	parse_args();
 	init_viewport();
 	init_windows();
+	s()->menu.mode = VIEW;
 }
