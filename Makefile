@@ -20,7 +20,7 @@ SRCS =	main.c \
 		ambient.c camera.c cylinder.c cylinder_tool.c light.c plane.c shape.c  sphere.c \
 		fclass.c \
 		init.c validate.c \
-		menu.c \
+		menu.c menu_tool.c\
 		parse_args.c parse_tool.c \
 		color.c illumination.c intersection.c ray.c reflect.c render.c \
 		equation.c error.c hook.c magic_s.c \
