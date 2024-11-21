@@ -91,4 +91,5 @@ void	init_scene(char *file_name)
 	init_viewport();
 	init_windows();
 	s()->menu.mode = VIEW;
+	// s()->select = 0;
 }

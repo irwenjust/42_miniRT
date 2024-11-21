@@ -12,6 +12,6 @@ void change_menu(t_mode mode)
 		s()->menu.mode = mode;
 		// render();
 		display_menu();
-		// printf("1 %s\n", MENUKEY);
+		// printf("1 %i\n", mode);
 	}
 }

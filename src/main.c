@@ -45,7 +45,7 @@ static int	control_center()
 	if (s()->menu.mode == VIEW)
 	{
 		render();
-		// printf("2\n");
+		printf("render\n");
 	}
 	return (0);
 }
