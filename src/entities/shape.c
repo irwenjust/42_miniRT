@@ -21,9 +21,7 @@ t_shape	*copy_shape(t_shape *shape)
 		return (NULL);
 	res->id = shape->id;
 	res->type = shape->type;
-	res->sp_id = shape->sp_id;
-	res->pl_id = shape->pl_id;
-	res->cy_id = shape->cy_id;
+	res->shape_id[res->type] = shape->shape_id[shape->type];
 	if (res->type == SPHERE)
 		res->data.sphere = shape->data.sphere;
 	else if (res->type == PLANE)
@@ -42,21 +40,13 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 		return (NULL);
 	shape->id = id;
 	shape->type = type;
-	if (shape->type == PLANE)
-	{
-		shape->data.plane = *(t_plane *)data;
-		shape->pl_id = shape_id;
-	}
-	else if (shape->type == SPHERE)
-	{
+	shape->shape_id[type] = shape_id;
+	if (shape->type == SPHERE)
 		shape->data.sphere = *(t_sphere *)data;
-		shape->sp_id = shape_id;
-	}
+	else if (shape->type == PLANE)
+		shape->data.plane = *(t_plane *)data;
 	else if (shape->type == CYLINDER)
-	{
 		shape->data.cylinder = *(t_cylinder *)data;
-		shape->cy_id = shape_id;
-	}
 	return (shape);
 }
 

@@ -35,7 +35,6 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 {
 	t_shape		*shape;
 	t_sphere	sphere;
-	static int sp_id = 0;
 
 	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0101"))
 		return (ERROR("sphere: wrong args format"), false);
@@ -45,9 +44,10 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 		return (ERROR("light: wrong color value"), false);
 	if (!new_shpere(arg, &sphere))
 		return (ERROR("sphere: fail to create new shpere"), false);
-	shape = new_shape(&sphere, SPHERE, fclass->size, sp_id);
-	sp_id++;
-	printf("sp_id %i\n", sp_id);
+	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
+	s()->shape_nbr[SPHERE]++;
+	// printf("shape_nbr %i\n", s()->shape_nbr[SPHERE]);
+	// printf("shape_id %i\n", shape->shape_id[SPHERE]);
 	push_to_fclass(fclass, shape);
 	return (true);
 }
