@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:51 by likong            #+#    #+#             */
-/*   Updated: 2024/11/19 14:15:17 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:30:55 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,8 @@ typedef struct s_scene
 	t_vector	normal_w; //go right
 	t_vector	normal_h; //go down
 	t_windows	win;
+	struct timeval last_frame_time;
+	
 }	t_scene;
 
 

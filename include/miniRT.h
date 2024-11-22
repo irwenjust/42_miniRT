@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/11/20 15:44:59 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:44:57 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define K 107
 # define L 108
 # define N 110
+
+# define FRAME_RATE 30 //Target frame rate (15 fps)
+# define FRAME_TIME (1000000 / FRAME_RATE)
 
 # define MENUKEY "VCBM"
 
@@ -92,6 +95,7 @@ stdlib: malloc, free
 #include <stdbool.h>
 #include <math.h>
 #include <stdint.h>
+#include <sys/time.h>
 
 #include "libft.h"
 #include "structure.h"

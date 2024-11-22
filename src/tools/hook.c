@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:44:24 by likong            #+#    #+#             */
-/*   Updated: 2024/11/21 15:49:09 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:36:46 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	key_keep_press(int keycode)
 		s()->camera.normal = vector_rotate(s()->camera.normal, X, ROTATE);
 	//why dra_image here???
 	//draw_image();
-	fake_render();
+	// fake_render();
 	
 	return (keycode);
 }
