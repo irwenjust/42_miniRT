@@ -60,17 +60,17 @@ void	control_frame_rate()
         usleep(FRAME_TIME - elapsed_time);
 }
 
-static int	control_center()
-{
-	if (s()->menu.mode == VIEW)
-	{
-		render();
-		// printf("render\n");
-	}
-	else if (s()->menu.mode == CAMERA)
-		control_frame_rate();
-	return (0);
-}
+// static int	control_center()
+// {
+// 	if (s()->menu.mode == VIEW)
+// 	{
+// 		render();
+// 		// printf("render\n");
+// 	}
+// 	else if (s()->menu.mode == CAMERA)
+// 		control_frame_rate();
+// 	return (0);
+// }
 
 int	main(int argc, char **argv)
 {
@@ -79,10 +79,15 @@ int	main(int argc, char **argv)
 	init_scene(argv[1]);
 	render();
 	
-	// display_menu();
-	
-	mlx_key_hook(s()->win.disp, key_press, NULL);
-	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, key_keep_press, NULL);
+	//new key hook
+	ft_bzero(&(s()->keys), sizeof(t_key));
+	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, press_key, &s()->keys);
+	mlx_hook(s()->win.disp, KeyRelease, KeyReleaseMask, release_key, &s()->keys);
+	mlx_loop_hook(s()->win.mlx, update, &s()->keys);
+	//end new key hook
+
+	// mlx_key_hook(s()->win.disp, key_press, NULL);
+	// mlx_hook(s()->win.disp, KeyPress, KeyPressMask, key_keep_press, NULL);
 	// mlx_hook(s()->win.disp, KeyRelease, KeyReleaseMask, key_release, NULL);
 	// mlx_loop_hook(s()->win.mlx, );
 	// render();
@@ -90,7 +95,7 @@ int	main(int argc, char **argv)
 	// mlx_hook(s()->win.disp, ConfigureNotify, StructureNotifyMask, resize_win, NULL);
 	// mlx_loop_hook(s()->win.mlx, (void *)resize_win, NULL);
 	mlx_hook(s()->win.disp, DestroyNotify, StructureNotifyMask, ft_quit, NULL); // need to adjust later maybe
-	mlx_loop_hook(s()->win.mlx, control_center, NULL);
+	// mlx_loop_hook(s()->win.mlx, control_center, NULL);
 	mlx_loop(s()->win.mlx);
 	// print_shape((t_shape *)s()->shapes->array[1]);
 	delete_scene();

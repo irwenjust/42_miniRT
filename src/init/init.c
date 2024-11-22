@@ -92,5 +92,5 @@ void	init_scene(char *file_name)
 	init_windows();
 	s()->menu.mode = VIEW;
 	gettimeofday(&s()->last_frame_time, NULL);
-	// s()->select = 0;
+	
 }

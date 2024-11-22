@@ -18,32 +18,43 @@
 
 # define ESC 65307
 # define SPACE 9
-# define UP 65362
-# define DOWN 65364
-# define LEFT 65361
-# define RIGHT 65363
+// # define UP 65362
+// # define DOWN 65364
+// # define LEFT 65361
+// # define RIGHT 65363
 # define W 119
 # define S 115
 # define A 97
 # define D 100
 # define Q 113
 # define E 101
+
 # define V 118 //view mode
 # define C 99 //camera mode
 # define B 98 //light bulb mode
 # define M 109 //model mode
+# define N 110
+
 # define U 117
 # define I 105
 # define O 111
 # define J 106
 # define K 107
 # define L 108
-# define N 110
+
+# define ONE 49
+# define TWO 50
+# define THREE 51
+
+# define MENU_KEY "vcbm"
+# define PRESET_KEY "123"
+# define MOVE_KEY
 
 # define FRAME_RATE 30 //Target frame rate (15 fps)
 # define FRAME_TIME (1000000 / FRAME_RATE)
 
-# define MENUKEY "VCBM"
+
+
 
 # define ROTATE 0.1
 
@@ -191,7 +202,7 @@ bool solve(t_equation *equation);
 void display_menu();
 //menu tool
 void	display(int x, int y, int color, char *text);
-void change_menu(t_mode mode);
+// void change_menu(t_mode mode);
 
 //free the scene
 void	delete_scene();
@@ -200,9 +211,13 @@ void	delete_scene();
 void	error_exit(char *message);
 
 //hook.c
-int		key_press(int keycode);
-int		key_keep_press(int keycode);
+// int		key_press(int keycode);
+// int		key_keep_press(int keycode);
 int		ft_quit();
+
+int press_key(int keycode, t_key *keys);
+int release_key(int keycode, t_key *keys);
+int update(t_key *keys);
 
 //New function for fake class
 t_fclass	*fclass_new(void *(*cpy)(void *), int (*cmp)(void *, void *),
