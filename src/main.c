@@ -72,6 +72,12 @@ void	control_frame_rate()
 // 	return (0);
 // }
 
+int	ft_quit()  //may change to void
+{
+	delete_scene();
+	exit(SUCCESS);
+}
+
 int	main(int argc, char **argv)
 {
 	if (argc != 2)
@@ -81,6 +87,7 @@ int	main(int argc, char **argv)
 	
 	//new key hook
 	ft_bzero(&(s()->keys), sizeof(t_key));
+	s()->keys.cur_keycode = -1;
 	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, press_key, &s()->keys);
 	mlx_hook(s()->win.disp, KeyRelease, KeyReleaseMask, release_key, &s()->keys);
 	mlx_loop_hook(s()->win.mlx, update, &s()->keys);

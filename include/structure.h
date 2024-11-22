@@ -217,6 +217,7 @@ typedef struct s_key
 	int key[256];
 	int key_pressed;
 	int action;
+	int cur_keycode;
 	
 } t_key;
 
