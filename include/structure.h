@@ -178,6 +178,7 @@ typedef enum s_mode
 }	t_mode;
 
 /*macro struct*/
+//menu 结构体可能可以没有
 typedef struct s_menu
 {
 	t_mode mode;
@@ -200,23 +201,43 @@ typedef struct s_windows
 	int		endian;
 }	t_windows;
 
+typedef enum s_key_action
+{
+	NOTHING,
+	MENU,
+	PRESET,
+	MOVEMENT,
+	ROTATION,
+	SELECT,
+	QUIT
+} t_key_action;
+
+typedef struct s_key
+{
+	int key[256];
+	int key_pressed;
+	int action;
+	
+} t_key;
+
 typedef struct s_scene
 {
 	char		**args; //map
 	t_fclass	*light;
 	t_fclass	*shapes;
-	int shape_nbr[3];
+	int shape_nbr[3]; // notsure
 	t_ambient	ambient;
 	t_camera	camera;
-	t_menu		menu;
-	int			select;
+	t_menu		menu; //not sure
+	int			select; //not sure
 	double		view_w;
 	double		view_h;
 	t_vector	normal_w; //go right
 	t_vector	normal_h; //go down
 	t_windows	win;
 	struct timeval last_frame_time;
-	
+	t_key keys; //not sure
+	int preset; //for test
 }	t_scene;
 
 
