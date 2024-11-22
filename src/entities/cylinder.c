@@ -44,7 +44,6 @@ bool parse_cylinder(char **arg, t_fclass *fclass)
 {
 	t_shape *shape;
 	t_cylinder cylinder;
-	static int cy_id=0;
 
 	if (ft_matrix_size(arg) != 6 || !check_syntax(arg, "011001"))
 		return (ERROR("cylinder: wrong args format"), false);
@@ -58,7 +57,8 @@ bool parse_cylinder(char **arg, t_fclass *fclass)
 		return (ERROR("cylinder: fail to create new shpere"), false);
 	cylinder.cap_u = vector_add(cylinder.center, vector_multiple(cylinder.normal, -cylinder.height / 2.0));
 	cylinder.cap_b = vector_add(cylinder.center, vector_multiple(cylinder.normal, cylinder.height / 2.0));
-	shape = new_shape(&cylinder, CYLINDER, fclass->size, cy_id++);
+	shape = new_shape(&cylinder, CYLINDER, fclass->size, s()->shape_nbr[CYLINDER]);
+	s()->shape_nbr[CYLINDER]++;
 	push_to_fclass(fclass, shape);
 	return (true);
 }

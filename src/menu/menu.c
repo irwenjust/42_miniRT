@@ -78,23 +78,23 @@ void display_shape(int x, int y)
 {
     t_shape *shape;
 
-    printf("%i\n", s()->select);
+    // printf("select %i\n", s()->select);
     shape = s()->shapes->array[s()->select];
     display(x += (24 * 6), y,  0xFFD700, "Current Shape:");
     if (shape->type == SPHERE)
     {
         display(x += (16 * 6), y,  0xFFD700, "Sphere");
-        display(x += (7 * 6), y,  0xFFD700, ft_itoa(shape->sp_id + 1));
+        display(x += (7 * 6), y,  0xFFD700, ft_itoa(shape->shape_id[SPHERE]));
     }
     else if (shape->type == PLANE)
     {
         display(x += (16 * 6), y,  0xFFD700, "Plane");
-        display(x += (6 * 6), y,  0xFFD700, ft_itoa(shape->pl_id + 1));
+        display(x += (6 * 6), y,  0xFFD700, ft_itoa(shape->shape_id[PLANE]));
     }
     else if (shape->type == CYLINDER)
     {
         display(x += (16 * 6), y,  0xFFD700, "Cylinder");
-        display(x += (9 * 6), y,  0xFFD700, ft_itoa(shape->cy_id + 1));
+        display(x += (9 * 6), y,  0xFFD700, ft_itoa(shape->shape_id[CYLINDER]));
     }
 }
 

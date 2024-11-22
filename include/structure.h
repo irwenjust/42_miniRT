@@ -122,9 +122,8 @@ typedef struct s_shape
 	int				id;
 	t_shape_type	type;
 	t_shape_data	data;
-	int sp_id;
-	int pl_id;
-	int cy_id;
+	int shape_id[3];
+	
 }	t_shape;
 
 /**
@@ -206,7 +205,7 @@ typedef struct s_scene
 	char		**args; //map
 	t_fclass	*light;
 	t_fclass	*shapes;
-	int		shape_nbr[3];
+	int shape_nbr[3];
 	t_ambient	ambient;
 	t_camera	camera;
 	t_menu		menu;
