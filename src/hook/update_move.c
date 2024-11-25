@@ -14,7 +14,7 @@ static void move_camera(t_key *keys)
 		s()->camera.coordinate.z += 0.3;
 	else if (keys->key[E])
 		s()->camera.coordinate.z -= 0.3;
-    fake_render();
+    control_frame_rate();
     printf("move canera\n");
 }
 
@@ -27,7 +27,7 @@ static void move_shape(t_key *keys, t_shape *shape)
 	else if (shape->type == CYLINDER)
 		move_cylinder(keys, &(shape->data.cylinder));
 	print_shape(shape);
-    fake_render();
+    control_frame_rate();
 }
 
 void update_move(t_key *keys)

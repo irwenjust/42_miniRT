@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:54:26 by likong            #+#    #+#             */
-/*   Updated: 2024/11/25 10:56:18 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/25 11:00:51 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ void	control_frame_rate()
     } 
 	else
         usleep(FRAME_TIME - elapsed_time);
-}
-
-int	ft_quit()  //may change to void
-{
-	delete_scene();
-	exit(SUCCESS);
 }
 
 int	main(int argc, char **argv)

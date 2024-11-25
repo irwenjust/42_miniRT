@@ -35,25 +35,3 @@ void rotate_camera(t_key *keys)
     control_frame_rate();
     printf("rotate\n");
 }
-
-static void rotate_shape(t_key *keys, t_shape *shape)
-{
-	if (shape->type == SPHERE)
-		return ;
-	if (shape->type == PLANE)
-		rotate_plane(keys, &(shape->data.plane));
-	else if (shape->type == CYLINDER)
-	{
-		// print_shape(shape);
-		rotate_cylinder(keys, &(shape->data.cylinder));
-	}
-    control_frame_rate();
-}
-
-void update_rotate(t_key *keys)
-{
-    if (s()->menu.mode == CAMERA)
-        rotate_camera(keys);
-    if (s()->menu.mode == SHAPE)
-        rotate_shape(keys, s()->shapes->array[s()->select]);
-}
