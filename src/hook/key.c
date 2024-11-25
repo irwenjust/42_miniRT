@@ -11,8 +11,9 @@ int press_key(int keycode, t_key *keys)
         keys->action = QUIT;
         return (0);
     }
-    //record key
-    if (keycode >= 0 && keycode < 256)
+    else if (keycode == TAB)
+        keys->action = SELECT;
+    else if (keycode >= 0 && keycode < 256)
         keys->key[keycode] = 1;
     //get key action
     if (ft_strchr(MENU_KEY, (char)(keycode)))
@@ -23,13 +24,10 @@ int press_key(int keycode, t_key *keys)
         keys->action = MOVEMENT;
     else if (ft_strchr(ROTATE_KEY, (char)(keycode)))
         keys->action = ROTATION;
-    //select action
-    
     return (0);
 }
 
 /**/
-
 int release_key(int keycode, t_key *keys)
 {
     if (keys->cur_keycode == keycode)
@@ -40,6 +38,7 @@ int release_key(int keycode, t_key *keys)
         }
         keys->key_pressed = 0;
         keys->action = NOTHING;
+        keys->cur_keycode = -1;
     }
     return (0);
 }

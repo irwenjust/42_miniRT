@@ -33,6 +33,17 @@ static void print_plane(t_plane plane)
 		plane.color.green, plane.color.blue);
 }
 
+static void print_cylinder(t_cylinder cylinder)
+{
+	printf("cylinder:\n");
+	printf("  Center: %.2lf, %.2lf, %.2lf\n", \
+		cylinder.center.x, cylinder.center.y, cylinder.center.z);
+	printf("  Normal: %.2lf, %.2lf, %.2lf\n", \
+		cylinder.normal.x, cylinder.normal.y, cylinder.normal.z);
+	printf("  Color:  %d, %d, %d\n", cylinder.color.red,
+		cylinder.color.green, cylinder.color.blue);
+}
+
 void	print_shape(t_shape *shape)
 {
 	printf("ID: %d\n", shape->id);
@@ -40,6 +51,8 @@ void	print_shape(t_shape *shape)
 		print_sphere(shape->data.sphere);
 	if (shape->type == PLANE)
 		print_plane(shape->data.plane);
+	if (shape->type == CYLINDER)
+		print_cylinder(shape->data.cylinder);
 }
 
 void	print_light(t_light *light)

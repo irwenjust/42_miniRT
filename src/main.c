@@ -72,11 +72,7 @@ void	control_frame_rate()
 // 	return (0);
 // }
 
-int	ft_quit()  //may change to void
-{
-	delete_scene();
-	exit(SUCCESS);
-}
+
 
 int	main(int argc, char **argv)
 {
