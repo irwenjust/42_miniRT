@@ -31,5 +31,7 @@ void rotate_cylinder(t_key *keys, t_cylinder *cylinder)
 		cylinder->normal = vector_rotate(cylinder->normal, X, -ROTATE);
 	else if (keys->key[K])
 		cylinder->normal = vector_rotate(cylinder->normal, X, ROTATE);
+	cylinder->cap_u = vector_add(cylinder->center, vector_multiple(cylinder->normal, -cylinder->height / 2.0));
+	cylinder->cap_b = vector_add(cylinder->center, vector_multiple(cylinder->normal, cylinder->height / 2.0));
 	printf("rotate cylinder\n");
 }
