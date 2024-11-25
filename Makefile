@@ -26,6 +26,7 @@ SRCS =	main.c \
 		color.c illumination.c intersection.c ray.c reflect.c render.c \
 		backup.c equation.c error.c magic_s.c \
 		vector_op_basic.c vector_op_plus.c vector_tools.c vector_rotate.c \
+		bvh.c \
 		debug_shape.c 
 
 OBJS_DIR = objs

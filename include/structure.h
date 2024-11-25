@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:51 by likong            #+#    #+#             */
-/*   Updated: 2024/11/22 11:30:55 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/25 21:28:24 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,21 @@ typedef struct s_key
 	int cur_keycode;
 	
 } t_key;
+
+typedef struct s_aabb
+{
+	t_vector	min;
+	t_vector	max;
+}	t_aabb;
+
+typedef struct s_bvh
+{
+	int				id;
+	t_aabb			box;
+	t_shape			*shaps;
+	struct s_bvh	*left;
+	struct s_bvh	*right;
+}	t_bvh;
 
 typedef struct s_scene
 {
