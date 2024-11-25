@@ -1,6 +1,13 @@
 #include "miniRT.h"
 
-void update_menu(t_key *keys)
+//may change to void
+int	ft_quit()
+{
+	delete_scene();
+	exit(SUCCESS);
+}
+
+static void update_menu(t_key *keys)
 {
     t_mode mode;
 
@@ -13,9 +20,11 @@ void update_menu(t_key *keys)
 		mode = LIGHT;
 	else if (keys->key[M])
 		mode = SHAPE;
+    //change mode
     if	(mode >= 0 && s()->menu.mode != mode)
 	{
 		s()->menu.mode = mode;
+        s()->select = 0;
 		display_menu();
         printf("update menu\n"); //for test
 	}
@@ -23,7 +32,7 @@ void update_menu(t_key *keys)
 }
 
 /*FOR TEST, need to update later*/
-void update_preset(t_key *keys)
+static void update_preset(t_key *keys)
 {
     int preset;
 
@@ -42,16 +51,16 @@ void update_preset(t_key *keys)
     keys->action = NOTHING;
 }
 
-void update_move(t_key *keys)
+static void update_select(t_key *keys)
 {
-    if (s()->menu.mode == CAMERA)
-        move_camera(keys);
-}
-
-void update_rotate(t_key *keys)
-{
-    if (s()->menu.mode == CAMERA)
-        rotate_camera(keys);
+    if (s()->menu.mode == SHAPE)
+    {
+        s()->select++;
+        if (s()->select == s()->shapes->size)
+			s()->select = 0;
+		display_menu();
+    }
+    keys->action = NOTHING;
 }
 
 int update(t_key *keys)
@@ -66,7 +75,7 @@ int update(t_key *keys)
         update_move(keys);
     else if (keys->action == ROTATION)
         update_rotate(keys);
-    // else if (keys->action == SELECT)
-    //     update_select(keys);
+    else if (keys->action == SELECT)
+        update_select(keys);
     return (0);
 }

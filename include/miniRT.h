@@ -17,12 +17,12 @@
 # define FAILURE 1
 
 # define ESC 65307
-# define SPACE 9
+# define TAB 65289
+// # define SPACE 9
 // # define UP 65362
 // # define DOWN 65364
 // # define LEFT 65361
 // # define RIGHT 65363
-
 
 # define V 118 //view mode
 # define C 99 //camera mode
@@ -186,9 +186,16 @@ int press_key(int keycode, t_key *keys);
 int release_key(int keycode, t_key *keys);
 //update
 int update(t_key *keys);
-//update camera
-void move_camera(t_key *keys);
-void rotate_camera(t_key *keys);
+void update_move(t_key *keys);
+void update_rotate(t_key *keys);
+//move shape
+void move_sphere(t_key *keys, t_sphere *sphere);
+void move_plane(t_key *keys, t_plane *plane);
+void move_cylinder(t_key *keys, t_cylinder *cylinder);
+//rotate shape
+void rotate_plane(t_key *keys, t_plane *plane);
+void rotate_cylinder(t_key *keys, t_cylinder *cylinder);
+
 
 /*vector part*/
 //vector op basic
