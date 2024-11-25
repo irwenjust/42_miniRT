@@ -25,6 +25,7 @@ static void update_menu(t_key *keys)
 	{
 		s()->menu.mode = mode;
         s()->select = 0;
+        render();
 		display_menu();
         printf("update menu\n"); //for test
 	}

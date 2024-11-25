@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/11/22 11:52:30 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/25 09:58:49 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,9 @@ t_color	add_color(t_color c1, t_color c2);
 //renderer
 void	render();
 void	fake_render();
+
+//control frame rate
+void	control_frame_rate();
 
 //ray part
 t_ray make_ray(t_vector cur);
