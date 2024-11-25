@@ -15,7 +15,6 @@ int press_key(int keycode, t_key *keys)
         keys->action = SELECT;
     else if (keycode >= 0 && keycode < 256)
         keys->key[keycode] = 1;
-    //get key action
     if (ft_strchr(MENU_KEY, (char)(keycode)))
         keys->action = MENU;
     else if (ft_strchr(PRESET_KEY, (char)(keycode)))
@@ -24,6 +23,8 @@ int press_key(int keycode, t_key *keys)
         keys->action = MOVEMENT;
     else if (ft_strchr(ROTATE_KEY, (char)(keycode)))
         keys->action = ROTATION;
+    else if (keycode == G)
+        keys->action = RESET;
     return (0);
 }
 

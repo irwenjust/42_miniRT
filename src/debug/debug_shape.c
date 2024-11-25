@@ -63,3 +63,12 @@ void	print_light(t_light *light)
 	printf("Light color: %d,%d,%d\n",
 		light->color.red, light->color.green, light->color.blue);
 }
+
+void print_camera(t_camera *camera)
+{
+	printf("camera coordinate: %1lf,%1lf,%1lf\n",
+		camera->coordinate.x, camera->coordinate.y, camera->coordinate.z);
+	printf("camera coordinate: %1lf,%1lf,%1lf\n",
+		camera->normal.x, camera->normal.y, camera->normal.z);
+	printf("camera brightness level: %d\n", camera->fov);
+}

@@ -28,7 +28,7 @@
 # define C 99 //camera mode
 # define B 98 //light bulb mode
 # define M 109 //model mode
-# define N 110
+# define G 103
 
 # define W 119
 # define A 97
@@ -55,8 +55,6 @@
 
 # define FRAME_RATE 60 //Target frame rate (15 fps)
 # define FRAME_TIME (1000000 / FRAME_RATE)
-
-
 
 
 # define ROTATE 0.1
@@ -127,25 +125,24 @@ void	init_scene(char *file_name);
 bool	validate_filename(char *f_name);
 int		get_nof_validrows(char *file_name);
 
+
 /*parser*/
 void	parse_args();
 //parse tool
 bool 	check_syntax(char **arg, char *commas);
 bool 	check_rgb(char *rgb);
-
 //color part
 t_color	parse_color(char **rgb);
 t_color	add_bright_to_color(t_color color, double brightness);
 t_color	add_color(t_color c1, t_color c2);
 
+
 /*render*/
 //renderer
 void	render();
 void	fake_render();
-
 //control frame rate
 void	control_frame_rate();
-
 //ray part
 t_ray make_ray(t_vector cur);
 t_vector	point_on_ray(t_ray *ray, double t);
@@ -183,6 +180,7 @@ bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter);
 //cylinder tool
 double	check_cy_hit(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *inter);
 
+
 /**key hook */
 //key 
 int press_key(int keycode, t_key *keys);
@@ -191,6 +189,7 @@ int release_key(int keycode, t_key *keys);
 int update(t_key *keys);
 void update_move(t_key *keys);
 void update_rotate(t_key *keys);
+int		ft_quit();
 //move shape
 void move_sphere(t_key *keys, t_sphere *sphere);
 void move_plane(t_key *keys, t_plane *plane);
@@ -216,6 +215,8 @@ t_vector	vector_rotate(t_vector vec, int axis, double angle);
 t_vector		parse_vector(char **strs);
 bool	vector_compare(t_vector v1, t_vector v2);
 double			vector_cos(t_vector v1, t_vector v2);
+t_vector vector_copy(t_vector vec);
+
 
 /*tools*/
 //equation
@@ -232,11 +233,11 @@ void	delete_scene();
 
 //show error message
 void	error_exit(char *message);
+t_camera copy_camera(t_camera camera);
 
-//hook.c
-// int		key_press(int keycode);
-// int		key_keep_press(int keycode);
-int		ft_quit();
+void backup_scene();
+
+
 
 
 
@@ -249,5 +250,6 @@ void		*fclass_index(t_fclass *fclass, int i);
 //debug part
 void	print_shape(t_shape *shape);
 void	print_light(t_light *light);
+void print_camera(t_camera *camera);
 
 #endif

@@ -209,6 +209,7 @@ typedef enum s_key_action
 	MOVEMENT,
 	ROTATION,
 	SELECT,
+	RESET,
 	QUIT
 } t_key_action;
 
@@ -224,21 +225,23 @@ typedef struct s_key
 typedef struct s_scene
 {
 	char		**args; //map
+	t_ambient	ambient;
+	t_camera	camera;
 	t_fclass	*light;
 	t_fclass	*shapes;
 	int shape_nbr[3]; // notsure
-	t_ambient	ambient;
-	t_camera	camera;
+	t_key keys; //not sure
 	t_menu		menu; //not sure
 	int			select; //not sure
+	int preset; //for test
 	double		view_w;
 	double		view_h;
 	t_vector	normal_w; //go right
 	t_vector	normal_h; //go down
 	t_windows	win;
 	struct timeval last_frame_time;
-	t_key keys; //not sure
-	int preset; //for test
+	t_camera	ori_camera;
+	
 }	t_scene;
 
 

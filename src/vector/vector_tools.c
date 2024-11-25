@@ -44,3 +44,12 @@ inline double	vector_cos(t_vector v1, t_vector v2)
 {
 	return (vector_dot(v1, v2) / (vector_magnitude(v1) * vector_magnitude(v2)));
 }
+
+t_vector vector_copy(t_vector vec)
+{
+	return ((t_vector){
+		.x = vec.x,
+		.y = vec.y,
+		.z = vec.z
+	});
+}
