@@ -6,3 +6,4 @@ t_scene	*s(void)
 
 	return (&s);
 }
+

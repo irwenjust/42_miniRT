@@ -1,11 +1,5 @@
 #include "miniRT.h"
 
-int	ft_quit()  //may change to void
-{
-	delete_scene();
-	exit(SUCCESS);
-}
-
 void update_menu(t_key *keys)
 {
     t_mode mode;
@@ -48,6 +42,17 @@ void update_preset(t_key *keys)
     keys->action = NOTHING;
 }
 
+void update_move(t_key *keys)
+{
+    if (s()->menu.mode == CAMERA)
+        move_camera(keys);
+}
+
+void update_rotate(t_key *keys)
+{
+    if (s()->menu.mode == CAMERA)
+        rotate_camera(keys);
+}
 
 int update(t_key *keys)
 {
@@ -57,5 +62,11 @@ int update(t_key *keys)
         update_menu(keys);
     else if (keys->action == PRESET)
         update_preset(keys);
+    else if (keys->action == MOVEMENT)
+        update_move(keys);
+    else if (keys->action == ROTATION)
+        update_rotate(keys);
+    // else if (keys->action == SELECT)
+    //     update_select(keys);
     return (0);
 }
