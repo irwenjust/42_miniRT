@@ -64,11 +64,21 @@ static void update_select(t_key *keys)
     keys->action = NOTHING;
 }
 
+static void update_reset(t_key *keys)
+{
+    if (s()->menu.mode == CAMERA)
+        s()->camera = copy_camera(s()->ori_camera);
+    control_frame_rate();
+    // print_camera(&s()->ori_camera);
+    // print_camera(&s()->camera);
+    keys->action = NOTHING;
+}
+
 int update(t_key *keys)
 {
     if (keys->action == QUIT)
         ft_quit();
-    if (keys->action == MENU) 
+    else if (keys->action == MENU) 
         update_menu(keys);
     else if (keys->action == PRESET)
         update_preset(keys);
@@ -78,5 +88,7 @@ int update(t_key *keys)
         update_rotate(keys);
     else if (keys->action == SELECT)
         update_select(keys);
+    else if (keys->action == RESET)
+        update_reset(keys);
     return (0);
 }

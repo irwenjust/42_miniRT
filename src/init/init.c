@@ -94,5 +94,5 @@ void	init_scene(char *file_name)
 	s()->keys.cur_keycode = -1;
 	s()->menu.mode = VIEW;
 	gettimeofday(&s()->last_frame_time, NULL);
-	
+	backup_scene();
 }

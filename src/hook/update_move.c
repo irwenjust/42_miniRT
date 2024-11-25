@@ -15,7 +15,26 @@ static void move_camera(t_key *keys)
 	else if (keys->key[E])
 		s()->camera.coordinate.z -= 0.3;
     control_frame_rate();
-    printf("move canera\n");
+	// print_camera(&s()->camera);
+    printf("move camera\n");
+}
+
+static void move_light(t_key *keys, t_light *light)
+{
+	if (keys->key[W])
+		light->point.y += 0.3;
+	else if (keys->key[S])
+		light->point.y -= 0.3;
+	else if (keys->key[A])
+		light->point.x -= 0.3;
+	else if (keys->key[D])
+		light->point.x += 0.3;
+	else if (keys->key[Q])
+		light->point.z += 0.3;
+	else if (keys->key[E])
+		light->point.z -= 0.3;
+    control_frame_rate();
+    printf("move light\n");
 }
 
 static void move_shape(t_key *keys, t_shape *shape)
@@ -34,7 +53,9 @@ void update_move(t_key *keys)
 {
     if (s()->menu.mode == CAMERA)
         move_camera(keys);
-    if (s()->menu.mode == SHAPE)
+	else if (s()->menu.mode == LIGHT)
+		move_light(keys, s()->light->array[0]);
+    else if (s()->menu.mode == SHAPE)
         move_shape(keys, s()->shapes->array[s()->select]);
 }
 

@@ -24,7 +24,7 @@ SRCS =	main.c \
 		menu.c menu_tool.c\
 		parse_args.c parse_tool.c \
 		color.c illumination.c intersection.c ray.c reflect.c render.c \
-		equation.c error.c magic_s.c \
+		backup.c equation.c error.c magic_s.c \
 		vector_op_basic.c vector_op_plus.c vector_tools.c vector_rotate.c \
 		debug_shape.c 
 
