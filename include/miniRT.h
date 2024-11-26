@@ -160,13 +160,13 @@ t_color	diffuse(t_light *light, t_hit *inter, double k);
 bool	parse_ambient(int counter[3], char **tmp, t_ambient *ambient);
 t_color	check_ambient(t_color color);
 //camera part
+t_camera copy_camera(t_camera camera);
 bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
 //light part
 bool	parse_light(int counter[3], char **arg, t_fclass *light);
 t_light	*copy_light(t_light *light);
 //shape part
 t_shape	*copy_shape(t_shape *shape);
-// t_shape	*new_shape(void *data, t_shape_type type, int id);
 t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id);
 //sphere part
 bool	parse_sphere(char **tmp, t_fclass *fclass);
@@ -224,9 +224,13 @@ bool solve(t_equation *equation);
 
 /*menu*/
 void display_menu();
-//menu tool
+//menu display tool
 void	display(int x, int y, int color, char *text);
-// void change_menu(t_mode mode);
+void display_move_rotate(int x, int y);
+void display_mode(int x, int y);
+void display_shape(int x, int y);
+void display_light(int x, int y);
+
 
 //free the scene
 void	delete_scene();

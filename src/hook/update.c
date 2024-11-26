@@ -9,21 +9,21 @@ int	ft_quit()
 
 static void update_menu(t_key *keys)
 {
-    t_mode mode;
+    t_menu new_menu;
 
-    mode = -1;
+    new_menu = -1;
     if (keys->key[V])
-		mode = VIEW;
+		new_menu = VIEW;
 	else if (keys->key[C])
-		mode = CAMERA;
+		new_menu = CAMERA;
 	else if (keys->key[B])
-		mode = LIGHT;
+		new_menu = LIGHT;
 	else if (keys->key[M])
-		mode = SHAPE;
-    //change mode
-    if	(mode >= 0 && s()->menu.mode != mode)
+		new_menu = SHAPE;
+    //change new_menu
+    if	(new_menu >= 0 && s()->menu != new_menu)
 	{
-		s()->menu.mode = mode;
+		s()->menu = new_menu;
         s()->select = 0;
         render();
 		display_menu();
@@ -54,7 +54,7 @@ static void update_preset(t_key *keys)
 
 static void update_select(t_key *keys)
 {
-    if (s()->menu.mode == SHAPE)
+    if (s()->menu == SHAPE)
     {
         s()->select++;
         if (s()->select == s()->shapes->size)
@@ -66,9 +66,14 @@ static void update_select(t_key *keys)
 
 static void update_reset(t_key *keys)
 {
-    if (s()->menu.mode == CAMERA)
+    if (s()->menu == CAMERA)
         s()->camera = copy_camera(s()->ori_camera);
+    else if (s()->menu == LIGHT)
+        s()->light->array[0] = copy_light(s()->ori_light->array[0]);
+    else if (s()->menu == SHAPE)
+        s()->shapes->array[s()->select] = copy_shape(s()->ori_shapes->array[s()->select]);
     control_frame_rate();
+  
     // print_camera(&s()->ori_camera);
     // print_camera(&s()->camera);
     keys->action = NOTHING;

@@ -30,8 +30,8 @@ static void rotate_shape(t_key *keys, t_shape *shape)
 
 void update_rotate(t_key *keys)
 {
-    if (s()->menu.mode == CAMERA)
+    if (s()->menu == CAMERA)
         rotate_camera(keys);
-    if (s()->menu.mode == SHAPE)
+    if (s()->menu == SHAPE)
         rotate_shape(keys, s()->shapes->array[s()->select]);
 }

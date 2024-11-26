@@ -24,7 +24,7 @@ int	key_press(int keycode)
 		change_menu(LIGHT);
 	else if (keycode == M)
 		change_menu(SHAPE);
-	if (s()->menu.mode == SHAPE)
+	if (s()->menu == SHAPE)
 	{
 		if (keycode == N)
 			s()->select++;
@@ -32,7 +32,7 @@ int	key_press(int keycode)
 			s()->select = 0;
 		display_menu();
 	}
-	// if (s()->menu.mode != VIEW)
+	// if (s()->menu != VIEW)
 	// {
 	// 	render();
 	// 	printf("render\n");
@@ -42,7 +42,7 @@ int	key_press(int keycode)
 
 int	key_keep_press(int keycode)
 {
-	if (s()->menu.mode == VIEW)
+	if (s()-> == VIEW)
 		return (keycode);
 	if (keycode == W || keycode == UP)
 		s()->camera.coordinate.y += 0.3;

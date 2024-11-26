@@ -16,9 +16,14 @@ static void	init_fclass()
 {
 	s()->light = fclass_new((void *)&copy_light, NULL, &free,
 		(void *)&print_light);
+	s()->ori_light = fclass_new((void *)&copy_light, NULL, &free,
+		(void *)&print_light);
 	//print????
 	s()->shapes = fclass_new((void *)&copy_shape, NULL, &free,
 		(void *)&print_shape);
+	s()->ori_shapes = fclass_new((void *)&copy_shape, NULL, &free,
+		(void *)&print_shape);
+
 }
 
 static void	init_args(char *file_name)
@@ -92,7 +97,7 @@ void	init_scene(char *file_name)
 	init_windows();
 	ft_bzero(&(s()->keys), sizeof(t_key));
 	s()->keys.cur_keycode = -1;
-	s()->menu.mode = VIEW;
+	s()->menu = VIEW;
 	gettimeofday(&s()->last_frame_time, NULL);
 	backup_scene();
 }

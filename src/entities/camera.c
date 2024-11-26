@@ -12,6 +12,15 @@
 
 #include "miniRT.h"
 
+t_camera copy_camera(t_camera camera)
+{
+	return ((t_camera){
+		.coordinate = vector_copy(camera.coordinate),
+		.normal = vector_copy(camera.normal),
+		.fov = camera.fov
+	});
+}
+
 bool	parse_camera(int counter[3], char **arg, t_camera *camera)
 {
 	char	**coord;

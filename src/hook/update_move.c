@@ -51,11 +51,11 @@ static void move_shape(t_key *keys, t_shape *shape)
 
 void update_move(t_key *keys)
 {
-    if (s()->menu.mode == CAMERA)
+    if (s()->menu == CAMERA)
         move_camera(keys);
-	else if (s()->menu.mode == LIGHT)
+	else if (s()->menu == LIGHT)
 		move_light(keys, s()->light->array[0]);
-    else if (s()->menu.mode == SHAPE)
+    else if (s()->menu == SHAPE)
         move_shape(keys, s()->shapes->array[s()->select]);
 }
 

@@ -16,6 +16,28 @@
 #include "miniRT.h"
 
 /*enum*/
+//menu mode
+typedef enum s_menu
+{
+	VIEW,
+	CAMERA,
+	LIGHT,
+	SHAPE
+}	t_menu;
+
+//key action
+typedef enum s_key_action
+{
+	NOTHING,
+	MENU,
+	PRESET,
+	MOVEMENT,
+	ROTATION,
+	SELECT,
+	RESET,
+	QUIT
+} t_key_action;
+
 //shape type
 typedef enum	s_shape_type
 {
@@ -23,6 +45,7 @@ typedef enum	s_shape_type
 	PLANE,
 	CYLINDER
 }	t_shape_type;
+
 
 /*structure*/
 /*basic*/
@@ -169,22 +192,8 @@ typedef struct s_hit
 	double	distance;
 } t_hit;
 
-typedef enum s_mode
-{
-	VIEW,
-	CAMERA,
-	LIGHT,
-	SHAPE
-}	t_mode;
 
 /*macro struct*/
-//menu 结构体可能可以没有
-typedef struct s_menu
-{
-	t_mode mode;
-	
-} t_menu;
-
 typedef struct s_windows
 {
 	// mlx_t	*mlx;
@@ -201,17 +210,7 @@ typedef struct s_windows
 	int		endian;
 }	t_windows;
 
-typedef enum s_key_action
-{
-	NOTHING,
-	MENU,
-	PRESET,
-	MOVEMENT,
-	ROTATION,
-	SELECT,
-	RESET,
-	QUIT
-} t_key_action;
+
 
 typedef struct s_key
 {
@@ -244,19 +243,21 @@ typedef struct s_scene
 	t_camera	camera;
 	t_fclass	*light;
 	t_fclass	*shapes;
-	int shape_nbr[3]; // notsure
-	t_key keys; //not sure
+	int 		shape_nbr[3]; // notsure
+	t_camera	ori_camera;
+	t_fclass	*ori_light;
+	t_fclass	*ori_shapes;
+	t_key 		keys; //not sure
 	t_menu		menu; //not sure
 	int			select; //not sure
-	int preset; //for test
+	int			preset; //for test
 	double		view_w;
 	double		view_h;
 	t_vector	normal_w; //go right
 	t_vector	normal_h; //go down
 	t_windows	win;
 	struct timeval last_frame_time;
-	t_camera	ori_camera;
-	
+
 }	t_scene;
 
 
