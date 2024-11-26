@@ -30,10 +30,11 @@ typedef enum s_key_action
 {
 	NOTHING,
 	MENU,
-	PRESET,
 	MOVEMENT,
 	ROTATION,
 	SELECT,
+	SCALING,
+	PRESET,
 	RESET,
 	QUIT
 } t_key_action;
@@ -215,10 +216,9 @@ typedef struct s_windows
 typedef struct s_key
 {
 	int key[256];
-	int key_pressed;
-	int action;
 	int cur_keycode;
-	
+	int action;
+	int is_pressed;
 } t_key;
 
 typedef struct s_aabb

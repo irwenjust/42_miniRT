@@ -15,6 +15,13 @@ void display_move_rotate(int x, int y)
     	display(x += (31 * 6), y,  0xFFFFFF, "IJKL : Rotate Up/Left/Dowm/Right");
 		display(x += (37 * 6), y, 0xFFFFFF, "UO : Rotate Forward/Backward");
 	}
+    if (s()->menu == SHAPE && ((t_shape *)(s()->shapes->array[s()->select]))->type != PLANE)
+    {
+        display(x += (38 * 6), y, 0x87CEFA, "Scaling >");
+        display(x += (11 * 6), y, 0xFFFFFF, "Left/Right : -/+ radius");
+        if (((t_shape *)(s()->shapes->array[s()->select]))->type == CYLINDER)
+        display(x += (28 * 6), y, 0xFFFFFF, "Up/Down : -/+ height");
+    }
 }
 
 void display_mode(int x, int y)

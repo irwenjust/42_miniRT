@@ -77,4 +77,20 @@ bool parse_light(int counter[3], char **arg, t_fclass *fclass)
 	return (true);
 }
 
-
+void move_light(t_key *keys, t_light *light)
+{
+	if (keys->key[W])
+		light->point.y += 0.3;
+	else if (keys->key[S])
+		light->point.y -= 0.3;
+	else if (keys->key[A])
+		light->point.x -= 0.3;
+	else if (keys->key[D])
+		light->point.x += 0.3;
+	else if (keys->key[Q])
+		light->point.z += 0.3;
+	else if (keys->key[E])
+		light->point.z -= 0.3;
+    control_frame_rate();
+    printf("move light\n");
+}

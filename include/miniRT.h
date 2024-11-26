@@ -18,11 +18,13 @@
 
 # define ESC 65307
 # define TAB 65289
+
+# define UP 65362
+# define DOWN 65364
+# define LEFT 65361
+# define RIGHT 65363
+
 // # define SPACE 9
-// # define UP 65362
-// # define DOWN 65364
-// # define LEFT 65361
-// # define RIGHT 65363
 
 # define V 118 //view mode
 # define C 99 //camera mode
@@ -162,23 +164,34 @@ t_color	check_ambient(t_color color);
 //camera part
 t_camera copy_camera(t_camera camera);
 bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
+void move_camera(t_key *keys);
+void rotate_camera(t_key *keys);
 //light part
-bool	parse_light(int counter[3], char **arg, t_fclass *light);
 t_light	*copy_light(t_light *light);
+bool	parse_light(int counter[3], char **arg, t_fclass *light);
+void move_light(t_key *keys, t_light *light);
 //shape part
 t_shape	*copy_shape(t_shape *shape);
 t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id);
+void move_shape(t_key *keys, t_shape *shape);
+void rotate_shape(t_key *keys, t_shape *shape);
 //sphere part
 bool	parse_sphere(char **tmp, t_fclass *fclass);
 bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter);
+void move_sphere(t_key *keys, t_sphere *sphere);
+void scaling_sphere(t_key *keys, t_sphere *sphere);
 //plane part
 bool parse_plane(char **arg, t_fclass *fclass);
 bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter);
+void move_plane(t_key *keys, t_plane *plane);
+void rotate_plane(t_key *keys, t_plane *plane);
 //cylinder part
 bool parse_cylinder(char **arg, t_fclass *fclass);
+void move_cylinder(t_key *keys, t_cylinder *cylinder);
+void rotate_cylinder(t_key *keys, t_cylinder *cylinder);
+void scaling_cylinder(t_key *keys, t_cylinder *cy);
+//cylinder inter
 bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter);
-//cylinder tool
-double	check_cy_hit(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *inter);
 
 
 /**key hook */
@@ -187,16 +200,13 @@ int press_key(int keycode, t_key *keys);
 int release_key(int keycode, t_key *keys);
 //update
 int update(t_key *keys);
-void update_move(t_key *keys);
-void update_rotate(t_key *keys);
 int		ft_quit();
-//move shape
-void move_sphere(t_key *keys, t_sphere *sphere);
-void move_plane(t_key *keys, t_plane *plane);
-void move_cylinder(t_key *keys, t_cylinder *cylinder);
-//rotate shape
-void rotate_plane(t_key *keys, t_plane *plane);
-void rotate_cylinder(t_key *keys, t_cylinder *cylinder);
+//click action
+void update_menu(t_key *keys);
+void update_preset(t_key *keys);
+void update_reset(t_key *keys);
+void update_select(t_key *keys);
+
 
 
 /*vector part*/

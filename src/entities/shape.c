@@ -50,4 +50,23 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 	return (shape);
 }
 
+void move_shape(t_key *keys, t_shape *shape)
+{
+	if (shape->type == SPHERE)
+		move_sphere(keys, &(shape->data.sphere));
+	else if (shape->type == PLANE)
+		move_plane(keys, &(shape->data.plane));
+	else if (shape->type == CYLINDER)
+		move_cylinder(keys, &(shape->data.cylinder));
+	print_shape(shape);
+    control_frame_rate();
+}
 
+void rotate_shape(t_key *keys, t_shape *shape)
+{
+	if (shape->type == PLANE)
+		rotate_plane(keys, &(shape->data.plane));
+	else if (shape->type == CYLINDER)
+		rotate_cylinder(keys, &(shape->data.cylinder));
+    control_frame_rate();
+}

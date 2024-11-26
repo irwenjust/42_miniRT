@@ -99,3 +99,27 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter)
 	return (false);
 }
 
+void move_sphere(t_key *keys, t_sphere *sphere)
+{
+	if (keys->key[W])
+		sphere->center.y += 0.3;
+	else if (keys->key[S])
+		sphere->center.y -= 0.3;
+	else if (keys->key[A])
+		sphere->center.x -= 0.3;
+	else if (keys->key[D])
+		sphere->center.x += 0.3;
+	else if (keys->key[Q])
+		sphere->center.z += 0.3;
+	else if (keys->key[E])
+		sphere->center.z -= 0.3;
+	printf("move sphere\n");
+}
+
+void scaling_sphere(t_key *keys, t_sphere *sphere)
+{
+	if (keys->cur_keycode == LEFT && sphere->radius - 0.5 > 0)
+        sphere->radius -= 0.5;
+    else if (keys->cur_keycode == RIGHT)
+        sphere->radius += 0.5;
+}

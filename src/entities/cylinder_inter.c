@@ -123,7 +123,7 @@ static bool check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
  * If wall hit less than two, calculate is there any valid cap hit.
  * Then, there should be at least one valid hit point.
  */
-double check_cy_hit(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *inter)
+static double check_cy_hit(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *inter)
 {
 	inter->distance = INFINITY;
 	inter->ray = *ray;
@@ -137,4 +137,56 @@ double check_cy_hit(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *inter)
 	return (inter->distance);
 }
 
+/**
+ * @brief
+ * cylinder equation is |(P-C) - [(P-C)*N]*N|^2 = r^2
+ * 		P is a point on the cylinder surface
+ * 		C is a point on the cylinder axis(cap)
+ * 		N is cylinder direction
+ * P is the R(t) = O + tD
+ * The eqaution is: |(O + tD - C) - [(O + tD - C)*N]*N|^2 = r^2
+ * set V = O-C
+ * 		|V + tD - (V*N + tD*N)*N|^2 - r^2 = 0
+ * 		|t[D - (D*N)N] + [V-(V*N)N]|^2 - r^2 = 0
+ * 		t^2*[D-(D*N)N]^2 + 2t*[D-(D*N)N]*[V-(V*N)N] + [V-(V*N)N]^2 -r^2 = 0
+ * So at^2 + bt + c = 0:
+ * 		a = [D-(D*N)N]^2 = D*D -2(D*N)^2 + (D*N)^2*N^2
+ * 		b = 2*[D-(D*N)N]*[V-(V*N)N] = 2*(D*V - D(V*N)N -V(D*N)N + (D*N)(V*N)*N^2
+ * 		c = [V-(V*N)N]^2 -r^2 = V^2 - 2(V*N)^2 + (V*N)^2*N^2 - r^2
+ * as normal * normal = 1, so D*D = N*N = 1
+ * 		a = 1 - (D*N)^2
+ * 		b = 2 * [D*V - (D*N)(V*N)]
+ * 		c = V^2 - (V*N)^2 - r^2
+ * 
+ * @param vec vector from ray origin to cylinder cap center
+ * @param dn dot_product(D, N), D is ray normal, N is cylinder norml
+ * @param vn dot_product(vec, N) 
+ */
+bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter)
+{
+	t_equation equation;
+	t_vector vec;
+	double dn;
+	double vn;
+	double distance;
 
+	vec = vector_sub(ray->start, cylinder->cap_u);
+	dn = vector_dot(ray->normal, cylinder->normal);
+	vn = vector_dot(vec, cylinder->normal);
+	equation.a = 1 - pow(dn, 2);
+	equation.b = 2 * (vector_dot(ray->normal, vec) - (dn * vn));
+	equation.c = vector_dot(vec, vec) - pow(vn, 2) - pow(cylinder->radius, 2);
+	equation.t1 = -1;
+	equation.t2 = -1;
+	if (solve(&equation) && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
+	{
+		distance = check_cy_hit(cylinder, ray, &equation, inter);
+		if (distance > 0.0f)
+		{
+			inter->distance = distance;
+			inter->color = cylinder->color;
+			return (true);
+		}
+	}
+	return (false);
+}
