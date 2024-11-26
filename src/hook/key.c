@@ -4,6 +4,7 @@ int press_key(int keycode, t_key *keys)
 {
     if (keys->is_pressed == 1)
         return (0);
+    keys->is_pressed = 1;
     keys->cur_keycode = keycode;
     if (keycode >= 0 && keycode < 256)
         keys->key[keycode] = 1;
