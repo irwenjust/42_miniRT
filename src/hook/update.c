@@ -7,88 +7,60 @@ int	ft_quit()
 	exit(SUCCESS);
 }
 
-static void update_menu(t_key *keys)
+static void update_move(t_key *keys)
 {
-    t_mode mode;
-
-    mode = -1;
-    if (keys->key[V])
-		mode = VIEW;
-	else if (keys->key[C])
-		mode = CAMERA;
-	else if (keys->key[B])
-		mode = LIGHT;
-	else if (keys->key[M])
-		mode = SHAPE;
-    //change mode
-    if	(mode >= 0 && s()->menu.mode != mode)
-	{
-		s()->menu.mode = mode;
-        s()->select = 0;
-        render();
-		display_menu();
-        printf("update menu\n"); //for test
-	}
-    keys->action = NOTHING;
+    if (s()->menu == CAMERA)
+        move_camera(keys);
+	else if (s()->menu == LIGHT)
+		move_light(keys, s()->light->array[0]);
+    else if (s()->menu == SHAPE)
+        move_shape(keys, s()->shapes->array[s()->select]);
 }
 
-/*FOR TEST, need to update later*/
-static void update_preset(t_key *keys)
+static void update_rotate(t_key *keys)
 {
-    int preset;
+    if (s()->menu == CAMERA)
+        rotate_camera(keys);
+    if (s()->menu == SHAPE)
+        rotate_shape(keys, s()->shapes->array[s()->select]);
+}
 
-    preset = -1;
-    if (keys->key[ONE])
-		preset = 1;
-	else if (keys->key[TWO])
-		preset = 2;
-	else if (keys->key[THREE])
-		preset = 3;
-    if (preset >= 0 && s()->preset != preset)
+static void update_scaling(t_key *keys)
+{
+    t_shape *shape;
+    
+    if (s()->menu == SHAPE)
     {
-        s()->preset = preset;
-        printf("preset %i\n", s()->preset); //for test
+        shape = s()->shapes->array[s()->select];
+        if (shape->type == PLANE)
+            return ;
+        else if (shape->type == SPHERE)
+            scaling_sphere(keys, &shape->data.sphere);
+        else if (shape->type == CYLINDER)
+            scaling_cylinder(keys, &shape->data.cylinder);
+        control_frame_rate();
     }
-    keys->action = NOTHING;
-}
-
-static void update_select(t_key *keys)
-{
-    if (s()->menu.mode == SHAPE)
-    {
-        s()->select++;
-        if (s()->select == s()->shapes->size)
-			s()->select = 0;
-		display_menu();
-    }
-    keys->action = NOTHING;
-}
-
-static void update_reset(t_key *keys)
-{
-    if (s()->menu.mode == CAMERA)
-        s()->camera = copy_camera(s()->ori_camera);
-    control_frame_rate();
-    // print_camera(&s()->ori_camera);
-    // print_camera(&s()->camera);
-    keys->action = NOTHING;
 }
 
 int update(t_key *keys)
 {
-    if (keys->action == QUIT)
+    if (keys->action == NOTHING)
+        return (0);
+    else if (keys->action == QUIT)
         ft_quit();
     else if (keys->action == MENU) 
         update_menu(keys);
     else if (keys->action == PRESET)
         update_preset(keys);
+    else if (keys->action == RESET)
+        update_reset(keys);
+    else if (keys->action == SELECT)
+        update_select(keys);
+    else if (keys->action == SCALING)
+        update_scaling(keys);
     else if (keys->action == MOVEMENT)
         update_move(keys);
     else if (keys->action == ROTATION)
         update_rotate(keys);
-    else if (keys->action == SELECT)
-        update_select(keys);
-    else if (keys->action == RESET)
-        update_reset(keys);
     return (0);
 }

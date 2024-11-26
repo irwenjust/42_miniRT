@@ -12,7 +12,6 @@
 
 #include "miniRT.h"
 
-
 static bool new_plane(char **arg, t_plane *plane)
 {
 	char **coord;
@@ -95,4 +94,38 @@ bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter)
 		}
 	}
 	return (false);
+}
+
+void move_plane(t_key *keys, t_plane *plane)
+{
+	if (keys->key[W])
+		plane->center.y += 0.3;
+	else if (keys->key[S])
+		plane->center.y -= 0.3;
+	else if (keys->key[A])
+		plane->center.x -= 0.3;
+	else if (keys->key[D])
+		plane->center.x += 0.3;
+	else if (keys->key[Q])
+		plane->center.z += 0.3;
+	else if (keys->key[E])
+		plane->center.z -= 0.3;
+	printf("move plane\n");
+}
+
+void rotate_plane(t_key *keys, t_plane *plane)
+{
+	if (keys->key[U])
+		plane->normal = vector_rotate(plane->normal, Z, ROTATE);
+	else if (keys->key[O])
+		plane->normal = vector_rotate(plane->normal, Z, (-ROTATE));
+	else if (keys->key[J])
+		plane->normal = vector_rotate(plane->normal, Y, -ROTATE);
+	else if (keys->key[L])
+		plane->normal = vector_rotate(plane->normal, Y, ROTATE);
+	else if (keys->key[I])
+		plane->normal = vector_rotate(plane->normal, X, -ROTATE);
+	else if (keys->key[K])
+		plane->normal = vector_rotate(plane->normal, X, ROTATE);
+	printf("rotate plane\n");
 }

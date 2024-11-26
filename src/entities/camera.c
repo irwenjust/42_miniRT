@@ -12,6 +12,15 @@
 
 #include "miniRT.h"
 
+t_camera copy_camera(t_camera camera)
+{
+	return ((t_camera){
+		.coordinate = vector_copy(camera.coordinate),
+		.normal = vector_copy(camera.normal),
+		.fov = camera.fov
+	});
+}
+
 bool	parse_camera(int counter[3], char **arg, t_camera *camera)
 {
 	char	**coord;
@@ -36,4 +45,42 @@ bool	parse_camera(int counter[3], char **arg, t_camera *camera)
 		return (ERROR("camera: normal vector's visual is out of range"), false);
 	counter[1]++;
 	return (camera);
+}
+
+void move_camera(t_key *keys)
+{
+	if (keys->key[W])
+		s()->camera.coordinate.y += 0.3;
+	else if (keys->key[S])
+		s()->camera.coordinate.y -= 0.3;
+	else if (keys->key[A])
+		s()->camera.coordinate.x -= 0.3;
+	else if (keys->key[D])
+		s()->camera.coordinate.x += 0.3;
+	else if (keys->key[Q])
+		s()->camera.coordinate.z += 0.3;
+	else if (keys->key[E])
+		s()->camera.coordinate.z -= 0.3;
+    control_frame_rate();
+	// print_camera(&s()->camera);
+    printf("move camera\n");
+}
+
+void rotate_camera(t_key *keys)
+{
+	if (keys->key[U])
+		s()->camera.normal = vector_rotate(s()->camera.normal, Z, ROTATE);
+	else if (keys->key[O])
+		s()->camera.normal = vector_rotate(s()->camera.normal, Z, (-ROTATE));
+	else if (keys->key[J])
+		s()->camera.normal = vector_rotate(s()->camera.normal, Y, -ROTATE);
+	else if (keys->key[L])
+		s()->camera.normal = vector_rotate(s()->camera.normal, Y, ROTATE);
+	else if (keys->key[I])
+		s()->camera.normal = vector_rotate(s()->camera.normal, X, -ROTATE);
+	else if (keys->key[K])
+		s()->camera.normal = vector_rotate(s()->camera.normal, X, ROTATE);
+    control_frame_rate();
+	// print_camera(&s()->camera);
+    printf("rotate\n");
 }
