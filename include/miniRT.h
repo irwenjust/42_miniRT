@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/11/25 09:58:49 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/26 19:48:40 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,9 @@ void update_select(t_key *keys);
 t_vector		vector_add(t_vector v1, t_vector v2);
 t_vector		vector_sub(t_vector v1, t_vector v2);
 t_vector	vector_multiple(t_vector v1, double scalar);
+t_vector	vector_min(t_vector a, t_vector b);
+t_vector	vector_max(t_vector a, t_vector b);
+
 //vector op plus
 double			vector_magnitude(t_vector a);
 t_vector		vector_normalize(t_vector a);
@@ -251,9 +254,12 @@ t_camera copy_camera(t_camera camera);
 
 void backup_scene();
 
-
-
-
+//bvh tool functions
+t_aabb	generate_box(t_shape **shapes, int amount);
+int		find_max_axis(t_aabb box);
+int		split_box(int axis, t_shape **shapes, int amount);
+void	free_bvh(t_bvh **bvh);
+void	rebuild_bvh();
 
 //New function for fake class
 t_fclass	*fclass_new(void *(*cpy)(void *), int (*cmp)(void *, void *),

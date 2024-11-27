@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:54:26 by likong            #+#    #+#             */
-/*   Updated: 2024/11/25 12:16:44 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 11:54:37 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ int	main(int argc, char **argv)
 		error_exit("need and only need one argument");
 	init_scene(argv[1]);
 	render();
+	printf("here\n");
 	
 	//new key hook
 	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, press_key, &s()->keys);
 	mlx_hook(s()->win.disp, KeyRelease, KeyReleaseMask, release_key, &s()->keys);
-	mlx_loop_hook(s()->win.mlx, update, &s()->keys);
 	mlx_hook(s()->win.disp, DestroyNotify, StructureNotifyMask, ft_quit, NULL); // need to adjust later maybe
+	mlx_loop_hook(s()->win.mlx, update, &s()->keys);
 	mlx_loop(s()->win.mlx);
 	// print_shape((t_shape *)s()->shapes->array[1]);
 	delete_scene();

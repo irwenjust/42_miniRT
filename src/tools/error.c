@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:24:37 by likong            #+#    #+#             */
-/*   Updated: 2024/10/29 08:59:13 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 11:29:15 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	delete_scene()
 		mlx_destroy_window(s()->win.mlx, s()->win.disp);
 	if (s()->win.mlx)
 		mlx_destroy_display(s()->win.mlx);
+	if (s()->bvh)
+		free_bvh(&s()->bvh);
 	nc_free(s()->win.mlx);
 }
 

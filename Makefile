@@ -14,7 +14,7 @@ HEADERS = -I ./include -I ./libft -I ./$(MLX_DIR)
 
 # src files
 SRCS_DIR = src
-SRCS_SUBDIR = entities fclass hook init menu parser renderer tools vector debug
+SRCS_SUBDIR = entities fclass hook init menu parser renderer tools vector bvh debug
 VPATH = $(SRCS_DIR) $(addprefix $(SRCS_DIR)/, $(SRCS_SUBDIR))
 SRCS =	main.c \
 		ambient.c camera.c cylinder.c cylinder_inter.c light.c plane.c shape.c  sphere.c \
@@ -26,6 +26,7 @@ SRCS =	main.c \
 		color.c illumination.c intersection.c ray.c reflect.c render.c \
 		equation.c error.c magic_s.c \
 		vector_op_basic.c vector_op_plus.c vector_tools.c vector_rotate.c \
+		bvh.c bvh_tool.c \
 		debug_shape.c 
 
 OBJS_DIR = objs

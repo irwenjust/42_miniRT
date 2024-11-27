@@ -23,7 +23,7 @@ void update_menu(t_key *keys)
         printf("update menu\n"); //for test
 	}
     keys->action = NOTHING;
-	printf("update menu...\n");
+    printf("here\n");
 }
 
 /*FOR TEST, need to update later*/

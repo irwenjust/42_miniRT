@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:24:56 by likong            #+#    #+#             */
-/*   Updated: 2024/11/25 09:41:49 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 13:09:45 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,28 @@ static void	init_windows()
 		error_exit("error happend when initial MLX42 menu");
 }
 
+// void printTree(t_bvh *root, int space) {
+//     // Base case
+//     if (root == NULL)
+//         return;
+
+//     // Increase distance between levels
+//     space += 5;
+
+//     // Print right subtree first (for visual alignment)
+//     printTree(root->right, space);
+
+//     // Print the current node after space
+//     printf("\n");
+//     for (int i = 5; i < space; i++) {
+//         printf(" "); // Print space for alignment
+//     }
+//     printf("%d\n", root->id);
+
+//     // Print left subtree
+//     printTree(root->left, space);
+// }
+
 void	init_scene(char *file_name)
 {
 	ft_bzero(s(), sizeof(t_scene));
@@ -100,4 +122,6 @@ void	init_scene(char *file_name)
 	s()->menu = VIEW;
 	gettimeofday(&s()->last_frame_time, NULL);
 	backup_scene();
+	rebuild_bvh();
+	// printTree(s()->bvh, 0);
 }

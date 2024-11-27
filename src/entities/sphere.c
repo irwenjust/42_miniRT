@@ -6,13 +6,13 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:50:15 by likong            #+#    #+#             */
-/*   Updated: 2024/11/18 17:51:41 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/26 18:41:28 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static bool	new_shpere(char **arg, t_sphere *sphere)
+static bool	new_sphere(char **arg, t_sphere *sphere)
 {
 	char	**coord;
 	char	**rgb;
@@ -42,7 +42,7 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 		return (ERROR("light: wrong radius value"), false);
 	if (!check_rgb(arg[3]))
 		return (ERROR("light: wrong color value"), false);
-	if (!new_shpere(arg, &sphere))
+	if (!new_sphere(arg, &sphere))
 		return (ERROR("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
 	s()->shape_nbr[SPHERE]++;

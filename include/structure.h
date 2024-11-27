@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:51 by likong            #+#    #+#             */
-/*   Updated: 2024/11/25 21:28:24 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/26 19:41:29 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,13 +141,19 @@ typedef union s_shape_data
 	t_cylinder	cylinder;
 }	t_shape_data;
 
+typedef struct s_aabb
+{
+	t_vector	min;
+	t_vector	max;
+}	t_aabb;
+
 typedef struct s_shape
 {
 	int				id;
+	t_aabb			box;
 	t_shape_type	type;
 	t_shape_data	data;
-	int shape_id[3];
-	
+	int				shape_id[3];
 }	t_shape;
 
 /**
@@ -221,17 +227,11 @@ typedef struct s_key
 	int is_pressed;
 } t_key;
 
-typedef struct s_aabb
-{
-	t_vector	min;
-	t_vector	max;
-}	t_aabb;
-
 typedef struct s_bvh
 {
 	int				id;
 	t_aabb			box;
-	t_shape			*shaps;
+	t_shape			*shapes;
 	struct s_bvh	*left;
 	struct s_bvh	*right;
 }	t_bvh;
@@ -257,7 +257,8 @@ typedef struct s_scene
 	t_vector	normal_h; //go down
 	t_windows	win;
 	struct timeval last_frame_time;
-
+	int			bvh_level; // the index level for bvh binary tree
+	t_bvh		*bvh;
 }	t_scene;
 
 
