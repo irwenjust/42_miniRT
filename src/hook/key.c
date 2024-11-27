@@ -8,11 +8,12 @@ int press_key(int keycode, t_key *keys)
     keys->cur_keycode = keycode;
     if (keycode >= 0 && keycode < 256)
         keys->key[keycode] = 1;
+    //get key action
     if (keycode == ESC)
         return (keys->action = QUIT, 0);
     else if (keycode == TAB)
         keys->action = SELECT;
-    else if (keycode == G)
+    else if (keycode == G || keycode == R)
         keys->action = RESET;
     else if (keycode == UP || keycode == DOWN || keycode == LEFT || keycode == RIGHT)
         keys->action = SCALING;
@@ -36,9 +37,9 @@ int release_key(int keycode, t_key *keys)
         {
             keys->key[keycode] = 0; 
         }
-        keys->action = NOTHING;
-        keys->cur_keycode = -1;
         keys->is_pressed = 0;
+        keys->cur_keycode = -1;
+        keys->action = NOTHING;
     }
     return (0);
 }

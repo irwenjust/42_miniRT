@@ -25,12 +25,14 @@
 # define RIGHT 65363
 
 // # define SPACE 9
-
+// FHNP
 # define V 118 //view mode
 # define C 99 //camera mode
 # define B 98 //light bulb mode
 # define M 109 //model mode
-# define G 103
+# define P 112 //color mode
+# define G 103 //reset
+# define R 114 //render
 
 # define W 119
 # define A 97
@@ -207,7 +209,7 @@ void update_preset(t_key *keys);
 void update_reset(t_key *keys);
 void update_select(t_key *keys);
 
-
+int key_test(int keycode, t_key *keys);
 
 /*vector part*/
 //vector op basic
@@ -242,7 +244,7 @@ void	display(int x, int y, int color, char *text);
 void display_move_rotate(int x, int y);
 void display_mode(int x, int y);
 void display_shape(int x, int y);
-void display_light(int x, int y);
+void display_color(int x, int y);
 
 
 //free the scene

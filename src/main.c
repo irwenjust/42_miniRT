@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 	printf("here\n");
 	
 	//new key hook
+	mlx_do_key_autorepeatoff(s()->win.mlx);
 	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, press_key, &s()->keys);
 	mlx_hook(s()->win.disp, KeyRelease, KeyReleaseMask, release_key, &s()->keys);
 	mlx_hook(s()->win.disp, DestroyNotify, StructureNotifyMask, ft_quit, NULL); // need to adjust later maybe
