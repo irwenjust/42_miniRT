@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:15 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/25 12:35:31 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 21:42:16 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static t_vector	convert_viewport(double x, double y)
 {
 	t_vector	converted;
 
-	converted.x = ((x / WIDTH) * 2.0f) - 1;
-	converted.y = ((y / HEIGHT) * 2.0f) - 1;
+	converted.x = ((x * INVWIDTH) * 2.0f) - 1;
+	converted.y = ((y * INVHEIGHT) * 2.0f) - 1;
 	converted.z = 0;
 	return (converted);
 }
@@ -37,7 +37,7 @@ static void	put_pixel(t_color c, int x, int y)
 {
 	char *dst;
 
-	dst = s()->win.addr + (y * WIDTH + x) * (s()->win.bpp / 8);
+	dst = s()->win.addr + (y * WIDTH + x) * (int)(s()->win.bpp * 0.125);
 	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
 }
 
@@ -101,7 +101,8 @@ void	fake_render()
 			closest.distance = INFINITY;
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
-			if (check_intersection(s()->shapes, &ray, &closest))
+			if (check_bvh_intersection(&ray, s()->bvh, &closest)
+				&& check_intersection(s()->shapes, &ray, &closest))
 				check_illumination(&closest); //4-if intersect, update closest color based on other env
 			put_pixel(closest.color, cur.x, cur.y);
 			cur.x += 3;

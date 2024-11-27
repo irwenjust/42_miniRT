@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:54:26 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 11:54:37 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 21:47:59 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ int	main(int argc, char **argv)
 		error_exit("need and only need one argument");
 	init_scene(argv[1]);
 	render();
-
-	
-	//printf("here\n");
 	
 	//new key hook
 	mlx_do_key_autorepeatoff(s()->win.mlx);

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:51 by likong            #+#    #+#             */
-/*   Updated: 2024/11/26 19:41:29 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 21:03:51 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ typedef struct s_color
 	int	alpha;
 }	t_color;
 
+typedef struct s_aabb
+{
+	t_vector	min;
+	t_vector	max;
+}	t_aabb;
 
 /*fclass and entities*/
 //fclass
@@ -114,6 +119,7 @@ typedef struct s_sphere
 	t_vector	center;
 	double		radius;
 	t_color		color;
+	t_aabb		box;
 }	t_sphere;
 
 typedef struct s_plane
@@ -132,6 +138,7 @@ typedef struct s_cylinder
 	t_color		color;
 	t_vector	cap_u;
 	t_vector	cap_b;
+	t_aabb		box;
 }	t_cylinder;
 
 //shape manage
@@ -141,12 +148,6 @@ typedef union s_shape_data
 	t_plane		plane;
 	t_cylinder	cylinder;
 }	t_shape_data;
-
-typedef struct s_aabb
-{
-	t_vector	min;
-	t_vector	max;
-}	t_aabb;
 
 typedef struct s_shape
 {
@@ -173,8 +174,9 @@ typedef struct s_equation
 /*render struct*/
 typedef struct s_ray
 {
-	t_vector start;
-	t_vector normal;
+	t_vector	start;
+	t_vector	normal;
+	t_vector	inv_start;
 } t_ray;
 
 /**

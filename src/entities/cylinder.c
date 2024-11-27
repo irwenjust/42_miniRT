@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:38:02 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/18 14:34:04 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 21:04:32 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ static bool new_cylinder(char **arg, t_cylinder *cylinder)
 	free_matrix(normal);
 	if (vector_magnitude(cylinder->normal) < 1e-8)
 		return (ERROR("cylinder: normal vector is too small"), false);
-	cylinder->radius = ft_atod(arg[3]) / 2.0;
+	cylinder->radius = ft_atod(arg[3]) * 0.5;
 	cylinder->height = ft_atod(arg[4]);
 	rgb = ft_split(arg[5], ',');
 	if (!rgb)
 		return (ERROR("cylinder: fail to split color"), false);
 	cylinder->color = parse_color(rgb);
+	cylinder->box = box_cylinder(cylinder);
 	free_matrix(rgb);
 	return (true);
 }
@@ -47,7 +48,7 @@ bool parse_cylinder(char **arg, t_fclass *fclass)
 
 	if (ft_matrix_size(arg) != 6 || !check_syntax(arg, "011001"))
 		return (ERROR("cylinder: wrong args format"), false);
-	if (ft_atod(arg[3]) / 2.0 < 1e-8)
+	if (ft_atod(arg[3]) * 0.5 < 1e-8)
 		return (ERROR("cylinder: wrong radius value"), false);
 	if (ft_atod(arg[4]) < 1e-8)
 		return (ERROR("cylinder: wrong height value"), false);
@@ -55,8 +56,8 @@ bool parse_cylinder(char **arg, t_fclass *fclass)
 		return (ERROR("cylinder: wrong color value"), false);
 	if (!new_cylinder(arg, &cylinder))
 		return (ERROR("cylinder: fail to create new shpere"), false);
-	cylinder.cap_u = vector_add(cylinder.center, vector_multiple(cylinder.normal, -cylinder.height / 2.0));
-	cylinder.cap_b = vector_add(cylinder.center, vector_multiple(cylinder.normal, cylinder.height / 2.0));
+	cylinder.cap_u = vector_add(cylinder.center, vector_multiple(cylinder.normal, -cylinder.height * 0.5));
+	cylinder.cap_b = vector_add(cylinder.center, vector_multiple(cylinder.normal, cylinder.height * 0.5));
 	shape = new_shape(&cylinder, CYLINDER, fclass->size, s()->shape_nbr[CYLINDER]);
 	s()->shape_nbr[CYLINDER]++;
 	push_to_fclass(fclass, shape);
@@ -84,8 +85,8 @@ void move_cylinder(t_key *keys, t_cylinder *cylinder)
 		cylinder->center.z += 0.3;
 	else if (keys->key[E])
 		cylinder->center.z -= 0.3;
-	cylinder->cap_u = vector_add(cylinder->center, vector_multiple(cylinder->normal, -cylinder->height / 2.0));
-	cylinder->cap_b = vector_add(cylinder->center, vector_multiple(cylinder->normal, cylinder->height / 2.0));
+	cylinder->cap_u = vector_add(cylinder->center, vector_multiple(cylinder->normal, -cylinder->height * 0.5));
+	cylinder->cap_b = vector_add(cylinder->center, vector_multiple(cylinder->normal, cylinder->height * 0.5));
 	printf("move cylinder\n");
 }
 
@@ -103,8 +104,8 @@ void rotate_cylinder(t_key *keys, t_cylinder *cylinder)
 		cylinder->normal = vector_rotate(cylinder->normal, X, -ROTATE);
 	else if (keys->key[K])
 		cylinder->normal = vector_rotate(cylinder->normal, X, ROTATE);
-	cylinder->cap_u = vector_add(cylinder->center, vector_multiple(cylinder->normal, -cylinder->height / 2.0));
-	cylinder->cap_b = vector_add(cylinder->center, vector_multiple(cylinder->normal, cylinder->height / 2.0));
+	cylinder->cap_u = vector_add(cylinder->center, vector_multiple(cylinder->normal, -cylinder->height * 0.5));
+	cylinder->cap_b = vector_add(cylinder->center, vector_multiple(cylinder->normal, cylinder->height * 0.5));
 	printf("rotate cylinder\n");
 }
 
@@ -118,6 +119,6 @@ void scaling_cylinder(t_key *keys, t_cylinder *cy)
         cy->height += 0.5;
     else if (keys->cur_keycode == DOWN && cy->height - 0.5 > 0)
         cy->height -= 0.5;
-    cy->cap_u = vector_add(cy->center, vector_multiple(cy->normal, -cy->height / 2.0));
-	cy->cap_b = vector_add(cy->center, vector_multiple(cy->normal, cy->height / 2.0));
+    cy->cap_u = vector_add(cy->center, vector_multiple(cy->normal, -cy->height * 0.5));
+	cy->cap_b = vector_add(cy->center, vector_multiple(cy->normal, cy->height * 0.5));
 }

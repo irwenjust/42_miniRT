@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:24:56 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 13:09:45 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 13:57:42 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	init_args(char *file_name)
 
 static void	init_viewport()
 {
-	s()->view_w = tan(RADIAN(s()->camera.fov / 2.0));
+	s()->view_w = tan(RADIAN(s()->camera.fov * 0.5));
 	s()->view_h = s()->view_w * SCALE;
 	s()->normal_w = vector_normalize(vector_cross(s()->camera.normal,UPVECTOR));
 	s()->normal_h = vector_normalize(vector_cross(s()->camera.normal, s()->normal_w));
@@ -78,7 +78,7 @@ static void	init_windows()
 		&s()->win.line_len, &s()->win.endian);
 	if (!s()->win.addr)
 		error_exit("error happend when initial MLX42 image address");
-	s()->win.menu = mlx_new_image(s()->win.mlx, WIDTH, (HEIGHT / 10));
+	s()->win.menu = mlx_new_image(s()->win.mlx, WIDTH, (HEIGHT * 0.1));
 	if (!s()->win.menu)
 		error_exit("error happend when initial MLX42 menu");
 }

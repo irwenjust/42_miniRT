@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:57:08 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 11:50:58 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 20:40:23 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	split_box(int axis, t_shape **shapes, int amount)
 
 	i = 0;
 	j = amount - 1;
-	mid = find_vec(shapes[amount / 2], axis);
+	mid = find_vec(shapes[(int)(amount * 0.5)], axis);
 	while (i <= j)
 	{
 		while (i >= 0 && find_vec(shapes[i], axis) < mid)

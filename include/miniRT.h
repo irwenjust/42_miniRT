@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/11/26 19:48:40 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 21:04:07 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@
 # define SCALE 0.5625
 # define WIDTH 1600
 # define HEIGHT (WIDTH * SCALE)
+# define INVWIDTH 1.0f / WIDTH
+# define INVHEIGHT 1.0f / HEIGHT
 
 # define PI 3.141592653589
 # define RADIAN(angle) ((angle * PI) / 180.0f)
@@ -223,6 +225,8 @@ double			vector_magnitude(t_vector a);
 t_vector		vector_normalize(t_vector a);
 t_vector		vector_cross(t_vector v1, t_vector v2);
 double			vector_dot(t_vector v1, t_vector v2);
+t_vector		vector_scale(t_vector a, double scalar);
+
 //vector rotate
 t_vector	vector_rotate(t_vector vec, int axis, double angle);
 //vector tools
@@ -262,6 +266,10 @@ int		split_box(int axis, t_shape **shapes, int amount);
 void	free_bvh(t_bvh **bvh);
 void	rebuild_bvh();
 
+//aabb intersection check
+bool	check_aabb_intersection(t_ray *ray, t_aabb box, double max_t);
+bool	check_bvh_intersection(t_ray *ray, t_bvh *node, t_hit *pre_hit);
+
 //New function for fake class
 t_fclass	*fclass_new(void *(*cpy)(void *), int (*cmp)(void *, void *),
 	void (*print)(void *), void (*del)(void *));
@@ -272,5 +280,10 @@ void		*fclass_index(t_fclass *fclass, int i);
 void	print_shape(t_shape *shape);
 void	print_light(t_light *light);
 void print_camera(t_camera *camera);
+
+t_shape	**shapes_to_arr(t_shape **shapes);
+t_hit	init_hit(void);
+t_aabb	box_sphere(t_sphere *sphere);
+t_aabb	box_cylinder(t_cylinder *cyl);
 
 #endif

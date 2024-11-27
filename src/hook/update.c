@@ -9,6 +9,7 @@ static void update_move(t_key *keys)
 		move_light(keys, s()->light->array[0]);
     else if (s()->menu == SHAPE)
         move_shape(keys, s()->shapes->array[s()->select]);
+    rebuild_bvh();
 }
 
 static void update_rotate(t_key *keys)

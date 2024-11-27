@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:18:48 by likong            #+#    #+#             */
-/*   Updated: 2024/11/18 15:27:29 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 21:00:42 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,7 @@ inline double	vector_dot(t_vector v1, t_vector v2)
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-
+inline t_vector	vector_scale(t_vector a, double scalar)
+{
+	return ((t_vector){a.x * scalar, a.y * scalar, a.z * scalar});
+}

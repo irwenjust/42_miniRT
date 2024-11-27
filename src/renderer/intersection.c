@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:32 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/26 21:33:10 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 21:34:37 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,11 @@ bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	t_hit	tmp;
 
 	i = -1;
-	tmp.distance = INFINITY;
-	tmp.shape = NULL;
+	tmp = init_hit();
 	if (!shapes)
 		return (false);
+	// if (!check_bvh_intersection(ray, s()->bvh, &tmp))
+	// 	return (false);
 	while (++i < shapes->size)
 	{
 		shape = shapes->array[i];

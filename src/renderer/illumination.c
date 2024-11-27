@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obscured.c                                         :+:      :+:    :+:   */
+/*   illumination.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:17:29 by likong            #+#    #+#             */
-/*   Updated: 2024/11/18 15:30:50 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 20:10:45 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ static bool	is_obscured(t_hit *closest)
 	ray.start = vector_add(closest->hit_point, VEC_MIN);
 	ray.normal = vector_normalize(vector_sub(light->point, closest->hit_point));
 	i = -1;
-	tmp.distance = INFINITY;
-	tmp.shape = NULL;
+	tmp = init_hit();
+	tmp.distance = vector_magnitude(vector_sub(light->point, closest->hit_point));
+	// tmp.distance = INFINITY;
+	// tmp.shape = NULL;
 	while (++i < s()->shapes->size)
 	{
 		shape = fclass_index(s()->shapes, i);

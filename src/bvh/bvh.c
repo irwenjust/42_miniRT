@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 21:22:53 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 11:58:24 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 21:37:45 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ static t_bvh	*build_bvh(t_shape **shapes, int amount)
 		return (res);
 	}
 	res->box = generate_box(shapes, amount);
+	// printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
+    //        res->box.min.x, res->box.min.y, res->box.min.z,
+    //        res->box.max.x, res->box.max.y, res->box.max.z);
 	max_axis = find_max_axis(res->box);
 	split_index = split_box(max_axis, shapes, amount);
 	if (split_index == 0 || split_index == amount)
-		split_index = amount / 2;
+		split_index = amount * 0.5;
 	res->left = build_bvh(shapes, split_index);
 	res->right = build_bvh(shapes + split_index, amount - split_index);
 	return (res);
@@ -56,8 +59,11 @@ t_bvh	*init_bvh()
 	s()->bvh_level = 0;
 	if (!s()->shapes)
 		return (NULL);
-	tmp = (t_shape **)s()->shapes->array;
+	tmp = shapes_to_arr((t_shape **)s()->shapes->array);
+	if (!tmp)
+		return (NULL);
 	res = build_bvh(tmp, s()->shapes->size);
+	free(tmp);
 	return (res);
 }
 

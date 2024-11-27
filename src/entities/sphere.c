@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:50:15 by likong            #+#    #+#             */
-/*   Updated: 2024/11/26 18:41:28 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/27 20:51:04 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static bool	new_sphere(char **arg, t_sphere *sphere)
 		return (ERROR("sphere: fail to split color"), false);
 	sphere->color = parse_color(rgb);
 	free_matrix(rgb);
-	sphere->radius = ft_atod(arg[2]) / 2.0;
+	sphere->radius = ft_atod(arg[2]) * 0.5;
+	sphere->box = box_sphere(sphere);
 	return (true);
 }
 
@@ -38,7 +39,7 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 
 	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0101"))
 		return (ERROR("sphere: wrong args format"), false);
-	if (ft_atod(arg[2]) / 2.0 < 1e-8)
+	if (ft_atod(arg[2]) * 0.5 < 1e-8)
 		return (ERROR("light: wrong radius value"), false);
 	if (!check_rgb(arg[3]))
 		return (ERROR("light: wrong color value"), false);
