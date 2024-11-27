@@ -31,6 +31,8 @@ void	delete_scene()
 	mlx_do_key_autorepeaton(s()->win.mlx);
 	delete_fclass(s()->light);
 	delete_fclass(s()->shapes);
+	delete_fclass(s()->ori_light);
+	delete_fclass(s()->ori_shapes);
 	free_matrix(s()->args);
 	// if (s()->win.img)
 	// 	mlx_delete_image(s()->win.mlx, s()->win.img);
