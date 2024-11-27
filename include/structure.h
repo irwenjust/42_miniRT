@@ -22,7 +22,8 @@ typedef enum s_menu
 	VIEW,
 	CAMERA,
 	LIGHT,
-	SHAPE
+	SHAPE,
+	COLOR
 }	t_menu;
 
 //key action

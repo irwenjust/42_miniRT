@@ -40,7 +40,10 @@ static void light_menu(int ori_x, int y)
     int x;
 
     display(ori_x, y,  0xFFFFFF, "- LightSource Edit Mode -");
-    display_light(ori_x + (30 * 6), y);
+    x = ori_x;
+    display(x += (30 * 6), y,  0xFFD700, "Current Light:");
+    display(x += (16 * 6), y,  0xFFD700, "Light");
+    display(x += (6 * 6), y,  0xFFD700, ft_itoa(s()->select)); 
     display_move_rotate(ori_x, y += 20);
     display(ori_x, y += 20,  0x87CEFA, "Preset Light Color >");
     x = ori_x;
@@ -68,6 +71,7 @@ static void shape_menu(int ori_x, int y)
     display(x += (13 * 6), y,  0xFFFFFF, "4 : Green");
     display(x += (14 * 6), y,  0xFFFFFF, "5 : Pink");
     display(x += (13 * 6), y,  0xFFFFFF, "6 : Purple");
+    display_color(x += (20 * 6), y);
     display_mode(ori_x, y += 20);
 }
 

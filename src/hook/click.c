@@ -19,7 +19,7 @@ void update_menu(t_key *keys)
 		s()->menu = new_menu;
         s()->select = 0;
         render();
-		display_menu();
+		//display_menu();
         printf("update menu\n"); //for test
 	}
     keys->action = NOTHING;
@@ -48,15 +48,19 @@ void update_preset(t_key *keys)
 
 void update_reset(t_key *keys)
 {
-    //if (s()->menu == VIEW)
-    if (s()->menu == CAMERA)
-        s()->camera = copy_camera(s()->ori_camera);
-    else if (s()->menu == LIGHT)
-        s()->light->array[0] = copy_light(s()->ori_light->array[0]);
-    else if (s()->menu == SHAPE)
-        s()->shapes->array[s()->select] = copy_shape(s()->ori_shapes->array[s()->select]);
-    control_frame_rate();
-  
+    if (keys->key[R])
+        render();
+    else if (keys->key[G])
+    {
+        //if (s()->menu == VIEW)
+        if (s()->menu == CAMERA)
+            s()->camera = copy_camera(s()->ori_camera);
+        else if (s()->menu == LIGHT)
+            s()->light->array[0] = copy_light(s()->ori_light->array[0]);
+        else if (s()->menu == SHAPE)
+            s()->shapes->array[s()->select] = copy_shape(s()->ori_shapes->array[s()->select]);
+        control_frame_rate();
+    }
     // print_camera(&s()->ori_camera);
     // print_camera(&s()->camera);
     keys->action = NOTHING;

@@ -20,8 +20,6 @@ static void	delete_fclass(t_fclass *fclass)
 	free(fclass);
 }
 
-
-
 void	nc_free(void *ptr)
 {
 	if (ptr)
@@ -30,6 +28,7 @@ void	nc_free(void *ptr)
 
 void	delete_scene()
 {
+	mlx_do_key_autorepeaton(s()->win.mlx);
 	delete_fclass(s()->light);
 	delete_fclass(s()->shapes);
 	free_matrix(s()->args);
