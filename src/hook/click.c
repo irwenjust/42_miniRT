@@ -1,5 +1,12 @@
 #include "miniRT.h"
 
+//may change to void
+int	ft_quit()
+{
+	delete_scene();
+	exit(SUCCESS);
+}
+
 void update_menu(t_key *keys)
 {
     t_menu new_menu;
@@ -19,11 +26,11 @@ void update_menu(t_key *keys)
 		s()->menu = new_menu;
         s()->select = 0;
         render();
-		//display_menu();
+        //display_menu();
         printf("update menu\n"); //for test
 	}
     keys->action = NOTHING;
-    printf("here\n");
+    //printf("here\n");
 }
 
 /*FOR TEST, need to update later*/
@@ -70,10 +77,21 @@ void update_select(t_key *keys)
 {
     if (s()->menu == SHAPE)
     {
-        s()->select++;
-        if (s()->select == s()->shapes->size)
-			s()->select = 0;
-		display_menu();
+        if (keys->cur_keycode == TAB)
+        {
+            printf("selec %i\n", s()->select);
+            s()->select++;
+            if (s()->select >= s()->shapes->size)
+			    s()->select = 0;
+            s()->select_rgb = 0;
+        }
+        else if (keys->key[P])
+        {
+            s()->select_rgb++;
+            if (s()->select_rgb > 2)
+                s()->select_rgb = 0;
+        }
+        display_menu();
     }
     keys->action = NOTHING;
 }

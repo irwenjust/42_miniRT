@@ -1,11 +1,5 @@
 #include "miniRT.h"
 
-//may change to void
-int	ft_quit()
-{
-	delete_scene();
-	exit(SUCCESS);
-}
 
 static void update_move(t_key *keys)
 {
@@ -42,6 +36,25 @@ static void update_scaling(t_key *keys)
     }
 }
 
+//void update_color(t_key *keys)
+//{
+//    t_shape *shape;
+//    //t_color rgb;
+
+//    if (s()->menu == SHAPE && keys->key[P])
+//    {
+//        shape = s()->shapes->array[s()->select];
+//        if (shape->type == SPHERE)
+//            shape->data.sphere.color.red--;
+//        else if (shape->type == PLANE)
+//            shape->data.plane.color.red--;
+//        else if (shape->type == CYLINDER)
+//            shape->data.cylinder.color.red--;
+//        //rgb.red++;
+//        control_frame_rate();
+//    }
+//}
+
 int update(t_key *keys)
 {
     if (keys->action == NOTHING)
@@ -62,5 +75,7 @@ int update(t_key *keys)
         update_move(keys);
     else if (keys->action == ROTATION)
         update_rotate(keys);
+    //else if (keys->action == COLOR)
+    //    update_color(keys);
     return (0);
 }

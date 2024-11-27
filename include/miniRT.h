@@ -52,7 +52,7 @@
 # define TWO 50
 # define THREE 51
 
-# define MENU_KEY "vcbm"
+# define MENU_KEY "vcbmp"
 # define PRESET_KEY "123"
 # define MOVE_KEY "wasdqe"
 # define ROTATE_KEY "ijkluo"
@@ -209,7 +209,6 @@ void update_preset(t_key *keys);
 void update_reset(t_key *keys);
 void update_select(t_key *keys);
 
-int key_test(int keycode, t_key *keys);
 
 /*vector part*/
 //vector op basic
@@ -243,8 +242,8 @@ void display_menu();
 void	display(int x, int y, int color, char *text);
 void display_move_rotate(int x, int y);
 void display_mode(int x, int y);
-void display_shape(int x, int y);
-void display_color(int x, int y);
+void display_shape(int x, int y, t_shape *shape);
+void display_color(int x, int y, t_color rgb);
 
 
 //free the scene

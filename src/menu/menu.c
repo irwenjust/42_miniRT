@@ -56,12 +56,25 @@ static void light_menu(int ori_x, int y)
     display_mode(ori_x, y += 20);
 }
 
+t_color	copy_color(t_color c)
+{
+	return ((t_color){
+		.red = ft_within_range(c.red, 0, 255),
+		.green = ft_within_range(c.green, 0, 255),
+		.blue = ft_within_range(c.blue, 0, 255),
+		.alpha = ft_within_range(0XFF, 0, 255)
+	});
+}
+
 static void shape_menu(int ori_x, int y)
 {
     int x;
+    t_shape *shape;
+    t_color rgb;
 
+    shape = s()->shapes->array[s()->select];
     display(ori_x, y,  0xFFFFFF, "- Model Edit Mode -");
-    display_shape(ori_x + (24 * 6), y);
+    display_shape(ori_x + (24 * 6), y, shape);
     display_move_rotate(ori_x, y += 20);
     display(ori_x, y += 20,  0x87CEFA, "Preset Shape Color >");
     x = ori_x;
@@ -71,7 +84,13 @@ static void shape_menu(int ori_x, int y)
     display(x += (13 * 6), y,  0xFFFFFF, "4 : Green");
     display(x += (14 * 6), y,  0xFFFFFF, "5 : Pink");
     display(x += (13 * 6), y,  0xFFFFFF, "6 : Purple");
-    display_color(x += (20 * 6), y);
+    if (shape->type == SPHERE)
+        rgb = copy_color(shape->data.sphere.color);
+    else if (shape->type == PLANE)
+        rgb = copy_color(shape->data.plane.color);
+    else
+        rgb = copy_color(shape->data.cylinder.color);
+    display_color(x += (20 * 6), y, rgb);
     display_mode(ori_x, y += 20);
 }
 
@@ -89,5 +108,6 @@ void display_menu()
         light_menu(10, y);
     else if (s()->menu == SHAPE)
         shape_menu(10, y);
+    
 }
 
