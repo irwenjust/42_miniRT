@@ -60,6 +60,8 @@ bool parse_cylinder(char **arg, t_fclass *fclass)
 	shape = new_shape(&cylinder, CYLINDER, fclass->size, s()->shape_nbr[CYLINDER]);
 	s()->shape_nbr[CYLINDER]++;
 	push_to_fclass(fclass, shape);
+	//printf("Pushing shape: type = %d, id = %d\n", shape->type, shape->id);
+
 	return (true);
 }
 

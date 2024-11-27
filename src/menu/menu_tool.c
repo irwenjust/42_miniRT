@@ -48,11 +48,8 @@ void display_mode(int x, int y)
     display(x += (15* 6), y, 0xFFFFFF, "G : Reset to default");
 }
 
-void display_shape(int x, int y)
+void display_shape(int x, int y, t_shape *shape)
 {
-    t_shape *shape;
-
-    shape = s()->shapes->array[s()->select];
     display(x, y,  0xFFD700, "Current Shape:");
     if (shape->type == SPHERE)
     {
@@ -71,34 +68,33 @@ void display_shape(int x, int y)
     }
 }
 
-t_color	copy_color(t_color c)
-{
-	return ((t_color){
-		.red = ft_within_range(c.red, 0, 255),
-		.green = ft_within_range(c.green, 0, 255),
-		.blue = ft_within_range(c.blue, 0, 255),
-		.alpha = ft_within_range(0XFF, 0, 255)
-	});
-}
 
-void display_color(int x, int y)
-{
-    t_shape *shape;
-    t_color rgb;
 
-    shape = s()->shapes->array[s()->select];
+void display_color(int x, int y, t_color rgb)
+{
+    //t_shape *shape;
+    //t_color rgb;
+
+    //shape = s()->shapes->array[s()->select];
     display(x, y,  0x87CEFA, "Color:");
-    if (shape->type == SPHERE)
-        rgb = copy_color(shape->data.sphere.color);
-    else if (shape->type == PLANE)
-        rgb = copy_color(shape->data.plane.color);
-    else if (shape->type == CYLINDER)
-        rgb = copy_color(shape->data.cylinder.color);
-
-    display(x += (9 * 6), y,  0xFFFFFF, ft_itoa(rgb.red));
+    //if (shape->type == SPHERE)
+    //    rgb = copy_color(shape->data.sphere.color);
+    //else if (shape->type == PLANE)
+    //    rgb = copy_color(shape->data.plane.color);
+    //else if (shape->type == CYLINDER)
+    //    rgb = copy_color(shape->data.cylinder.color);
+    if (s()->select_rgb == 0)
+        display(x += (9 * 6), y,  0xFFD700, ft_itoa(rgb.red));
+    else
+        display(x += (9 * 6), y,  0xFFFFFF, ft_itoa(rgb.red));
     display(x += (ft_strlen(ft_itoa(rgb.red)) * 6), y,  0xFFFFFF, ", ");
-    display(x += (2 * 6), y,  0xFFFFFF, ft_itoa(rgb.green));
+    if (s()->select_rgb == 1)
+        display(x += (2 * 6), y,  0xFFD700, ft_itoa(rgb.green));
+    else
+        display(x += (2 * 6), y,  0xFFFFFF, ft_itoa(rgb.green));
     display(x += (ft_strlen(ft_itoa(rgb.green)) * 6), y,  0xFFFFFF, ", ");
-    display(x += (2 * 6), y,  0xFFFFFF, ft_itoa(rgb.blue));
-    
+    if (s()->select_rgb == 2)
+        display(x += (2 * 6), y,  0xFFD700, ft_itoa(rgb.blue));
+    else
+        display(x += (2 * 6), y,  0xFFFFFF, ft_itoa(rgb.blue));
 }

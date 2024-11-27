@@ -115,13 +115,22 @@ void	init_scene(char *file_name)
 	if (ft_matrix_size(s()->args) == 0)
 		error_exit("the file is empty");
 	parse_args();
+	//int i = -1;
+	//t_shape *shape;
+	//while (++i < s()->shapes->size)
+	//{
+	//	shape = s()->shapes->array[i];
+	//	printf("after parse: type = %d, id = %d\n", shape->type, shape->id);
+	//}
 	init_viewport();
 	init_windows();
 	ft_bzero(&(s()->keys), sizeof(t_key));
 	s()->keys.cur_keycode = -1;
 	s()->menu = VIEW;
 	gettimeofday(&s()->last_frame_time, NULL);
-	backup_scene();
+	
 	rebuild_bvh();
+	backup_scene();
+	
 	// printTree(s()->bvh, 0);
 }

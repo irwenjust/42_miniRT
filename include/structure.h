@@ -23,7 +23,6 @@ typedef enum s_menu
 	CAMERA,
 	LIGHT,
 	SHAPE,
-	COLOR
 }	t_menu;
 
 //key action
@@ -37,6 +36,7 @@ typedef enum s_key_action
 	SCALING,
 	PRESET,
 	RESET,
+	COLOR,
 	QUIT
 } t_key_action;
 
@@ -251,6 +251,7 @@ typedef struct s_scene
 	t_key 		keys; //not sure
 	t_menu		menu; //not sure
 	int			select; //not sure
+	int			select_rgb;
 	int			preset; //for test
 	double		view_w;
 	double		view_h;

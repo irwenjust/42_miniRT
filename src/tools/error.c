@@ -28,7 +28,6 @@ void	nc_free(void *ptr)
 
 void	delete_scene()
 {
-	mlx_do_key_autorepeaton(s()->win.mlx);
 	delete_fclass(s()->light);
 	delete_fclass(s()->shapes);
 	delete_fclass(s()->ori_light);
@@ -45,7 +44,10 @@ void	delete_scene()
 	if (s()->win.disp)
 		mlx_destroy_window(s()->win.mlx, s()->win.disp);
 	if (s()->win.mlx)
+	{
+		mlx_do_key_autorepeaton(s()->win.mlx);
 		mlx_destroy_display(s()->win.mlx);
+	}
 	if (s()->bvh)
 		free_bvh(&s()->bvh);
 	nc_free(s()->win.mlx);

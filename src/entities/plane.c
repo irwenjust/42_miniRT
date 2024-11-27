@@ -52,6 +52,8 @@ bool parse_plane(char **arg, t_fclass *fclass)
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
 	s()->shape_nbr[PLANE]++;
 	push_to_fclass(fclass, shape);
+	//printf("Pushing shape: type = %d, id = %d\n", shape->type, shape->id);
+
 	return (true);
 }
 
