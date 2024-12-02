@@ -12,9 +12,14 @@
 
 #include "miniRT.h"
 
+//add ambient color and brightness to colosest color
 t_color	check_ambient(t_color color)
 {
-	return (add_bright_to_color(color, s()->ambient.brightness));
+	t_color ambient;
+
+	ambient = add_bright_to_color(s()->ambient.color, s()->ambient.brightness);
+	return (mix_color(color, ambient));
+	// return (add_bright_to_color(color, s()->ambient.brightness));
 }
 
 bool	parse_ambient(int counter[3], char **arg, t_ambient *ambient)

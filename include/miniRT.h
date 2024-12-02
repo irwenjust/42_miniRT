@@ -144,8 +144,9 @@ bool 	check_rgb(char *rgb);
 t_color	parse_color(char **rgb);
 t_color	add_bright_to_color(t_color color, double brightness);
 t_color	add_color(t_color c1, t_color c2);
-t_color	copy_color(t_color c);
+// t_color	copy_color(t_color c);
 t_color *get_color();
+t_color	mix_color(t_color base, t_color light_effect);
 
 /*render*/
 //renderer
@@ -251,7 +252,7 @@ void	display(int x, int y, int color, char *text);
 void display_move_rotate(int x, int y);
 void display_mode(int x, int y);
 void display_shape(int x, int y, t_shape *shape);
-void display_color(int x, int y, t_color rgb);
+void display_color(int x, int y, t_color *rgb);
 
 
 //free the scene
