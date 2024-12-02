@@ -41,3 +41,35 @@ t_color	parse_color(char **rgb)
 		.alpha = ft_within_range(0XFF, 0, 255)
 	});
 }
+
+t_color	copy_color(t_color c)
+{
+	return ((t_color){
+		.red = ft_within_range(c.red, 0, 255),
+		.green = ft_within_range(c.green, 0, 255),
+		.blue = ft_within_range(c.blue, 0, 255),
+		.alpha = ft_within_range(0XFF, 0, 255)
+	});
+}
+
+t_color *get_color()
+{
+    t_shape *shape;
+    t_color *rgb;
+
+    if (s()->menu == SHAPE)
+    {
+        shape = s()->shapes->array[s()->select];
+        if (shape->type == SPHERE)
+            rgb = &shape->data.sphere.color;
+        else if (shape->type == PLANE)
+            rgb = &shape->data.plane.color;
+        else
+            rgb = &shape->data.cylinder.color;    
+    }
+    else if (s()->menu == LIGHT)
+        rgb = &((t_light *)(s()->light->array[s()->select]))->color;
+    else
+        rgb = NULL;
+    return (rgb);
+}

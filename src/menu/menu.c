@@ -38,6 +38,7 @@ static void camera_menu(int ori_x, int y)
 static void light_menu(int ori_x, int y)
 {
     int x;
+    t_color rgb;
 
     display(ori_x, y,  0xFFFFFF, "- LightSource Edit Mode -");
     x = ori_x;
@@ -53,17 +54,9 @@ static void light_menu(int ori_x, int y)
     display(x += (13 * 6), y,  0xFFFFFF, "4 : Green"); //moonlight
     display(x += (14 * 6), y,  0xFFFFFF, "5 : Pink"); //cyberpunk
     display(x += (13 * 6), y,  0xFFFFFF, "6 : Purple"); //disco
+    rgb = copy_color(((t_light *)(s()->light->array[s()->select]))->color);
+    display_color(x += (20 * 6), y, rgb);
     display_mode(ori_x, y += 20);
-}
-
-t_color	copy_color(t_color c)
-{
-	return ((t_color){
-		.red = ft_within_range(c.red, 0, 255),
-		.green = ft_within_range(c.green, 0, 255),
-		.blue = ft_within_range(c.blue, 0, 255),
-		.alpha = ft_within_range(0XFF, 0, 255)
-	});
 }
 
 static void shape_menu(int ori_x, int y)

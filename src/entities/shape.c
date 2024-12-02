@@ -64,8 +64,8 @@ void move_shape(t_key *keys, t_shape *shape)
 		move_plane(keys, &(shape->data.plane));
 	else if (shape->type == CYLINDER)
 		move_cylinder(keys, &(shape->data.cylinder));
-	print_shape(shape);
-    control_frame_rate();
+	// print_shape(shape);
+    // control_frame_rate();
 }
 
 void rotate_shape(t_key *keys, t_shape *shape)
@@ -74,5 +74,5 @@ void rotate_shape(t_key *keys, t_shape *shape)
 		rotate_plane(keys, &(shape->data.plane));
 	else if (shape->type == CYLINDER)
 		rotate_cylinder(keys, &(shape->data.cylinder));
-    control_frame_rate();
+    // control_frame_rate();
 }

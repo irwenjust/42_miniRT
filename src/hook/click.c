@@ -75,24 +75,23 @@ void update_reset(t_key *keys)
 
 void update_select(t_key *keys)
 {
-    if (s()->menu == SHAPE)
+    if (s()->menu != SHAPE && s()->menu != LIGHT)
+        return ;
+    if (keys->cur_keycode == TAB)
     {
-        if (keys->cur_keycode == TAB)
-        {
-            printf("selec %i\n", s()->select);
-            s()->select++;
-            if (s()->select >= s()->shapes->size)
-			    s()->select = 0;
-            s()->select_rgb = 0;
-        }
-        else if (keys->key[P])
-        {
-            s()->select_rgb++;
-            if (s()->select_rgb > 2)
-                s()->select_rgb = 0;
-        }
-        display_menu();
+        // printf("selec %i\n", s()->select);
+        s()->select++;
+        if ((s()->menu == SHAPE && s()->select >= s()->shapes->size) || (s()->menu == LIGHT && s()->select >= s()->light->size))
+			s()->select = 0;
+        s()->select_rgb = 0;
     }
+    else if (keys->key[P])
+    {
+        s()->select_rgb++;
+        if (s()->select_rgb > 2)
+            s()->select_rgb = 0;
+    }
+    display_menu();
     keys->action = NOTHING;
 }
 

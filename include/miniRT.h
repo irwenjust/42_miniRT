@@ -52,7 +52,10 @@
 # define TWO 50
 # define THREE 51
 
-# define MENU_KEY "vcbmp"
+# define C_INC 93
+# define C_DEC 91
+
+# define MENU_KEY "vcbm"
 # define PRESET_KEY "123"
 # define MOVE_KEY "wasdqe"
 # define ROTATE_KEY "ijkluo"
@@ -141,7 +144,8 @@ bool 	check_rgb(char *rgb);
 t_color	parse_color(char **rgb);
 t_color	add_bright_to_color(t_color color, double brightness);
 t_color	add_color(t_color c1, t_color c2);
-
+t_color	copy_color(t_color c);
+t_color *get_color();
 
 /*render*/
 //renderer
