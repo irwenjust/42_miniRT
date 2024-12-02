@@ -19,7 +19,7 @@ VPATH = $(SRCS_DIR) $(addprefix $(SRCS_DIR)/, $(SRCS_SUBDIR))
 SRCS =	main.c \
 		ambient.c camera.c cylinder.c cylinder_inter.c light.c plane.c shape.c  sphere.c \
 		fclass.c \
-		key.c update.c click.c \
+		hook.c preset.c update_click.c update_hold.c \
 		init.c validate.c backup.c \
 		menu.c menu_tool.c\
 		parse_args.c parse_tool.c \

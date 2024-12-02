@@ -78,7 +78,7 @@ void	render()
 			put_pixel(closest.color, cur.x, cur.y);
 		}
 	}
-	print_light(s()->light->array[0]);
+	// print_light(s()->light->array[0]);
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
 	// mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 0.9));
 	display_menu();
