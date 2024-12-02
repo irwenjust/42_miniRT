@@ -8,7 +8,6 @@ int press_key(int keycode, t_key *keys)
     keys->cur_keycode = keycode;
     if (keycode >= 0 && keycode < 256)
         keys->key[keycode] = 1;
-    //get key action
     if (keycode == ESC)
         return (keys->action = QUIT, 0);
     else if (keycode == TAB || keycode == P)
@@ -17,8 +16,8 @@ int press_key(int keycode, t_key *keys)
         keys->action = RESET;
     else if (keycode == UP || keycode == DOWN || keycode == LEFT || keycode == RIGHT)
         keys->action = SCALING;
-    //else if (keycode == P)
-    //    keys->action = COLOR;
+    else if (keycode == C_INC || keycode == C_DEC)
+        keys->action = COLOR;
     else if (ft_strchr(MENU_KEY, (char)(keycode)))
         keys->action = MENU;
     else if (ft_strchr(PRESET_KEY, (char)(keycode)))

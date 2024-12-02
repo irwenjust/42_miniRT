@@ -61,7 +61,7 @@ void move_camera(t_key *keys)
 		s()->camera.coordinate.z += 0.3;
 	else if (keys->key[E])
 		s()->camera.coordinate.z -= 0.3;
-    control_frame_rate();
+    // control_frame_rate();
 	// print_camera(&s()->camera);
     printf("move camera\n");
 }
@@ -80,7 +80,7 @@ void rotate_camera(t_key *keys)
 		s()->camera.normal = vector_rotate(s()->camera.normal, X, -ROTATE);
 	else if (keys->key[K])
 		s()->camera.normal = vector_rotate(s()->camera.normal, X, ROTATE);
-    control_frame_rate();
+    // control_frame_rate();
 	// print_camera(&s()->camera);
     printf("rotate\n");
 }

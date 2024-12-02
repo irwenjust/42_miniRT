@@ -32,6 +32,16 @@ t_color	add_color(t_color c1, t_color c2)
 	});
 }
 
+t_color	mix_color(t_color c1, t_color c2)
+{
+	return ((t_color){
+		.red = ft_within_range(c1.red * c2.red / 255.0, 0, 255),
+		.green = ft_within_range(c1.green * c2.green / 255.0, 0, 255),
+		.blue = ft_within_range(c1.blue * c2.blue / 255.0, 0, 255),
+		.alpha = c1.alpha
+	});
+}
+
 t_color	parse_color(char **rgb)
 {
 	return ((t_color){
@@ -41,3 +51,36 @@ t_color	parse_color(char **rgb)
 		.alpha = ft_within_range(0XFF, 0, 255)
 	});
 }
+
+t_color *get_color()
+{
+    t_shape *shape;
+    t_color *rgb;
+
+    if (s()->menu == SHAPE)
+    {
+        shape = s()->shapes->array[s()->select];
+        if (shape->type == SPHERE)
+            rgb = &shape->data.sphere.color;
+        else if (shape->type == PLANE)
+            rgb = &shape->data.plane.color;
+        else
+            rgb = &shape->data.cylinder.color;    
+    }
+    else if (s()->menu == LIGHT)
+        rgb = &((t_light *)(s()->light->array[s()->select]))->color;
+    else
+        rgb = NULL;
+    return (rgb);
+}
+
+
+// t_color	copy_color(t_color c)
+// {
+// 	return ((t_color){
+// 		.red = ft_within_range(c.red, 0, 255),
+// 		.green = ft_within_range(c.green, 0, 255),
+// 		.blue = ft_within_range(c.blue, 0, 255),
+// 		.alpha = ft_within_range(0XFF, 0, 255)
+// 	});
+// }

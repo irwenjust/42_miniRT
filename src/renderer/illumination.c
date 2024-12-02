@@ -49,11 +49,12 @@ void	check_illumination(t_hit *closest)
 	light = fclass_index(s()->light, 0);
 	if (!light)
 	{
-		ft_putstr_fd("Cannot find any light\n", 2);
+		ft_putstr_fd("Cannot find any light\n", 2); //exit??
 		return ;
 	}
 	color = check_ambient(closest->color);
 	if (!is_obscured(closest))
 		color = add_color(color, diffuse(light, closest, light->brightness));
+		// color = mix_colors(color, diffuse(light, closest, light->brightness));
 	closest->color = color;
 }

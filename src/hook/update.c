@@ -1,6 +1,5 @@
 #include "miniRT.h"
 
-
 static void update_move(t_key *keys)
 {
     if (s()->menu == CAMERA)
@@ -9,6 +8,8 @@ static void update_move(t_key *keys)
 		move_light(keys, s()->light->array[0]);
     else if (s()->menu == SHAPE)
         move_shape(keys, s()->shapes->array[s()->select]);
+    else
+        return ;
     rebuild_bvh();
 }
 
@@ -16,8 +17,11 @@ static void update_rotate(t_key *keys)
 {
     if (s()->menu == CAMERA)
         rotate_camera(keys);
-    if (s()->menu == SHAPE)
+    else if (s()->menu == SHAPE)
         rotate_shape(keys, s()->shapes->array[s()->select]);
+    else
+        return ;
+    control_frame_rate();
 }
 
 static void update_scaling(t_key *keys)
@@ -37,24 +41,32 @@ static void update_scaling(t_key *keys)
     }
 }
 
-//void update_color(t_key *keys)
-//{
-//    t_shape *shape;
-//    //t_color rgb;
+static void update_color(t_key *keys)
+{
+    t_color *rgb;
+    int *color_channel;
 
-//    if (s()->menu == SHAPE && keys->key[P])
-//    {
-//        shape = s()->shapes->array[s()->select];
-//        if (shape->type == SPHERE)
-//            shape->data.sphere.color.red--;
-//        else if (shape->type == PLANE)
-//            shape->data.plane.color.red--;
-//        else if (shape->type == CYLINDER)
-//            shape->data.cylinder.color.red--;
-//        //rgb.red++;
-//        control_frame_rate();
-//    }
-//}
+    rgb = get_color();
+    if (rgb == NULL)
+        return ;
+    if (s()->select_rgb == 0)
+        color_channel = &(rgb->red);
+    else if (s()->select_rgb == 1)
+        color_channel = &(rgb->green);
+    else if (s()->select_rgb == 2)
+        color_channel = &(rgb->blue);
+    else
+        color_channel = NULL;
+    if (keys->key[C_INC])
+        (*color_channel)++;
+    else if (keys->key[C_DEC])
+        (*color_channel)--;
+    if ((*color_channel) > 255)
+        (*color_channel) = 0;
+    if ((*color_channel) < 0)
+        (*color_channel) = 255;  
+    control_frame_rate();
+}
 
 int update(t_key *keys)
 {
@@ -76,7 +88,36 @@ int update(t_key *keys)
         update_move(keys);
     else if (keys->action == ROTATION)
         update_rotate(keys);
-    //else if (keys->action == COLOR)
-    //    update_color(keys);
+    else if (keys->action == COLOR)
+        update_color(keys);
     return (0);
 }
+
+
+// void update_color(t_key *keys)
+// {
+//     t_color *rgb;
+
+//     rgb = get_color();
+//     if (rgb == NULL)
+//         return ;
+//     if (keys->key[C_INC])
+//     {
+//         if (s()->select_rgb == 0 && rgb->red < 255)
+//             rgb->red++;
+//         else if (s()->select_rgb == 1 && rgb->green < 255)
+//             rgb->green++;
+//         else if (s()->select_rgb == 2 && rgb->blue < 255)
+//             rgb->blue++;
+//     }
+//     else if (keys->key[C_DEC])
+//     {
+//         if (s()->select_rgb == 0 && rgb->red > 0)
+//             rgb->red--;
+//         else if (s()->select_rgb == 1 && rgb->green > 0)
+//             rgb->green--;
+//         else if (s()->select_rgb == 2 && rgb->blue > 0)
+//             rgb->blue--;
+//     }        
+//     control_frame_rate();
+// }

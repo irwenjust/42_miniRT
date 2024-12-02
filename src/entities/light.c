@@ -91,6 +91,6 @@ void move_light(t_key *keys, t_light *light)
 		light->point.z += 0.3;
 	else if (keys->key[E])
 		light->point.z -= 0.3;
-    control_frame_rate();
+    // control_frame_rate();
     printf("move light\n");
 }
