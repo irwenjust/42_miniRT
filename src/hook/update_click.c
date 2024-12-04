@@ -1,12 +1,5 @@
 #include "miniRT.h"
 
-//may change to void
-int	ft_quit()
-{
-	delete_scene();
-	exit(SUCCESS);
-}
-
 void update_menu(t_key *keys)
 {
     t_menu new_menu;
@@ -25,29 +18,36 @@ void update_menu(t_key *keys)
 	{
 		s()->menu = new_menu;
         s()->select = 0;
+        s()->select_rgb = 0;
+        s()->preset = 0;
         render();
-        //display_menu();
         printf("update menu\n"); //for test
 	}
     keys->action = NOTHING;
-    // printf("here\n");
 }
 
 /*FOR TEST, need to update later*/
 void update_preset(t_key *keys)
 {
+    int i;
     int preset;
 
+    i = 48;
     preset = -1;
-    if (keys->key[ONE])
-		preset = 1;
-	else if (keys->key[TWO])
-		preset = 2;
-	else if (keys->key[THREE])
-		preset = 3;
+    while (++i <= SIX)
+    {
+        if (keys->key[i])
+        {
+            preset = i - 48;
+            break ;
+        }
+    }
     if (preset >= 0 && s()->preset != preset)
     {
         s()->preset = preset;
+        switch_preset(preset);
+        render();
+        // control_frame_rate();
         printf("preset %i\n", s()->preset); //for test
     }
     keys->action = NOTHING;
@@ -66,6 +66,7 @@ void update_reset(t_key *keys)
             s()->light->array[0] = copy_light(s()->ori_light->array[0]);
         else if (s()->menu == SHAPE)
             s()->shapes->array[s()->select] = copy_shape(s()->ori_shapes->array[s()->select]);
+        s()->preset = 0;
         control_frame_rate();
     }
     // print_camera(&s()->ori_camera);
@@ -79,11 +80,12 @@ void update_select(t_key *keys)
         return ;
     if (keys->cur_keycode == TAB)
     {
-        // printf("selec %i\n", s()->select);
         s()->select++;
         if ((s()->menu == SHAPE && s()->select >= s()->shapes->size) || (s()->menu == LIGHT && s()->select >= s()->light->size))
 			s()->select = 0;
         s()->select_rgb = 0;
+        if (s()->menu == SHAPE)
+            s()->preset = 0;
     }
     else if (keys->key[P])
     {

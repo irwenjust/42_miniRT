@@ -51,15 +51,20 @@
 # define ONE 49
 # define TWO 50
 # define THREE 51
+# define FOUR 52
+# define FIVE 53
+# define SIX 54
 
 # define C_INC 93
 # define C_DEC 91
 
 # define MENU_KEY "vcbm"
-# define PRESET_KEY "123"
+# define PRESET_KEY "123456"
 # define MOVE_KEY "wasdqe"
 # define ROTATE_KEY "ijkluo"
 
+
+// # define CP(i)(c_preset[i])
 # define FRAME_RATE 60 //Target frame rate (15 fps)
 # define FRAME_TIME (1000000 / FRAME_RATE)
 
@@ -83,11 +88,16 @@
 # define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
 
 //Some standard color
-# define BLUE (t_color){137, 196, 244, 0}
-# define BLACK		(t_color){0, 0, 0, 0}
-# define WHITE		(t_color){0, 255, 255, 255}
 # define RED		(t_color){255, 0, 0, 0}
+# define YELLOW		(t_color){255, 255, 0, 0}
 # define GREEN		(t_color){0, 255, 0, 0}
+# define BLUE		(t_color){0, 0, 255, 0}
+# define PINK		(t_color){255, 100, 180, 0}
+# define PURPLE		(t_color){210, 70, 255, 0}
+# define BLACK		(t_color){0, 0, 0, 0}
+# define WHITE		(t_color){255, 255, 255, 0}
+
+
 
 //about windows setting (16:9)
 # define SCALE 0.5625
@@ -120,6 +130,7 @@ stdlib: malloc, free
 
 #include "libft.h"
 #include "structure.h"
+#include "preset.h"
 #include "../minilibx-linux/mlx.h"
 #include <X11/X.h>
 #include "../libft/get_next_line/get_next_line.h"
@@ -145,7 +156,7 @@ t_color	parse_color(char **rgb);
 t_color	add_bright_to_color(t_color color, double brightness);
 t_color	add_color(t_color c1, t_color c2);
 // t_color	copy_color(t_color c);
-t_color *get_color();
+t_color *get_color(int type);
 t_color	mix_color(t_color base, t_color light_effect);
 
 /*render*/
@@ -172,7 +183,7 @@ bool	parse_ambient(int counter[3], char **tmp, t_ambient *ambient);
 t_color	check_ambient(t_color color);
 //camera part
 t_camera copy_camera(t_camera camera);
-bool	parse_camera(int counter[3], char **tmp, t_camera *camera);
+bool	parse_camera(char **tmp, t_camera *camera);
 void move_camera(t_key *keys);
 void rotate_camera(t_key *keys);
 //light part
@@ -207,15 +218,20 @@ bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter);
 //key 
 int press_key(int keycode, t_key *keys);
 int release_key(int keycode, t_key *keys);
-//update
-int update(t_key *keys);
 int		ft_quit();
+int update(t_key *keys);
 //click action
 void update_menu(t_key *keys);
 void update_preset(t_key *keys);
 void update_reset(t_key *keys);
 void update_select(t_key *keys);
-
+//hold action
+void update_scaling(t_key *keys);
+void update_move(t_key *keys);
+void update_rotate(t_key *keys);
+void update_color(t_key *keys);
+//preset part
+void switch_preset(int preset);
 
 /*vector part*/
 //vector op basic

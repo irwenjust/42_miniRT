@@ -16,9 +16,14 @@
 static bool	parse_line(int counter[3], char **arg)
 {
 	if (!ft_strcmp("A", arg[0]))
+	{
 		return (parse_ambient(counter, arg, &s()->ambient));
+	}
 	else if (!ft_strcmp("C", arg[0]))
-		return (parse_camera(counter, arg, &s()->camera));
+	{
+		counter[1]++;
+		return (parse_camera(arg, &s()->camera));
+	}
 	else if (!ft_strcmp("L", arg[0]))
 		return (parse_light(counter, arg, s()->light));
 	else if (!ft_strcmp("sp", arg[0]))

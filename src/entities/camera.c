@@ -21,7 +21,7 @@ t_camera copy_camera(t_camera camera)
 	});
 }
 
-bool	parse_camera(int counter[3], char **arg, t_camera *camera)
+bool	parse_camera(char **arg, t_camera *camera)
 {
 	char	**coord;
 	char	**normal;
@@ -43,7 +43,7 @@ bool	parse_camera(int counter[3], char **arg, t_camera *camera)
 	camera->fov = ft_atoi(arg[3]);
 	if (camera->fov < 0 || camera->fov > 180)
 		return (ERROR("camera: normal vector's visual is out of range"), false);
-	counter[1]++;
+	
 	return (camera);
 }
 

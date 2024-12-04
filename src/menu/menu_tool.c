@@ -22,6 +22,7 @@ void display_move_rotate(int x, int y)
         if (((t_shape *)(s()->shapes->array[s()->select]))->type == CYLINDER)
         display(x += (28 * 6), y, 0xFFFFFF, "Down/Up : -/+ Height");
     }
+    printf("%d\n", x);
 }
 
 void display_mode(int x, int y)
@@ -67,8 +68,6 @@ void display_shape(int x, int y, t_shape *shape)
         display(x += (9 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[CYLINDER]));
     }
 }
-
-
 
 void display_color(int x, int y, t_color *rgb)
 {

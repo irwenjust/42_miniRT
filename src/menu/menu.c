@@ -38,25 +38,26 @@ static void camera_menu(int ori_x, int y)
 static void light_menu(int ori_x, int y)
 {
     int x;
-    t_color *rgb;
+    t_light *light;
 
+    light = s()->light->array[s()->select];
     display(ori_x, y, 0xFFFFFF, "- LightSource Edit Mode -");
     x = ori_x;
     display(x += (30 * 6), y, 0xFFD700, "Current Light:");
     display(x += (16 * 6), y, 0xFFD700, "Light");
     display(x += (6 * 6), y, 0xFFD700, ft_itoa(s()->select)); 
     display_move_rotate(ori_x, y += 20);
+    display(x += (40 * 6), y, 0x87CEFA, "Brightness >");
+    display(x += (14 * 6), y, 0xFFFFFF, ft_dtoa_simple(light->brightness));
     display(ori_x, y += 20, 0x87CEFA, "Preset Light Color >");
     x = ori_x;
     display(x += (22 * 6), y, 0xFFFFFF, "1 : Red"); //warm
     display(x += (12 * 6), y, 0xFFFFFF, "2 : Yellow"); //cool
-    display(x += (15 * 6), y, 0xFFFFFF, "3 : Blue"); //sunset
-    display(x += (13 * 6), y, 0xFFFFFF, "4 : Green"); //moonlight
-    display(x += (14 * 6), y, 0xFFFFFF, "5 : Pink"); //cyberpunk
+    display(x += (15 * 6), y, 0xFFFFFF, "3 : Green"); //sunset
+    display(x += (14 * 6), y, 0xFFFFFF, "4 : Blue"); //moonlight
+    display(x += (13 * 6), y, 0xFFFFFF, "5 : Pink"); //cyberpunk
     display(x += (13 * 6), y, 0xFFFFFF, "6 : Purple"); //disco
-    // rgb = copy_color(((t_light *)(s()->light->array[s()->select]))->color);
-    rgb = get_color(); //need check?
-    display_color(x += (20 * 6), y, rgb);
+    display_color(x += (20 * 6), y, &light->color);
     display_mode(ori_x, y += 20);
 }
 
@@ -64,7 +65,6 @@ static void shape_menu(int ori_x, int y)
 {
     int x;
     t_shape *shape;
-    t_color *rgb;
 
     shape = s()->shapes->array[s()->select];
     display(ori_x, y, 0xFFFFFF, "- Model Edit Mode -");
@@ -74,18 +74,16 @@ static void shape_menu(int ori_x, int y)
     x = ori_x;
     display(x += (22 * 6), y, 0xFFFFFF, "1 : Red");
     display(x += (12 * 6), y, 0xFFFFFF, "2 : Yellow");
-    display(x += (15 * 6), y, 0xFFFFFF, "3 : Blue");
-    display(x += (13 * 6), y, 0xFFFFFF, "4 : Green");
-    display(x += (14 * 6), y, 0xFFFFFF, "5 : Pink");
+    display(x += (15 * 6), y, 0xFFFFFF, "3 : Green");
+    display(x += (14 * 6), y, 0xFFFFFF, "4 : Blue");
+    display(x += (13 * 6), y, 0xFFFFFF, "5 : Pink");
     display(x += (13 * 6), y, 0xFFFFFF, "6 : Purple");
-    // if (shape->type == SPHERE)
-    //     rgb = copy_color(shape->data.sphere.color);
-    // else if (shape->type == PLANE)
-    //     rgb = copy_color(shape->data.plane.color);
-    // else
-    //     rgb = copy_color(shape->data.cylinder.color);
-    rgb = get_color(); //need check?
-    display_color(x += (20 * 6), y, rgb);
+    if (shape->type == SPHERE)
+        display_color(x += (20 * 6), y, &shape->data.sphere.color);
+    else if (shape->type == PLANE)
+        display_color(x += (20 * 6), y, &shape->data.plane.color);
+    else
+        display_color(x += (20 * 6), y, &shape->data.cylinder.color);
     display_mode(ori_x, y += 20);
 }
 
