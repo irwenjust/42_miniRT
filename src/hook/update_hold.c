@@ -18,10 +18,11 @@ void update_scaling(t_key *keys)
     else if (s()->menu == LIGHT)
     {
         light = s()->light->array[0];
-        if (keys->cur_keycode == UP && light->brightness - 1.0 < 1e-8)
+        if (keys->cur_keycode == UP && light->brightness < 1.0)
             light->brightness += 0.1;
-        else if (keys->cur_keycode == DOWN && light->brightness - 0.0 > 1e-8)
+        else if (keys->cur_keycode == DOWN && light->brightness > 1e-8)
             light->brightness -= 0.1;
+        //printf("%f\n", light->brightness);
     }
     control_frame_rate();
 }

@@ -48,7 +48,7 @@ static void light_menu(int ori_x, int y)
     display(x += (6 * 6), y, 0xFFD700, ft_itoa(s()->select)); 
     display_move_rotate(ori_x, y += 20);
     display(x += (40 * 6), y, 0x87CEFA, "Brightness >");
-    display(x += (14 * 6), y, 0xFFFFFF, ft_dtoa(light->brightness));
+    display(x += (14 * 6), y, 0xFFFFFF, ft_dtoa_simple(light->brightness));
     display(ori_x, y += 20, 0x87CEFA, "Preset Light Color >");
     x = ori_x;
     display(x += (22 * 6), y, 0xFFFFFF, "1 : Red"); //warm

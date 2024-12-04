@@ -12,18 +12,18 @@
 
 #include "libft.h"
 
-static long	power(int n, int power)
-{
-	long	res;
+//static long	power(int n, int power)
+//{
+//	long	res;
 
-	res = n;
-	while (power > 1)
-	{
-		res = res * n;
-		power--;
-	}
-	return (res);
-}
+//	res = n;
+//	while (power > 1)
+//	{
+//		res = res * n;
+//		power--;
+//	}
+//	return (res);
+//}
 
 double	ft_atod(char *str)
 {
@@ -45,6 +45,7 @@ double	ft_atod(char *str)
 	if (str[i] == '.')
 		i++;
 	str += i;
-	res += (double)ft_atoi(str) / power(10, ft_strlen(str));
+	res += (double)ft_atoi(str) * (0.1 * ft_strlen(str));
+	//res += (double)ft_atoi(str) / power(10, ft_strlen(str));
 	return (signal * res);
 }

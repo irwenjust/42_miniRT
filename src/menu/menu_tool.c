@@ -22,6 +22,7 @@ void display_move_rotate(int x, int y)
         if (((t_shape *)(s()->shapes->array[s()->select]))->type == CYLINDER)
         display(x += (28 * 6), y, 0xFFFFFF, "Down/Up : -/+ Height");
     }
+    printf("%d\n", x);
 }
 
 void display_mode(int x, int y)
