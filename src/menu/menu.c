@@ -23,7 +23,7 @@ static void camera_menu(int ori_x, int y)
     int x;
 
     display(ori_x, y, 0xFFFFFF, "- Camera Edit Mode -");
-    display_move_rotate(ori_x, y += 20);
+    display_move_rotate_size(ori_x, y += 20);
     display(ori_x, y += 20, 0x87CEFA, "Preset Camera >");
     x = ori_x;
     display(x += (17 * 6), y, 0xFFFFFF, "1 : Front View");
@@ -46,18 +46,21 @@ static void light_menu(int ori_x, int y)
     display(x += (30 * 6), y, 0xFFD700, "Current Light:");
     display(x += (16 * 6), y, 0xFFD700, "Light");
     display(x += (6 * 6), y, 0xFFD700, ft_itoa(s()->select)); 
-    display_move_rotate(ori_x, y += 20);
-    display(x += (40 * 6), y, 0x87CEFA, "Brightness >");
-    display(x += (14 * 6), y, 0xFFFFFF, ft_dtoa_simple(light->brightness));
-    display(ori_x, y += 20, 0x87CEFA, "Preset Light Color >");
+    display_move_rotate_size(ori_x, y += 20);
     x = ori_x;
-    display(x += (22 * 6), y, 0xFFFFFF, "1 : Red"); //warm
-    display(x += (12 * 6), y, 0xFFFFFF, "2 : Yellow"); //cool
-    display(x += (15 * 6), y, 0xFFFFFF, "3 : Green"); //sunset
-    display(x += (14 * 6), y, 0xFFFFFF, "4 : Blue"); //moonlight
-    display(x += (13 * 6), y, 0xFFFFFF, "5 : Pink"); //cyberpunk
-    display(x += (13 * 6), y, 0xFFFFFF, "6 : Purple"); //disco
-    display_color(x += (20 * 6), y, &light->color);
+    display(x += (96 * 6), y, 0x87CEFA, "Brightness >");
+    display(x += (14 * 6), y, 0xFFD700, ft_dtoa_simple(light->brightness));
+    display(x += (5 * 6), y, 0x87CEFA, ">");
+    display(x += (2 * 6), y, 0xFFFFFF, "Down/Up : -/+ Brightness");
+    display(ori_x, y += 20, 0x87CEFA, "Preset Light Color & Brightness >");
+    x = ori_x;
+    display(x += (35 * 6), y, 0xFFFFFF, "1 : Warm White"); //warm
+    display(x += (19 * 6), y, 0xFFFFFF, "2 : Cold White"); //cool
+    display(x += (19 * 6), y, 0xFFFFFF, "3 : Sunset"); //sunset
+    display(x += (15 * 6), y, 0xFFFFFF, "4 : Moonlight"); //moonlight
+    display(x += (18 * 6), y, 0xFFFFFF, "5 : Cyberpunk"); //cyberpunk
+    display(x += (18 * 6), y, 0xFFFFFF, "6 : Toxic"); //disco
+    display_color(x += (19 * 6), y, &light->color);
     display_mode(ori_x, y += 20);
 }
 
@@ -69,7 +72,7 @@ static void shape_menu(int ori_x, int y)
     shape = s()->shapes->array[s()->select];
     display(ori_x, y, 0xFFFFFF, "- Model Edit Mode -");
     display_shape(ori_x + (24 * 6), y, shape);
-    display_move_rotate(ori_x, y += 20);
+    display_move_rotate_size(ori_x, y += 20);
     display(ori_x, y += 20, 0x87CEFA, "Preset Shape Color >");
     x = ori_x;
     display(x += (22 * 6), y, 0xFFFFFF, "1 : Red");
