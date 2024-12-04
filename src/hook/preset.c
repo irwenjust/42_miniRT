@@ -29,17 +29,23 @@ void light_preset(int preset)
 
     light = s()->light->array[s()->select];
     if (preset == 1)
-        light->color = RED;
+        light->color = WARM_W;
     else if (preset == 2)
-        light->color = YELLOW;
+        light->color = COLD_W;
     else if (preset == 3)
-        light->color = GREEN;
+        light->color = SUNSET;
     else if (preset == 4)
-        light->color = BLUE;
+        light->color = MOON;
     else if (preset == 5)
-        light->color = PINK;
+        light->color = CYERPK;
     else if (preset == 6)
-        light->color = PURPLE;
+        light->color = TOXIC;
+    if (preset == 1 || preset == 2 || preset == 5)
+        light->brightness = 1.0;
+    else if (preset == 3 || preset == 6)
+        light->brightness = 0.7;
+    else if (preset == 4)
+        light->brightness = 0.4;
 }
 
 void shape_preset(int preset, int type)

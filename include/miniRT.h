@@ -87,15 +87,7 @@
 
 # define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
 
-//Some standard color
-# define RED		(t_color){255, 0, 0, 0}
-# define YELLOW		(t_color){255, 255, 0, 0}
-# define GREEN		(t_color){0, 255, 0, 0}
-# define BLUE		(t_color){0, 0, 255, 0}
-# define PINK		(t_color){255, 100, 180, 0}
-# define PURPLE		(t_color){210, 70, 255, 0}
-# define BLACK		(t_color){0, 0, 0, 0}
-# define WHITE		(t_color){255, 255, 255, 0}
+
 
 
 
@@ -265,7 +257,7 @@ bool solve(t_equation *equation);
 void display_menu();
 //menu display tool
 void	display(int x, int y, int color, char *text);
-void display_move_rotate(int x, int y);
+void display_move_rotate_size(int x, int y);
 void display_mode(int x, int y);
 void display_shape(int x, int y, t_shape *shape);
 void display_color(int x, int y, t_color *rgb);

@@ -5,7 +5,7 @@ void	display(int x, int y, int color, char *text)
 	mlx_string_put(s()->win.mlx, s()->win.disp, x, y, color, text);
 }
 
-void display_move_rotate(int x, int y)
+void display_move_rotate_size(int x, int y)
 {
     display(x, y, 0x87CEFA, "Movement and Rotation >"); //+2
     display(x += (25 * 6), y, 0xFFFFFF, "WASD : Move Up/Left/Dowm/Right"); //+5
@@ -22,7 +22,6 @@ void display_move_rotate(int x, int y)
         if (((t_shape *)(s()->shapes->array[s()->select]))->type == CYLINDER)
         display(x += (28 * 6), y, 0xFFFFFF, "Down/Up : -/+ Height");
     }
-    printf("%d\n", x);
 }
 
 void display_mode(int x, int y)
