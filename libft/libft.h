@@ -95,4 +95,6 @@ void	*append_matrix(void *matrix, void *data, void *(*copy)(void *));
 void	*copy_matrix(void *matrix, void *(*copy)(void *));
 void	free_matrix(char **matrix);
 
+char *ft_dtoa(double n);
+
 #endif

@@ -54,6 +54,7 @@ int	ft_quit()
 
 int update(t_key *keys)
 {
+    
     if (keys->action == NOTHING)
         return (0);
     else if (keys->action == QUIT)
@@ -74,5 +75,6 @@ int update(t_key *keys)
         update_rotate(keys);
     else if (keys->action == COLOR)
         update_color(keys);
+    
     return (0);
 }

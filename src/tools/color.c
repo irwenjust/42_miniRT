@@ -52,12 +52,12 @@ t_color	parse_color(char **rgb)
 	});
 }
 
-t_color *get_color()
+t_color *get_color(int type)
 {
     t_shape *shape;
     t_color *rgb;
 
-    if (s()->menu == SHAPE)
+    if (type == SHAPE)
     {
         shape = s()->shapes->array[s()->select];
         if (shape->type == SPHERE)
@@ -67,8 +67,8 @@ t_color *get_color()
         else
             rgb = &shape->data.cylinder.color;    
     }
-    else if (s()->menu == LIGHT)
-        rgb = &((t_light *)(s()->light->array[s()->select]))->color;
+    else if (type == LIGHT)
+        rgb = &((t_light *)(s()->light->array[0]))->color;
     else
         rgb = NULL;
     return (rgb);

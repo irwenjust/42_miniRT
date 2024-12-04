@@ -68,8 +68,6 @@ void display_shape(int x, int y, t_shape *shape)
     }
 }
 
-
-
 void display_color(int x, int y, t_color *rgb)
 {
     display(x, y, 0x87CEFA, "Color >");

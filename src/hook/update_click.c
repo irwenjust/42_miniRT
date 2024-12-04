@@ -80,11 +80,12 @@ void update_select(t_key *keys)
         return ;
     if (keys->cur_keycode == TAB)
     {
-        // printf("selec %i\n", s()->select);
         s()->select++;
         if ((s()->menu == SHAPE && s()->select >= s()->shapes->size) || (s()->menu == LIGHT && s()->select >= s()->light->size))
 			s()->select = 0;
         s()->select_rgb = 0;
+        if (s()->menu == SHAPE)
+            s()->preset = 0;
     }
     else if (keys->key[P])
     {

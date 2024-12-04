@@ -3,6 +3,7 @@
 void update_scaling(t_key *keys)
 {
     t_shape *shape;
+    t_light *light;
     
     if (s()->menu == SHAPE)
     {
@@ -13,8 +14,16 @@ void update_scaling(t_key *keys)
             scaling_sphere(keys, &shape->data.sphere);
         else if (shape->type == CYLINDER)
             scaling_cylinder(keys, &shape->data.cylinder);
-        control_frame_rate();
     }
+    else if (s()->menu == LIGHT)
+    {
+        light = s()->light->array[0];
+        if (keys->cur_keycode == UP && light->brightness - 1.0 < 1e-8)
+            light->brightness += 0.1;
+        else if (keys->cur_keycode == DOWN && light->brightness - 0.0 > 1e-8)
+            light->brightness -= 0.1;
+    }
+    control_frame_rate();
 }
 
 void update_move(t_key *keys)
@@ -27,7 +36,8 @@ void update_move(t_key *keys)
         move_shape(keys, s()->shapes->array[s()->select]);
     else
         return ;
-    rebuild_bvh();
+    control_frame_rate();
+    //rebuild_bvh();
 }
 
 void update_rotate(t_key *keys)
@@ -46,7 +56,7 @@ void update_color(t_key *keys)
     t_color *rgb;
     int *color_channel;
 
-    rgb = get_color();
+    rgb = get_color(s()->menu);
     if (rgb == NULL)
         return ;
     if (s()->select_rgb == 0)
@@ -64,7 +74,8 @@ void update_color(t_key *keys)
     if ((*color_channel) > 255)
         (*color_channel) = 0;
     if ((*color_channel) < 0)
-        (*color_channel) = 255;  
+        (*color_channel) = 255; 
+    s()->preset = 0;
     control_frame_rate();
 }
 
