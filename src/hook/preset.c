@@ -48,25 +48,54 @@ void light_preset(int preset)
         light->brightness = 0.4;
 }
 
-void shape_preset(int preset, int type)
-{
-    t_color *color;
+// void shape_preset(int preset)
+// {
+//     t_color *color;
 
-    color = get_color(type);
-    if (color == NULL)
-        return ;
-    if (preset == 1)
-        (*color) = RED;
-    else if (preset == 2)
-        (*color) = YELLOW;
-    else if (preset == 3)
-        (*color) = GREEN;
-    else if (preset == 4)
-        (*color) = BLUE;
-    else if (preset == 5)
-        (*color) = PINK;
-    else if (preset == 6)
-        (*color) = PURPLE;
+//     color = get_color(SHAPE);
+//     if (color == NULL)
+//         return ;
+//     if (preset == 1)
+//         (*color) = RED;
+//     else if (preset == 2)
+//         (*color) = YELLOW;
+//     else if (preset == 3)
+//         (*color) = GREEN;
+//     else if (preset == 4)
+//         (*color) = BLUE;
+//     else if (preset == 5)
+//         (*color) = PINK;
+//     else if (preset == 6)
+//         (*color) = PURPLE;
+// }
+
+void shape_preset(int preset)
+{
+    int i;
+    int j;
+    t_color *color;
+    
+    i = -1;
+    j = 0;
+    while (++i < s()->shapes->size)
+    {
+        color = get_color(s()->menu, i);
+        if (preset == 1)
+            (*color) = CS1_DREAM[j];
+        else if (preset == 2)
+            (*color) = CS2_SUNSET[j];
+        else if (preset == 3)
+            (*color) = CS3_FIRE[j];
+        else if (preset == 4)
+            (*color) = CS4_BLUES[j];
+        else if (preset == 5)
+            (*color) = CS5_FOREST[j];
+        else if (preset == 6)
+            (*color) = CS6_COFFEE[j];
+        j++;
+        if (j >= 4)
+            j = 0;
+    }
 }
 
 void view_preset(int preset)
@@ -88,7 +117,7 @@ void switch_preset(int preset)
     else if (s()->menu == LIGHT)
         light_preset(preset);
     else if (s()->menu == SHAPE)
-        shape_preset(preset, s()->menu);
+        shape_preset(preset);
     else if (s()->menu == VIEW)
         view_preset(preset);
     

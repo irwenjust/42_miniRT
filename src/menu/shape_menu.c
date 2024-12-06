@@ -25,24 +25,24 @@ static void display_shape(int x, int y, t_shape *shape)
 static void display_shape_preset(int x, int y)
 {
     display(x, y, 0x87CEFA, "Preset Shape Color >");
-    display(x + (22 * 6), y, 0xFFFFFF, "1 : Red");
-    display(x + (34 * 6), y, 0xFFFFFF, "2 : Yellow");
-    display(x + (49 * 6), y, 0xFFFFFF, "3 : Green");
-    display(x + (63 * 6), y, 0xFFFFFF, "4 : Blue");
-    display(x + (76 * 6), y, 0xFFFFFF, "5 : Pink");
-    display(x + (89 * 6), y, 0xFFFFFF, "6 : Purple");
+    display(x + (22 * 6), y, 0xFFFFFF, "1 : Soft Dream");
+    display(x + (41 * 6), y, 0xFFFFFF, "2 : Sunset");
+    display(x + (56 * 6), y, 0xFFFFFF, "3 : Fire");
+    display(x + (69 * 6), y, 0xFFFFFF, "4 : Blue Style");
+    display(x + (88 * 6), y, 0xFFFFFF, "5 : Forest");
+    display(x + (103 * 6), y, 0xFFFFFF, "6 : Coffee");
     if (s()->preset == 1)
-        display(x + (22 * 6), y, 0xFFD700, "1 : Red");
+        display(x + (22 * 6), y, 0xFFD700, "1 : Soft Dream");
     if (s()->preset == 2)
-        display(x + (34 * 6), y, 0xFFD700, "2 : Yellow");
+        display(x + (41 * 6), y, 0xFFD700, "2 : Sunset");
     if (s()->preset == 3)
-        display(x + (49 * 6), y, 0xFFD700, "3 : Green");
+        display(x + (56 * 6), y, 0xFFD700, "3 : Fire");
     if (s()->preset == 4)
-        display(x + (63 * 6), y, 0xFFD700, "4 : Blue");
+        display(x + (69 * 6), y, 0xFFD700, "4 : Blue Style");
     if (s()->preset == 5)
-        display(x + (76 * 6), y, 0xFFD700, "5 : Pink");
+        display(x + (88 * 6), y, 0xFFD700, "5 : Forest");
     if (s()->preset == 6)
-        display(x + (89 * 6), y, 0xFFD700, "6 : Purple");
+        display(x + (103 * 6), y, 0xFFD700, "6 : Coffee");
 }
 
 void shape_menu(int x, int y)
