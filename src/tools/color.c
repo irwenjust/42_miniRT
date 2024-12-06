@@ -52,14 +52,14 @@ t_color	parse_color(char **rgb)
 	});
 }
 
-t_color *get_color(int type)
+t_color *get_color(int type, int i)
 {
     t_shape *shape;
     t_color *rgb;
 
     if (type == SHAPE)
     {
-        shape = s()->shapes->array[s()->select];
+        shape = s()->shapes->array[i];
         if (shape->type == SPHERE)
             rgb = &shape->data.sphere.color;
         else if (shape->type == PLANE)

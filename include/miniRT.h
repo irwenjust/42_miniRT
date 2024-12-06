@@ -143,13 +143,7 @@ void	parse_args();
 //parse tool
 bool 	check_syntax(char **arg, char *commas);
 bool 	check_rgb(char *rgb);
-//color part
-t_color	parse_color(char **rgb);
-t_color	add_bright_to_color(t_color color, double brightness);
-t_color	add_color(t_color c1, t_color c2);
-// t_color	copy_color(t_color c);
-t_color *get_color(int type);
-t_color	mix_color(t_color base, t_color light_effect);
+
 
 /*render*/
 //renderer
@@ -250,6 +244,14 @@ t_vector vector_copy(t_vector vec);
 
 
 /*tools*/
+//color part
+t_color	parse_color(char **rgb);
+t_color	add_bright_to_color(t_color color, double brightness);
+t_color	add_color(t_color c1, t_color c2);
+// t_color	copy_color(t_color c);
+t_color *get_color(int type, int i);
+t_color	mix_color(t_color base, t_color light_effect);
+
 //equation
 bool solve(t_equation *equation);
 
@@ -263,9 +265,9 @@ void shape_menu(int ori_x, int y);
 //menu display tool
 void	display(int x, int y, int color, char *text);
 void display_move_rotate_size(int x, int y);
-void display_mode(int x, int y);
 void display_color(int x, int y, t_color *rgb);
 void display_brightness(int x, int y, double brightness);
+void display_mode(int x, int y);
 
 
 //free the scene

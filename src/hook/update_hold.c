@@ -57,7 +57,7 @@ void update_color(t_key *keys)
     t_color *rgb;
     int *color_channel;
 
-    rgb = get_color(s()->menu);
+    rgb = get_color(s()->menu, s()->select);
     if (rgb == NULL)
         return ;
     if (s()->select_rgb == 0)
