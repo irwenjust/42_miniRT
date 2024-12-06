@@ -67,10 +67,9 @@ void update_reset(t_key *keys)
         else if (s()->menu == SHAPE)
             s()->shapes->array[s()->select] = copy_shape(s()->ori_shapes->array[s()->select]);
         s()->preset = 0;
-        control_frame_rate();
+        // control_frame_rate();
+        render();
     }
-    // print_camera(&s()->ori_camera);
-    // print_camera(&s()->camera);
     keys->action = NOTHING;
 }
 

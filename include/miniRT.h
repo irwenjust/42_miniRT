@@ -255,12 +255,17 @@ bool solve(t_equation *equation);
 
 /*menu*/
 void display_menu();
+//menu
+void view_menu(int ori_x, int y);
+void camera_menu(int ori_x, int y);
+void light_menu(int ori_x, int y);
+void shape_menu(int ori_x, int y);
 //menu display tool
 void	display(int x, int y, int color, char *text);
 void display_move_rotate_size(int x, int y);
 void display_mode(int x, int y);
-void display_shape(int x, int y, t_shape *shape);
 void display_color(int x, int y, t_color *rgb);
+void display_brightness(int x, int y, double brightness);
 
 
 //free the scene
