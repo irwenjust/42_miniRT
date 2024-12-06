@@ -24,50 +24,6 @@ void display_move_rotate_size(int x, int y)
     }
 }
 
-void display_mode(int x, int y)
-{
-	display(x, y, 0x87CEFA, "Change Mode >");
-	if (s()->menu == VIEW)
-		display(x += (15 * 6), y, 0xFFFFFF, "C : Enter [Camera Edit Mode]");
-	else
-		display(x += (15 * 6), y, 0xFFFFFF, "V : Enter [View Mode]");
-	if (s()->menu == VIEW)
-	    display(x += (33 * 6), y, 0xFFFFFF, "B : Enter [LightSource Edit Mode]");
-    else if (s()->menu == CAMERA)
-		display(x += (26 * 6), y, 0xFFFFFF, "B : Enter [LightSource Edit Mode]");
-	else
-		display(x += (26 * 6), y, 0xFFFFFF, "C : Enter [Camera Edit Mode]");
-	if (s()->menu == VIEW || s()->menu == CAMERA)
-		display(x += (38 * 6), y, 0xFFFFFF, "M : Enter [Model Edit Mode]");
-	else if (s()->menu == LIGHT)
-	    display(x += (33 * 6), y, 0xFFFFFF, "M : Enter [Model Edit Mode]");
-	else
-    	display(x += (33 * 6), y, 0xFFFFFF, "B : Enter [LightSource Edit Mode]");
-    display(x += (45 * 6), y, 0x87CEFA, "Render and Reset >");
-    display(x += (20 * 6), y, 0xFFFFFF, "R : Render");
-    display(x += (15* 6), y, 0xFFFFFF, "G : Reset to default");
-}
-
-void display_shape(int x, int y, t_shape *shape)
-{
-    display(x, y, 0xFFD700, "Current Shape:");
-    if (shape->type == SPHERE)
-    {
-        display(x += (16 * 6), y, 0xFFD700, "Sphere");
-        display(x += (7 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[SPHERE]));
-    }
-    else if (shape->type == PLANE)
-    {
-        display(x += (16 * 6), y, 0xFFD700, "Plane");
-        display(x += (6 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[PLANE]));
-    }
-    else if (shape->type == CYLINDER)
-    {
-        display(x += (16 * 6), y, 0xFFD700, "Cylinder");
-        display(x += (9 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[CYLINDER]));
-    }
-}
-
 void display_color(int x, int y, t_color *rgb)
 {
     display(x, y, 0x87CEFA, "Color >");
@@ -88,4 +44,36 @@ void display_color(int x, int y, t_color *rgb)
     display(x += (ft_strlen(ft_itoa(rgb->blue)) * 6), y, 0x87CEFA, "  >");
     display(x += (5 * 6), y, 0xFFFFFF, "P : Change Color Channel");
     display(x += (29 * 6), y, 0xFFFFFF, "[/] : +/- Color Value");
+}
+
+void display_brightness(int x, int y, double brightness)
+{
+    display(x, y, 0x87CEFA, "Brightness >");
+    display(x += (14 * 6), y, 0xFFD700, ft_dtoa_simple(brightness));
+    display(x += (5 * 6), y, 0x87CEFA, ">");
+    display(x += (2 * 6), y, 0xFFFFFF, "Down/Up : -/+ Brightness");
+}
+
+void display_mode(int x, int y)
+{
+	display(x, y, 0x87CEFA, "Change Mode >");
+    display(x + (15 * 6), y, 0xFFFFFF, "V : Enter [View Mode]");
+    display(x + (41 * 6), y, 0xFFFFFF, "C : Enter [Camera Edit Mode]");
+    display(x + (74 * 6), y, 0xFFFFFF, "B : Enter [LightSource Edit Mode]");
+    display(x + (112 * 6), y, 0xFFFFFF, "M : Enter [Model Edit Mode]");
+	if (s()->menu == VIEW)
+		display(x + (15 * 6), y, 0xFFD700, "V : Enter [View Mode]");
+    else if (s()->menu == CAMERA)
+		display(x + (41 * 6), y, 0xFFD700, "C : Enter [Camera Edit Mode]");
+	else if (s()->menu == LIGHT)
+	    display(x + (74 * 6), y, 0xFFD700, "B : Enter [LightSource Edit Mode]");
+	else
+    	display(x + (112 * 6), y, 0xFFD700, "M : Enter [Model Edit Mode]");
+    if (s()->menu == VIEW || s()->menu == CAMERA)
+        y -= 20;
+    else
+        x += (157 * 6);
+    display(x, y, 0x87CEFA, "Render and Reset >");
+    display(x += (20 * 6), y, 0xFFFFFF, "R : Render");
+    display(x += (15* 6), y, 0xFFFFFF, "G : Reset to default");
 }

@@ -21,7 +21,7 @@ SRCS =	main.c \
 		fclass.c \
 		hook.c preset.c update_click.c update_hold.c \
 		init.c validate.c backup.c \
-		menu.c menu_tool.c\
+		menu.c menu_tool.c camera_menu.c light_menu.c shape_menu.c view_menu.c \
 		parse_args.c parse_tool.c \
 		color.c illumination.c intersection.c ray.c reflect.c render.c \
 		equation.c error.c magic_s.c tool.c \

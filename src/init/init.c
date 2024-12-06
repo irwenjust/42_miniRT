@@ -78,7 +78,7 @@ static void	init_windows()
 		&s()->win.line_len, &s()->win.endian);
 	if (!s()->win.addr)
 		error_exit("error happend when initial MLX42 image address");
-	s()->win.menu = mlx_new_image(s()->win.mlx, WIDTH, (HEIGHT * 0.1));
+	s()->win.menu = mlx_new_image(s()->win.mlx, WIDTH, (HEIGHT * 0.12));
 	if (!s()->win.menu)
 		error_exit("error happend when initial MLX42 menu");
 }

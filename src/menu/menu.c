@@ -1,101 +1,12 @@
 #include "miniRT.h"
 
 //font width = 6, font height ~= 10
-
-static void view_menu(int ori_x, int y)
-{
-    int x;
-
-    display(ori_x, y, 0xFFFFFF, "- View Mode -");
-    display(ori_x, y += 20, 0x87CEFA, "Preset Scenes >");
-    x = ori_x;
-    display(x += (17 * 6), y, 0xFFFFFF, "1 : Scene 1");
-    display(x += (16 * 6), y, 0xFFFFFF, "2 : Scene 2");
-    display(x += (16 * 6), y, 0xFFFFFF, "3 : Scene 3");
-    display(x += (16 * 6), y, 0xFFFFFF, "4 : Scene 4");
-    display(x += (16 * 6), y, 0xFFFFFF, "5 : Scene 5");
-    display(x += (16 * 6), y, 0xFFFFFF, "6 : Scene 6");
-    display_mode(ori_x, y += 40);
-}
-
-static void camera_menu(int ori_x, int y)
-{
-    int x;
-
-    display(ori_x, y, 0xFFFFFF, "- Camera Edit Mode -");
-    display_move_rotate_size(ori_x, y += 20);
-    display(ori_x, y += 20, 0x87CEFA, "Preset Camera >");
-    x = ori_x;
-    display(x += (17 * 6), y, 0xFFFFFF, "1 : Front View");
-    display(x += (19 * 6), y, 0xFFFFFF, "2 : Back View");
-    display(x += (18 * 6), y, 0xFFFFFF, "3 : Top View");
-    display(x += (17 * 6), y, 0xFFFFFF, "4 : Bottom View");
-    display(x += (20 * 6), y, 0xFFFFFF, "5 : Left View");
-    display(x += (18 * 6), y, 0xFFFFFF, "6 : Right View");
-    display_mode(ori_x, y += 20);
-}
-
-static void light_menu(int ori_x, int y)
-{
-    int x;
-    t_light *light;
-
-    light = s()->light->array[s()->select];
-    display(ori_x, y, 0xFFFFFF, "- LightSource Edit Mode -");
-    x = ori_x;
-    display(x += (30 * 6), y, 0xFFD700, "Current Light:");
-    display(x += (16 * 6), y, 0xFFD700, "Light");
-    display(x += (6 * 6), y, 0xFFD700, ft_itoa(s()->select)); 
-    display_move_rotate_size(ori_x, y += 20);
-    x = ori_x;
-    display(x += (96 * 6), y, 0x87CEFA, "Brightness >");
-    display(x += (14 * 6), y, 0xFFD700, ft_dtoa_simple(light->brightness));
-    display(x += (5 * 6), y, 0x87CEFA, ">");
-    display(x += (2 * 6), y, 0xFFFFFF, "Down/Up : -/+ Brightness");
-    display(ori_x, y += 20, 0x87CEFA, "Preset Light Color & Brightness >");
-    x = ori_x;
-    display(x += (35 * 6), y, 0xFFFFFF, "1 : Warm White"); //warm
-    display(x += (19 * 6), y, 0xFFFFFF, "2 : Cold White"); //cool
-    display(x += (19 * 6), y, 0xFFFFFF, "3 : Sunset"); //sunset
-    display(x += (15 * 6), y, 0xFFFFFF, "4 : Moonlight"); //moonlight
-    display(x += (18 * 6), y, 0xFFFFFF, "5 : Cyberpunk"); //cyberpunk
-    display(x += (18 * 6), y, 0xFFFFFF, "6 : Toxic"); //disco
-    display_color(x += (19 * 6), y, &light->color);
-    display_mode(ori_x, y += 20);
-}
-
-static void shape_menu(int ori_x, int y)
-{
-    int x;
-    t_shape *shape;
-
-    shape = s()->shapes->array[s()->select];
-    display(ori_x, y, 0xFFFFFF, "- Model Edit Mode -");
-    display_shape(ori_x + (24 * 6), y, shape);
-    display_move_rotate_size(ori_x, y += 20);
-    display(ori_x, y += 20, 0x87CEFA, "Preset Shape Color >");
-    x = ori_x;
-    display(x += (22 * 6), y, 0xFFFFFF, "1 : Red");
-    display(x += (12 * 6), y, 0xFFFFFF, "2 : Yellow");
-    display(x += (15 * 6), y, 0xFFFFFF, "3 : Green");
-    display(x += (14 * 6), y, 0xFFFFFF, "4 : Blue");
-    display(x += (13 * 6), y, 0xFFFFFF, "5 : Pink");
-    display(x += (13 * 6), y, 0xFFFFFF, "6 : Purple");
-    if (shape->type == SPHERE)
-        display_color(x += (20 * 6), y, &shape->data.sphere.color);
-    else if (shape->type == PLANE)
-        display_color(x += (20 * 6), y, &shape->data.plane.color);
-    else
-        display_color(x += (20 * 6), y, &shape->data.cylinder.color);
-    display_mode(ori_x, y += 20);
-}
-
 void display_menu()
 {
     int y;
 
-    y = HEIGHT * 0.9 + 20;
-    mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 0.9));
+    y = HEIGHT * 0.88 + 20;
+    mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 0.88));
     if (s()->menu == VIEW)
         view_menu(10, y);
     else if (s()->menu == CAMERA)
