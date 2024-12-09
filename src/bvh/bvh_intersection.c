@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:13:15 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 20:32:43 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:20:54 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,13 @@ t_hit	init_hit(void)
 //May need to check more later
 static inline bool	update_hit(t_ray *ray, t_bvh *node, t_hit *hit)
 {
-	if (is_intersect(node->shapes, ray, hit))
+	double current_t;
+	
+	if (is_intersect(node->shapes, ray, hit, &current_t))
+	{
+		
 		return (true);
+	}
 	return (false);
 }
 

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:01 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/27 14:10:45 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/28 12:11:15 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static double has_valid_sqrt(t_equation *equation)
  * 			t = (-b ± √(b^2 -4ac)) / 2a
  * 		case2&3 can be handled in case4
  */
-bool solve(t_equation *equation)
+double	solve(t_equation *equation)
 {
 	double res;
 
@@ -51,9 +51,9 @@ bool solve(t_equation *equation)
 	{
 		res = has_valid_sqrt(equation);
 		if (res < 0)
-			return (false);
+			return (-1);
 		equation->t1 = (-equation->b - sqrt(res)) / (2 * equation->a);
 		equation->t2 = (-equation->b + sqrt(res)) / (2 * equation->a);
 	}
-	return (true);
+	return (res);
 }

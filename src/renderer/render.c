@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:15 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/27 21:49:14 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:14:57 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	render()
 			closest.distance = INFINITY;
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
+			// if (check_bvh_intersection(&ray, s()->bvh, &closest)
+			// 	&& check_intersection(s()->shapes, &ray, &closest))
 			if (check_intersection(s()->shapes, &ray, &closest))
 				check_illumination(&closest); //4-if intersect, update closest color based on other env
 			put_pixel(closest.color, cur.x, cur.y);

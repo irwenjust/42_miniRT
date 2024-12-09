@@ -6,24 +6,39 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:32 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/27 21:34:37 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/09 10:32:17 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+void	find_valid_t(t_equation *equation)
+{
+	if (equation->t1 < 0)
+		equation->t1 = INFINITY;
+	if (equation->t2 < 0)
+		equation->t2 = INFINITY;
+	if (equation->t1 > equation->t2)
+		ft_swap_d(&equation->t1, &equation->t2);
+}
+
 /**
  * @brief Find the intersect point for each shape
  */
-bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter)
+bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter, double *valid_t)
 {
+	bool	checker;
+
+	checker = false;
 	if (shape->type == SPHERE)
-		return (inter_sphere(&shape->data.sphere, ray, inter));
+		checker = inter_sphere(&shape->data.sphere, ray, inter, valid_t);
 	if (shape->type == PLANE)
-		return (inter_plane(&shape->data.plane, ray, inter));
+		checker = inter_plane(&shape->data.plane, ray, inter);
 	if (shape->type == CYLINDER)
-		return (inter_cylinder(&shape->data.cylinder, ray, inter));
-	return (false);
+		checker = inter_cylinder(&shape->data.cylinder, ray, inter, valid_t);
+	if (*valid_t < 0)
+		return (false);
+	return (checker && *valid_t > 0);
 }
 
 /**
@@ -67,20 +82,21 @@ static t_vector	get_normal(t_hit *inter)
  */
 bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 {
-	int i;
+	int 	i;
 	t_shape *shape;
 	t_hit	tmp;
+	double	checker;
 
 	i = -1;
-	tmp = init_hit();
 	if (!shapes)
 		return (false);
+	tmp = init_hit();
 	// if (!check_bvh_intersection(ray, s()->bvh, &tmp))
 	// 	return (false);
 	while (++i < shapes->size)
 	{
 		shape = shapes->array[i];
-		if (!is_intersect(shape, ray, &tmp))
+		if (!is_intersect(shape, ray, &tmp, &checker))
 			continue ;
 		if (tmp.distance >= closest->distance)
 			continue ;

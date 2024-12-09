@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:17:29 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 20:10:45 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/09 09:44:48 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static bool	is_obscured(t_hit *closest)
 	t_hit	tmp;
 	t_light	*light;
 	t_shape	*shape;
+	double	valid_t;
 	
 	// Guess don't need to check light exist or not here
 	light = fclass_index(s()->light, 0);
@@ -34,8 +35,9 @@ static bool	is_obscured(t_hit *closest)
 		shape = fclass_index(s()->shapes, i);
 		if (shape->id == closest->shape->id)
 			continue ;
-		if (is_intersect(shape, &ray, &tmp) && tmp.distance <
-			vector_magnitude(vector_sub(light->point, closest->hit_point)))
+		// if (check_bvh_intersection(&ray, s()->bvh, &tmp) && tmp.distance <                  // is_intersect(shape, &ray, &tmp) && 
+		// 	vector_magnitude(vector_sub(light->point, closest->hit_point)))
+		if (is_intersect(shape, &ray, &tmp, &valid_t) && vector_magnitude(vector_sub(light->point, closest->hit_point)))
 			return (true);
 	}
 	return (false);

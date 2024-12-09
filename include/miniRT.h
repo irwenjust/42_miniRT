@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 21:04:07 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/28 14:25:04 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ t_ray make_ray(t_vector cur);
 t_vector	point_on_ray(t_ray *ray, double t);
 //intersect part
 bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest);
-bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter);
+bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter, double *valid_t);
 //illumination part
 void	check_illumination(t_hit *closest);
 //reflect part
@@ -183,9 +183,9 @@ void move_shape(t_key *keys, t_shape *shape);
 void rotate_shape(t_key *keys, t_shape *shape);
 //sphere part
 bool	parse_sphere(char **tmp, t_fclass *fclass);
-bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter);
-void move_sphere(t_key *keys, t_sphere *sphere);
-void scaling_sphere(t_key *keys, t_sphere *sphere);
+bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter, double *valid_t);
+void	move_sphere(t_key *keys, t_sphere *sphere);
+void	scaling_sphere(t_key *keys, t_sphere *sphere);
 //plane part
 bool parse_plane(char **arg, t_fclass *fclass);
 bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter);
@@ -197,7 +197,7 @@ void move_cylinder(t_key *keys, t_cylinder *cylinder);
 void rotate_cylinder(t_key *keys, t_cylinder *cylinder);
 void scaling_cylinder(t_key *keys, t_cylinder *cy);
 //cylinder inter
-bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter);
+bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter, double *valid_t);
 
 
 /**key hook */
@@ -253,7 +253,7 @@ t_color *get_color(int type, int i);
 t_color	mix_color(t_color base, t_color light_effect);
 
 //equation
-bool solve(t_equation *equation);
+double	solve(t_equation *equation);
 
 /*menu*/
 void display_menu();
@@ -305,5 +305,7 @@ t_shape	**shapes_to_arr(t_shape **shapes);
 t_hit	init_hit(void);
 t_aabb	box_sphere(t_sphere *sphere);
 t_aabb	box_cylinder(t_cylinder *cyl);
+void	ft_swap_d(double *a, double *b);
+void	find_valid_t(t_equation *equation);
 
 #endif

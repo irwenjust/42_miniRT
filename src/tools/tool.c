@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:15:24 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 17:34:05 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/28 13:42:05 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,13 @@ t_shape	**shapes_to_arr(t_shape **shapes)
 	while (shapes[++i])
 		res[i] = shapes[i];
 	return (res);
+}
+
+void	ft_swap_d(double *a, double *b)
+{
+	double	temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }

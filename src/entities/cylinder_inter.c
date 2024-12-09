@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:37:43 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/18 17:51:02 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/28 14:26:13 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,22 @@ static double check_cy_hit(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *in
 	return (inter->distance);
 }
 
+static void	init_cy_equation(t_cylinder *cylinder, t_ray *ray, t_equation *equation)
+{
+	t_vector vec;
+	double dn;
+	double vn;
+
+	vec = vector_sub(ray->start, cylinder->cap_u);
+	dn = vector_dot(ray->normal, cylinder->normal);
+	vn = vector_dot(vec, cylinder->normal);
+	equation->a = 1 - pow(dn, 2);
+	equation->b = 2 * (vector_dot(ray->normal, vec) - (dn * vn));
+	equation->c = vector_dot(vec, vec) - pow(vn, 2) - pow(cylinder->radius, 2);
+	equation->t1 = -1;
+	equation->t2 = -1;
+}
+
 /**
  * @brief
  * cylinder equation is |(P-C) - [(P-C)*N]*N|^2 = r^2
@@ -162,30 +178,25 @@ static double check_cy_hit(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *in
  * @param dn dot_product(D, N), D is ray normal, N is cylinder norml
  * @param vn dot_product(vec, N) 
  */
-bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter)
+bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter, double *valid_t)
 {
-	t_equation equation;
-	t_vector vec;
-	double dn;
-	double vn;
-	double distance;
-
-	vec = vector_sub(ray->start, cylinder->cap_u);
-	dn = vector_dot(ray->normal, cylinder->normal);
-	vn = vector_dot(vec, cylinder->normal);
-	equation.a = 1 - pow(dn, 2);
-	equation.b = 2 * (vector_dot(ray->normal, vec) - (dn * vn));
-	equation.c = vector_dot(vec, vec) - pow(vn, 2) - pow(cylinder->radius, 2);
-	equation.t1 = -1;
-	equation.t2 = -1;
-	if (solve(&equation) && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
+	t_equation	equation;
+	double		distance;
+	double		checker;
+	
+	init_cy_equation(cylinder, ray, &equation);
+	checker = solve(&equation);
+	if (checker != -1 && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
 	{
 		distance = check_cy_hit(cylinder, ray, &equation, inter);
 		if (distance > 0.0f)
 		{
 			inter->distance = distance;
 			inter->color = cylinder->color;
-			return (true);
+			find_valid_t(&equation);
+			*valid_t = equation.t1;
+			// printf("t1: %f, t2: %f\n", equation.t1, equation.t2);
+			return (*valid_t > 0);
 		}
 	}
 	return (false);

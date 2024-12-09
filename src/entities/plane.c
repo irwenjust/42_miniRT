@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 15:39:03 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/19 16:32:05 by yzhan            ###   ########.fr       */
+/*   Updated: 2024/11/28 13:02:47 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ bool parse_plane(char **arg, t_fclass *fclass)
  */
 bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter)
 {
-	t_equation equation;
-	t_vector vec;
+	t_equation	equation;
+	t_vector	vec;
+	double		checker;
 
 	if (vector_dot(ray->normal, plane->normal) != 0.0)
 	{
@@ -88,7 +89,8 @@ bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter)
 		equation.c = vector_dot(vec, plane->normal);
 		equation.t1 = -1;
 		equation.t2 = -1;
-		if (solve(&equation) && equation.t1 > 1e-8)
+		checker = solve(&equation);
+		if (checker != -1 && equation.t1 > 1e-8)
 		{
 			inter->distance = equation.t1;
 			inter->color = plane->color;

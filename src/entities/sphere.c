@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:50:15 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 20:51:04 by likong           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:15:30 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
  * @param equation equation structure
  * @param vec the vector from ray origin to sphere center point
  */
-bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter)
+bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter, double *valid_t)
 {
-	t_equation equation;
-	t_vector vec;
+	t_equation	equation;
+	t_vector	vec;
+	double		checker;
 
 	vec = vector_sub(ray->start, sphere->center);
 	equation.a = vector_dot(ray->normal, ray->normal);
@@ -90,13 +91,17 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter)
 	equation.c = vector_dot(vec, vec) - pow(sphere->radius, 2);
 	equation.t1 = -1;
 	equation.t2 = -1;
-	if (solve(&equation) && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
+	checker = solve(&equation);
+	if (checker != -1 && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
 	{
 		if (equation.t1 > 1e-8)
 			inter->distance = equation.t1;
 		else
 			inter->distance = equation.t2;
 		inter->color = sphere->color;
+		find_valid_t(&equation);
+		*valid_t = equation.t1;
+		// printf("t1: %f, t2: %f\n", equation.t1, equation.t2);
 		return (true);
 	}
 	return (false);
