@@ -68,7 +68,14 @@ void print_camera(t_camera *camera)
 {
 	printf("camera coordinate: %1lf,%1lf,%1lf\n",
 		camera->coordinate.x, camera->coordinate.y, camera->coordinate.z);
-	printf("camera coordinate: %1lf,%1lf,%1lf\n",
+	printf("camera normal: %1lf,%1lf,%1lf\n",
 		camera->normal.x, camera->normal.y, camera->normal.z);
-	printf("camera brightness level: %d\n", camera->fov);
+	printf("camera fov: %d\n", camera->fov);
+}
+
+void print_box(t_aabb box)
+{
+	printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
+           box.min.x, box.min.y, box.min.z,
+           box.max.x, box.max.y, box.max.z);
 }

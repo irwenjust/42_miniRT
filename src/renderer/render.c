@@ -84,6 +84,10 @@ void	render()
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
 	// mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 0.9));
 	display_menu();
+	print_box(s()->bvh->box);
+	print_camera(&s()->camera);
+	// print_box(((t_shape *)s()->shapes->array[0])->box);
+
 }
 
 void	fake_render()

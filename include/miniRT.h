@@ -300,6 +300,7 @@ void		*fclass_index(t_fclass *fclass, int i);
 void	print_shape(t_shape *shape);
 void	print_light(t_light *light);
 void print_camera(t_camera *camera);
+void print_box(t_aabb box);
 
 t_shape	**shapes_to_arr(t_shape **shapes);
 t_hit	init_hit(void);
