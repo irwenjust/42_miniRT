@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:34:35 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/26 17:12:55 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/09 12:52:06 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ inline t_vector	vector_multiple(t_vector v1, double scalar)
 
 inline t_vector	vector_min(t_vector a, t_vector b)
 {
-	return ((t_vector){fmin(a.x, b.x), fmin(a.y, b.y), fmin(a.z, b.y)});
+	return ((t_vector){fmin(a.x, b.x), fmin(a.y, b.y), fmin(a.z, b.z)});
 }
 
 inline t_vector	vector_max(t_vector a, t_vector b)
 {
-	return ((t_vector){fmax(a.x, b.x), fmax(a.y, b.y), fmax(a.z, b.y)});
+	return ((t_vector){fmax(a.x, b.x), fmax(a.y, b.y), fmax(a.z, b.z)});
 }

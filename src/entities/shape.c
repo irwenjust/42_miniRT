@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:49:56 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 21:17:13 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/09 12:54:26 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,17 @@ t_shape	*copy_shape(t_shape *shape)
 	res->type = shape->type;
 	res->shape_id[res->type] = shape->shape_id[shape->type];
 	if (res->type == SPHERE)
+	{
 		res->data.sphere = shape->data.sphere;
+		res->box = shape->data.sphere.box;
+	}
 	else if (res->type == PLANE)
 		res->data.plane = shape->data.plane;
 	else if (res->type == CYLINDER)
+	{
 		res->data.cylinder = shape->data.cylinder;
+		res->box = shape->data.cylinder.box;
+	}
 	return (res);
 }
 
@@ -44,14 +50,14 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 	if (shape->type == SPHERE)
 	{
 		shape->data.sphere = *(t_sphere *)data;
-		shape->box = box_sphere((t_sphere *)data);
+		shape->box = shape->data.sphere.box;
 	}
 	else if (shape->type == PLANE)
 		shape->data.plane = *(t_plane *)data;
 	else if (shape->type == CYLINDER)
 	{
 		shape->data.cylinder = *(t_cylinder *)data;
-		shape->box = box_cylinder((t_cylinder *)data);
+		shape->box = shape->data.cylinder.box;
 	}
 	return (shape);
 }
