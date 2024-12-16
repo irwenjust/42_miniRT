@@ -70,20 +70,17 @@ bool parse_cylinder(char **arg, t_fclass *fclass)
 
 void move_cylinder(t_key *keys, t_cylinder *cylinder)
 {
-	if (keys->key[W])
-	{
-		printf("move W\n");
-		cylinder->center.y += 0.3;
-	}
-	else if (keys->key[S])
-		cylinder->center.y -= 0.3;
+	if (keys->key[D])
+		cylinder->center.x += 0.3;
 	else if (keys->key[A])
 		cylinder->center.x -= 0.3;
-	else if (keys->key[D])
-		cylinder->center.x += 0.3;
-	else if (keys->key[Q])
-		cylinder->center.z += 0.3;
+	if (keys->key[W])
+		cylinder->center.y += 0.3;
+	else if (keys->key[S])
+		cylinder->center.y -= 0.3;
 	else if (keys->key[E])
+		cylinder->center.z += 0.3;
+	else if (keys->key[Q])
 		cylinder->center.z -= 0.3;
 	cylinder->cap_u = vector_add(cylinder->center, vector_multiple(cylinder->normal, -cylinder->height * 0.5));
 	cylinder->cap_b = vector_add(cylinder->center, vector_multiple(cylinder->normal, cylinder->height * 0.5));
@@ -92,18 +89,18 @@ void move_cylinder(t_key *keys, t_cylinder *cylinder)
 
 void rotate_cylinder(t_key *keys, t_cylinder *cylinder)
 {
-	if (keys->key[U])
-		cylinder->normal = vector_rotate(cylinder->normal, Z, ROTATE);
-	else if (keys->key[O])
-		cylinder->normal = vector_rotate(cylinder->normal, Z, (-ROTATE));
-	else if (keys->key[J])
-		cylinder->normal = vector_rotate(cylinder->normal, Y, -ROTATE);
+	if (keys->key[I])
+		cylinder->normal = vector_rotate(cylinder->normal, X, ROTATE);
+	else if (keys->key[K])
+		cylinder->normal = vector_rotate(cylinder->normal, X, (-ROTATE));
 	else if (keys->key[L])
 		cylinder->normal = vector_rotate(cylinder->normal, Y, ROTATE);
-	else if (keys->key[I])
-		cylinder->normal = vector_rotate(cylinder->normal, X, -ROTATE);
-	else if (keys->key[K])
-		cylinder->normal = vector_rotate(cylinder->normal, X, ROTATE);
+	else if (keys->key[J])
+		cylinder->normal = vector_rotate(cylinder->normal, Y, (-ROTATE));
+	else if (keys->key[O])
+		cylinder->normal = vector_rotate(cylinder->normal, Z, ROTATE);
+	else if (keys->key[U])
+		cylinder->normal = vector_rotate(cylinder->normal, Z, (-ROTATE));
 	cylinder->cap_u = vector_add(cylinder->center, vector_multiple(cylinder->normal, -cylinder->height * 0.5));
 	cylinder->cap_b = vector_add(cylinder->center, vector_multiple(cylinder->normal, cylinder->height * 0.5));
 	printf("rotate cylinder\n");
