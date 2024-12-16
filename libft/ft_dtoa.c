@@ -6,6 +6,7 @@ char *ft_dtoa_simple(double n)
 	int after_dot;
 	char *res;
 	char *tmp;
+	char *after;
 
 	res = ft_itoa((int)n);
 	if (!res)
@@ -13,13 +14,15 @@ char *ft_dtoa_simple(double n)
 	after_dot = (int)((n - (int)n) * 10);
 	if (after_dot < 0)
 		after_dot = -after_dot;
-	tmp = ft_itoa(after_dot);
+	after = ft_itoa(after_dot);
+	if (!after)
+		return (free(res), NULL);
+	tmp = ft_strjoin(res, ".");
+	free(res);
 	if (!tmp)
-	{
-		free(res);
-		return (NULL);
-	}
-	res = ft_strjoin(res, ".");
-	res = ft_strjoin(res, tmp);
+		return (free(after), NULL);
+	res = ft_strjoin(tmp, after);
+	free(tmp);
+	free(after);
 	return (res);
 }

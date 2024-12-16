@@ -126,8 +126,8 @@ void move_sphere(t_key *keys, t_sphere *sphere)
 
 void scaling_sphere(t_key *keys, t_sphere *sphere)
 {
-	if (keys->cur_keycode == LEFT && sphere->radius - 0.5 > 0)
-        sphere->radius -= 0.5;
+	if (keys->cur_keycode == LEFT && sphere->radius - 0.1 > 0)
+        sphere->radius -= 0.1;
     else if (keys->cur_keycode == RIGHT)
-        sphere->radius += 0.5;
+        sphere->radius += 0.1;
 }

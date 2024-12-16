@@ -108,14 +108,14 @@ void rotate_cylinder(t_key *keys, t_cylinder *cylinder)
 
 void scaling_cylinder(t_key *keys, t_cylinder *cy)
 {
-	if (keys->cur_keycode == LEFT && cy->radius - 0.5 > 0)
-        cy->radius -= 0.5;
+	if (keys->cur_keycode == LEFT && cy->radius - 0.1 > 0)
+        cy->radius -= 0.1;
     else if (keys->cur_keycode == RIGHT)
-        cy->radius += 0.5;
+        cy->radius += 0.1;
     else if (keys->cur_keycode == UP)
-        cy->height += 0.5;
-    else if (keys->cur_keycode == DOWN && cy->height - 0.5 > 0)
-        cy->height -= 0.5;
+        cy->height += 0.1;
+    else if (keys->cur_keycode == DOWN && cy->height - 0.1 > 0)
+        cy->height -= 0.1;
     cy->cap_u = vector_add(cy->center, vector_multiple(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center, vector_multiple(cy->normal, cy->height * 0.5));
 }

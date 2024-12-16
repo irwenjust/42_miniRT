@@ -32,3 +32,4 @@ void	ft_swap_d(double *a, double *b)
 	*a = *b;
 	*b = temp;
 }
+
