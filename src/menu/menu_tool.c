@@ -7,17 +7,20 @@ void	display(int x, int y, int color, char *text)
 
 void display_move_rotate_size(int x, int y)
 {
-    display(x, y, 0x87CEFA, "Movement and Rotation >"); //+2
-    display(x += (25 * 6), y, 0xFFFFFF, "WASD : Move Up/Left/Dowm/Right"); //+5
-    display(x += (35 * 6), y, 0xFFFFFF, "QE : Move Forward/Backward");
+    display(x, y, 0x87CEFA, "Movement >");
+    display(x += (12 * 6), y, 0xFFFFFF, "D/A : Move +/- along X-axis");
+    display(x += (32 * 6), y, 0xFFFFFF, "W/S : Move +/- along Y-axis");
+    display(x += (32 * 6), y, 0xFFFFFF, "E/Q : Move +/- along Z-axis");
 	if (s()->menu != LIGHT)
 	{
-    	display(x += (31 * 6), y, 0xFFFFFF, "IJKL : Rotate Up/Left/Dowm/Right");
-		display(x += (37 * 6), y, 0xFFFFFF, "UO : Rotate Forward/Backward");
+        display(x += (32 * 6), y, 0x87CEFA, "Rotation >");
+        display(x += (12 * 6), y, 0xFFFFFF, "I/K : Rotate +/- around X-axis");
+    	display(x += (32 * 6), y, 0xFFFFFF, "L/J : Rotate +/- around Y-axis");
+    	display(x += (32 * 6), y, 0xFFFFFF, "O/U : Rotate +/- around Z-axis");
 	}
     if (s()->menu == SHAPE && ((t_shape *)(s()->shapes->array[s()->select]))->type != PLANE)
     {
-        display(x += (38 * 6), y, 0x87CEFA, "Scaling >");
+        display(x += (36 * 6), y, 0x87CEFA, "Scaling >");
         display(x += (11 * 6), y, 0xFFFFFF, "Left/Right : -/+ Radius");
         if (((t_shape *)(s()->shapes->array[s()->select]))->type == CYLINDER)
         display(x += (28 * 6), y, 0xFFFFFF, "Down/Up : -/+ Height");

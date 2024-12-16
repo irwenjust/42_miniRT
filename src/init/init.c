@@ -56,7 +56,7 @@ static void	init_viewport()
 {
 	s()->view_w = tan(RADIAN(s()->camera.fov * 0.5));
 	s()->view_h = s()->view_w * SCALE;
-	s()->normal_w = vector_normalize(vector_cross(s()->camera.normal,UPVECTOR));
+	s()->normal_w = vector_normalize(vector_cross(s()->camera.normal, UPVECTOR));
 	s()->normal_h = vector_normalize(vector_cross(s()->camera.normal, s()->normal_w));
 	s()->normal_w = vector_normalize(vector_cross(s()->camera.normal, s()->normal_h));
 }

@@ -37,6 +37,7 @@ void update_move(t_key *keys)
         move_shape(keys, s()->shapes->array[s()->select]);
     else
         return ;
+    // print_shape(s()->shapes->array[s()->select]);
     control_frame_rate();
     //rebuild_bvh();
 }

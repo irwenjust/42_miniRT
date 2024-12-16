@@ -23,6 +23,7 @@ t_hit	init_hit(void)
 	{
 		ft_bzero(&hit, sizeof(t_hit));
 		hit.distance = INFINITY;
+		hit.shape = NULL; //debug
 		init = false;
 	}
 	return (hit);

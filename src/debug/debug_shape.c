@@ -66,9 +66,9 @@ void	print_light(t_light *light)
 
 void print_camera(t_camera *camera)
 {
-	printf("camera coordinate: %1lf,%1lf,%1lf\n",
+	printf("camera coordinate: %.2lf,%.2lf,%.2lf\n",
 		camera->coordinate.x, camera->coordinate.y, camera->coordinate.z);
-	printf("camera normal: %1lf,%1lf,%1lf\n",
+	printf("camera normal: %.2lf,%.2lf,%.2lf\n",
 		camera->normal.x, camera->normal.y, camera->normal.z);
 	printf("camera fov: %d\n", camera->fov);
 }
