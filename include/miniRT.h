@@ -263,7 +263,7 @@ void camera_menu(int ori_x, int y);
 void light_menu(int ori_x, int y);
 void shape_menu(int ori_x, int y);
 //menu display tool
-void	display(int x, int y, int color, char *text);
+void	display(int x, int y, int color, char *text, int f);
 void display_move_rotate_size(int x, int y);
 void display_color(int x, int y, t_color *rgb);
 void display_brightness(int x, int y, double brightness);
@@ -308,5 +308,6 @@ t_aabb	box_sphere(t_sphere *sphere);
 t_aabb	box_cylinder(t_cylinder *cyl);
 void	ft_swap_d(double *a, double *b);
 void	find_valid_t(t_equation *equation);
+
 
 #endif
