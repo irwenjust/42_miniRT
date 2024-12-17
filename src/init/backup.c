@@ -6,6 +6,7 @@ void backup_scene()
 	t_light *light;
 	t_shape *shape;
 
+	s()->ori_ambient = copy_ambient(s()->ambient);
 	s()->ori_camera = copy_camera(s()->camera);
 	i = -1;
 	while (++i < s()->light->size)

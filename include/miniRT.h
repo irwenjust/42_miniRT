@@ -143,6 +143,7 @@ void	parse_args();
 //parse tool
 bool 	check_syntax(char **arg, char *commas);
 bool 	check_rgb(char *rgb);
+t_color	parse_color(char **rgb);
 
 
 /*render*/
@@ -167,6 +168,7 @@ t_color	diffuse(t_light *light, t_hit *inter, double k);
 //ambient part
 bool	parse_ambient(int counter[3], char **tmp, t_ambient *ambient);
 t_color	check_ambient(t_color color);
+t_ambient copy_ambient(t_ambient ambient);
 //camera part
 t_camera copy_camera(t_camera camera);
 bool	parse_camera(char **tmp, t_camera *camera);
@@ -247,10 +249,9 @@ t_vector vector_copy(t_vector vec);
 
 /*tools*/
 //color part
-t_color	parse_color(char **rgb);
 t_color	add_bright_to_color(t_color color, double brightness);
 t_color	add_color(t_color c1, t_color c2);
-// t_color	copy_color(t_color c);
+t_color	copy_color(t_color c);
 t_color *get_color(int type, int i);
 t_color	mix_color(t_color base, t_color light_effect);
 

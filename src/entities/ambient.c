@@ -12,6 +12,18 @@
 
 #include "miniRT.h"
 
+t_ambient copy_ambient(t_ambient ambient)
+{
+	t_ambient dst;
+
+	dst.brightness = ambient.brightness;
+	// dst.color.red = ambient.color.red;
+	// dst.color.green = ambient.color.green;
+	// dst.color.blue = ambient.color.blue;
+	dst.color = copy_color(ambient.color);
+	return (dst);
+}
+
 //add ambient color and brightness to colosest color
 t_color	check_ambient(t_color color)
 {

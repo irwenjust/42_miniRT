@@ -42,12 +42,12 @@ t_color	mix_color(t_color c1, t_color c2)
 	});
 }
 
-t_color	parse_color(char **rgb)
+t_color	copy_color(t_color c)
 {
 	return ((t_color){
-		.red = ft_within_range(ft_atoi(rgb[0]), 0, 255),
-		.green = ft_within_range(ft_atoi(rgb[1]), 0, 255),
-		.blue = ft_within_range(ft_atoi(rgb[2]), 0, 255),
+		.red = ft_within_range(c.red, 0, 255),
+		.green = ft_within_range(c.green, 0, 255),
+		.blue = ft_within_range(c.blue, 0, 255),
 		.alpha = ft_within_range(0XFF, 0, 255)
 	});
 }
@@ -75,14 +75,3 @@ t_color *get_color(int type, int i)
         rgb = NULL;
     return (rgb);
 }
-
-
-// t_color	copy_color(t_color c)
-// {
-// 	return ((t_color){
-// 		.red = ft_within_range(c.red, 0, 255),
-// 		.green = ft_within_range(c.green, 0, 255),
-// 		.blue = ft_within_range(c.blue, 0, 255),
-// 		.alpha = ft_within_range(0XFF, 0, 255)
-// 	});
-// }

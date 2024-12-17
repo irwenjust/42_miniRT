@@ -249,6 +249,7 @@ typedef struct s_scene
 	t_fclass	*light;
 	t_fclass	*shapes;
 	int 		shape_nbr[3]; // notsure
+	t_ambient	ori_ambient;
 	t_camera	ori_camera;
 	t_fclass	*ori_light;
 	t_fclass	*ori_shapes;
