@@ -54,7 +54,6 @@ int	ft_quit()
 
 int update(t_key *keys)
 {
-    
     if (keys->action == NOTHING)
         return (0);
     else if (keys->action == QUIT)
@@ -68,13 +67,12 @@ int update(t_key *keys)
     else if (keys->action == SELECT)
         update_select(keys);
     else if (keys->action == SCALING)
-        update_scaling(keys);
+            update_scaling(keys);
     else if (keys->action == MOVEMENT)
         update_move(keys);
     else if (keys->action == ROTATION)
         update_rotate(keys);
     else if (keys->action == COLOR)
         update_color(keys);
-    
     return (0);
 }
