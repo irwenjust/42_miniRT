@@ -69,7 +69,9 @@ t_color *get_color(int type, int i)
     }
     else if (type == LIGHT)
         rgb = &((t_light *)(s()->light->array[0]))->color;
-    else
+    else if (type == VIEW)
+		rgb = &(s()->ambient.color);
+	else
         rgb = NULL;
     return (rgb);
 }

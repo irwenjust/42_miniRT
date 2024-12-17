@@ -59,12 +59,11 @@ void update_reset(t_key *keys)
         render();
     else if (keys->key[G])
     {
-        //if (s()->menu == VIEW)
-        if (s()->menu == CAMERA)
+        if (s()->menu == CAMERA || s()->menu == VIEW)
             s()->camera = copy_camera(s()->ori_camera);
-        else if (s()->menu == LIGHT)
+        else if (s()->menu == LIGHT || s()->menu == VIEW)
             s()->light->array[0] = copy_light(s()->ori_light->array[0]);
-        else if (s()->menu == SHAPE)
+        else if (s()->menu == SHAPE || s()->menu == VIEW)
             s()->shapes->array[s()->select] = copy_shape(s()->ori_shapes->array[s()->select]);
         s()->preset = 0;
         // control_frame_rate();
@@ -75,9 +74,9 @@ void update_reset(t_key *keys)
 
 void update_select(t_key *keys)
 {
-    if (s()->menu != SHAPE && s()->menu != LIGHT)
+    if (s()->menu == CAMERA)
         return ;
-    if (keys->cur_keycode == TAB)
+    if (keys->cur_keycode == TAB && s()->menu != VIEW)
     {
         s()->select++;
         if ((s()->menu == SHAPE && s()->select >= s()->shapes->size) || (s()->menu == LIGHT && s()->select >= s()->light->size))

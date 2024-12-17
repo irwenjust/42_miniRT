@@ -26,6 +26,10 @@ static void display_view_preset(int x, int y)
 void view_menu(int x, int y)
 {
     display(x, y, 0xFFFFFF, "- View Mode -", 0);
-    display_view_preset(x, y + 20);
+    display(x, y + 20, 0x87CEFA, "Ambient ", 0);
+    display_color(x + (8 * 6), y + 20, &(s()->ambient.color));
+    display(x + (96 * 6), y + 20, 0x87CEFA, "Ambient ", 0);
+    display_brightness(x + (104 * 6), y + 20, s()->ambient.brightness);
+    display_view_preset(x, y + 40);
     display_mode(x, y + 80);
 }

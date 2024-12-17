@@ -1,9 +1,29 @@
 #include "miniRT.h"
 
+static void update_brightness(t_key *keys)
+{
+    t_light *light;
+
+    if (s()->menu == LIGHT)
+    {
+        light = s()->light->array[0];
+        if (keys->cur_keycode == UP && light->brightness < 1.0)
+            light->brightness += 0.1;
+        else if (keys->cur_keycode == DOWN && light->brightness > 1e-8)
+            light->brightness -= 0.1;
+    }
+    else if (s()->menu == VIEW)
+    {
+        if (keys->cur_keycode == UP && s()->ambient.brightness < 1.0)
+            s()->ambient.brightness += 0.1;
+        else if (keys->cur_keycode == DOWN && s()->ambient.brightness > 1e-8)
+            s()->ambient.brightness -= 0.1;
+    }
+}
+
 void update_scaling(t_key *keys)
 {
     t_shape *shape;
-    t_light *light;
     
     if (s()->menu == SHAPE)
     {
@@ -15,15 +35,8 @@ void update_scaling(t_key *keys)
         else if (shape->type == CYLINDER)
             scaling_cylinder(keys, &shape->data.cylinder);
     }
-    else if (s()->menu == LIGHT)
-    {
-        light = s()->light->array[0];
-        if (keys->cur_keycode == UP && light->brightness < 1.0)
-            light->brightness += 0.1;
-        else if (keys->cur_keycode == DOWN && light->brightness > 1e-8)
-            light->brightness -= 0.1;
-        //printf("%f\n", light->brightness);
-    }
+    else if (s()->menu == LIGHT || s()->menu == VIEW)
+        update_brightness(keys);
     control_frame_rate();
 }
 
@@ -59,7 +72,7 @@ void update_color(t_key *keys)
     int *color_channel;
 
     rgb = get_color(s()->menu, s()->select);
-    if (rgb == NULL)
+    if (rgb == NULL || s()->menu == CAMERA)
         return ;
     if (s()->select_rgb == 0)
         color_channel = &(rgb->red);
