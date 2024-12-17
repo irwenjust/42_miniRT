@@ -22,6 +22,9 @@ static bool new_plane(char **arg, t_plane *plane)
 	if (!coord)
 		return (ERROR("plane: fail to split coordinate"), false);
 	plane->center = parse_vector(coord);
+	// printf("     Coord: %s, %s, %s\n", coord[0], coord[1], coord[2]);
+	// printf("     Center: %.2lf, %.2lf, %.2lf\n", sphere->center.x, sphere->center.y, sphere->center.z);
+
 	free_matrix(coord);
 	normal = ft_split(arg[2], ',');
 	if (!normal)

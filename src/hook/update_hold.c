@@ -7,14 +7,14 @@ static void update_brightness(t_key *keys)
     if (s()->menu == LIGHT)
     {
         light = s()->light->array[0];
-        if (keys->cur_keycode == UP && light->brightness < 1.0)
+        if (keys->cur_keycode == UP && (light->brightness + 1e-8) < 1.0)
             light->brightness += 0.1;
         else if (keys->cur_keycode == DOWN && light->brightness > 1e-8)
             light->brightness -= 0.1;
     }
     else if (s()->menu == VIEW)
     {
-        if (keys->cur_keycode == UP && s()->ambient.brightness < 1.0)
+        if (keys->cur_keycode == UP && (s()->ambient.brightness + 1e-8) < 1.0)
             s()->ambient.brightness += 0.1;
         else if (keys->cur_keycode == DOWN && s()->ambient.brightness > 1e-8)
             s()->ambient.brightness -= 0.1;

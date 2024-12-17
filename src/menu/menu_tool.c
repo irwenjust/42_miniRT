@@ -56,7 +56,7 @@ void display_color(int x, int y, t_color *rgb)
 void display_brightness(int x, int y, double brightness)
 {
     display(x, y, 0x87CEFA, "Brightness >", 0);
-    display(x += (14 * 6), y, 0xFFD700, ft_dtoa_simple(brightness), 1);
+    display(x += (14 * 6), y, 0xFFD700, ft_dtoa_one(brightness), 1);
     display(x += (5 * 6), y, 0x87CEFA, ">", 0);
     display(x += (2 * 6), y, 0xFFFFFF, "Down/Up : -/+ Brightness", 0);
 }

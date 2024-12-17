@@ -1,19 +1,23 @@
 #include "libft.h"
+#include <math.h>
 
 //only for miniRT brightness value
-char *ft_dtoa_simple(double n)
+char *ft_dtoa_one(double n)
 {
 	int after_dot;
 	char *res;
 	char *tmp;
 	char *after;
 
-	res = ft_itoa((int)n);
+	after_dot = (int)round((n - (int)n) * 10);
+	res = ft_itoa((int)(n));
+	if (after_dot > 9)
+	{
+		after_dot = 0;
+		res = ft_itoa((int)round(n));
+	}
 	if (!res)
 		return (NULL);
-	after_dot = (int)((n - (int)n) * 10);
-	if (after_dot < 0)
-		after_dot = -after_dot;
 	after = ft_itoa(after_dot);
 	if (!after)
 		return (free(res), NULL);
