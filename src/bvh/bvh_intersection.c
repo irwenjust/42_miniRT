@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:13:15 by likong            #+#    #+#             */
-/*   Updated: 2024/11/29 12:20:54 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/16 21:05:07 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static inline bool	next_node(t_ray *ray, t_bvh *node, t_hit *hit)
 	return (false);
 }
 
-bool	check_aabb_intersection(t_ray *ray, t_aabb box, double max_t)
+bool	check_aabb_intersection(t_ray ray, t_aabb box, double max_t)
 {
 	double	t1;
 	double	t2;
@@ -76,16 +76,16 @@ bool	check_aabb_intersection(t_ray *ray, t_aabb box, double max_t)
 	// printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
     //        box.min.x, box.min.y, box.min.z,
     //        box.max.x, box.max.y, box.max.z);
-	t1 = (box.min.x - ray->start.x) * ray->inv_start.x;
-	t2 = (box.max.x - ray->start.x) * ray->inv_start.x;
+	t1 = (box.min.x - ray.start.x) * ray.inv_start.x;
+	t2 = (box.max.x - ray.start.x) * ray.inv_start.x;
 	t_min = fmin(t1, t2);
 	t_max = fmax(t1, t2);
-	t1 = (box.min.y - ray->start.y) * ray->inv_start.y;
-	t2 = (box.max.y - ray->start.y) * ray->inv_start.y;
+	t1 = (box.min.y - ray.start.y) * ray.inv_start.y;
+	t2 = (box.max.y - ray.start.y) * ray.inv_start.y;
 	t_min = fmax(t_min, fmin(t1, t2));
 	t_max = fmin(t_max, fmax(t1, t2));
-	t1 = (box.min.z - ray->start.z) * ray->inv_start.z;
-	t2 = (box.max.z - ray->start.z) * ray->inv_start.z;
+	t1 = (box.min.z - ray.start.z) * ray.inv_start.z;
+	t2 = (box.max.z - ray.start.z) * ray.inv_start.z;
 	t_min = fmax(t_min, fmin(t1, t2));
 	t_max = fmin(t_max, fmax(t1, t2));
 	return (t_max >= fmax(0.0, t_min) && t_min < max_t);
@@ -95,13 +95,18 @@ bool	check_bvh_intersection(t_ray *ray, t_bvh *node, t_hit *pre_hit)
 {
 	t_hit	hit;
 	bool	check_hit;
+	// static int n = 0;
 
 	check_hit = false;
 	hit = init_hit();
 	if (!node)
 		return (false);
-	if (!check_aabb_intersection(ray, node->box, hit.distance))
+	// printf("n: %d\n", n++);
+	if (!check_aabb_intersection(*ray, node->box, hit.distance))
+	{
+		// printf("n: %d\n", n++);
 		return (false);
+	}
 	// printf("here\n");
 	if (node->shapes)
 		check_hit = update_hit(ray, node, &hit);

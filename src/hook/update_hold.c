@@ -52,7 +52,7 @@ void update_move(t_key *keys)
         return ;
     // print_shape(s()->shapes->array[s()->select]);
     control_frame_rate();
-    //rebuild_bvh();
+    // rebuild_bvh();
 }
 
 void update_rotate(t_key *keys)

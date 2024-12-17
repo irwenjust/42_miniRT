@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:24:37 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 11:29:15 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/16 18:27:36 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,24 @@ static void	delete_fclass(t_fclass *fclass)
 	free(fclass);
 }
 
-void	nc_free(void *ptr)
+void	ft_free(void *ptr)
 {
 	if (ptr)
 		free(ptr);
+}
+
+void	lst_clear(t_list **lst)
+{
+	t_list	*res;
+
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		res = (*lst)->next;
+		free(*lst);
+		*lst = res;
+	}
 }
 
 void	delete_scene()
@@ -32,6 +46,7 @@ void	delete_scene()
 	delete_fclass(s()->shapes);
 	delete_fclass(s()->ori_light);
 	delete_fclass(s()->ori_shapes);
+	lst_clear(&s()->unbound);
 	free_matrix(s()->args);
 	// if (s()->win.img)
 	// 	mlx_delete_image(s()->win.mlx, s()->win.img);
@@ -50,7 +65,7 @@ void	delete_scene()
 	}
 	if (s()->bvh)
 		free_bvh(&s()->bvh);
-	nc_free(s()->win.mlx);
+	ft_free(s()->win.mlx);
 }
 
 void	error_exit(char *message)

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:37:43 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/28 14:26:13 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/16 21:04:35 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter, double *vali
 		{
 			inter->distance = distance;
 			inter->color = cylinder->color;
-			find_valid_t(&equation);
+			find_valid_t(equation);
 			*valid_t = equation.t1;
 			// printf("t1: %f, t2: %f\n", equation.t1, equation.t2);
 			return (*valid_t > 0);

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:17:29 by likong            #+#    #+#             */
-/*   Updated: 2024/12/09 20:03:52 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/17 10:23:06 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static bool	is_obscured(t_hit *closest)
 	double	valid_t;
 	
 	// Guess don't need to check light exist or not here
+	i = -1;
+	tmp = init_hit();
 	light = fclass_index(s()->light, 0);
 	ray.start = vector_add(closest->hit_point, VEC_MIN);
 	ray.normal = vector_normalize(vector_sub(light->point, closest->hit_point));
-	i = -1;
-	tmp = init_hit();
 	tmp.distance = vector_magnitude(vector_sub(light->point, closest->hit_point));
 	// tmp.distance = INFINITY;
 	// tmp.shape = NULL;
@@ -37,7 +37,7 @@ static bool	is_obscured(t_hit *closest)
 			continue ;
 		// if (check_bvh_intersection(&ray, s()->bvh, &tmp) && tmp.distance <                  // is_intersect(shape, &ray, &tmp) && 
 		// 	vector_magnitude(vector_sub(light->point, closest->hit_point)))
-		if (is_intersect(shape, &ray, &tmp, &valid_t) && vector_magnitude(vector_sub(light->point, closest->hit_point)))
+		if (is_intersect(shape, &ray, &tmp, &valid_t) && tmp.distance < vector_magnitude(vector_sub(light->point, closest->hit_point)))
 			return (true);
 	}
 	return (false);

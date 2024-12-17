@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:15 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/29 12:14:57 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/16 17:54:17 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ void	render()
 		cur.x = -1;
 		while (++cur.x < WIDTH)
 		{
-			closest.color = BLACK;
-			closest.shape = NULL;
-			closest.distance = INFINITY;
+			// closest.color = BLACK;
+			// closest.shape = NULL;
+			// closest.distance = INFINITY;
+			closest = init_hit();
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
 			// if (check_bvh_intersection(&ray, s()->bvh, &closest)

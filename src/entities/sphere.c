@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:50:15 by likong            #+#    #+#             */
-/*   Updated: 2024/11/29 12:15:30 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/16 17:36:01 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,10 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter, double *valid_t)
 		else
 			inter->distance = equation.t2;
 		inter->color = sphere->color;
-		find_valid_t(&equation);
+		find_valid_t(equation);
 		*valid_t = equation.t1;
 		// printf("t1: %f, t2: %f\n", equation.t1, equation.t2);
-		return (true);
+		return (*valid_t > 1e-8);
 	}
 	return (false);
 }

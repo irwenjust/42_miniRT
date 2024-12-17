@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:51 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 21:03:51 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/16 19:43:23 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ typedef struct s_ray
  * @param color The color of the hit shape
  * @param cy_hp Used to know where the ray hit in a cylinder's axis
  * @param distance The distance between the hit the ray's origin
+ * @param check_hit Check hit exist or not
  */
 typedef struct s_hit
 {
@@ -200,6 +201,7 @@ typedef struct s_hit
 	t_color	color;
 	t_vector	cy_hp;
 	double	distance;
+	bool	check_hit;
 } t_hit;
 
 
@@ -262,6 +264,7 @@ typedef struct s_scene
 	t_windows	win;
 	struct timeval last_frame_time;
 	int			bvh_level; // the index level for bvh binary tree
+	t_list		*unbound; // for plane and maybe more things later
 	t_bvh		*bvh;
 }	t_scene;
 

@@ -6,20 +6,20 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:32 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/09 10:32:17 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/17 11:29:24 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	find_valid_t(t_equation *equation)
+void	find_valid_t(t_equation equation)
 {
-	if (equation->t1 < 0)
-		equation->t1 = INFINITY;
-	if (equation->t2 < 0)
-		equation->t2 = INFINITY;
-	if (equation->t1 > equation->t2)
-		ft_swap_d(&equation->t1, &equation->t2);
+	if (equation.t1 < 0)
+		equation.t1 = INFINITY;
+	if (equation.t2 < 0)
+		equation.t2 = INFINITY;
+	if (equation.t1 > equation.t2)
+		ft_swap_d(&equation.t1, &equation.t2);
 }
 
 /**
@@ -67,6 +67,41 @@ static t_vector	get_normal(t_hit *inter)
 	return (vector_normalize(normal));
 }
 
+bool	check_unbound(t_ray *ray, t_hit *inter)
+{
+	t_list	*unbound;
+	t_shape	*shape;
+	double	t;
+	
+	unbound = s()->unbound;
+	while (unbound)
+	{
+		shape = (t_shape *)unbound->content;
+		if (shape->type == PLANE)
+		{
+			if (inter_real_plane(&shape->data.plane, ray, &t) && t < inter->distance)
+			{
+				inter->distance = t;
+				inter->shape = shape;
+				inter->check_hit = true;
+			}
+		}
+		unbound = unbound->next;
+	}
+	return (inter->check_hit);
+}
+
+t_color	color_from_hex(unsigned int hex)
+{
+	t_color	color;
+
+	color.red = ((hex >> 24) & 0xFF) / 255.0;
+	color.green = ((hex >> 16) & 0xFF) / 255.0;
+	color.blue = ((hex >> 8) & 0xFF) / 255.0;
+	color.alpha = ((hex >> 0) & 0xFF) / 255.0;
+	return (color);
+}
+
 /**
  * @brief Check whether the ray is intersecting with any shapes and
  * find the closest intersect point.
@@ -86,13 +121,27 @@ bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	t_shape *shape;
 	t_hit	tmp;
 	double	checker;
+	// static int n = 0;
 
 	i = -1;
 	if (!shapes)
 		return (false);
 	tmp = init_hit();
-	// if (!check_bvh_intersection(ray, s()->bvh, &tmp))
-	// 	return (false);
+	if (s()->bvh)
+	{
+		// printf("n: %d\n", n++);
+		tmp.check_hit |= check_bvh_intersection(ray, s()->bvh, &tmp);
+	}
+	// tmp.check_hit |= check_unbound(ray, &tmp);
+	if (!tmp.check_hit)
+	{
+		// printf("n: %d\n", n++);
+		// return (false);
+		closest->color = color_from_hex(0x000000FF);
+		if (!s()->unbound)
+			return (false);
+		// return (false);
+	}
 	while (++i < shapes->size)
 	{
 		shape = shapes->array[i];
@@ -105,6 +154,8 @@ bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 		closest->shape = shape;
 		closest->hit_point = point_on_ray(ray, closest->distance);
 		closest->hit_normal = get_normal(closest);
+		// if (check_unbound(ray, &tmp))
+		// 	break ;
 	}
 	return (closest->shape != NULL);
 }

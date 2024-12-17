@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/11/28 14:25:04 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/17 10:08:15 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,8 @@ bool parse_plane(char **arg, t_fclass *fclass);
 bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter);
 void move_plane(t_key *keys, t_plane *plane);
 void rotate_plane(t_key *keys, t_plane *plane);
+bool	inter_real_plane(t_plane *plane, t_ray *ray, double *valid_t);
+
 //cylinder part
 bool parse_cylinder(char **arg, t_fclass *fclass);
 void move_cylinder(t_key *keys, t_cylinder *cylinder);
@@ -287,7 +289,7 @@ void	free_bvh(t_bvh **bvh);
 void	rebuild_bvh();
 
 //aabb intersection check
-bool	check_aabb_intersection(t_ray *ray, t_aabb box, double max_t);
+bool	check_aabb_intersection(t_ray ray, t_aabb box, double max_t);
 bool	check_bvh_intersection(t_ray *ray, t_bvh *node, t_hit *pre_hit);
 
 //New function for fake class
@@ -307,7 +309,8 @@ t_hit	init_hit(void);
 t_aabb	box_sphere(t_sphere *sphere);
 t_aabb	box_cylinder(t_cylinder *cyl);
 void	ft_swap_d(double *a, double *b);
-void	find_valid_t(t_equation *equation);
+void	find_valid_t(t_equation equation);
+bool	check_unbound(t_ray *ray, t_hit *inter);
 
 
 #endif
