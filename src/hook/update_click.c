@@ -59,12 +59,19 @@ void update_reset(t_key *keys)
         render();
     else if (keys->key[G])
     {
-        if (s()->menu == CAMERA || s()->menu == VIEW)
+        if (s()->menu == CAMERA)
             s()->camera = copy_camera(s()->ori_camera);
-        else if (s()->menu == LIGHT || s()->menu == VIEW)
+        else if (s()->menu == LIGHT)
             s()->light->array[0] = copy_light(s()->ori_light->array[0]);
-        else if (s()->menu == SHAPE || s()->menu == VIEW)
+        else if (s()->menu == SHAPE)
             s()->shapes->array[s()->select] = copy_shape(s()->ori_shapes->array[s()->select]);
+        else if (s()->menu == VIEW)
+        {
+            s()->ambient = copy_ambient(s()->ori_ambient);
+            s()->camera = copy_camera(s()->ori_camera);
+            s()->light->array[0] = copy_light(s()->ori_light->array[0]);
+            s()->shapes->array[s()->select] = copy_shape(s()->ori_shapes->array[s()->select]);
+        }
         s()->preset = 0;
         // control_frame_rate();
         render();

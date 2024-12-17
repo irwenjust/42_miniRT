@@ -67,7 +67,7 @@ int update(t_key *keys)
     else if (keys->action == SELECT)
         update_select(keys);
     else if (keys->action == SCALING)
-            update_scaling(keys);
+        update_scaling(keys);
     else if (keys->action == MOVEMENT)
         update_move(keys);
     else if (keys->action == ROTATION)

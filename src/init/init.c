@@ -115,13 +115,15 @@ void	init_scene(char *file_name)
 	if (ft_matrix_size(s()->args) == 0)
 		error_exit("the file is empty");
 	parse_args();
-	//int i = -1;
-	//t_shape *shape;
-	//while (++i < s()->shapes->size)
-	//{
-	//	shape = s()->shapes->array[i];
-	//	printf("after parse: type = %d, id = %d\n", shape->type, shape->id);
-	//}
+	
+	// int i = -1;
+	// t_shape *shape;
+	// while (++i < s()->shapes->size)
+	// {
+	// 	shape = s()->shapes->array[i];
+	// 	print_shape(shape);
+	// }
+	
 	init_viewport();
 	init_windows();
 	ft_bzero(&(s()->keys), sizeof(t_key));
