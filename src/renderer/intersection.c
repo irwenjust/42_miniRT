@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:32 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/17 11:29:24 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/18 14:32:20 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter, double *valid_t)
 	if (shape->type == SPHERE)
 		checker = inter_sphere(&shape->data.sphere, ray, inter, valid_t);
 	if (shape->type == PLANE)
-		checker = inter_plane(&shape->data.plane, ray, inter);
+		checker = inter_plane(&shape->data.plane, ray, inter, valid_t);
 	if (shape->type == CYLINDER)
 		checker = inter_cylinder(&shape->data.cylinder, ray, inter, valid_t);
 	if (*valid_t < 0)
@@ -67,40 +67,40 @@ static t_vector	get_normal(t_hit *inter)
 	return (vector_normalize(normal));
 }
 
-bool	check_unbound(t_ray *ray, t_hit *inter)
-{
-	t_list	*unbound;
-	t_shape	*shape;
-	double	t;
+// bool	check_unbound(t_ray *ray, t_hit *inter)
+// {
+// 	t_list	*unbound;
+// 	t_shape	*shape;
+// 	double	t;
 	
-	unbound = s()->unbound;
-	while (unbound)
-	{
-		shape = (t_shape *)unbound->content;
-		if (shape->type == PLANE)
-		{
-			if (inter_real_plane(&shape->data.plane, ray, &t) && t < inter->distance)
-			{
-				inter->distance = t;
-				inter->shape = shape;
-				inter->check_hit = true;
-			}
-		}
-		unbound = unbound->next;
-	}
-	return (inter->check_hit);
-}
+// 	unbound = s()->unbound;
+// 	while (unbound)
+// 	{
+// 		shape = (t_shape *)unbound->content;
+// 		if (shape->type == PLANE)
+// 		{
+// 			if (inter_real_plane(&shape->data.plane, ray, &t) && t < inter->distance)
+// 			{
+// 				inter->distance = t;
+// 				inter->shape = shape;
+// 				inter->check_hit = true;
+// 			}
+// 		}
+// 		unbound = unbound->next;
+// 	}
+// 	return (inter->check_hit);
+// }
 
-t_color	color_from_hex(unsigned int hex)
-{
-	t_color	color;
+// t_color	color_from_hex(unsigned int hex)
+// {
+// 	t_color	color;
 
-	color.red = ((hex >> 24) & 0xFF) / 255.0;
-	color.green = ((hex >> 16) & 0xFF) / 255.0;
-	color.blue = ((hex >> 8) & 0xFF) / 255.0;
-	color.alpha = ((hex >> 0) & 0xFF) / 255.0;
-	return (color);
-}
+// 	color.red = ((hex >> 24) & 0xFF) / 255.0;
+// 	color.green = ((hex >> 16) & 0xFF) / 255.0;
+// 	color.blue = ((hex >> 8) & 0xFF) / 255.0;
+// 	color.alpha = ((hex >> 0) & 0xFF) / 255.0;
+// 	return (color);
+// }
 
 /**
  * @brief Check whether the ray is intersecting with any shapes and
@@ -121,30 +121,33 @@ bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	t_shape *shape;
 	t_hit	tmp;
 	double	checker;
-	// static int n = 0;
+	static int n = 0;
 
 	i = -1;
 	if (!shapes)
 		return (false);
 	tmp = init_hit();
-	if (s()->bvh)
-	{
-		// printf("n: %d\n", n++);
-		tmp.check_hit |= check_bvh_intersection(ray, s()->bvh, &tmp);
-	}
-	// tmp.check_hit |= check_unbound(ray, &tmp);
-	if (!tmp.check_hit)
-	{
-		// printf("n: %d\n", n++);
-		// return (false);
-		closest->color = color_from_hex(0x000000FF);
-		if (!s()->unbound)
-			return (false);
-		// return (false);
-	}
+	// if (s()->bvh)
+	// {
+	// 	// printf("n: %d\n", n++);
+	// 	tmp.check_hit |= check_bvh_intersection(ray, s()->bvh, &tmp);
+	// }
+	// // tmp.check_hit |= check_unbound(ray, &tmp);
+	// if (!tmp.check_hit)
+	// {
+	// 	closest->color = color_from_hex(0x000000FF);
+	// 	if (!s()->unbound)  // could write: (s()->shape_nbr[PLANE] == 0)
+	// 		return (false);
+	// }
 	while (++i < shapes->size)
 	{
 		shape = shapes->array[i];
+		if (shape->type == PLANE)
+		{
+			n++;
+			if (n == 1)
+				printf("hit plane\n");
+		}
 		if (!is_intersect(shape, ray, &tmp, &checker))
 			continue ;
 		if (tmp.distance >= closest->distance)

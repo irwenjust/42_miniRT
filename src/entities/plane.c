@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 15:39:03 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/16 21:03:12 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/18 14:31:31 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool new_plane(char **arg, t_plane *plane)
 		return (ERROR("sphere: fail to split color"), false);
 	plane->color = parse_color(rgb);
 	free_matrix(rgb);
-	ft_lstadd_back(&s()->unbound, ft_lstnew(plane));
+	// ft_lstadd_back(&s()->unbound, ft_lstnew(plane));
 	return (true);
 }
 
@@ -55,6 +55,7 @@ bool parse_plane(char **arg, t_fclass *fclass)
 		return (ERROR("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
 	s()->shape_nbr[PLANE]++;
+	// ft_lstadd_back(&s()->unbound, ft_lstnew(shape));
 	push_to_fclass(fclass, shape);
 	//printf("Pushing shape: type = %d, id = %d\n", shape->type, shape->id);
 
@@ -79,11 +80,10 @@ bool parse_plane(char **arg, t_fclass *fclass)
  * 
  * @param vec ray origin to plane center (O-C)
  */
-bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter)
+bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter, double *valid_t)
 {
 	t_equation	equation;
 	t_vector	vec;
-	double		checker;
 
 	if (vector_dot(ray->normal, plane->normal) != 0.0)
 	{
@@ -93,11 +93,12 @@ bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter)
 		equation.c = vector_dot(vec, plane->normal);
 		equation.t1 = -1;
 		equation.t2 = -1;
-		checker = solve(&equation);
-		if (checker != -1 && equation.t1 > 1e-8)
+		if (solve(&equation) != -1 && equation.t1 > 1e-8)
 		{
 			inter->distance = equation.t1;
 			inter->color = plane->color;
+			find_valid_t(equation);
+			*valid_t = equation.t1;
 			return (true);
 		}
 	}

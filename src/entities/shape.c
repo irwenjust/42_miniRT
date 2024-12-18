@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:49:56 by likong            #+#    #+#             */
-/*   Updated: 2024/12/17 10:55:09 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/17 21:09:33 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,17 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 void move_shape(t_key *keys, t_shape *shape)
 {
 	if (shape->type == SPHERE)
+	{
 		move_sphere(keys, &(shape->data.sphere));
+		// shape->box = shape->rebuildbox(shape);
+	}
 	else if (shape->type == PLANE)
 		move_plane(keys, &(shape->data.plane));
 	else if (shape->type == CYLINDER)
 		move_cylinder(keys, &(shape->data.cylinder));
 	// print_shape(shape);
     // control_frame_rate();
-	rebuild_bvh();
+	// rebuild_bvh();
 }
 
 void rotate_shape(t_key *keys, t_shape *shape)

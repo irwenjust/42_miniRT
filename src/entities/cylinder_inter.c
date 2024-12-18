@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:37:43 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/16 21:04:35 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/18 14:27:51 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static bool check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
 	plane.normal = cy->normal;
 	plane.color = BLACK;
 	offset = 1e-8;
-	if (inter_plane(&plane, ray, &cap_inter))
+	if (inter_plane(&plane, ray, &cap_inter, &offset))
 	{
 		point = point_on_ray(&inter->ray, cap_inter.distance);
 		offset = vector_magnitude(vector_sub(point, cap));
@@ -182,11 +182,9 @@ bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter, double *vali
 {
 	t_equation	equation;
 	double		distance;
-	double		checker;
 	
 	init_cy_equation(cylinder, ray, &equation);
-	checker = solve(&equation);
-	if (checker != -1 && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
+	if (solve(&equation) != -1 && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
 	{
 		distance = check_cy_hit(cylinder, ray, &equation, inter);
 		if (distance > 0.0f)

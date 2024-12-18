@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2024/12/17 10:08:15 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/18 14:21:10 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void	move_sphere(t_key *keys, t_sphere *sphere);
 void	scaling_sphere(t_key *keys, t_sphere *sphere);
 //plane part
 bool parse_plane(char **arg, t_fclass *fclass);
-bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter);
+bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter, double *valid_t);
 void move_plane(t_key *keys, t_plane *plane);
 void rotate_plane(t_key *keys, t_plane *plane);
 bool	inter_real_plane(t_plane *plane, t_ray *ray, double *valid_t);
@@ -311,7 +311,7 @@ t_aabb	box_sphere(t_sphere *sphere);
 t_aabb	box_cylinder(t_cylinder *cyl);
 void	ft_swap_d(double *a, double *b);
 void	find_valid_t(t_equation equation);
-bool	check_unbound(t_ray *ray, t_hit *inter);
+// bool	check_unbound(t_ray *ray, t_hit *inter);
 
 
 #endif

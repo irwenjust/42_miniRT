@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:38:02 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/27 21:04:32 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/17 20:48:08 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ bool parse_cylinder(char **arg, t_fclass *fclass)
 	cylinder.cap_u = vector_add(cylinder.center, vector_multiple(cylinder.normal, -cylinder.height * 0.5));
 	cylinder.cap_b = vector_add(cylinder.center, vector_multiple(cylinder.normal, cylinder.height * 0.5));
 	shape = new_shape(&cylinder, CYLINDER, fclass->size, s()->shape_nbr[CYLINDER]);
+	// shape->rebuildbox = box_cylinder;
 	s()->shape_nbr[CYLINDER]++;
 	push_to_fclass(fclass, shape);
 	//printf("Pushing shape: type = %d, id = %d\n", shape->type, shape->id);

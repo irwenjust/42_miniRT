@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:50:15 by likong            #+#    #+#             */
-/*   Updated: 2024/12/16 17:36:01 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/18 14:20:40 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static bool	new_sphere(char **arg, t_sphere *sphere)
 	free_matrix(rgb);
 	sphere->radius = ft_atod(arg[2]) * 0.5;
 	sphere->box = box_sphere(sphere);
+	sphere->rebuildbox = box_sphere;
 	return (true);
 }
 
@@ -46,6 +47,7 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	if (!new_sphere(arg, &sphere))
 		return (ERROR("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
+	// shape->rebuildbox = box_sphere;
 	s()->shape_nbr[SPHERE]++;
 	// printf("shape_nbr %i\n", s()->shape_nbr[SPHERE]);
 	// printf("shape_id %i\n", shape->shape_id[SPHERE]);
@@ -83,7 +85,6 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter, double *valid_t)
 {
 	t_equation	equation;
 	t_vector	vec;
-	double		checker;
 
 	vec = vector_sub(ray->start, sphere->center);
 	equation.a = vector_dot(ray->normal, ray->normal);
@@ -91,8 +92,7 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter, double *valid_t)
 	equation.c = vector_dot(vec, vec) - pow(sphere->radius, 2);
 	equation.t1 = -1;
 	equation.t2 = -1;
-	checker = solve(&equation);
-	if (checker != -1 && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
+	if (solve(&equation) != -1 && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
 	{
 		if (equation.t1 > 1e-8)
 			inter->distance = equation.t1;
@@ -121,6 +121,10 @@ void move_sphere(t_key *keys, t_sphere *sphere)
 		sphere->center.z += 0.3;
 	else if (keys->key[Q])
 		sphere->center.z -= 0.3;
+	sphere->box = sphere->rebuildbox(sphere);
+	printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
+           sphere->box.min.x, sphere->box.min.y, sphere->box.min.z,
+           sphere->box.max.x, sphere->box.max.y, sphere->box.max.z);
 	printf("move sphere\n");
 }
 
