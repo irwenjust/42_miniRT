@@ -31,12 +31,19 @@ void update_scaling(t_key *keys)
         if (shape->type == PLANE)
             return ;
         else if (shape->type == SPHERE)
+        {
             scaling_sphere(keys, &shape->data.sphere);
+            shape->box = shape->data.sphere.box;
+        }
         else if (shape->type == CYLINDER)
+        {
             scaling_cylinder(keys, &shape->data.cylinder);
+            shape->box = shape->data.cylinder.box;
+        }
     }
     else if (s()->menu == LIGHT || s()->menu == VIEW)
         update_brightness(keys);
+    rebuild_bvh();
     control_frame_rate();
 }
 
@@ -51,8 +58,8 @@ void update_move(t_key *keys)
     else
         return ;
     // print_shape(s()->shapes->array[s()->select]);
+    rebuild_bvh();
     control_frame_rate();
-    // rebuild_bvh();
 }
 
 void update_rotate(t_key *keys)
@@ -63,6 +70,7 @@ void update_rotate(t_key *keys)
         rotate_shape(keys, s()->shapes->array[s()->select]);
     else
         return ;
+    rebuild_bvh();
     control_frame_rate();
 }
 

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:50:15 by likong            #+#    #+#             */
-/*   Updated: 2024/12/18 14:20:40 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/18 20:28:06 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,9 @@ void move_sphere(t_key *keys, t_sphere *sphere)
 	else if (keys->key[Q])
 		sphere->center.z -= 0.3;
 	sphere->box = sphere->rebuildbox(sphere);
-	printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
-           sphere->box.min.x, sphere->box.min.y, sphere->box.min.z,
-           sphere->box.max.x, sphere->box.max.y, sphere->box.max.z);
+	// printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
+    //        sphere->box.min.x, sphere->box.min.y, sphere->box.min.z,
+    //        sphere->box.max.x, sphere->box.max.y, sphere->box.max.z);
 	printf("move sphere\n");
 }
 

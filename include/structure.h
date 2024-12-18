@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:51 by likong            #+#    #+#             */
-/*   Updated: 2024/12/17 20:47:59 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/18 19:08:02 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ typedef struct s_cylinder
 	t_vector	cap_u;
 	t_vector	cap_b;
 	t_aabb		box;
+	t_aabb		(*rebuildbox)(struct s_cylinder *shape);
 }	t_cylinder;
 
 //shape manage

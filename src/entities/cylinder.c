@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:38:02 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/17 20:48:08 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/18 20:49:38 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static bool new_cylinder(char **arg, t_cylinder *cylinder)
 		return (ERROR("cylinder: fail to split color"), false);
 	cylinder->color = parse_color(rgb);
 	cylinder->box = box_cylinder(cylinder);
+	cylinder->rebuildbox = box_cylinder;
 	free_matrix(rgb);
 	return (true);
 }
@@ -85,6 +86,7 @@ void move_cylinder(t_key *keys, t_cylinder *cylinder)
 		cylinder->center.z -= 0.3;
 	cylinder->cap_u = vector_add(cylinder->center, vector_multiple(cylinder->normal, -cylinder->height * 0.5));
 	cylinder->cap_b = vector_add(cylinder->center, vector_multiple(cylinder->normal, cylinder->height * 0.5));
+	cylinder->box = cylinder->rebuildbox(cylinder);
 	printf("move cylinder\n");
 }
 
@@ -104,19 +106,21 @@ void rotate_cylinder(t_key *keys, t_cylinder *cylinder)
 		cylinder->normal = vector_rotate(cylinder->normal, Z, (-ROTATE));
 	cylinder->cap_u = vector_add(cylinder->center, vector_multiple(cylinder->normal, -cylinder->height * 0.5));
 	cylinder->cap_b = vector_add(cylinder->center, vector_multiple(cylinder->normal, cylinder->height * 0.5));
+	cylinder->box = cylinder->rebuildbox(cylinder);
 	printf("rotate cylinder\n");
 }
 
-void scaling_cylinder(t_key *keys, t_cylinder *cy)
+void scaling_cylinder(t_key *keys, t_cylinder *cylinder)
 {
-	if (keys->cur_keycode == LEFT && cy->radius - 0.1 > 0)
-        cy->radius -= 0.1;
+	if (keys->cur_keycode == LEFT && cylinder->radius - 0.1 > 0)
+        cylinder->radius -= 0.1;
     else if (keys->cur_keycode == RIGHT)
-        cy->radius += 0.1;
+        cylinder->radius += 0.1;
     else if (keys->cur_keycode == UP)
-        cy->height += 0.1;
-    else if (keys->cur_keycode == DOWN && cy->height - 0.1 > 0)
-        cy->height -= 0.1;
-    cy->cap_u = vector_add(cy->center, vector_multiple(cy->normal, -cy->height * 0.5));
-	cy->cap_b = vector_add(cy->center, vector_multiple(cy->normal, cy->height * 0.5));
+        cylinder->height += 0.1;
+    else if (keys->cur_keycode == DOWN && cylinder->height - 0.1 > 0)
+        cylinder->height -= 0.1;
+    cylinder->cap_u = vector_add(cylinder->center, vector_multiple(cylinder->normal, -cylinder->height * 0.5));
+	cylinder->cap_b = vector_add(cylinder->center, vector_multiple(cylinder->normal, cylinder->height * 0.5));
+	cylinder->box = cylinder->rebuildbox(cylinder);
 }

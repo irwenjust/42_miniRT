@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 21:22:53 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 21:37:45 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/18 20:51:03 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ static t_bvh	*build_bvh(t_shape **shapes, int amount)
 	if (!res)
 		return (NULL);
 	res->id = s()->bvh_level++;
+	// printf("id: %d\n", res->id);
 	if (amount == 1)
 	{
 		res->box = shapes[0]->box;
 		res->shapes = shapes[0];
+		// printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
+        //    res->box.min.x, res->box.min.y, res->box.min.z,
+        //    res->box.max.x, res->box.max.y, res->box.max.z);
 		return (res);
 	}
 	res->box = generate_box(shapes, amount);

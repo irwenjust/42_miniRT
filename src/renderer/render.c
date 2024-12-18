@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:15 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/16 17:54:17 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/18 18:19:59 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	render()
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
 	// mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 0.9));
 	display_menu();
-	print_box(s()->bvh->box);
+	// print_box(s()->bvh->box);
 	// print_camera(&s()->camera);
 	// print_box(((t_shape *)s()->shapes->array[0])->box);
 
@@ -104,9 +104,7 @@ void	fake_render()
 		cur.x = 0;
 		while (cur.x < WIDTH)
 		{
-			closest.color = BLACK;
-			closest.shape = NULL;
-			closest.distance = INFINITY;
+			closest = init_hit();
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
 			// if (check_bvh_intersection(&ray, s()->bvh, &closest)

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:32 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/18 14:32:20 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/18 17:34:05 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,18 +127,18 @@ bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	if (!shapes)
 		return (false);
 	tmp = init_hit();
-	// if (s()->bvh)
-	// {
-	// 	// printf("n: %d\n", n++);
-	// 	tmp.check_hit |= check_bvh_intersection(ray, s()->bvh, &tmp);
-	// }
-	// // tmp.check_hit |= check_unbound(ray, &tmp);
-	// if (!tmp.check_hit)
-	// {
-	// 	closest->color = color_from_hex(0x000000FF);
-	// 	if (!s()->unbound)  // could write: (s()->shape_nbr[PLANE] == 0)
-	// 		return (false);
-	// }
+	if (s()->bvh)
+	{
+		// printf("n: %d\n", n++);
+		tmp.check_hit |= check_bvh_intersection(ray, s()->bvh, &tmp);
+	}
+	// tmp.check_hit |= check_unbound(ray, &tmp);
+	if (!tmp.check_hit)
+	{
+		closest->color = BLACK;
+		if (s()->shape_nbr[PLANE] == 0)
+			return (false);
+	}
 	while (++i < shapes->size)
 	{
 		shape = shapes->array[i];
