@@ -191,7 +191,7 @@ bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter, double *vali
 		{
 			inter->distance = distance;
 			inter->color = cylinder->color;
-			find_valid_t(equation);
+			find_valid_t(&equation);
 			*valid_t = equation.t1;
 			// printf("t1: %f, t2: %f\n", equation.t1, equation.t2);
 			return (*valid_t > 0);

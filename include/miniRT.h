@@ -310,7 +310,7 @@ t_hit	init_hit(void);
 t_aabb	box_sphere(t_sphere *sphere);
 t_aabb	box_cylinder(t_cylinder *cyl);
 void	ft_swap_d(double *a, double *b);
-void	find_valid_t(t_equation equation);
+void	find_valid_t(t_equation *equation);
 // bool	check_unbound(t_ray *ray, t_hit *inter);
 
 

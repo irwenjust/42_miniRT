@@ -99,7 +99,7 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter, double *valid_t)
 		else
 			inter->distance = equation.t2;
 		inter->color = sphere->color;
-		find_valid_t(equation);
+		find_valid_t(&equation);
 		*valid_t = equation.t1;
 		// printf("t1: %f, t2: %f\n", equation.t1, equation.t2);
 		return (*valid_t > 1e-8);

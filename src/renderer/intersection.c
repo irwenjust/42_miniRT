@@ -12,14 +12,14 @@
 
 #include "miniRT.h"
 
-void	find_valid_t(t_equation equation)
+void	find_valid_t(t_equation *equation)
 {
-	if (equation.t1 < 0)
-		equation.t1 = INFINITY;
-	if (equation.t2 < 0)
-		equation.t2 = INFINITY;
-	if (equation.t1 > equation.t2)
-		ft_swap_d(&equation.t1, &equation.t2);
+	if (equation->t1 < 0)
+		equation->t1 = INFINITY;
+	if (equation->t2 < 0)
+		equation->t2 = INFINITY;
+	if (equation->t1 > equation->t2)
+		ft_swap_d(&equation->t1, &equation->t2);
 }
 
 /**
@@ -121,7 +121,6 @@ bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	t_shape *shape;
 	t_hit	tmp;
 	double	checker;
-	static int n = 0;
 
 	i = -1;
 	if (!shapes)
@@ -142,12 +141,6 @@ bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	while (++i < shapes->size)
 	{
 		shape = shapes->array[i];
-		if (shape->type == PLANE)
-		{
-			n++;
-			if (n == 1)
-				printf("hit plane\n");
-		}
 		if (!is_intersect(shape, ray, &tmp, &checker))
 			continue ;
 		if (tmp.distance >= closest->distance)
