@@ -22,6 +22,7 @@ t_hit	init_hit(void)
 	if (init)
 	{
 		ft_bzero(&hit, sizeof(t_hit));
+		// hit.color = BLACK;
 		hit.distance = INFINITY;
 		hit.shape = NULL; //debug
 		init = false;
