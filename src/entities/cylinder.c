@@ -38,6 +38,9 @@ static bool new_cylinder(char **arg, t_cylinder *cylinder)
 	cylinder->color = parse_color(rgb);
 	cylinder->box = box_cylinder(cylinder);
 	cylinder->rebuildbox = box_cylinder;
+	// printf("new cy min: (%f, %f, %f), max: (%f, %f, %f)\n",
+    //        cylinder->box.min.x, cylinder->box.min.y, cylinder->box.min.z,
+    //        cylinder->box.max.x, cylinder->box.max.y, cylinder->box.max.z);
 	free_matrix(rgb);
 	return (true);
 }
@@ -61,10 +64,19 @@ bool parse_cylinder(char **arg, t_fclass *fclass)
 	cylinder.cap_b = vector_add(cylinder.center, vector_multiple(cylinder.normal, cylinder.height * 0.5));
 	shape = new_shape(&cylinder, CYLINDER, fclass->size, s()->shape_nbr[CYLINDER]);
 	// shape->rebuildbox = box_cylinder;
+	// printf("parse cy min: (%f, %f, %f), max: (%f, %f, %f)\n",
+    //        shape->data.cylinder.box.min.x, shape->data.cylinder.box.min.y, shape->data.cylinder.box.min.z,
+    //        shape->data.cylinder.box.max.x, shape->data.cylinder.box.max.y, shape->data.cylinder.box.max.z);
+	
 	s()->shape_nbr[CYLINDER]++;
 	push_to_fclass(fclass, shape);
 	//printf("Pushing shape: type = %d, id = %d\n", shape->type, shape->id);
-
+	// t_shape *new;
+	// new = fclass->array[fclass->size - 1];
+	// printf("parse cy min: (%f, %f, %f), max: (%f, %f, %f)\n",
+    //        new->data.cylinder.box.min.x, new->data.cylinder.box.min.y, new->data.cylinder.box.min.z,
+    //        new->data.cylinder.box.max.x, new->data.cylinder.box.max.y, new->data.cylinder.box.max.z);
+	
 	return (true);
 }
 
