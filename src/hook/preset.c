@@ -65,7 +65,8 @@ void camera_preset(int preset)
     else if (preset == 6)
         new_camera.normal = (t_vector){-1, 0, 0};
     s()->camera = copy_camera(new_camera);
-    
+    print_camera(&new_camera);
+    print_camera(&s()->camera);
 }
 
 void light_preset(int preset)

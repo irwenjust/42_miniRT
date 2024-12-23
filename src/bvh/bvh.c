@@ -27,13 +27,13 @@ static t_bvh	*build_bvh(t_shape **shapes, int amount)
 	{
 		res->box = shapes[0]->box;
 		res->shapes = shapes[0];
-		// printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
+		// printf("biuld bvh min: (%f, %f, %f), max: (%f, %f, %f)\n",
         //    res->box.min.x, res->box.min.y, res->box.min.z,
         //    res->box.max.x, res->box.max.y, res->box.max.z);
 		return (res);
 	}
 	res->box = generate_box(shapes, amount);
-	// printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
+	// printf("biuld bvh min: (%f, %f, %f), max: (%f, %f, %f)\n",
     //        res->box.min.x, res->box.min.y, res->box.min.z,
     //        res->box.max.x, res->box.max.y, res->box.max.z);
 	max_axis = find_max_axis(res->box);
@@ -67,7 +67,10 @@ t_bvh	*init_bvh()
 	if (!tmp)
 		return (NULL);
 	res = build_bvh(tmp, s()->shapes->size);
+	// printf("res ");
+	// print_box(res->box);
 	free(tmp);
+	
 	return (res);
 }
 

@@ -80,13 +80,21 @@ t_aabb	generate_box(t_shape **shapes, int amount)
 	t_shape	*shape;
 	
 	i = -1;
-	box.min = (t_vector){INFINITY, INFINITY, INFINITY};
-	box.max = (t_vector){-INFINITY, -INFINITY, -INFINITY};
+	
 	while (++i < amount)
 	{
+		box.min = (t_vector){INFINITY, INFINITY, INFINITY};
+		box.max = (t_vector){-INFINITY, -INFINITY, -INFINITY};
 		shape = shapes[i];
 		box.min = vector_min(box.min, shape->box.min);
 		box.max = vector_max(box.max, shape->box.max);
+		// printf("generate box box: (%f, %f, %f), max: (%f, %f, %f)\n",
+        //    box.min.x, box.min.y, box.min.z,
+        //    box.max.x, box.max.y, box.max.z);
+		// printf("generate box shape: (%f, %f, %f), max: (%f, %f, %f)\n",
+        //    shape->box.min.x, shape->box.min.y, shape->box.min.z,
+        //    shape->box.max.x, shape->box.max.y, shape->box.max.z);
 	}
+	
 	return (box);
 }

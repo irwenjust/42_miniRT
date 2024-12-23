@@ -116,13 +116,7 @@ void	init_scene(char *file_name)
 		error_exit("the file is empty");
 	parse_args();
 	
-	// int i = -1;
-	// t_shape *shape;
-	// while (++i < s()->shapes->size)
-	// {
-	// 	shape = s()->shapes->array[i];
-	// 	print_shape(shape);
-	// }
+	
 	
 	init_viewport();
 	init_windows();
@@ -130,8 +124,22 @@ void	init_scene(char *file_name)
 	s()->keys.cur_keycode = -1;
 	s()->menu = VIEW;
 	gettimeofday(&s()->last_frame_time, NULL);
-	
+	// int i = -1;
+	// t_shape *shape;
+	// while (++i < s()->shapes->size)
+	// {
+	// 	if (i > 0)
+	// 	{
+	// 		shape = s()->shapes->array[i];
+	// 		// print_shape(shape);
+	// 		printf("before re build min: (%f, %f, %f), max: (%f, %f, %f)\n",
+	// 		shape->data.cylinder.box.min.x, shape->data.cylinder.box.min.y, shape->data.cylinder.box.min.z,
+	// 		shape->data.cylinder.box.max.x, shape->data.cylinder.box.max.y, shape->data.cylinder.box.max.z);
+	// 	}
+	// }
 	rebuild_bvh();
+	// printf("after rebuild ");
+	// print_box(s()->bvh->box);
 	backup_scene();
 	
 	// printTree(s()->bvh, 0);
