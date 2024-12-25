@@ -71,7 +71,7 @@
 # define CYERPK		(t_color){230, 130, 255, 0}
 # define TOXIC		(t_color){13, 220, 53, 0}
 
-
+# define C_UP (t_vector){0, 0, 1}
 
 #define CP_1 "C 0,0,0 0,0,1 90"  // 正视图
 #define CP_2 "C 0,0,30 0,0,-1 90"  // 后视图

@@ -29,10 +29,12 @@ static bool new_plane(char **arg, t_plane *plane)
 	normal = ft_split(arg[2], ',');
 	if (!normal)
 		return (ERROR("plane: fail to split normal"), false);
-	plane->normal = vector_normalize(parse_vector(normal));
+	plane->normal = parse_vector(normal);
 	free_matrix(normal);
 	if (vector_magnitude(plane->normal) < 1e-8)
 		return (ERROR("plane: normal vector is too small"), false);
+	plane->normal = vector_normalize(plane->normal);
+	plane->normal = vector_add(plane->normal, VEC_MIN);
 	rgb = ft_split(arg[3], ',');
 	if (!rgb)
 		return (ERROR("sphere: fail to split color"), false);
