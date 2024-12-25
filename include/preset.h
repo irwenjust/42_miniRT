@@ -71,13 +71,13 @@
 # define CYERPK		(t_color){230, 130, 255, 0}
 # define TOXIC		(t_color){13, 220, 53, 0}
 
+# define C_FRONT (t_vector){0, 0, 1}
+# define C_BACK (t_vector){0, 0, -1}
+# define C_TOP (t_vector){0, -1, 0}
+# define C_BOTTOM (t_vector){0, 1, 0}
+# define C_LEFT (t_vector){1, 0, 0}
+# define C_RIGHT (t_vector){-1, 0, 0}
 
 
-#define CP_1 "C 0,0,0 0,0,1 90"  // 正视图
-#define CP_2 "C 0,0,30 0,0,-1 90"  // 后视图
-#define CP_3 "C 0,15,15 0,-1,0 90"  // 上视图
-#define CP_4 "C 0,-15,15 0,1,0 90"  // 下视图
-#define CP_5 "C -15,0,15 1,0,0 90"  // 左视图
-#define CP_6 "C 15,0,15 -1,0,0 90"  // 右视图
 
 #endif

@@ -1,29 +1,6 @@
 #include "miniRT.h"
 
-// void camera_preset(int preset)
-// {
-//     char **new_camera;
-
-//     new_camera = NULL;
-//     if (preset == 1)
-//         new_camera = ft_split(CP_1, ' ');
-//     else if (preset == 2)
-//         new_camera = ft_split(CP_2, ' ');
-//     else if (preset == 3)
-//         new_camera = ft_split(CP_3, ' ');
-//     else if (preset == 4)
-//         new_camera = ft_split(CP_4, ' ');
-//     else if (preset == 5)
-//         new_camera = ft_split(CP_5, ' ');
-//     else if (preset == 6)
-//         new_camera = ft_split(CP_6, ' ');
-//     if (!new_camera)
-//         ft_putstr_fd("Cannot get camera preset\n", 2);
-//     if (!parse_camera(new_camera, &s()->camera))
-//         ft_putstr_fd("Cannot switch preset\n", 2);
-// }
-
-t_vector camera_position(t_vector min, t_vector max, int preset)
+static t_vector camera_position(t_vector min, t_vector max, int preset)
 {
     t_vector vec;
 
@@ -53,20 +30,19 @@ void camera_preset(int preset)
     new_camera = copy_camera(s()->camera);
     new_camera.coordinate = camera_position(s()->bvh->box.min, s()->bvh->box.max, preset);
     if (preset == 1)
-        new_camera.normal = (t_vector){0, 0, 1};
+        new_camera.normal = vector_normalize(vector_add(C_FRONT, VEC_MIN));
     else if (preset == 2)
-        new_camera.normal = (t_vector){0, 0, -1};
+        new_camera.normal = vector_normalize(vector_add(C_BACK, VEC_MIN));
     else if (preset == 3)
-        new_camera.normal = (t_vector){0, -1, 0};
+        new_camera.normal = vector_normalize(vector_add(C_TOP, VEC_MIN));
     else if (preset == 4)
-        new_camera.normal = (t_vector){0, 1, 0};
+        new_camera.normal = vector_normalize(vector_add(C_BOTTOM, VEC_MIN));
     else if (preset == 5)
-        new_camera.normal = (t_vector){1, 0, 0};
+        new_camera.normal = vector_normalize(vector_add(C_LEFT, VEC_MIN));
     else if (preset == 6)
-        new_camera.normal = (t_vector){-1, 0, 0};
+        new_camera.normal = vector_normalize(vector_add(C_RIGHT, VEC_MIN));
     s()->camera = copy_camera(new_camera);
-    print_camera(&new_camera);
-    print_camera(&s()->camera);
+    init_viewport();
 }
 
 void light_preset(int preset)
@@ -93,27 +69,6 @@ void light_preset(int preset)
     else if (preset == 4)
         light->brightness = 0.4;
 }
-
-// void shape_preset(int preset)
-// {
-//     t_color *color;
-
-//     color = get_color(SHAPE);
-//     if (color == NULL)
-//         return ;
-//     if (preset == 1)
-//         (*color) = RED;
-//     else if (preset == 2)
-//         (*color) = YELLOW;
-//     else if (preset == 3)
-//         (*color) = GREEN;
-//     else if (preset == 4)
-//         (*color) = BLUE;
-//     else if (preset == 5)
-//         (*color) = PINK;
-//     else if (preset == 6)
-//         (*color) = PURPLE;
-// }
 
 void shape_preset(int preset)
 {
@@ -146,25 +101,19 @@ void shape_preset(int preset)
 
 void view_preset(int preset)
 {
-    if (preset == 1)
-    {
-        camera_preset(1);
-        light_preset(1);
-        //shape_preset(1);
-    }
+    camera_preset(preset);
+    light_preset(preset);
+    shape_preset(preset);
 }
 
 void switch_preset(int preset)
 {
-    if (preset > 0)
-        printf("switch preset\n");
     if (s()->menu == CAMERA)
         camera_preset(preset);
     else if (s()->menu == LIGHT)
         light_preset(preset);
     else if (s()->menu == SHAPE)
         shape_preset(preset);
-    else if (s()->menu == VIEW)
-        view_preset(preset);
-    
+    // else if (s()->menu == VIEW)
+    //     view_preset(preset);
 }
