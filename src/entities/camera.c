@@ -84,5 +84,6 @@ void rotate_camera(t_key *keys)
 		s()->camera.normal = vector_rotate(s()->camera.normal, Z, (-ROTATE));
     // control_frame_rate();
 	// print_camera(&s()->camera);
+	init_viewport();
     printf("rotate camera\n");
 }

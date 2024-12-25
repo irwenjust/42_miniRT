@@ -133,6 +133,7 @@ t_scene	*s(void);
 /*init*/
 //initial part
 void	init_scene(char *file_name);
+void	init_viewport();
 //validate
 bool	validate_filename(char *f_name);
 int		get_nof_validrows(char *file_name);
@@ -312,6 +313,7 @@ t_aabb	box_cylinder(t_cylinder *cyl);
 void	ft_swap_d(double *a, double *b);
 void	find_valid_t(t_equation *equation);
 // bool	check_unbound(t_ray *ray, t_hit *inter);
+
 
 
 #endif

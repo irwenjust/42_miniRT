@@ -52,7 +52,7 @@ static void	init_args(char *file_name)
 	close (fd);
 }
 
-static void	init_viewport()
+void	init_viewport()
 {
 	s()->view_w = tan(RADIAN(s()->camera.fov * 0.5));
 	s()->view_h = s()->view_w * SCALE;
@@ -115,8 +115,6 @@ void	init_scene(char *file_name)
 	if (ft_matrix_size(s()->args) == 0)
 		error_exit("the file is empty");
 	parse_args();
-	
-	
 	
 	init_viewport();
 	init_windows();
