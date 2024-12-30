@@ -24,8 +24,8 @@ static void display_shape(int x, int y, t_shape *shape)
 
 static void display_shape_preset(int x, int y)
 {
-    display(x, y, 0x87CEFA, "Preset Shape Color >", 0);
-    display(x + (22 * 6), y, 0xFFFFFF, "1 : Soft Dream", 0);
+    display(x, y, 0x87CEFA, "Preset Shape ColorSet >", 0);
+    display(x + (25 * 6), y, 0xFFFFFF, "1 : Soft Dream", 0);
     display(x + (41 * 6), y, 0xFFFFFF, "2 : Sunset", 0);
     display(x + (56 * 6), y, 0xFFFFFF, "3 : Fire", 0);
     display(x + (69 * 6), y, 0xFFFFFF, "4 : Blue Style", 0);

@@ -45,7 +45,6 @@ bool	parse_camera(char **arg, t_camera *camera)
 	camera->fov = ft_atoi(arg[3]);
 	if (camera->fov < 0 || camera->fov > 180)
 		return (ERROR("camera: normal vector's visual is out of range"), false);
-	
 	return (camera);
 }
 
@@ -65,18 +64,18 @@ void move_camera(t_key *keys)
 		s()->camera.coordinate.z -= 0.3;
     // control_frame_rate();
 	// print_camera(&s()->camera);
-    printf("move camera\n");
+    // printf("move camera\n");
 }
 
 void rotate_camera(t_key *keys)
 {
-	if (keys->key[I])
+	if (keys->key[L])
 		s()->camera.normal = vector_rotate(s()->camera.normal, X, ROTATE);
-	else if (keys->key[K])
-		s()->camera.normal = vector_rotate(s()->camera.normal, X, (-ROTATE));
-	else if (keys->key[L])
-		s()->camera.normal = vector_rotate(s()->camera.normal, Y, ROTATE);
 	else if (keys->key[J])
+		s()->camera.normal = vector_rotate(s()->camera.normal, X, (-ROTATE));
+	else if (keys->key[I])
+		s()->camera.normal = vector_rotate(s()->camera.normal, Y, ROTATE);
+	else if (keys->key[K])
 		s()->camera.normal = vector_rotate(s()->camera.normal, Y, (-ROTATE));
 	else if (keys->key[O])
 		s()->camera.normal = vector_rotate(s()->camera.normal, Z, ROTATE);
@@ -85,5 +84,5 @@ void rotate_camera(t_key *keys)
     // control_frame_rate();
 	// print_camera(&s()->camera);
 	init_viewport();
-    printf("rotate camera\n");
+    // printf("rotate camera\n");
 }

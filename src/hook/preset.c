@@ -114,6 +114,6 @@ void switch_preset(int preset)
         light_preset(preset);
     else if (s()->menu == SHAPE)
         shape_preset(preset);
-    // else if (s()->menu == VIEW)
-    //     view_preset(preset);
+    else if (s()->menu == VIEW)
+        view_preset(preset);
 }
