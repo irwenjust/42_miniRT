@@ -89,9 +89,9 @@ void rotate_camera(t_key *keys)
 
 void update_camera_fov(t_key *keys)
 {
-	if (keys->cur_keycode == UP && (s()->camera.fov + 1e-8) < 180)
+	if (keys->cur_keycode == UP && s()->camera.fov + 10 < 180)
         s()->camera.fov += 10;
-    else if (keys->cur_keycode == DOWN && s()->camera.fov > 1e-8)
+    else if (keys->cur_keycode == DOWN && s()->camera.fov - 10 > 0)
 		s()->camera.fov -= 10;
 	init_viewport();
 }
