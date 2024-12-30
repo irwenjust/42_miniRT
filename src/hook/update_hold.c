@@ -45,6 +45,7 @@ void update_scaling(t_key *keys)
         update_brightness(keys);
     else if (s()->menu == CAMERA)
         update_camera_fov(keys);
+    printf("%i\n", s()->camera.fov);
     rebuild_bvh();
     control_frame_rate();
 }
