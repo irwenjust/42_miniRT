@@ -33,3 +33,18 @@ void	ft_swap_d(double *a, double *b)
 	*b = temp;
 }
 
+t_hit	init_hit(void)
+{
+	static t_hit	hit;
+	static bool		init = true;
+
+	if (init)
+	{
+		ft_bzero(&hit, sizeof(t_hit));
+		// hit.color = BLACK;
+		hit.distance = INFINITY;
+		hit.shape = NULL; //debug
+		init = false;
+	}
+	return (hit);
+}

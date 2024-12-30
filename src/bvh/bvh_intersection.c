@@ -12,24 +12,6 @@
 
 #include "miniRT.h"
 
-bool	check_bvh_intersection(t_ray *ray, t_bvh *node, t_hit *pre_hit);
-
-t_hit	init_hit(void)
-{
-	static t_hit	hit;
-	static bool		init = true;
-
-	if (init)
-	{
-		ft_bzero(&hit, sizeof(t_hit));
-		// hit.color = BLACK;
-		hit.distance = INFINITY;
-		hit.shape = NULL; //debug
-		init = false;
-	}
-	return (hit);
-}
-
 //May need to check more later
 static inline bool	update_hit(t_ray *ray, t_bvh *node, t_hit *hit)
 {
@@ -37,7 +19,6 @@ static inline bool	update_hit(t_ray *ray, t_bvh *node, t_hit *hit)
 	
 	if (is_intersect(node->shapes, ray, hit, &current_t))
 	{
-		
 		return (true);
 	}
 	return (false);
