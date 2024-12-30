@@ -271,6 +271,4 @@ typedef struct s_scene
 	t_bvh		*bvh;
 }	t_scene;
 
-
-
 #endif

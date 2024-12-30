@@ -171,6 +171,7 @@ t_camera copy_camera(t_camera camera);
 bool	parse_camera(char **tmp, t_camera *camera);
 void move_camera(t_key *keys);
 void rotate_camera(t_key *keys);
+void update_camera_fov(t_key *keys);
 //light part
 t_light	*copy_light(t_light *light);
 bool	parse_light(int counter[3], char **arg, t_fclass *light);

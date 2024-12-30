@@ -58,7 +58,7 @@ void display_brightness(int x, int y, double brightness)
     display(x, y, 0x87CEFA, "Brightness >", 0);
     display(x += (14 * 6), y, 0xFFD700, ft_dtoa_one(brightness), 1);
     display(x += (5 * 6), y, 0x87CEFA, ">", 0);
-    display(x += (2 * 6), y, 0xFFFFFF, "Down/Up : -/+ Brightness", 0);
+    display(x += (2 * 6), y, 0xFFFFFF, "Up/Down : +/- Brightness", 0);
 }
 
 void display_mode(int x, int y)
@@ -76,7 +76,7 @@ void display_mode(int x, int y)
 	    display(x + (74 * 6), y, 0xFFD700, "B : Enter [LightSource Edit Mode]", 0);
 	else
     	display(x + (112 * 6), y, 0xFFD700, "M : Enter [Model Edit Mode]", 0);
-    if (s()->menu == VIEW || s()->menu == CAMERA)
+    if (s()->menu == VIEW)
         y -= 20;
     else
         x += (157 * 6);

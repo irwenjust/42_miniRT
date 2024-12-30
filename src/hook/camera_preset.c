@@ -3,23 +3,28 @@
 static t_vector camera_position(t_vector min, t_vector max, int preset)
 {
     t_vector vec;
+    double diagonal;
+    double camera_distance;
 
     ft_bzero(&vec, sizeof(t_vector));
     vec.x = (min.x + max.x) / 2;
     vec.y = (min.y + max.y) / 2;
     vec.z = (min.z + max.z) / 2;
+    diagonal = sqrt(pow(max.x - min.x, 2) + pow(max.y - min.y, 2) + pow(max.z - min.z, 2));
+    camera_distance = (diagonal / 2) / tan(RADIAN(45) / 2.0);
+    camera_distance += diagonal * 0.2;
     if (preset == 1)
-        vec.z = min.z - 10;
+        vec.z = min.z - camera_distance;
     else if (preset == 2)
-        vec.z = max.z + 10;
+        vec.z = max.z + camera_distance;
     else if (preset == 3)
-        vec.y = max.y + 10;
+        vec.y = max.y + camera_distance;
     else if (preset == 4)
-        vec.y = min.y - 10;
+        vec.y = min.y - camera_distance;
     else if (preset == 5)
-        vec.x = min.x - 10;
+        vec.x = min.x - camera_distance;
     else if (preset == 6)
-        vec.x = max.x + 10;    
+        vec.x = max.x + camera_distance;
     return ((t_vector){vec.x, vec.y, vec.z});
 }
 
@@ -41,6 +46,7 @@ void camera_preset(int preset)
         new_camera.normal = vector_normalize(vector_add(C_LEFT, VEC_MIN));
     else if (preset == 6)
         new_camera.normal = vector_normalize(vector_add(C_RIGHT, VEC_MIN));
+    new_camera.fov = 45;
     s()->camera = copy_camera(new_camera);
     init_viewport();
 }

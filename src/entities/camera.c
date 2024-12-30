@@ -86,3 +86,12 @@ void rotate_camera(t_key *keys)
 	init_viewport();
     // printf("rotate camera\n");
 }
+
+void update_camera_fov(t_key *keys)
+{
+	if (keys->cur_keycode == UP && (s()->camera.fov + 1e-8) < 180)
+        s()->camera.fov += 10;
+    else if (keys->cur_keycode == DOWN && s()->camera.fov > 1e-8)
+		s()->camera.fov -= 10;
+	init_viewport();
+}
