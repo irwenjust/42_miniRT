@@ -27,6 +27,10 @@ void camera_menu(int x, int y)
 {
     display(x, y, 0xFFFFFF, "- Camera Edit Mode -", 0);
     display_move_rotate_size(x, y + 20);
-    display_camera_preset(x, y + 40);
+    display(x, y + 40, 0x87CEFA, "Camera FOV >", 0);
+    display(x + (15 * 6), y + 40, 0xFFD700, ft_itoa(s()->camera.fov), 1);
+    display(x + (20 * 6), y + 40, 0x87CEFA, ">", 0);
+    display(x + (22 * 6), y + 40, 0xFFFFFF, "Up/Down : +/- FOV", 0);
+    display_camera_preset(x, y + 60);
     display_mode(x, y + 80);
 }

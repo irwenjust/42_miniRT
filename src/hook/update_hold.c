@@ -43,6 +43,8 @@ void update_scaling(t_key *keys)
     }
     else if (s()->menu == LIGHT || s()->menu == VIEW)
         update_brightness(keys);
+    else if (s()->menu == CAMERA)
+        update_camera_fov(keys);
     rebuild_bvh();
     control_frame_rate();
 }
