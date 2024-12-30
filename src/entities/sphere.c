@@ -49,11 +49,7 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
 	// shape->rebuildbox = box_sphere;
 	s()->shape_nbr[SPHERE]++;
-	// printf("shape_nbr %i\n", s()->shape_nbr[SPHERE]);
-	// printf("shape_id %i\n", shape->shape_id[SPHERE]);
 	push_to_fclass(fclass, shape);
-	//printf("Pushing shape: type = %d, id = %d\n", shape->type, shape->id);
-
 	return (true);
 }
 

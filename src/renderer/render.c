@@ -68,9 +68,6 @@ void	render()
 		cur.x = -1;
 		while (++cur.x < WIDTH)
 		{
-			// closest.color = BLACK;
-			// closest.shape = NULL;
-			// closest.distance = INFINITY;
 			closest = init_hit();
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
@@ -81,14 +78,8 @@ void	render()
 			put_pixel(closest.color, cur.x, cur.y);
 		}
 	}
-	// print_light(s()->light->array[0]);
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
-	// mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 0.9));
 	display_menu();
-	// print_box(s()->bvh->box);
-	// print_camera(&s()->camera);
-	// print_box(((t_shape *)s()->shapes->array[0])->box);
-
 }
 
 void	fake_render()
@@ -117,6 +108,5 @@ void	fake_render()
 		cur.y += 3;
 	}
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
-	// mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.menu, 0, (HEIGHT * 0.9));
 	display_menu();
 }

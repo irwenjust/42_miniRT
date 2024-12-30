@@ -87,10 +87,6 @@
 
 # define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
 
-
-
-
-
 //about windows setting (16:9)
 # define SCALE 0.5625
 # define WIDTH 1600
@@ -223,6 +219,7 @@ void update_rotate(t_key *keys);
 void update_color(t_key *keys);
 //preset part
 void switch_preset(int preset);
+void camera_preset(int preset);
 
 /*vector part*/
 //vector op basic

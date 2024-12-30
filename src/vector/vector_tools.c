@@ -15,7 +15,7 @@
 /**
  * @brief parse input string value into a vector format
  */
-t_vector	parse_vector(char **strs)
+inline t_vector	parse_vector(char **strs)
 {
 	return ((t_vector){
 		.x = ft_atod(strs[X]),
@@ -28,7 +28,7 @@ t_vector	parse_vector(char **strs)
  * @brief Check whether input vector are identical
  * fabs function in math.h return the absolute value of inputs
  */
-bool	vector_compare(t_vector v1, t_vector v2)
+inline bool	vector_compare(t_vector v1, t_vector v2)
 {
 	return (
 		fabs(v1.x - v2.x) < 1e-8 &&
@@ -45,7 +45,7 @@ inline double	vector_cos(t_vector v1, t_vector v2)
 	return (vector_dot(v1, v2) / (vector_magnitude(v1) * vector_magnitude(v2)));
 }
 
-t_vector vector_copy(t_vector vec)
+inline t_vector vector_copy(t_vector vec)
 {
 	return ((t_vector){
 		.x = vec.x,

@@ -127,17 +127,10 @@ bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 		return (false);
 	tmp = init_hit();
 	if (s()->bvh)
-	{
-		// printf("n: %d\n", n++);
 		tmp.check_hit |= check_bvh_intersection(ray, s()->bvh, &tmp);
-	}
 	// tmp.check_hit |= check_unbound(ray, &tmp);
-	if (!tmp.check_hit)
-	{
-		closest->color = BLACK;
-		if (s()->shape_nbr[PLANE] == 0)
-			return (false);
-	}
+	if (!tmp.check_hit && s()->shape_nbr[PLANE] == 0)
+		return (false);
 	while (++i < shapes->size)
 	{
 		shape = shapes->array[i];

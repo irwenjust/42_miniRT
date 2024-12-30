@@ -22,9 +22,6 @@ static bool new_plane(char **arg, t_plane *plane)
 	if (!coord)
 		return (ERROR("plane: fail to split coordinate"), false);
 	plane->center = parse_vector(coord);
-	// printf("     Coord: %s, %s, %s\n", coord[0], coord[1], coord[2]);
-	// printf("     Center: %.2lf, %.2lf, %.2lf\n", sphere->center.x, sphere->center.y, sphere->center.z);
-
 	free_matrix(coord);
 	normal = ft_split(arg[2], ',');
 	if (!normal)
@@ -60,7 +57,6 @@ bool parse_plane(char **arg, t_fclass *fclass)
 	// ft_lstadd_back(&s()->unbound, ft_lstnew(shape));
 	push_to_fclass(fclass, shape);
 	//printf("Pushing shape: type = %d, id = %d\n", shape->type, shape->id);
-
 	return (true);
 }
 
@@ -141,17 +137,17 @@ void rotate_plane(t_key *keys, t_plane *plane)
 	printf("rotate plane\n");
 }
 
-bool	inter_real_plane(t_plane *plane, t_ray *ray, double *valid_t)
-{
-	double		numerator;
-	double		denominator;
-	t_vector	vec;
+// bool	inter_real_plane(t_plane *plane, t_ray *ray, double *valid_t)
+// {
+// 	double		numerator;
+// 	double		denominator;
+// 	t_vector	vec;
 
-	denominator = vector_dot(ray->normal, plane->normal);
-	if (fabs(denominator) < 1e-6)
-		return (false);
-	vec = vector_sub(plane->center, ray->start);
-	numerator = vector_dot(vec, plane->normal);
-	*valid_t = numerator / denominator;
-	return (*valid_t > 0.0);
-}
+// 	denominator = vector_dot(ray->normal, plane->normal);
+// 	if (fabs(denominator) < 1e-6)
+// 		return (false);
+// 	vec = vector_sub(plane->center, ray->start);
+// 	numerator = vector_dot(vec, plane->normal);
+// 	*valid_t = numerator / denominator;
+// 	return (*valid_t > 0.0);
+// }

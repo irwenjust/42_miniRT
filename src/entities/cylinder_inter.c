@@ -53,41 +53,6 @@ static bool	check_wall(t_cylinder *cy, t_hit *inter, double t)
 	return (false);
 }
 
-/*
-static double inter_cap(t_cylinder *cylinder, t_ray *ray, t_vector cap)
-{
-	t_plane plane;
-	t_hit inter;
-	
-	plane = (t_plane)
-	{
-		.center = cap,
-		.normal = cylinder->normal,
-		.color = BLACK
-	};
-	if (inter_plane(&plane, ray, &inter))
-		return (inter.distance);
-	return (-1);
-}
-
-bool	check_cap(t_cylinder *cy, t_vector cap, t_hit *inter, double t)
-{
-	double	len;
-	t_vector	point;
-
-	point = point_on_ray(&inter->ray, t);
-	len = vector_magnitude(vector_sub(point, cap));
-	len += 1e-8;
-	if (len <= cy->radius && t > 1e-8 && t < inter->distance)
-	{
-		inter->cy_hp = cap;
-		inter->distance = t;
-		return (true);
-	}
-	return (false);
-}
-*/
-
 /**
  * @brief check whether there is a intersect point of ray and plane
  * If intersect, check the position of hit point is inside the cap range or not

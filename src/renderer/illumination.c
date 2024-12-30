@@ -28,8 +28,6 @@ static bool	is_obscured(t_hit *closest)
 	ray.start = vector_add(closest->hit_point, VEC_MIN);
 	ray.normal = vector_normalize(vector_sub(light->point, closest->hit_point));
 	tmp.distance = vector_magnitude(vector_sub(light->point, closest->hit_point));
-	// tmp.distance = INFINITY;
-	// tmp.shape = NULL;
 	while (++i < s()->shapes->size)
 	{
 		shape = fclass_index(s()->shapes, i);
@@ -57,6 +55,5 @@ void	check_illumination(t_hit *closest)
 	color = check_ambient(closest->color);
 	if (!is_obscured(closest))
 		color = add_color(color, diffuse(light, closest, light->brightness));
-		// color = mix_colors(color, diffuse(light, closest, light->brightness));
 	closest->color = color;
 }

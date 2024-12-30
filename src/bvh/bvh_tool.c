@@ -98,6 +98,5 @@ t_aabb	generate_box(t_shape **shapes, int amount)
         //    shape->box.min.x, shape->box.min.y, shape->box.min.z,
         //    shape->box.max.x, shape->box.max.y, shape->box.max.z);
 	}
-	
 	return (box);
 }
