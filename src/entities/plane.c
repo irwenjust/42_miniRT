@@ -6,17 +6,17 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 15:39:03 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/18 14:31:31 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 13:19:15 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static bool new_plane(char **arg, t_plane *plane)
+static bool	new_plane(char **arg, t_plane *plane)
 {
-	char **coord;
-	char **normal;
-	char **rgb;
+	char	**coord;
+	char	**normal;
+	char	**rgb;
 
 	coord = ft_split(arg[1], ',');
 	if (!coord)
@@ -37,15 +37,14 @@ static bool new_plane(char **arg, t_plane *plane)
 		return (ERROR("sphere: fail to split color"), false);
 	plane->color = parse_color(rgb);
 	free_matrix(rgb);
-	// ft_lstadd_back(&s()->unbound, ft_lstnew(plane));
 	return (true);
 }
 
-bool parse_plane(char **arg, t_fclass *fclass)
+bool	parse_plane(char **arg, t_fclass *fclass)
 {
-	t_shape *shape;
-	t_plane plane;
-	
+	t_shape	*shape;
+	t_plane	plane;
+
 	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0111"))
 		return (ERROR("plane: wrong args format"), false);
 	if (!check_rgb(arg[3]))
@@ -54,9 +53,7 @@ bool parse_plane(char **arg, t_fclass *fclass)
 		return (ERROR("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
 	s()->shape_nbr[PLANE]++;
-	// ft_lstadd_back(&s()->unbound, ft_lstnew(shape));
 	push_to_fclass(fclass, shape);
-	//printf("Pushing shape: type = %d, id = %d\n", shape->type, shape->id);
 	return (true);
 }
 
@@ -78,7 +75,7 @@ bool parse_plane(char **arg, t_fclass *fclass)
  * 
  * @param vec ray origin to plane center (O-C)
  */
-bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter, double *valid_t)
+bool	inter_plane(t_plane *plane, t_ray *ray, t_hit *inter, double *valid_t)
 {
 	t_equation	equation;
 	t_vector	vec;
@@ -103,7 +100,7 @@ bool inter_plane(t_plane *plane, t_ray *ray, t_hit *inter, double *valid_t)
 	return (false);
 }
 
-void move_plane(t_key *keys, t_plane *plane)
+void	move_plane(t_key *keys, t_plane *plane)
 {
 	if (keys->key[D])
 		plane->center.x += 0.3;
@@ -120,7 +117,7 @@ void move_plane(t_key *keys, t_plane *plane)
 	printf("move plane\n");
 }
 
-void rotate_plane(t_key *keys, t_plane *plane)
+void	rotate_plane(t_key *keys, t_plane *plane)
 {
 	if (keys->key[I])
 		plane->normal = vector_rotate(plane->normal, X, ROTATE);

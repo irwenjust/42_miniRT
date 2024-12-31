@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:38:22 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/27 20:28:51 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 14:42:49 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@
  * @param tmp The tmp vector used in the operation
  * @param ray The ray from camera to view point
  */
-t_ray make_ray(t_vector cur)
+t_ray	make_ray(t_vector cur)
 {
-	t_vector horizontal;
-	t_vector vertical;
-	t_vector tmp;
-	t_ray ray;
+	t_vector	horizontal;
+	t_vector	vertical;
+	t_vector	tmp;
+	t_ray		ray;
 
 	horizontal = vector_multiple(s()->normal_w, cur.x * s()->view_w);
 	vertical = vector_multiple(s()->normal_h, cur.y * s()->view_h);
@@ -43,7 +43,8 @@ t_ray make_ray(t_vector cur)
 	tmp = vector_add(tmp, s()->camera.coordinate);
 	ray.start = s()->camera.coordinate;
 	ray.normal = vector_normalize(vector_sub(tmp, ray.start));
-	ray.inv_start = (t_vector){1.0 / ray.normal.x, 1.0 / ray.normal.y, 1.0 / ray.normal.z};
+	ray.inv_start = (t_vector){1.0 / ray.normal.x,
+		1.0 / ray.normal.y, 1.0 / ray.normal.z};
 	return (ray);
 }
 

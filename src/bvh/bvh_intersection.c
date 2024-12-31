@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:13:15 by likong            #+#    #+#             */
-/*   Updated: 2024/12/16 21:05:07 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 12:25:06 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 //May need to check more later
 static inline bool	update_hit(t_ray *ray, t_bvh *node, t_hit *hit)
 {
-	double current_t;
-	
+	double	current_t;
+
 	if (is_intersect(node->shapes, ray, hit, &current_t))
 	{
 		return (true);
@@ -55,9 +55,6 @@ bool	check_aabb_intersection(t_ray ray, t_aabb box, double max_t)
 	double	t_min;
 	double	t_max;
 
-	// printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
-    //        box.min.x, box.min.y, box.min.z,
-    //        box.max.x, box.max.y, box.max.z);
 	t1 = (box.min.x - ray.start.x) * ray.inv_start.x;
 	t2 = (box.max.x - ray.start.x) * ray.inv_start.x;
 	t_min = fmin(t1, t2);
@@ -77,19 +74,13 @@ bool	check_bvh_intersection(t_ray *ray, t_bvh *node, t_hit *pre_hit)
 {
 	t_hit	hit;
 	bool	check_hit;
-	// static int n = 0;
 
 	check_hit = false;
 	hit = init_hit();
 	if (!node)
 		return (false);
-	// printf("n: %d\n", n++);
 	if (!check_aabb_intersection(*ray, node->box, hit.distance))
-	{
-		// printf("n: %d\n", n++);
 		return (false);
-	}
-	// printf("here\n");
 	if (node->shapes)
 		check_hit = update_hit(ray, node, &hit);
 	else

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:32 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/18 17:34:05 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 14:41:21 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	find_valid_t(t_equation *equation)
 /**
  * @brief Find the intersect point for each shape
  */
-bool is_intersect(t_shape *shape, t_ray *ray, t_hit *inter, double *valid_t)
+bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter, double *valid_t)
 {
 	bool	checker;
 
@@ -61,7 +61,8 @@ static t_vector	get_normal(t_hit *inter)
 		normal = vector_sub(point, inter->cy_hp);
 		if (vector_compare(inter->cy_hp, inter->shape->data.cylinder.cap_u))
 			normal = vector_multiple(inter->shape->data.cylinder.normal, -1);
-		else if (vector_compare(inter->cy_hp, inter->shape->data.cylinder.cap_b))
+		else if (vector_compare(inter->cy_hp,
+				inter->shape->data.cylinder.cap_b))
 			normal = inter->shape->data.cylinder.normal;
 	}
 	return (vector_normalize(normal));
@@ -72,14 +73,15 @@ static t_vector	get_normal(t_hit *inter)
 // 	t_list	*unbound;
 // 	t_shape	*shape;
 // 	double	t;
-	
+
 // 	unbound = s()->unbound;
 // 	while (unbound)
 // 	{
 // 		shape = (t_shape *)unbound->content;
 // 		if (shape->type == PLANE)
 // 		{
-// 			if (inter_real_plane(&shape->data.plane, ray, &t) && t < inter->distance)
+// 			if (inter_real_plane(&shape->data.plane, ray, &t) 
+//				&& t < inter->distance)
 // 			{
 // 				inter->distance = t;
 // 				inter->shape = shape;
@@ -115,10 +117,10 @@ static t_vector	get_normal(t_hit *inter)
  * @param shape Get current shape
  * @param tmp The tmp cloeset intersected point
  */
-bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
+bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 {
-	int 	i;
-	t_shape *shape;
+	int		i;
+	t_shape	*shape;
 	t_hit	tmp;
 	double	checker;
 
@@ -148,4 +150,3 @@ bool check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	}
 	return (closest->shape != NULL);
 }
-

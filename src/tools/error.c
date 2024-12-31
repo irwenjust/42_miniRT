@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:24:37 by likong            #+#    #+#             */
-/*   Updated: 2024/12/18 14:26:27 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 14:48:06 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_free(void *ptr)
 // 	}
 // }
 
-void	delete_scene()
+void	delete_scene(void)
 {
 	delete_fclass(s()->light);
 	delete_fclass(s()->shapes);

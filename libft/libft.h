@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:43:48 by likong            #+#    #+#             */
-/*   Updated: 2024/10/24 10:45:05 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 12:16:48 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ bool	ft_strchr_sep(char *s, int c, char sep);
 char	*ft_strreplace(char *str, char *old, char *new);
 double	ft_atod(char *str);
 int		ft_within_range(int num, int min, int max);
-	
+
 //New function for matrix
 void	*ft_matrix_new(size_t lines);
 size_t	ft_matrix_size(void *matrix);
@@ -95,7 +95,7 @@ void	*append_matrix(void *matrix, void *data, void *(*copy)(void *));
 void	*copy_matrix(void *matrix, void *(*copy)(void *));
 void	free_matrix(char **matrix);
 
-char *ft_dtoa_one(double n);
-int	ft_intlen(int n);
+char	*ft_dtoa_one(double n);
+int		ft_intlen(int n);
 
 #endif

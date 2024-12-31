@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:30:41 by likong            #+#    #+#             */
-/*   Updated: 2024/11/18 13:42:49 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 13:22:21 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ void	push_to_fclass(t_fclass *fclass, void *element)
 	free_matrix((char **)fclass->array);
 	fclass->array = tmp;
 	fclass->size++;
-	//if (((t_shape *)(element))->type >= 0)
-	//{
-	//	int i = -1;
-	//	t_shape *shape;
-	//	while (++i < fclass->size)
-	//	{
-	//		shape = fclass->array[i];
-	//		printf("push: type = %d, id = %d\n", shape->type, shape->id);
-	//	}
-	//}
 }
 
 t_fclass	*fclass_new(void *(*cpy)(void *), int (*cmp)(void *, void *),

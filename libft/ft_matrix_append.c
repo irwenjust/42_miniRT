@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:05:26 by likong            #+#    #+#             */
-/*   Updated: 2024/10/24 10:40:12 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 12:14:35 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*append_matrix(void *matrix, void *data, void *(*copy)(void *))
 
 	i = -1;
 	res = ft_calloc(ft_matrix_size(matrix) + 2, sizeof(void *));
-	if(!res)
+	if (!res)
 		return (NULL);
 	while (((void **)matrix)[++i])
 	{

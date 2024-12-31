@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:15 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/18 18:19:59 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 14:45:00 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_vector	convert_viewport(double x, double y)
 
 static void	put_pixel(t_color c, int x, int y)
 {
-	char *dst;
+	char	*dst;
 
 	dst = s()->win.addr + (y * WIDTH + x) * (int)(s()->win.bpp * 0.125);
 	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
@@ -55,13 +55,13 @@ static void	put_pixel(t_color c, int x, int y)
  * @param closest The closest intersect point
  * @param ray The ray from camera direct to current viewpoint
  */
-void	render()
+void	render(void)
 {
-	t_vector cur;
-	t_vector converted_cur;
-	t_hit closest;
-	t_ray ray;
-	
+	t_vector	cur;
+	t_vector	converted_cur;
+	t_hit		closest;
+	t_ray		ray;
+
 	cur.y = -1;
 	while (++cur.y < HEIGHT)
 	{
@@ -74,7 +74,7 @@ void	render()
 			// if (check_bvh_intersection(&ray, s()->bvh, &closest)
 			// 	&& check_intersection(s()->shapes, &ray, &closest))
 			if (check_intersection(s()->shapes, &ray, &closest))
-				check_illumination(&closest); //4-if intersect, update closest color based on other env
+				check_illumination(&closest);
 			put_pixel(closest.color, cur.x, cur.y);
 		}
 	}
@@ -82,12 +82,12 @@ void	render()
 	display_menu();
 }
 
-void	fake_render()
+void	fake_render(void)
 {
-	t_vector cur;
-	t_vector converted_cur;
-	t_hit closest;
-	t_ray ray;
+	t_vector	cur;
+	t_vector	converted_cur;
+	t_hit		closest;
+	t_ray		ray;
 
 	cur.y = 0;
 	while (cur.y < HEIGHT)
@@ -101,7 +101,7 @@ void	fake_render()
 			// if (check_bvh_intersection(&ray, s()->bvh, &closest)
 			// 	&& check_intersection(s()->shapes, &ray, &closest))
 			if (check_intersection(s()->shapes, &ray, &closest))
-				check_illumination(&closest); //4-if intersect, update closest color based on other env
+				check_illumination(&closest);
 			put_pixel(closest.color, cur.x, cur.y);
 			cur.x += 3;
 		}

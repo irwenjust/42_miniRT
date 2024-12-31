@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:49:56 by likong            #+#    #+#             */
-/*   Updated: 2024/12/18 21:09:36 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 12:54:19 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 	return (shape);
 }
 
-void move_shape(t_key *keys, t_shape *shape)
+void	move_shape(t_key *keys, t_shape *shape)
 {
 	if (shape->type == SPHERE)
 	{
@@ -76,12 +76,9 @@ void move_shape(t_key *keys, t_shape *shape)
 		move_cylinder(keys, &(shape->data.cylinder));
 		shape->box = shape->data.cylinder.box;
 	}
-	// print_shape(shape);
-    // control_frame_rate();
-	// rebuild_bvh();
 }
 
-void rotate_shape(t_key *keys, t_shape *shape)
+void	rotate_shape(t_key *keys, t_shape *shape)
 {
 	if (shape->type == PLANE)
 		rotate_plane(keys, &(shape->data.plane));
@@ -90,5 +87,4 @@ void rotate_shape(t_key *keys, t_shape *shape)
 		rotate_cylinder(keys, &(shape->data.cylinder));
 		shape->box = shape->data.cylinder.box;
 	}
-    // control_frame_rate();
 }
