@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:15:24 by likong            #+#    #+#             */
-/*   Updated: 2024/12/18 20:59:01 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 14:48:56 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_shape	**shapes_to_arr(t_shape **shapes)
 {
-	t_shape **res;
+	t_shape	**res;
 	int		i;
-	
+
 	i = -1;
 	res = ft_calloc(s()->shapes->size, sizeof(t_shape *));
 	while (shapes[++i])
@@ -43,7 +43,7 @@ t_hit	init_hit(void)
 		ft_bzero(&hit, sizeof(t_hit));
 		// hit.color = BLACK;
 		hit.distance = INFINITY;
-		hit.shape = NULL; //debug
+		hit.shape = NULL;
 		init = false;
 	}
 	return (hit);

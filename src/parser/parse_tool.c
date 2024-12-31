@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 14:55:29 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/18 13:54:21 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 14:34:14 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int	count_symbol(char *str, char c)
 	return (count);
 }
 
-static bool check_nbr(char **nbr)
+static bool	check_nbr(char **nbr)
 {
-	int	i;
-	char **token;
-	int dot_nbr;
-	bool valid;
+	int		i;
+	char	**token;
+	int		dot_nbr;
+	bool	valid;
 
 	i = -1;
 	valid = true;
@@ -81,11 +81,11 @@ bool	check_syntax(char **arg, char *commas)
 	return (true);
 }
 
-bool check_rgb(char *rgb)
+bool	check_rgb(char *rgb)
 {
-	int i;
-	bool valid;
-	char **token;
+	int		i;
+	bool	valid;
+	char	**token;
 
 	i = -1;
 	valid = true;
@@ -101,7 +101,7 @@ bool check_rgb(char *rgb)
 	}
 	free_matrix(token);
 	if (!valid)
-			return (ERROR("check rgb: wrong rgb number"), false);
+		return (ERROR("check rgb: wrong rgb number"), false);
 	return (valid);
 }
 

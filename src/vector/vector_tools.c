@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:03:26 by likong            #+#    #+#             */
-/*   Updated: 2024/11/18 14:31:38 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 14:50:10 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ inline t_vector	parse_vector(char **strs)
  */
 inline bool	vector_compare(t_vector v1, t_vector v2)
 {
-	return (
-		fabs(v1.x - v2.x) < 1e-8 &&
-		fabs(v1.y - v2.y) < 1e-8 &&
-		fabs(v1.z - v2.z) < 1e-8
+	return (fabs(v1.x - v2.x) < 1e-8
+		&& fabs(v1.y - v2.y) < 1e-8
+		&& fabs(v1.z - v2.z) < 1e-8
 	);
 }
 
@@ -45,7 +44,7 @@ inline double	vector_cos(t_vector v1, t_vector v2)
 	return (vector_dot(v1, v2) / (vector_magnitude(v1) * vector_magnitude(v2)));
 }
 
-inline t_vector vector_copy(t_vector vec)
+inline t_vector	vector_copy(t_vector vec)
 {
 	return ((t_vector){
 		.x = vec.x,

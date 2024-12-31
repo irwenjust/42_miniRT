@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:37:43 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/18 14:27:51 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 13:10:33 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ static bool	check_wall(t_cylinder *cy, t_hit *inter, double t)
 	t_vector	vec;
 	t_vector	hit;
 	t_vector	hit_a;
-	double	offset;
-	
-	double	len;
+	double		offset;
+	double		len;
 
 	if (t < 1e-8 || t > inter->distance)
 		return (false);
 	hit = point_on_ray(&inter->ray, t);
 	vec = vector_sub(inter->ray.start, cy->cap_u);
-	offset = vector_dot(inter->ray.normal, cy->normal) * t + vector_dot(vec, cy->normal);
+	offset = vector_dot(inter->ray.normal, cy->normal) * t
+		+ vector_dot(vec, cy->normal);
 	hit_a = vector_add(cy->cap_u, vector_multiple(cy->normal, offset));
 	len = vector_magnitude(vector_sub(hit, hit_a));
 	offset -= 1e-8;
@@ -57,12 +57,12 @@ static bool	check_wall(t_cylinder *cy, t_hit *inter, double t)
  * @brief check whether there is a intersect point of ray and plane
  * If intersect, check the position of hit point is inside the cap range or not
  */
-static bool check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
+static bool	check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
 {
-	t_plane plane;
-	t_hit cap_inter;
-	t_vector point;
-	double offset;
+	t_plane		plane;
+	t_hit		cap_inter;
+	t_vector	point;
+	double		offset;
 
 	plane.center = cap;
 	plane.normal = cy->normal;
@@ -72,7 +72,8 @@ static bool check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
 	{
 		point = point_on_ray(&inter->ray, cap_inter.distance);
 		offset = vector_magnitude(vector_sub(point, cap));
-		if (offset <= cy->radius && cap_inter.distance > 1e-8 && cap_inter.distance < inter->distance)
+		if (offset <= cy->radius && cap_inter.distance > 1e-8
+			&& cap_inter.distance < inter->distance)
 		{
 			inter->cy_hp = cap;
 			inter->distance = cap_inter.distance;
@@ -82,40 +83,40 @@ static bool check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
 	return (false);
 }
 
-/**
- * @brief check whether there is any hit point
- * Check wall hit first, if both two t is valid, not need to calculate the cap hit
- * If wall hit less than two, calculate is there any valid cap hit.
- * Then, there should be at least one valid hit point.
- */
-static double check_cy_hit(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *inter)
+static void	init_cy_equation(t_cylinder *cylinder, t_ray *ray, t_equation *eq)
 {
-	inter->distance = INFINITY;
-	inter->ray = *ray;
-	if (!check_wall(cy, inter, eq->t1) || !check_wall(cy, inter, eq->t2))
-	{
-		check_cap(cy, ray, inter, cy->cap_u);
-		check_cap(cy, ray, inter, cy->cap_b);
-	}
-	if (inter->distance == INFINITY)
-		return (0);
-	return (inter->distance);
-}
-
-static void	init_cy_equation(t_cylinder *cylinder, t_ray *ray, t_equation *equation)
-{
-	t_vector vec;
-	double dn;
-	double vn;
+	t_vector	vec;
+	double		dn;
+	double		vn;
 
 	vec = vector_sub(ray->start, cylinder->cap_u);
 	dn = vector_dot(ray->normal, cylinder->normal);
 	vn = vector_dot(vec, cylinder->normal);
-	equation->a = 1 - pow(dn, 2);
-	equation->b = 2 * (vector_dot(ray->normal, vec) - (dn * vn));
-	equation->c = vector_dot(vec, vec) - pow(vn, 2) - pow(cylinder->radius, 2);
-	equation->t1 = -1;
-	equation->t2 = -1;
+	eq->a = 1 - pow(dn, 2);
+	eq->b = 2 * (vector_dot(ray->normal, vec) - (dn * vn));
+	eq->c = vector_dot(vec, vec) - pow(vn, 2) - pow(cylinder->radius, 2);
+	eq->t1 = -1;
+	eq->t2 = -1;
+}
+
+/**
+ * @brief check whether there is any hit point
+ * Check wall hit first, if both two t is valid, not need to calculate cap hit
+ * If wall hit less than two, calculate is there any valid cap hit.
+ * Then, there should be at least one valid hit point.
+ */
+static double	hit_cy(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *hit)
+{
+	hit->distance = INFINITY;
+	hit->ray = *ray;
+	if (!check_wall(cy, hit, eq->t1) || !check_wall(cy, hit, eq->t2))
+	{
+		check_cap(cy, ray, hit, cy->cap_u);
+		check_cap(cy, ray, hit, cy->cap_b);
+	}
+	if (hit->distance == INFINITY)
+		return (0);
+	return (hit->distance);
 }
 
 /**
@@ -143,22 +144,21 @@ static void	init_cy_equation(t_cylinder *cylinder, t_ray *ray, t_equation *equat
  * @param dn dot_product(D, N), D is ray normal, N is cylinder norml
  * @param vn dot_product(vec, N) 
  */
-bool inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter, double *valid_t)
+bool	inter_cylinder(t_cylinder *cy, t_ray *ray, t_hit *hit, double *valid_t)
 {
 	t_equation	equation;
 	double		distance;
-	
-	init_cy_equation(cylinder, ray, &equation);
+
+	init_cy_equation(cy, ray, &equation);
 	if (solve(&equation) != -1 && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
 	{
-		distance = check_cy_hit(cylinder, ray, &equation, inter);
+		distance = hit_cy(cy, ray, &equation, hit);
 		if (distance > 0.0f)
 		{
-			inter->distance = distance;
-			inter->color = cylinder->color;
+			hit->distance = distance;
+			hit->color = cy->color;
 			find_valid_t(&equation);
 			*valid_t = equation.t1;
-			// printf("t1: %f, t2: %f\n", equation.t1, equation.t2);
 			return (*valid_t > 0);
 		}
 	}

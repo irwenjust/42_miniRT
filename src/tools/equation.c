@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:01 by yzhan             #+#    #+#             */
-/*   Updated: 2024/11/28 12:11:15 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 14:47:41 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
  * @brief Check whether there is a result of √(b^2 -4ac), 
  * (b^2 -4ac) must be greater than 0
  */
-static double has_valid_sqrt(t_equation *equation)
+static double	has_valid_sqrt(t_equation *equation)
 {
-	double res;
+	double	res;
 
 	res = pow(equation->b, 2) - (4 * equation->a * equation->c);
 	if (res < 0)
@@ -42,7 +42,7 @@ static double has_valid_sqrt(t_equation *equation)
  */
 double	solve(t_equation *equation)
 {
-	double res;
+	double	res;
 
 	res = 0;
 	if (equation->a == 0.0 && equation->b != 0.0)

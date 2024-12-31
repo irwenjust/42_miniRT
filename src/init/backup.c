@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   backup.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/31 13:58:15 by yzhan             #+#    #+#             */
+/*   Updated: 2024/12/31 13:58:52 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
-void backup_scene()
+void	backup_scene(void)
 {
-	int i;
-	t_light *light;
-	t_shape *shape;
+	int		i;
+	t_light	*light;
+	t_shape	*shape;
 
 	s()->ori_ambient = copy_ambient(s()->ambient);
 	s()->ori_camera = copy_camera(s()->camera);

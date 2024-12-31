@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:50:15 by likong            #+#    #+#             */
-/*   Updated: 2024/12/18 20:28:06 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 13:20:53 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	if (!new_sphere(arg, &sphere))
 		return (ERROR("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
-	// shape->rebuildbox = box_sphere;
 	s()->shape_nbr[SPHERE]++;
 	push_to_fclass(fclass, shape);
 	return (true);
@@ -77,7 +76,7 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
  * @param equation equation structure
  * @param vec the vector from ray origin to sphere center point
  */
-bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter, double *valid_t)
+bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit, double *valid_t)
 {
 	t_equation	equation;
 	t_vector	vec;
@@ -91,19 +90,18 @@ bool inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter, double *valid_t)
 	if (solve(&equation) != -1 && (equation.t1 > 1e-8 || equation.t2 > 1e-8))
 	{
 		if (equation.t1 > 1e-8)
-			inter->distance = equation.t1;
+			hit->distance = equation.t1;
 		else
-			inter->distance = equation.t2;
-		inter->color = sphere->color;
+			hit->distance = equation.t2;
+		hit->color = sphere->color;
 		find_valid_t(&equation);
 		*valid_t = equation.t1;
-		// printf("t1: %f, t2: %f\n", equation.t1, equation.t2);
 		return (*valid_t > 1e-8);
 	}
 	return (false);
 }
 
-void move_sphere(t_key *keys, t_sphere *sphere)
+void	move_sphere(t_key *keys, t_sphere *sphere)
 {
 	if (keys->key[D])
 		sphere->center.x += 0.3;
@@ -118,16 +116,13 @@ void move_sphere(t_key *keys, t_sphere *sphere)
 	else if (keys->key[Q])
 		sphere->center.z -= 0.3;
 	sphere->box = sphere->rebuildbox(sphere);
-	// printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
-    //        sphere->box.min.x, sphere->box.min.y, sphere->box.min.z,
-    //        sphere->box.max.x, sphere->box.max.y, sphere->box.max.z);
 	printf("move sphere\n");
 }
 
-void scaling_sphere(t_key *keys, t_sphere *sphere)
+void	scaling_sphere(t_key *keys, t_sphere *sphere)
 {
 	if (keys->cur_keycode == LEFT && sphere->radius - 0.1 > 0)
-        sphere->radius -= 0.1;
-    else if (keys->cur_keycode == RIGHT)
-        sphere->radius += 0.1;
+		sphere->radius -= 0.1;
+	else if (keys->cur_keycode == RIGHT)
+		sphere->radius += 0.1;
 }

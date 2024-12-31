@@ -63,7 +63,6 @@
 # define MOVE_KEY "wasdqe"
 # define ROTATE_KEY "ijkluo"
 
-
 // # define CP(i)(c_preset[i])
 # define FRAME_RATE 60 //Target frame rate (15 fps)
 # define FRAME_TIME (1000000 / FRAME_RATE)
@@ -259,13 +258,14 @@ double	solve(t_equation *equation);
 
 /*menu*/
 void display_menu();
+void	display(int x, int y, int color, char *text);
+void	display_clear(int x, int y, int color, char *text);
 //menu
 void view_menu(int ori_x, int y);
 void camera_menu(int ori_x, int y);
 void light_menu(int ori_x, int y);
 void shape_menu(int ori_x, int y);
 //menu display tool
-void	display(int x, int y, int color, char *text, int f);
 void display_move_rotate_size(int x, int y);
 void display_color(int x, int y, t_color *rgb);
 void display_brightness(int x, int y, double brightness);
@@ -307,7 +307,7 @@ void print_box(t_aabb box);
 t_shape	**shapes_to_arr(t_shape **shapes);
 t_hit	init_hit(void);
 t_aabb	box_sphere(t_sphere *sphere);
-t_aabb	box_cylinder(t_cylinder *cyl);
+t_aabb	box_cylinder(t_cylinder *cy);
 void	ft_swap_d(double *a, double *b);
 void	find_valid_t(t_equation *equation);
 // bool	check_unbound(t_ray *ray, t_hit *inter);

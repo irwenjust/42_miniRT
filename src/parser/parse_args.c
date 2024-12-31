@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:17:27 by likong            #+#    #+#             */
-/*   Updated: 2024/10/23 20:18:10 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 14:33:25 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ static void	check_counter(int counter[3])
 }
 
 /*parse args to correct format*/
-void	parse_args()
+void	parse_args(void)
 {
 	int		i;
-	int	counter[3];
+	int		counter[3];
 	char	**tmp;
-	
+
 	i = -1;
 	ft_bzero(counter, 3 * sizeof(int));
 	while (s()->args[++i])
@@ -70,5 +70,4 @@ void	parse_args()
 		free_matrix(tmp);
 	}
 	check_counter(counter);
-	
 }

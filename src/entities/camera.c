@@ -6,13 +6,13 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:28:51 by likong            #+#    #+#             */
-/*   Updated: 2024/10/23 18:27:49 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 13:06:19 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_camera copy_camera(t_camera camera)
+t_camera	copy_camera(t_camera camera)
 {
 	return ((t_camera){
 		.coordinate = vector_copy(camera.coordinate),
@@ -48,7 +48,7 @@ bool	parse_camera(char **arg, t_camera *camera)
 	return (camera);
 }
 
-void move_camera(t_key *keys)
+void	move_camera(t_key *keys)
 {
 	if (keys->key[D])
 		s()->camera.coordinate.x += 0.3;
@@ -62,36 +62,30 @@ void move_camera(t_key *keys)
 		s()->camera.coordinate.z += 0.3;
 	else if (keys->key[Q])
 		s()->camera.coordinate.z -= 0.3;
-    // control_frame_rate();
-	// print_camera(&s()->camera);
-    // printf("move camera\n");
 }
 
-void rotate_camera(t_key *keys)
+void	rotate_camera(t_key *keys)
 {
 	if (keys->key[L])
-		s()->camera.normal = vector_rotate(s()->camera.normal, X, ROTATE);
+		(s()->camera.normal) = vector_rotate(s()->camera.normal, X, ROTATE);
 	else if (keys->key[J])
-		s()->camera.normal = vector_rotate(s()->camera.normal, X, (-ROTATE));
+		(s()->camera.normal) = vector_rotate(s()->camera.normal, X, (-ROTATE));
 	else if (keys->key[I])
-		s()->camera.normal = vector_rotate(s()->camera.normal, Y, ROTATE);
+		(s()->camera.normal) = vector_rotate(s()->camera.normal, Y, ROTATE);
 	else if (keys->key[K])
-		s()->camera.normal = vector_rotate(s()->camera.normal, Y, (-ROTATE));
+		(s()->camera.normal) = vector_rotate(s()->camera.normal, Y, (-ROTATE));
 	else if (keys->key[O])
-		s()->camera.normal = vector_rotate(s()->camera.normal, Z, ROTATE);
+		(s()->camera.normal) = vector_rotate(s()->camera.normal, Z, ROTATE);
 	else if (keys->key[U])
-		s()->camera.normal = vector_rotate(s()->camera.normal, Z, (-ROTATE));
-    // control_frame_rate();
-	// print_camera(&s()->camera);
+		(s()->camera.normal) = vector_rotate(s()->camera.normal, Z, (-ROTATE));
 	init_viewport();
-    // printf("rotate camera\n");
 }
 
-void update_camera_fov(t_key *keys)
+void	update_camera_fov(t_key *keys)
 {
 	if (keys->cur_keycode == UP && s()->camera.fov + 10 < 180)
-        s()->camera.fov += 10;
-    else if (keys->cur_keycode == DOWN && s()->camera.fov - 10 > 0)
+		s()->camera.fov += 10;
+	else if (keys->cur_keycode == DOWN && s()->camera.fov - 10 > 0)
 		s()->camera.fov -= 10;
 	init_viewport();
 }

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 21:22:53 by likong            #+#    #+#             */
-/*   Updated: 2024/12/18 20:51:03 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 12:27:02 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,18 @@ static t_bvh	*build_bvh(t_shape **shapes, int amount)
 	t_bvh	*res;
 	int		max_axis;
 	int		split_index;
-	
+
 	res = ft_calloc(1, sizeof(t_bvh));
 	if (!res)
 		return (NULL);
 	res->id = s()->bvh_level++;
-	// printf("id: %d\n", res->id);
 	if (amount == 1)
 	{
 		res->box = shapes[0]->box;
 		res->shapes = shapes[0];
-		// printf("biuld bvh min: (%f, %f, %f), max: (%f, %f, %f)\n",
-        //    res->box.min.x, res->box.min.y, res->box.min.z,
-        //    res->box.max.x, res->box.max.y, res->box.max.z);
 		return (res);
 	}
 	res->box = generate_box(shapes, amount);
-	// printf("biuld bvh min: (%f, %f, %f), max: (%f, %f, %f)\n",
-    //        res->box.min.x, res->box.min.y, res->box.min.z,
-    //        res->box.max.x, res->box.max.y, res->box.max.z);
 	max_axis = find_max_axis(res->box);
 	split_index = split_box(max_axis, shapes, amount);
 	if (split_index == 0 || split_index == amount)
@@ -55,7 +48,7 @@ void	free_bvh(t_bvh **bvh)
 	*bvh = NULL;
 }
 
-t_bvh	*init_bvh()
+t_bvh	*init_bvh(void)
 {
 	t_bvh	*res;
 	t_shape	**tmp;
@@ -67,14 +60,11 @@ t_bvh	*init_bvh()
 	if (!tmp)
 		return (NULL);
 	res = build_bvh(tmp, s()->shapes->size);
-	// printf("res ");
-	// print_box(res->box);
-	free(tmp);
-	
+	free (tmp);
 	return (res);
 }
 
-void	rebuild_bvh()
+void	rebuild_bvh(void)
 {
 	if (s()->bvh)
 		free_bvh(&s()->bvh);

@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_dtoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/31 12:13:40 by yzhan             #+#    #+#             */
+/*   Updated: 2024/12/31 12:13:44 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include <math.h>
 
 //only for miniRT brightness value
-char *ft_dtoa_one(double n)
+char	*ft_dtoa_one(double n)
 {
-	int after_dot;
-	char *res;
-	char *tmp;
-	char *after;
+	int		after_dot;
+	char	*res;
+	char	*tmp;
+	char	*after;
 
 	after_dot = (int)round((n - (int)n) * 10);
 	res = ft_itoa((int)(n));

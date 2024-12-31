@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:53:52 by likong            #+#    #+#             */
-/*   Updated: 2024/11/18 15:42:19 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 14:47:05 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,26 @@ t_color	copy_color(t_color c)
 	});
 }
 
-t_color *get_color(int type, int i)
+t_color	*get_color(int type, int i)
 {
-    t_shape *shape;
-    t_color *rgb;
+	t_shape	*shape;
+	t_color	*rgb;
 
-    if (type == SHAPE)
-    {
-        shape = s()->shapes->array[i];
-        if (shape->type == SPHERE)
-            rgb = &shape->data.sphere.color;
-        else if (shape->type == PLANE)
-            rgb = &shape->data.plane.color;
-        else
-            rgb = &shape->data.cylinder.color;    
-    }
-    else if (type == LIGHT)
-        rgb = &((t_light *)(s()->light->array[0]))->color;
-    else if (type == VIEW)
+	if (type == SHAPE)
+	{
+		shape = s()->shapes->array[i];
+		if (shape->type == SPHERE)
+			rgb = &shape->data.sphere.color;
+		else if (shape->type == PLANE)
+			rgb = &shape->data.plane.color;
+		else
+			rgb = &shape->data.cylinder.color;
+	}
+	else if (type == LIGHT)
+		rgb = &((t_light *)(s()->light->array[0]))->color;
+	else if (type == VIEW)
 		rgb = &(s()->ambient.color);
 	else
-        rgb = NULL;
-    return (rgb);
+		rgb = NULL;
+	return (rgb);
 }

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:57:08 by likong            #+#    #+#             */
-/*   Updated: 2024/11/27 20:40:23 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 12:27:59 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,25 +78,18 @@ t_aabb	generate_box(t_shape **shapes, int amount)
 	int		i;
 	t_aabb	box;
 	t_shape	*shape;
-	
+
 	i = -1;
 	box.min = (t_vector){INFINITY, INFINITY, INFINITY};
 	box.max = (t_vector){-INFINITY, -INFINITY, -INFINITY};
 	while (++i < amount)
-	{
-		
+	{		
 		shape = shapes[i];
 		if (shape->type != PLANE)
 		{
 			box.min = vector_min(box.min, shape->box.min);
 			box.max = vector_max(box.max, shape->box.max);
 		}
-		// printf("generate box box: (%f, %f, %f), max: (%f, %f, %f)\n",
-        //    box.min.x, box.min.y, box.min.z,
-        //    box.max.x, box.max.y, box.max.z);
-		// printf("generate box shape: (%f, %f, %f), max: (%f, %f, %f)\n",
-        //    shape->box.min.x, shape->box.min.y, shape->box.min.z,
-        //    shape->box.max.x, shape->box.max.y, shape->box.max.z);
 	}
 	return (box);
 }
