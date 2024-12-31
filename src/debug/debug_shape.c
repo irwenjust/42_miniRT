@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 10:11:39 by likong            #+#    #+#             */
-/*   Updated: 2024/12/18 20:56:37 by likong           ###   ########.fr       */
+/*   Updated: 2024/12/31 15:15:37 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	print_sphere(t_sphere sphere)
 		sphere.color.green, sphere.color.blue);
 }
 
-static void print_plane(t_plane plane)
+static void	print_plane(t_plane plane)
 {
 	printf("plane:\n");
 	printf("  Center: %.2lf, %.2lf, %.2lf\n", \
@@ -33,7 +33,7 @@ static void print_plane(t_plane plane)
 		plane.color.green, plane.color.blue);
 }
 
-static void print_cylinder(t_cylinder cylinder)
+static void	print_cylinder(t_cylinder cylinder)
 {
 	printf("cylinder:\n");
 	printf("  Center: %.2lf, %.2lf, %.2lf\n", \
@@ -64,7 +64,7 @@ void	print_light(t_light *light)
 		light->color.red, light->color.green, light->color.blue);
 }
 
-void print_camera(t_camera *camera)
+void	print_camera(t_camera *camera)
 {
 	printf("camera coordinate: %.2lf,%.2lf,%.2lf\n",
 		camera->coordinate.x, camera->coordinate.y, camera->coordinate.z);
@@ -73,9 +73,9 @@ void print_camera(t_camera *camera)
 	printf("camera fov: %d\n", camera->fov);
 }
 
-void print_box(t_aabb box)
+void	print_box(t_aabb box)
 {
 	printf("AABB min: (%f, %f, %f), max: (%f, %f, %f)\n",
-           box.min.x, box.min.y, box.min.z,
-           box.max.x, box.max.y, box.max.z);
+		box.min.x, box.min.y, box.min.z,
+		box.max.x, box.max.y, box.max.z);
 }
