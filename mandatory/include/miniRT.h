@@ -57,13 +57,14 @@ stdlib: malloc, free
 # include <math.h>
 # include <stdint.h>
 # include <sys/time.h>
-
+# include <X11/X.h>
+# include "mlx.h"
 # include "libft.h"
+# include "get_next_line/get_next_line.h"
 # include "structure.h"
 # include "preset.h"
-# include "../minilibx-linux/mlx.h"
-# include <X11/X.h>
-# include "../libft/get_next_line/get_next_line.h"
+
+
 
 /**
  * fake global func

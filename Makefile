@@ -1,4 +1,5 @@
 NAME	= miniRT
+NAME_BONUS	= miniRT_bonus
 CFLAGS	= -Wextra -Wall -Werror -O3
 
 # libft
@@ -10,10 +11,10 @@ MLX_DIR = ./minilibx-linux
 MLX = -L ./$(MLX_DIR) -lmlx -lXext -lX11 -lm -lpthread
 
 #header
-HEADERS = -I ./include -I ./libft -I ./$(MLX_DIR)
+HEADERS = -I ./mandatory/include -I ./libft -I ./$(MLX_DIR) -I ./bonus/include
 
-# src files
-SRCS_DIR = src
+# src files & targets
+SRCS_DIR = mandatory/src
 SRCS_SUBDIR = entities fclass hook init menu parser renderer tools vector bvh debug
 VPATH = $(SRCS_DIR) $(addprefix $(SRCS_DIR)/, $(SRCS_SUBDIR))
 SRCS =	main.c \
@@ -33,14 +34,43 @@ OBJS_DIR = objs
 OBJS = $(SRCS:.c=.o)
 TARGETS = $(addprefix $(OBJS_DIR)/, $(OBJS))
 
+# bonus files & targets
+BONUS_SRCS_DIR = bonus/src
+BONUS_SUBDIR = entities fclass hook init menu parser renderer tools vector bvh debug
+BONUS_VPATH = $(BONUS_SRCS_DIR) $(addprefix $(BONUS_SRCS_DIR)/, $(BONUS_SUBDIR))
+BONUS_SRCS =	main_bonus.c \
+				ambient_bonus.c camera_bonus.c cylinder_bonus.c cylinder_inter_bonus.c light_bonus.c plane_bonus.c shape_bonus.c  sphere_bonus.c \
+				fclass_bonus.c \
+				hook_bonus.c preset_bonus.c update_click_bonus.c update_hold_bonus.c camera_preset_bonus.c\
+				init_bonus.c validate_bonus.c backup_bonus.c \
+				menu_bonus.c menu_tool_bonus.c camera_menu_bonus.c light_menu_bonus.c shape_menu_bonus.c view_menu_bonus.c \
+				parse_args_bonus.c parse_tool_bonus.c \
+				color_bonus.c illumination_bonus.c intersection_bonus.c ray_bonus.c reflect_bonus.c render_bonus.c \
+				equation_bonus.c error_bonus.c magic_s_bonus.c tool_bonus.c \
+				vector_op_basic_bonus.c vector_op_plus_bonus.c vector_tools_bonus.c vector_rotate_bonus.c \
+				bvh_bonus.c bvh_tool_bonus.c bvh_intersection_bonus.c aabb_bonus.c \
+				debug_shape_bonus.c 
+				
+BONUS_OBJS_DIR = objs_bonus
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+BONUS_TARGETS = $(addprefix $(BONUS_OBJS_DIR)/, $(BONUS_OBJS))
 
+# vpath choose
+ifeq ($(MAKECMDGOALS), bonus)
+    VPATH = $(BONUS_VPATH)
+endif
+
+# make rules
 all: clone $(NAME)
+
+bonus: clone $(NAME_BONUS)
 
 clone:
 	@if [ ! -d "$(MLX_DIR)" ]; then \
 		git clone $(MLX_URL); \
 	fi
 
+# mandatory
 $(OBJS_DIR)/%.o: %.c
 	@cc $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
@@ -52,15 +82,28 @@ $(NAME): $(OBJS_DIR) $(TARGETS)
 	@$(MAKE) -C ./libft
 	@cc $(CFLAGS) $(TARGETS) $(LIBFT) $(MLX) -o $(NAME) -lreadline
 
+# bonus
+$(BONUS_OBJS_DIR)/%.o: %.c
+	@cc $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
+
+$(BONUS_OBJS_DIR):
+	mkdir -p $(BONUS_OBJS_DIR)
+
+$(NAME_BONUS): $(BONUS_OBJS_DIR) $(BONUS_TARGETS)
+	@$(MAKE) -C $(MLX_DIR)
+	@$(MAKE) -C ./libft
+	@cc $(CFLAGS) $(BONUS_TARGETS) $(LIBFT) $(MLX) -o $(NAME_BONUS) -lreadline
+
+# clean
 clean:
-	@rm -rf $(OBJS_DIR)
+	@rm -rf $(OBJS_DIR) $(BONUS_OBJS_DIR)
 	@$(MAKE) -C ./libft clean
 
 fclean: clean
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) $(NAME_BONUS)
 	@rm -rf $(MLX_DIR)
 	@$(MAKE) -C ./libft fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
