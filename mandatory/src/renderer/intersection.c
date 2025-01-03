@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:32 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/31 14:41:21 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/01/03 17:57:57 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter, double *valid_t)
 	bool	checker;
 
 	checker = false;
+	*valid_t = 0;
 	if (shape->type == SPHERE)
 		checker = inter_sphere(&shape->data.sphere, ray, inter, valid_t);
 	if (shape->type == PLANE)

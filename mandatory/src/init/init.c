@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:24:56 by likong            #+#    #+#             */
-/*   Updated: 2024/12/31 14:04:39 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/01/03 17:55:24 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,23 @@ static void	init_windows(void)
 	(s()->win.mlx) = mlx_init();
 	if (!s()->win.mlx)
 		error_exit("error happend when create MLX42");
-	s()->win.width = WIDTH;
-	s()->win.height = HEIGHT;
 	(s()->win.disp) = mlx_new_window(s()->win.mlx, WIDTH, HEIGHT, "miniRT");
 	if (!s()->win.disp)
 		error_exit("error happend when create MLX42 windows");
+	s()->win.width = WIDTH;
+	s()->win.height = HEIGHT;
 	(s()->win.img) = mlx_new_image(s()->win.mlx, s()->win.width,
 			s()->win.height);
 	if (!s()->win.img)
 		error_exit("error happend when create MLX42 image");
+	(s()->win.menu) = mlx_new_image(s()->win.mlx, WIDTH, (HEIGHT * 0.12));
+	if (!s()->win.menu)
+		error_exit("error happend when initial MLX42 menu");
 	(s()->win.addr) = mlx_get_data_addr(s()->win.img, &s()->win.bpp,
 			&s()->win.line_len, &s()->win.endian);
 	if (!s()->win.addr)
 		error_exit("error happend when initial MLX42 image address");
-	(s()->win.menu) = mlx_new_image(s()->win.mlx, WIDTH, (HEIGHT * 0.12));
-	if (!s()->win.menu)
-		error_exit("error happend when initial MLX42 menu");
+	
 }
 
 // void printTree(t_bvh *root, int space) {
