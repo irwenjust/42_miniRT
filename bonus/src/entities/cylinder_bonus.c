@@ -36,7 +36,7 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	t_shape		*shape;
 	t_cylinder	cy;
 
-	if (ft_matrix_size(arg) != 6 || !check_syntax(arg, "011001"))
+	if (ft_matrix_size(arg) != 8 || !check_syntax(arg, "011001"))
 		return (ERROR("cylinder: wrong args format"), false);
 	if (ft_atod(arg[3]) * 0.5 < 1e-8)
 		return (ERROR("cylinder: wrong radius value"), false);

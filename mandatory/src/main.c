@@ -36,6 +36,7 @@ void	control_frame_rate(void)
 
 int	main(int argc, char **argv)
 {
+	printf("mandatory\n");
 	if (argc != 2)
 		error_exit("need and only need one argument");
 	init_scene(argv[1]);

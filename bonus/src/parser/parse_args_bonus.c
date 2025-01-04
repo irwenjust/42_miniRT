@@ -14,7 +14,7 @@ static bool	parse_line(int counter[3], char **arg)
 		counter[1]++;
 		return (parse_camera(arg, &s()->camera));
 	}
-	else if (!ft_strcmp("L", arg[0]))
+	else if (!ft_strcmp("l", arg[0]))
 		return (parse_light(counter, arg, s()->light));
 	else if (!ft_strcmp("sp", arg[0]))
 		return (parse_sphere(arg, s()->shapes));
@@ -34,7 +34,7 @@ static void	check_counter(int counter[3])
 		error_exit("No camera in the scene");
 	else if (counter[2] == 0)
 		error_exit("No light in the scene");
-	else if (counter[0] > 1 || counter[1] > 1 || counter[2] > 1)
+	else if (counter[0] > 1 || counter[1] > 1)
 		error_exit("too many ambient/camera/light in the scene");
 }
 
