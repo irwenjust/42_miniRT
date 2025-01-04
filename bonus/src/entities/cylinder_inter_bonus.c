@@ -30,7 +30,7 @@ static bool	check_wall(t_cylinder *cy, t_hit *inter, double t)
 	vec = vector_sub(inter->ray.start, cy->cap_u);
 	offset = vector_dot(inter->ray.normal, cy->normal) * t
 		+ vector_dot(vec, cy->normal);
-	hit_a = vector_add(cy->cap_u, vector_multiple(cy->normal, offset));
+	hit_a = vector_add(cy->cap_u, vector_multi(cy->normal, offset));
 	len = vector_magnitude(vector_sub(hit, hit_a));
 	offset -= 1e-8;
 	len -= 1e-8;

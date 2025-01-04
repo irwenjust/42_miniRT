@@ -12,6 +12,8 @@ t_shape	*copy_shape(t_shape *shape)
 	res->id = shape->id;
 	res->type = shape->type;
 	res->shape_id[res->type] = shape->shape_id[shape->type];
+	res->ks = shape->ks;
+	res->shininess = shape->shininess;
 	if (res->type == SPHERE)
 	{
 		res->data.sphere = shape->data.sphere;
