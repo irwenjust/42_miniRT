@@ -1,0 +1,25 @@
+# Ambient lighting
+#N   Brightness[0,1]   Color[0-255]
+A    0.1               255,255,255
+
+# Camera
+#N   Center   Normal[-1,1]   FOV[0-180,!=]
+C    0,-1,0   0,0,2          90
+
+# Light
+#N  Center    Brightness[0,1]   Color[0-255]
+l   -10,8,5   0.7               255,255,255
+l   10,20,0   0.6               0,255,255
+
+# Spheres
+#N  Center    Diameter[>0]   Color[0-255]   Ks[0-1]   Shininess[1-128][commom:1,32,128]
+sp  0,0,15    5              255,0,0        0.6       32
+
+# Plane
+#N  Center    Normal[-1,1]   Color[0-255]   Ks[0-1]   Shininess[1-128]
+pl  0,-5,0    0,1,0          150,150,150    0.3       1
+
+# Cylinder
+#N  Center    Normal[-1,1]   Diameter[>0]   Height[>0]   Color[0-255]   Ks[0-1]   Shininess[1-128]
+cy  -8,0,10   0,0,1          3              10           190,50,0       0.8       128
+

@@ -1,5 +1,4 @@
 NAME	= miniRT
-# NAME_BONUS	= miniRT_bonus
 CFLAGS	= -Wextra -Wall -Werror -O3
 
 # libft
@@ -91,11 +90,6 @@ $(BONUS_OBJS_DIR)/%.o: %.c
 
 $(BONUS_OBJS_DIR):
 	mkdir -p $(BONUS_OBJS_DIR)
-
-# $(NAME_BONUS): $(BONUS_OBJS_DIR) $(BONUS_TARGETS)
-# 	@$(MAKE) -C $(MLX_DIR)
-# 	@$(MAKE) -C ./libft
-# 	@cc $(CFLAGS) $(BONUS_TARGETS) $(LIBFT) $(MLX) -o $(NAME) -lreadline
 
 # clean
 clean:

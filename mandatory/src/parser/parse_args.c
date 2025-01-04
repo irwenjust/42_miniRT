@@ -59,7 +59,7 @@ void	parse_args(void)
 	ft_bzero(counter, 3 * sizeof(int));
 	while (s()->args[++i])
 	{
-		tmp = ft_split(s()->args[i], ' ');
+		tmp = ft_split(s()->args[i], ' '); //如果参数后面有空格，会多一个args"\n"，感觉不用改，就是这个设定
 		if (!tmp)
 			error_exit("mistake happend when split file content");
 		if (!parse_line(counter, tmp))

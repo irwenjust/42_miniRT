@@ -58,7 +58,7 @@ t_color	*get_color(int type, int i)
 			rgb = &shape->data.cylinder.color;
 	}
 	else if (type == LIGHT)
-		rgb = &((t_light *)(s()->light->array[0]))->color;
+		rgb = &((t_light *)(s()->light->array[i]))->color;
 	else if (type == VIEW)
 		rgb = &(s()->ambient.color);
 	else

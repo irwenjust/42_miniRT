@@ -2,12 +2,12 @@
 
 #include "miniRT_bonus.h"
 
-// static void display_light(int x, int y)
-// {
-//     display(x, y, 0xFFD700, "Current Light:");
-//     display(x += (16 * 6), y, 0xFFD700, "Light");
-//     display(x += (6 * 6), y, 0xFFD700, ft_itoa(s()->select)); 
-// }
+static void display_light(int x, int y)
+{
+    display(x, y, 0xFFD700, "Current Light:");
+    display(x += (16 * 6), y, 0xFFD700, "Light");
+    display(x += (6 * 6), y, 0xFFD700, ft_itoa(s()->select)); 
+}
 
 static void	display_light_preset(int x, int y)
 {
@@ -38,7 +38,7 @@ void	light_menu(int x, int y)
 
 	light = s()->light->array[s()->select];
 	display(x, y, 0xFFFFFF, "- LightSource Edit Mode -");
-	// display_light(x + (30 * 6), y);
+	display_light(x + (30 * 6), y);
 	display_move_rotate_size(x, y + 20);
 	display_color(x, y + 40, &light->color);
 	display_brightness(x + (96 * 6), y + 40, light->brightness);

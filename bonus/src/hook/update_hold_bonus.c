@@ -7,7 +7,7 @@ static void	update_brightness(t_key *keys)
 
 	if (s()->menu == LIGHT)
 	{
-		light = s()->light->array[0];
+		light = s()->light->array[s()->select];
 		if (keys->cur_keycode == UP && (light->brightness + 1e-8) < 1.0)
 			light->brightness += 0.1;
 		else if (keys->cur_keycode == DOWN && light->brightness > 1e-8)
@@ -55,7 +55,7 @@ void	update_move(t_key *keys)
 	if (s()->menu == CAMERA)
 		move_camera(keys);
 	else if (s()->menu == LIGHT)
-		move_light(keys, s()->light->array[0]);
+		move_light(keys, s()->light->array[s()->select]);
 	else if (s()->menu == SHAPE)
 		move_shape(keys, s()->shapes->array[s()->select]);
 	else

@@ -65,7 +65,11 @@ void	update_reset(t_key *keys)
 			init_viewport();
 		}
 		if (s()->menu == LIGHT || s()->menu == VIEW)
-			s()->light->array[0] = copy_light(s()->ori_light->array[0]);
+		{
+			i = -1;
+			while (++i < s()->light->size)
+				s()->light->array[i] = copy_light(s()->ori_light->array[i]);
+		}
 		if (s()->menu == SHAPE || s()->menu == VIEW)
 		{
 			i = -1;
