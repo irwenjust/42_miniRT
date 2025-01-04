@@ -34,7 +34,7 @@ static bool	new_plane(char **arg, t_plane *plane)
 	plane->normal = vector_add(plane->normal, VEC_MIN);
 	rgb = ft_split(arg[3], ',');
 	if (!rgb)
-		return (ERROR("sphere: fail to split color"), false);
+		return (ERROR("plane: fail to split color"), false);
 	plane->color = parse_color(rgb);
 	free_matrix(rgb);
 	return (true);

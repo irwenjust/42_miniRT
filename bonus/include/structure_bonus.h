@@ -148,6 +148,8 @@ typedef struct s_shape
 	t_shape_type	type;
 	t_shape_data	data;
 	int				shape_id[3];
+	double			ks;
+	double			shininess;
 }	t_shape;
 
 /**

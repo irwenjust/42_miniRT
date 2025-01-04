@@ -14,7 +14,7 @@ inline t_vector	vector_sub(t_vector v1, t_vector v2)
 	return ((t_vector){v1.x - v2.x, v1.y - v2.y, v1.z - v2.z});
 }
 
-inline t_vector	vector_multiple(t_vector v1, double scalar)
+inline t_vector	vector_multi(t_vector v1, double scalar)
 {
 	return ((t_vector){v1.x * scalar, v1.y * scalar, v1.z * scalar});
 }

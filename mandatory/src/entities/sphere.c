@@ -41,9 +41,9 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0101"))
 		return (ERROR("sphere: wrong args format"), false);
 	if (ft_atod(arg[2]) * 0.5 < 1e-8)
-		return (ERROR("light: wrong radius value"), false);
+		return (ERROR("sphere: wrong radius value"), false);
 	if (!check_rgb(arg[3]))
-		return (ERROR("light: wrong color value"), false);
+		return (ERROR("sphere: wrong color value"), false);
 	if (!new_sphere(arg, &sphere))
 		return (ERROR("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);

@@ -24,7 +24,7 @@ static bool	new_plane(char **arg, t_plane *plane)
 	plane->normal = vector_add(plane->normal, VEC_MIN);
 	rgb = ft_split(arg[3], ',');
 	if (!rgb)
-		return (ERROR("sphere: fail to split color"), false);
+		return (ERROR("plane: fail to split color"), false);
 	plane->color = parse_color(rgb);
 	free_matrix(rgb);
 	return (true);
@@ -42,6 +42,13 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	if (!new_plane(arg, &plane))
 		return (ERROR("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
+	shape->ks = ft_atod(arg[4]);
+	shape->shininess = ft_atod(arg[5]);
+	if (shape->ks < 1e-8 || shape->ks > 1)
+		return (ERROR("plane: wrong ks value"), false);
+	if (shape->shininess < 1 || shape->shininess > 128)
+		return (ERROR("plane: wrong shininess value"), false);
+	printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[PLANE]++;
 	push_to_fclass(fclass, shape);
 	return (true);
