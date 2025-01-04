@@ -1,5 +1,5 @@
 NAME	= miniRT
-NAME_BONUS	= miniRT_bonus
+# NAME_BONUS	= miniRT_bonus
 CFLAGS	= -Wextra -Wall -Werror -O3
 
 # libft
@@ -63,7 +63,10 @@ endif
 # make rules
 all: clone $(NAME)
 
-bonus: clone $(NAME_BONUS)
+bonus: clone $(BONUS_OBJS_DIR) $(BONUS_TARGETS)
+	@$(MAKE) -C $(MLX_DIR)
+	@$(MAKE) -C ./libft
+	@cc $(CFLAGS) $(BONUS_TARGETS) $(LIBFT) $(MLX) -o $(NAME) -lreadline
 
 clone:
 	@if [ ! -d "$(MLX_DIR)" ]; then \
@@ -89,10 +92,10 @@ $(BONUS_OBJS_DIR)/%.o: %.c
 $(BONUS_OBJS_DIR):
 	mkdir -p $(BONUS_OBJS_DIR)
 
-$(NAME_BONUS): $(BONUS_OBJS_DIR) $(BONUS_TARGETS)
-	@$(MAKE) -C $(MLX_DIR)
-	@$(MAKE) -C ./libft
-	@cc $(CFLAGS) $(BONUS_TARGETS) $(LIBFT) $(MLX) -o $(NAME_BONUS) -lreadline
+# $(NAME_BONUS): $(BONUS_OBJS_DIR) $(BONUS_TARGETS)
+# 	@$(MAKE) -C $(MLX_DIR)
+# 	@$(MAKE) -C ./libft
+# 	@cc $(CFLAGS) $(BONUS_TARGETS) $(LIBFT) $(MLX) -o $(NAME) -lreadline
 
 # clean
 clean:
@@ -100,7 +103,7 @@ clean:
 	@$(MAKE) -C ./libft clean
 
 fclean: clean
-	@rm -rf $(NAME) $(NAME_BONUS)
+	@rm -rf $(NAME)
 	@rm -rf $(MLX_DIR)
 	@$(MAKE) -C ./libft fclean
 

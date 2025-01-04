@@ -19,6 +19,7 @@ bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter, double *valid_t)
 	bool	checker;
 
 	checker = false;
+	*valid_t = 0;
 	if (shape->type == SPHERE)
 		checker = inter_sphere(&shape->data.sphere, ray, inter, valid_t);
 	if (shape->type == PLANE)
