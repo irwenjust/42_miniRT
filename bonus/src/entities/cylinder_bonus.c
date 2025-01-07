@@ -26,7 +26,7 @@ static bool	new_cylinder(char **arg, t_cylinder *cy)
 	if (!rgb)
 		return (ERROR("cylinder: fail to split color"), false);
 	cy->color = parse_color(rgb);
-	cy->box = box_cylinder(cy);
+	// cy->box = box_cylinder(cy);
 	cy->rebuildbox = box_cylinder;
 	return (free_matrix(rgb), true);
 }
@@ -79,7 +79,7 @@ void	move_cylinder(t_key *keys, t_cylinder *cy)
 			vector_multi(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
 			vector_multi(cy->normal, cy->height * 0.5));
-	cy->box = cy->rebuildbox(cy);
+	// cy->box = cy->rebuildbox(cy);
 }
 
 void	rotate_cylinder(t_key *keys, t_cylinder *cy)
@@ -100,7 +100,7 @@ void	rotate_cylinder(t_key *keys, t_cylinder *cy)
 			vector_multi(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
 			vector_multi(cy->normal, cy->height * 0.5));
-	cy->box = cy->rebuildbox(cy);
+	// cy->box = cy->rebuildbox(cy);
 }
 
 void	scaling_cylinder(t_key *keys, t_cylinder *cy)
@@ -117,5 +117,5 @@ void	scaling_cylinder(t_key *keys, t_cylinder *cy)
 			vector_multi(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
 			vector_multi(cy->normal, cy->height * 0.5));
-	cy->box = cy->rebuildbox(cy);
+	// cy->box = cy->rebuildbox(cy);
 }

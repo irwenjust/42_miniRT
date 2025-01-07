@@ -18,7 +18,7 @@ static bool	new_sphere(char **arg, t_sphere *sphere)
 	sphere->color = parse_color(rgb);
 	free_matrix(rgb);
 	sphere->radius = ft_atod(arg[2]) * 0.5;
-	sphere->box = box_sphere(sphere);
+	// sphere->box = box_sphere(sphere);
 	sphere->rebuildbox = box_sphere;
 	return (true);
 }
@@ -112,7 +112,7 @@ void	move_sphere(t_key *keys, t_sphere *sphere)
 		sphere->center.z += 0.3;
 	else if (keys->key[Q])
 		sphere->center.z -= 0.3;
-	sphere->box = sphere->rebuildbox(sphere);
+	// sphere->box = sphere->rebuildbox(sphere);
 	printf("move sphere\n");
 }
 
