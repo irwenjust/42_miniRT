@@ -4,29 +4,27 @@
 
 static bool	new_plane(char **arg, t_plane *plane)
 {
-	char	**coord;
-	char	**normal;
-	char	**rgb;
+	char	**tmp;
 
-	coord = ft_split(arg[1], ',');
-	if (!coord)
+	tmp = ft_split(arg[1], ',');
+	if (!tmp)
 		return (ERROR("plane: fail to split coordinate"), false);
-	plane->center = parse_vector(coord);
-	free_matrix(coord);
-	normal = ft_split(arg[2], ',');
-	if (!normal)
+	plane->center = parse_vector(tmp);
+	free_matrix(tmp);
+	tmp = ft_split(arg[2], ',');
+	if (!tmp)
 		return (ERROR("plane: fail to split normal"), false);
-	plane->normal = parse_vector(normal);
-	free_matrix(normal);
-	if (vector_magnitude(plane->normal) < 1e-8)
+	plane->normal = parse_vector(tmp);
+	if (vector_magnitude(plane->normal) < 1.0 - 1e-8)
 		return (ERROR("plane: normal vector is too small"), false);
 	plane->normal = vector_normalize(plane->normal);
 	plane->normal = vector_add(plane->normal, VEC_MIN);
-	rgb = ft_split(arg[3], ',');
-	if (!rgb)
+	free_matrix(tmp);
+	tmp = ft_split(arg[3], ',');
+	if (!tmp)
 		return (ERROR("plane: fail to split color"), false);
-	plane->color = parse_color(rgb);
-	free_matrix(rgb);
+	plane->color = parse_color(tmp);
+	free_matrix(tmp);
 	return (true);
 }
 
@@ -35,7 +33,7 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	t_shape	*shape;
 	t_plane	plane;
 
-	if (ft_matrix_size(arg) != 6 || !check_syntax(arg, "0111"))
+	if (ft_matrix_size(arg) != 6 || !check_syntax(arg, "011100"))
 		return (ERROR("plane: wrong args format"), false);
 	if (!check_rgb(arg[3]))
 		return (ERROR("plane: wrong color value"), false);

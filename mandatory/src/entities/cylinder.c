@@ -14,31 +14,33 @@
 
 static bool	new_cylinder(char **arg, t_cylinder *cy)
 {
-	char	**coord;
-	char	**normal;
-	char	**rgb;
+	char	**tmp;
 
-	coord = ft_split(arg[1], ',');
-	if (!coord)
+	tmp = ft_split(arg[1], ',');
+	if (!tmp)
 		return (ERROR("cylinder: fail to split coordinate"), false);
-	cy->center = parse_vector(coord);
-	free_matrix(coord);
-	normal = ft_split(arg[2], ',');
-	if (!normal)
+	cy->center = parse_vector(tmp);
+	free_matrix(tmp);
+	tmp = ft_split(arg[2], ',');
+	if (!tmp)
 		return (ERROR("cylinder: fail to split normal"), false);
-	cy->normal = vector_normalize(parse_vector(normal));
-	free_matrix(normal);
-	if (vector_magnitude(cy->normal) < 1e-8)
+	cy->normal = parse_vector(tmp);
+	if (vector_magnitude(cy->normal) < 1.0 - 1e-8)
 		return (ERROR("cylinder: normal vector is too small"), false);
+	cy->normal = vector_normalize(cy->normal);
+	free_matrix(tmp);
 	cy->radius = ft_atod(arg[3]) * 0.5;
 	cy->height = ft_atod(arg[4]);
-	rgb = ft_split(arg[5], ',');
-	if (!rgb)
+	if (cy->radius < 1e-8 || cy->height < 1e-8)
+		return (ERROR("cylinder: wrong diameter or height value"), false);
+	tmp = ft_split(arg[5], ',');
+	if (!tmp)
 		return (ERROR("cylinder: fail to split color"), false);
-	cy->color = parse_color(rgb);
-	cy->box = box_cylinder(cy);
-	cy->rebuildbox = box_cylinder;
-	return (free_matrix(rgb), true);
+	cy->color = parse_color(tmp);
+	free_matrix(tmp);
+	// cy->box = box_cylinder(cy);
+	// cy->rebuildbox = box_cylinder;
+	return (true);
 }
 
 bool	parse_cylinder(char **arg, t_fclass *fclass)
@@ -48,14 +50,14 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 
 	if (ft_matrix_size(arg) != 6 || !check_syntax(arg, "011001"))
 		return (ERROR("cylinder: wrong args format"), false);
-	if (ft_atod(arg[3]) * 0.5 < 1e-8)
-		return (ERROR("cylinder: wrong radius value"), false);
-	if (ft_atod(arg[4]) < 1e-8)
-		return (ERROR("cylinder: wrong height value"), false);
+	// if (ft_atod(arg[3]) * 0.5 < 1e-8)
+	// 	return (ERROR("cylinder: wrong diameter value"), false);
+	// if (ft_atod(arg[4]) < 1e-8)
+	// 	return (ERROR("cylinder: wrong height value"), false);
 	if (!check_rgb(arg[5]))
 		return (ERROR("cylinder: wrong color value"), false);
 	if (!new_cylinder(arg, &cy))
-		return (ERROR("cylinder: fail to create new shpere"), false);
+		return (ERROR("cylinder: fail to create new cylinder"), false);
 	cy.cap_u = vector_add(cy.center,
 			vector_multiple(cy.normal, -cy.height * 0.5));
 	cy.cap_b = vector_add(cy.center,
@@ -84,7 +86,7 @@ void	move_cylinder(t_key *keys, t_cylinder *cy)
 			vector_multiple(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
 			vector_multiple(cy->normal, cy->height * 0.5));
-	cy->box = cy->rebuildbox(cy);
+	// cy->box = box_cylinder(cy);
 }
 
 void	rotate_cylinder(t_key *keys, t_cylinder *cy)
@@ -105,7 +107,7 @@ void	rotate_cylinder(t_key *keys, t_cylinder *cy)
 			vector_multiple(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
 			vector_multiple(cy->normal, cy->height * 0.5));
-	cy->box = cy->rebuildbox(cy);
+	// cy->box = box_cylinder(cy);
 }
 
 void	scaling_cylinder(t_key *keys, t_cylinder *cy)
@@ -122,5 +124,5 @@ void	scaling_cylinder(t_key *keys, t_cylinder *cy)
 			vector_multiple(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
 			vector_multiple(cy->normal, cy->height * 0.5));
-	cy->box = cy->rebuildbox(cy);
+	// cy->box = box_cylinder(cy);
 }

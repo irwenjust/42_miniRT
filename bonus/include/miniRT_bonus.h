@@ -253,6 +253,7 @@ bool		check_bvh_intersection(t_ray *ray, t_bvh *node, t_hit *pre_hit);
 //aabb box
 t_aabb		box_sphere(t_sphere *sphere);
 t_aabb		box_cylinder(t_cylinder *cy);
+t_aabb	shape_box(t_shape *shape);
 
 /**
  * debug

@@ -27,15 +27,19 @@ t_shape	*copy_shape(t_shape *shape)
 	if (res->type == SPHERE)
 	{
 		res->data.sphere = shape->data.sphere;
-		res->box = box_sphere(&(shape->data.sphere));
+		// res->box = box_sphere(&(shape->data.sphere));
+		// res->box = shape->data.sphere.box;
 	}
 	else if (res->type == PLANE)
 		res->data.plane = shape->data.plane;
 	else if (res->type == CYLINDER)
 	{
 		res->data.cylinder = shape->data.cylinder;
-		res->box = box_cylinder(&(shape->data.cylinder));
+		// res->box = box_cylinder(&(shape->data.cylinder));
+		// res->box = shape->data.cylinder.box;
 	}
+	if (res->type != PLANE)
+		res->box = shape_box(shape);
 	return (res);
 }
 
@@ -52,7 +56,8 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 	if (shape->type == SPHERE)
 	{
 		shape->data.sphere = *(t_sphere *)data;
-		shape->box = box_sphere(&(shape->data.sphere));
+		// shape->box = box_sphere(&(shape->data.sphere));
+		// shape->box = shape->data.sphere.box;
 	}
 	else if (shape->type == PLANE)
 	{
@@ -65,8 +70,11 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 	else if (shape->type == CYLINDER)
 	{
 		shape->data.cylinder = *(t_cylinder *)data;
-		shape->box = box_cylinder(&(shape->data.cylinder));
+		// shape->box = box_cylinder(&(shape->data.cylinder));
+		// shape->box = shape->data.cylinder.box;
 	}
+	if (shape->type != PLANE)
+		shape->box = shape_box(shape);
 	return (shape);
 }
 
@@ -76,6 +84,7 @@ void	move_shape(t_key *keys, t_shape *shape)
 	{
 		move_sphere(keys, &(shape->data.sphere));
 		shape->box = box_sphere(&(shape->data.sphere));
+		// shape->box = shape->data.sphere.box;
 	}
 	else if (shape->type == PLANE)
 		move_plane(keys, &(shape->data.plane));
@@ -83,8 +92,9 @@ void	move_shape(t_key *keys, t_shape *shape)
 	{
 		move_cylinder(keys, &(shape->data.cylinder));
 		shape->box = box_cylinder(&(shape->data.cylinder));
+		// shape->box = shape->data.cylinder.box;
 	}
-	// printf("min x: %lf, y: %lf, z: %lf; max x: %lf, y: %lf, z: %lf\n", shape->box.min.x, shape->box.min.y, shape->box.min.z, shape->box.max.x, shape->box.max.y, shape->box.max.z);
+	print_box(shape->box);
 }
 
 void	rotate_shape(t_key *keys, t_shape *shape)
@@ -97,6 +107,7 @@ void	rotate_shape(t_key *keys, t_shape *shape)
 		shape->box = box_cylinder(&(shape->data.cylinder));
 		// shape->box = shape->data.cylinder.box;
 	}
+	print_box(shape->box);
 }
 
 //might need add scale_shape function soon
