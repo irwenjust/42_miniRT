@@ -47,7 +47,10 @@ void	check_illumination(t_hit *closest)
 			return ;
 		}
 		if (!is_obscured(light, closest))
+		{
 			color = add_color(color, diffuse(light, closest, light->brightness));
+			color = add_color(color, specular(light, closest, light->brightness));
+		}
 	}
 	closest->color = color;
 }

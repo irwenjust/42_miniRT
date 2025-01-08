@@ -27,7 +27,7 @@
 # define Y 1
 # define Z 2
 
-# define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
+// # define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
 
 //about windows setting (16:9)
 # define SCALE 0.5625
