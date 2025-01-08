@@ -17,7 +17,7 @@ SRCS_DIR = mandatory/src
 SRCS_SUBDIR = entities fclass hook init menu parser renderer tools vector bvh debug
 VPATH = $(SRCS_DIR) $(addprefix $(SRCS_DIR)/, $(SRCS_SUBDIR))
 SRCS =	main.c \
-		ambient.c camera.c cylinder.c cylinder_inter.c light.c plane.c shape.c  sphere.c \
+		ambient.c camera.c cylinder.c cylinder_inter.c light.c plane.c shape.c sphere.c \
 		fclass.c \
 		hook.c preset.c update_click.c update_hold.c camera_preset.c\
 		init.c validate.c backup.c \
@@ -38,7 +38,7 @@ BONUS_SRCS_DIR = bonus/src
 BONUS_SUBDIR = entities fclass hook init menu parser renderer tools vector bvh debug color
 BONUS_VPATH = $(BONUS_SRCS_DIR) $(addprefix $(BONUS_SRCS_DIR)/, $(BONUS_SUBDIR))
 BONUS_SRCS =	main_bonus.c \
-				ambient_bonus.c camera_bonus.c cylinder_bonus.c cylinder_inter_bonus.c light_bonus.c plane_bonus.c shape_bonus.c  sphere_bonus.c normal_bonus.c\
+				ambient_bonus.c camera_bonus.c cone_bonus.c cylinder_bonus.c cylinder_inter_bonus.c light_bonus.c plane_bonus.c shape_bonus.c  sphere_bonus.c normal_bonus.c\
 				fclass_bonus.c \
 				hook_bonus.c preset_bonus.c update_click_bonus.c update_hold_bonus.c camera_preset_bonus.c\
 				init_bonus.c validate_bonus.c backup_bonus.c \

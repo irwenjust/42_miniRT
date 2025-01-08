@@ -13,7 +13,7 @@ l   10,20,0   0.6               0,255,255
 
 # Spheres
 #N  Center    Diameter[>0]   Color[0-255]   Ks[0-1]   Shininess[1-128][commom:1,32,128]
-sp  0,0,15    5              255,0,0        1       128
+# sp  0,0,15    5              255,0,0        1       128
 
 # Plane
 #N  Center    Normal[-1,1]   Color[0-255]   Ks[0-1]   Shininess[1-128]
@@ -23,6 +23,6 @@ pl  0,-3,0    0,1,0          150,150,150    0.9       127
 #N  Center    Normal[-1,1]   Diameter[>0]   Height[>0]   Color[0-255]   Ks[0-1]   Shininess[1-128]
 cy  -8,0,10   0,0,1          3              10           190,50,0       1       128
 
-# Cone
-#N  Tip    Normal[-1,1]   Diameter[>0]   Height[>0]   Color[0-255]   Ks[0-1]   Shininess[1-128]
-# co	0,7,10    0,-1,0         10             10           255,100,0      0.8       50
+# Cylinder
+#N  Center    Normal[-1,1]   Diameter[>0]   Height[>0]   Color[0-255]   Ks[0-1]   Shininess[1-128]
+co  7,2,5     0,0,1          10              10          100,150,10       0.8       100

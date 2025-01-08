@@ -154,6 +154,9 @@ void		scaling_cylinder(t_key *keys, t_cylinder *cy);
 //cylinder inter
 bool		inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter,
 				double *valid_t);
+//cone
+bool	parse_cone(char **arg, t_fclass *fclass);
+
 
 /**
  * key hook

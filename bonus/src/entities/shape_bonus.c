@@ -25,19 +25,13 @@ t_shape	*copy_shape(t_shape *shape)
 	res->ks = shape->ks;
 	res->shininess = shape->shininess;
 	if (res->type == SPHERE)
-	{
 		res->data.sphere = shape->data.sphere;
-		// res->box = box_sphere(&(shape->data.sphere));
-		// res->box = shape->data.sphere.box;
-	}
 	else if (res->type == PLANE)
 		res->data.plane = shape->data.plane;
 	else if (res->type == CYLINDER)
-	{
 		res->data.cylinder = shape->data.cylinder;
-		// res->box = box_cylinder(&(shape->data.cylinder));
-		// res->box = shape->data.cylinder.box;
-	}
+	else if (res->type == CONE)
+		res->data.cone = shape->data.cone;
 	if (res->type != PLANE)
 		res->box = shape_box(shape);
 	return (res);
@@ -54,11 +48,7 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 	shape->type = type;
 	shape->shape_id[type] = shape_id;
 	if (shape->type == SPHERE)
-	{
 		shape->data.sphere = *(t_sphere *)data;
-		// shape->box = box_sphere(&(shape->data.sphere));
-		// shape->box = shape->data.sphere.box;
-	}
 	else if (shape->type == PLANE)
 	{
 		shape->data.plane = *(t_plane *)data;
@@ -68,11 +58,9 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 		printf("width: %d\n", shape->checkerboard->width);
 	}
 	else if (shape->type == CYLINDER)
-	{
 		shape->data.cylinder = *(t_cylinder *)data;
-		// shape->box = box_cylinder(&(shape->data.cylinder));
-		// shape->box = shape->data.cylinder.box;
-	}
+	else if (shape->type == CONE)
+		shape->data.cone = *(t_cone *)data;
 	if (shape->type != PLANE)
 		shape->box = shape_box(shape);
 	return (shape);

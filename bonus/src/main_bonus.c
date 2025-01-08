@@ -30,6 +30,9 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error_exit("need and only need one argument");
 	init_scene(argv[1]);
+	// printf("sphere %i\n", s()->shape_nbr[SPHERE]);
+	// printf("cy %i\n", s()->shape_nbr[CYLINDER]);
+	// printf("co %i\n", s()->shape_nbr[CONE]);
 	render();
 	mlx_do_key_autorepeatoff(s()->win.mlx);
 	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, press_key, &s()->keys);
