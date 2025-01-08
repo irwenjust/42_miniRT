@@ -16,7 +16,7 @@
 # define Y 1
 # define Z 2
 
-# define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
+// # define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
 
 //about windows setting (16:9)
 # define SCALE 0.5625
@@ -108,7 +108,8 @@ void		find_valid_t(t_equation *equation);
 //illumination part
 void		check_illumination(t_hit *closest);
 //reflect part
-t_color		diffuse(t_light *light, t_hit *inter, double k);
+t_color		diffuse(t_light *light, t_hit *inter, double brightness);
+t_color specular(t_light *light, t_hit *inter, double brightness);
 
 /**
  * entities
