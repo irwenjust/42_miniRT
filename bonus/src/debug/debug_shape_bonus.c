@@ -34,6 +34,29 @@ static void	print_cylinder(t_cylinder cylinder)
 		cylinder.color.green, cylinder.color.blue);
 }
 
+// t_vector	tip;
+	t_vector	base;
+	// t_vector	normal;
+	// double		radius;
+	// double		height;
+	double		angle;
+	// t_color		color;
+
+static void	print_cone(t_cone cone)
+{
+	printf("cone:\n");
+	printf("  tip: %.2lf, %.2lf, %.2lf\n", \
+		cone.tip.x, cone.tip.y, cone.tip.z);
+	printf("  Base: %.2lf, %.2lf, %.2lf\n", \
+		cone.base.x, cone.base.y, cone.base.z);
+	printf("  Normal: %.2lf, %.2lf, %.2lf\n", \
+		cone.normal.x, cone.normal.y, cone.normal.z);
+	printf("  Color:  %d, %d, %d\n", cone.color.red,
+		cone.color.green, cone.color.blue);
+	printf("  radius:  %f, height %f, angle %f\n", cone.radius,
+		cone.height, cone.angle);
+}
+
 void	print_shape(t_shape *shape)
 {
 	printf("ID: %d\n", shape->id);
@@ -43,6 +66,8 @@ void	print_shape(t_shape *shape)
 		print_plane(shape->data.plane);
 	if (shape->type == CYLINDER)
 		print_cylinder(shape->data.cylinder);
+	if (shape->type == CONE)
+		print_cone(shape->data.cone);
 }
 
 void	print_light(t_light *light)

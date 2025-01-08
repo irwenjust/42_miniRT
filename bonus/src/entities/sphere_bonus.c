@@ -4,22 +4,23 @@
 
 static bool	new_sphere(char **arg, t_sphere *sphere)
 {
-	char	**coord;
-	char	**rgb;
+	char	**tmp;
 
-	coord = ft_split(arg[1], ',');
-	if (!coord)
+	tmp = ft_split(arg[1], ',');
+	if (!tmp)
 		return (ERROR("sphere: fail to split coordinate"), false);
-	sphere->center = parse_vector(coord);
-	free_matrix(coord);
-	rgb = ft_split(arg[3], ',');
-	if (!rgb)
-		return (ERROR("sphere: fail to split color"), false);
-	sphere->color = parse_color(rgb);
-	free_matrix(rgb);
+	sphere->center = parse_vector(tmp);
+	free_matrix(tmp);
 	sphere->radius = ft_atod(arg[2]) * 0.5;
+	if (sphere->radius < 1e-8)
+		return (ERROR("sphere: wrong diameter value"), false);
+	tmp = ft_split(arg[3], ',');
+	if (!tmp)
+		return (ERROR("sphere: fail to split color"), false);
+	sphere->color = parse_color(tmp);
+	free_matrix(tmp);
 	// sphere->box = box_sphere(sphere);
-	sphere->rebuildbox = box_sphere;
+	// sphere->rebuildbox = box_sphere;
 	return (true);
 }
 
@@ -28,10 +29,10 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	t_shape		*shape;
 	t_sphere	sphere;
 
-	if (ft_matrix_size(arg) != 6 || !check_syntax(arg, "0101"))
+	if (ft_matrix_size(arg) != 6 || !check_syntax(arg, "010100"))
 		return (ERROR("sphere: wrong args format"), false);
-	if (ft_atod(arg[2]) * 0.5 < 1e-8)
-		return (ERROR("sphere: wrong radius value"), false);
+	// if (ft_atod(arg[2]) * 0.5 < 1e-8)
+	// 	return (ERROR("sphere: wrong radius value"), false);
 	if (!check_rgb(arg[3]))
 		return (ERROR("sphere: wrong color value"), false);
 	if (!new_sphere(arg, &sphere))
@@ -113,7 +114,7 @@ void	move_sphere(t_key *keys, t_sphere *sphere)
 	else if (keys->key[Q])
 		sphere->center.z -= 0.3;
 	// sphere->box = sphere->rebuildbox(sphere);
-	printf("move sphere\n");
+	// printf("move sphere\n");
 }
 
 void	scaling_sphere(t_key *keys, t_sphere *sphere)

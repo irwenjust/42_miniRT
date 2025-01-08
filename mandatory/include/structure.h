@@ -119,8 +119,8 @@ typedef struct s_sphere
 	t_vector	center;
 	double		radius;
 	t_color		color;
-	t_aabb		box;
-	t_aabb		(*rebuildbox)(struct s_sphere *shape);
+	// t_aabb		box;
+	// t_aabb		(*rebuildbox)(struct s_sphere *shape);
 }	t_sphere;
 
 typedef struct s_plane
@@ -139,8 +139,8 @@ typedef struct s_cylinder
 	t_color		color;
 	t_vector	cap_u;
 	t_vector	cap_b;
-	t_aabb		box;
-	t_aabb		(*rebuildbox)(struct s_cylinder *shape);
+	// t_aabb		box;
+	// t_aabb		(*rebuildbox)(struct s_cylinder *shape);
 }	t_cylinder;
 
 //shape manage

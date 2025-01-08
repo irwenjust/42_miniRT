@@ -22,6 +22,8 @@ static bool	parse_line(int counter[3], char **arg)
 		return (parse_plane(arg, s()->shapes));
 	else if (!ft_strcmp("cy", arg[0]))
 		return (parse_cylinder(arg, s()->shapes));
+	else if (!ft_strcmp("co", arg[0]))
+		return (parse_cone(arg, s()->shapes));
 	else
 		return (false);
 }

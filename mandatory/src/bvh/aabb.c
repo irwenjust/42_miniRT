@@ -37,3 +37,14 @@ t_aabb	box_cylinder(t_cylinder *cy)
 	cylinder_box.max = vector_add(vector_max(start, end), radius_vec);
 	return (cylinder_box);
 }
+
+t_aabb	shape_box(t_shape *shape)
+{
+	t_aabb	box;
+
+	if (shape->type == SPHERE)
+		box = box_sphere(&(shape->data.sphere));
+	else if (shape->type == CYLINDER)
+		box = box_cylinder(&(shape->data.cylinder));
+	return (box);
+}

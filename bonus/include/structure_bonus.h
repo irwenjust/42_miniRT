@@ -35,7 +35,8 @@ typedef enum	s_shape_type
 {
 	SPHERE,
 	PLANE,
-	CYLINDER
+	CYLINDER,
+	CONE
 }	t_shape_type;
 
 
@@ -123,7 +124,7 @@ typedef struct s_sphere
 	double		radius;
 	t_color		color;
 	// t_aabb		box;
-	t_aabb		(*rebuildbox)(struct s_sphere *shape);
+	// t_aabb		(*rebuildbox)(struct s_sphere *shape);
 }	t_sphere;
 
 typedef struct s_plane
@@ -143,8 +144,20 @@ typedef struct s_cylinder
 	t_vector	cap_u;
 	t_vector	cap_b;
 	// t_aabb		box;
-	t_aabb		(*rebuildbox)(struct s_cylinder *shape);
+	// t_aabb		(*rebuildbox)(struct s_cylinder *shape);
 }	t_cylinder;
+
+typedef struct s_cone
+{
+	t_vector	tip;
+	t_vector	base;
+	t_vector	normal;
+	double		radius;
+	double		height;
+	double		angle;
+	t_color		color;
+}	t_cone;
+
 
 //shape manage
 typedef union s_shape_data
@@ -152,6 +165,7 @@ typedef union s_shape_data
 	t_sphere	sphere;
 	t_plane		plane;
 	t_cylinder	cylinder;
+	t_cone		cone;
 }	t_shape_data;
 
 typedef struct s_shape
@@ -160,7 +174,7 @@ typedef struct s_shape
 	t_aabb			box;
 	t_shape_type	type;
 	t_shape_data	data;
-	int				shape_id[3];
+	int				shape_id[4];
 	double			ks;
 	double			shininess;
 	t_vector		u_axis;
@@ -261,7 +275,7 @@ typedef struct s_scene
 	t_camera	camera;
 	t_fclass	*light;
 	t_fclass	*shapes;
-	int 		shape_nbr[3]; // notsure
+	int 		shape_nbr[4]; // notsure
 	t_ambient	ori_ambient;
 	t_camera	ori_camera;
 	t_fclass	*ori_light;
