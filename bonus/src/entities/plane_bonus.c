@@ -50,7 +50,10 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 		return (ERROR("plane: wrong shininess value"), false);
 	printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[PLANE]++;
+	add_uv_axis(shape, shape->data.plane.normal);
 	push_to_fclass(fclass, shape);
+	// printf("shape u_axis x: %f, y: %f, z: %f\nv_axis x: %f, y: %f, z: %f\n",
+	// 	shape->u_axis.x, shape->u_axis.y, shape->u_axis.z, shape->v_axis.x, shape->v_axis.y, shape->v_axis.z);
 	return (true);
 }
 

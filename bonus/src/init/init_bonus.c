@@ -54,9 +54,9 @@ void	init_viewport(void)
 
 static void	init_windows(void)
 {
-	(s()->win.mlx) = mlx_init();
-	if (!s()->win.mlx)
-		error_exit("error happend when create MLX42");
+	// (s()->win.mlx) = mlx_init();
+	// if (!s()->win.mlx)
+	// 	error_exit("error happend when create MLX42");
 	s()->win.width = WIDTH;
 	s()->win.height = HEIGHT;
 	(s()->win.disp) = mlx_new_window(s()->win.mlx, WIDTH, HEIGHT, "miniRT");
@@ -106,9 +106,13 @@ void	init_scene(char *file_name)
 	init_args(file_name);
 	if (ft_matrix_size(s()->args) == 0)
 		error_exit("the file is empty");
+	(s()->win.mlx) = mlx_init();
+	if (!s()->win.mlx)
+		error_exit("error happend when create MLX42");
 	parse_args();
 	init_viewport();
 	init_windows();
+	// parse_args();                                       //adjust the order, may make another wierd, check it later
 	ft_bzero(&(s()->keys), sizeof(t_key));
 	s()->keys.cur_keycode = -1;
 	s()->menu = VIEW;

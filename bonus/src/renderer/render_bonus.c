@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/07 13:48:31 by likong            #+#    #+#             */
+/*   Updated: 2025/01/08 13:58:22 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -61,8 +71,6 @@ void	render(void)
 			closest = init_hit();
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
-			// if (check_bvh_intersection(&ray, s()->bvh, &closest)
-			// 	&& check_intersection(s()->shapes, &ray, &closest))
 			if (check_intersection(s()->shapes, &ray, &closest))
 				check_illumination(&closest);
 			put_pixel(closest.color, cur.x, cur.y);
@@ -88,8 +96,6 @@ void	fake_render(void)
 			closest = init_hit();
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
-			// if (check_bvh_intersection(&ray, s()->bvh, &closest)
-			// 	&& check_intersection(s()->shapes, &ray, &closest))
 			if (check_intersection(s()->shapes, &ray, &closest))
 				check_illumination(&closest);
 			put_pixel(closest.color, cur.x, cur.y);

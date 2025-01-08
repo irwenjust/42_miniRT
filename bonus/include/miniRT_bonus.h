@@ -219,6 +219,7 @@ void		error_exit(char *message);
 t_hit		init_hit(void);
 void		ft_swap_d(double *a, double *b);
 t_shape		**shapes_to_arr(t_shape **shapes);
+void		check_hit(t_hit *hit);
 
 /**
  * menu
@@ -262,5 +263,20 @@ void		print_camera(t_camera *camera);
 void		print_box(t_aabb box);
 
 // bool	check_unbound(t_ray *ray, t_hit *inter);
+//check normal in different type
+void		check_hit_normal(t_hit *hit);
+
+void		find_uv(t_hit *hit);
+void		add_uv_axis(t_shape *shape, t_vector normal);
+t_color		uv_get_color(t_image *img, double u, double v);
+
+//more color utils
+t_color		color_sub(t_color c1, t_color t2);
+t_color		color_create(double r, double g, double b);
+t_color		color_multi(t_color c1, t_color c2);
+
+//texture part
+t_image		*create_checkerboard(t_color color);
+t_color		add_texture(t_hit *hit);
 
 #endif

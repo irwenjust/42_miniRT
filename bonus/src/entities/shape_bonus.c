@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:41:48 by likong            #+#    #+#             */
-/*   Updated: 2025/01/07 12:14:21 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/08 14:27:51 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,14 @@ t_shape	*copy_shape(t_shape *shape)
 	if (res->type == SPHERE)
 	{
 		res->data.sphere = shape->data.sphere;
-		res->box = shape->data.sphere.rebuildbox(&(shape->data.sphere));
-		// res->box = shape->data.sphere.box;
+		res->box = box_sphere(&(shape->data.sphere));
 	}
 	else if (res->type == PLANE)
 		res->data.plane = shape->data.plane;
 	else if (res->type == CYLINDER)
 	{
 		res->data.cylinder = shape->data.cylinder;
-		res->box = shape->data.cylinder.rebuildbox(&(shape->data.cylinder));
-		// res->box = shape->data.cylinder.box;
+		res->box = box_cylinder(&(shape->data.cylinder));
 	}
 	return (res);
 }
@@ -55,15 +53,19 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 	{
 		shape->data.sphere = *(t_sphere *)data;
 		shape->box = box_sphere(&(shape->data.sphere));
-		// shape->box = shape->data.sphere.box;
 	}
 	else if (shape->type == PLANE)
+	{
 		shape->data.plane = *(t_plane *)data;
+		shape->checkerboard = create_checkerboard(WHITE);
+		s()->checkerboard = shape->checkerboard;
+		s()->win.test = shape->checkerboard->img_ptr;
+		printf("width: %d\n", shape->checkerboard->width);
+	}
 	else if (shape->type == CYLINDER)
 	{
 		shape->data.cylinder = *(t_cylinder *)data;
 		shape->box = box_cylinder(&(shape->data.cylinder));
-		// shape->box = shape->data.cylinder.box;
 	}
 	return (shape);
 }
@@ -73,16 +75,14 @@ void	move_shape(t_key *keys, t_shape *shape)
 	if (shape->type == SPHERE)
 	{
 		move_sphere(keys, &(shape->data.sphere));
-		shape->box = shape->data.sphere.rebuildbox(&(shape->data.sphere));
-		// shape->box = shape->data.sphere.box;
+		shape->box = box_sphere(&(shape->data.sphere));
 	}
 	else if (shape->type == PLANE)
 		move_plane(keys, &(shape->data.plane));
 	else if (shape->type == CYLINDER)
 	{
 		move_cylinder(keys, &(shape->data.cylinder));
-		shape->box = shape->data.cylinder.rebuildbox(&(shape->data.cylinder));
-		// shape->box = shape->data.cylinder.box;
+		shape->box = box_cylinder(&(shape->data.cylinder));
 	}
 	// printf("min x: %lf, y: %lf, z: %lf; max x: %lf, y: %lf, z: %lf\n", shape->box.min.x, shape->box.min.y, shape->box.min.z, shape->box.max.x, shape->box.max.y, shape->box.max.z);
 }
@@ -94,7 +94,7 @@ void	rotate_shape(t_key *keys, t_shape *shape)
 	else if (shape->type == CYLINDER)
 	{
 		rotate_cylinder(keys, &(shape->data.cylinder));
-		shape->box = shape->data.cylinder.rebuildbox(&(shape->data.cylinder));
+		shape->box = box_cylinder(&(shape->data.cylinder));
 		// shape->box = shape->data.cylinder.box;
 	}
 }

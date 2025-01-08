@@ -48,6 +48,10 @@ void	delete_scene(void)
 		mlx_destroy_image(s()->win.mlx, s()->win.menu);
 	if (s()->win.disp)
 		mlx_destroy_window(s()->win.mlx, s()->win.disp);
+	if (s()->win.test)
+		mlx_destroy_image(s()->win.mlx, s()->win.test);
+	if (s()->checkerboard)
+		ft_free(s()->checkerboard);
 	if (s()->win.mlx)
 	{
 		mlx_do_key_autorepeaton(s()->win.mlx);

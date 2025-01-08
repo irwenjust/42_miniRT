@@ -126,6 +126,8 @@ bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	while (++i < shapes->size)
 	{
 		shape = shapes->array[i];
+		// if (shape->type == PLANE)
+		// 	printf("before shape width: %d\n", shape->checkerboard->width);
 		if (!is_intersect(shape, ray, &tmp, &checker))
 			continue ;
 		if (tmp.distance >= closest->distance)
@@ -133,6 +135,9 @@ bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 		*closest = tmp;
 		closest->ray = *ray;
 		closest->shape = shape;
+		// if (closest->shape->type == PLANE)
+		// 	printf("before shape u_axis x: %f, y: %f, z: %f\nv_axis x: %f, y: %f, z: %f\n",
+		// shape->u_axis.x, shape->u_axis.y, shape->u_axis.z, shape->v_axis.x, shape->v_axis.y, shape->v_axis.z);
 		closest->hit_point = point_on_ray(ray, closest->distance);
 		closest->hit_normal = get_normal(closest);
 		// if (check_unbound(ray, &tmp))

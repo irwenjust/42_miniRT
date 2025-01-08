@@ -38,3 +38,10 @@ t_hit	init_hit(void)
 	}
 	return (hit);
 }
+
+void	check_hit(t_hit *hit)
+{
+	hit->hit_point = vector_add(hit->ray.start, vector_scale(hit->ray.normal, hit->distance));
+	check_hit_normal(hit);
+	find_uv(hit);
+}

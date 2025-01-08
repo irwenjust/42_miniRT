@@ -76,6 +76,19 @@ typedef struct	s_fclass
 	void	(*del)(void *);
 }	t_fclass;
 
+/*custom structure to store image data and size*/
+typedef struct s_image
+{
+	void	*img_ptr;
+	char	*data;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_image;
+
+
 /*env part*/
 //env light
 typedef struct s_ambient
@@ -150,6 +163,9 @@ typedef struct s_shape
 	int				shape_id[3];
 	double			ks;
 	double			shininess;
+	t_vector		u_axis;
+	t_vector		v_axis;
+	t_image			*checkerboard;
 }	t_shape;
 
 /**
@@ -196,6 +212,8 @@ typedef struct s_hit
 	t_vector	cy_hp;
 	double	distance;
 	bool	check_hit;
+	double	u;
+	double	v;
 } t_hit;
 
 
@@ -208,6 +226,7 @@ typedef struct s_windows
 	void	*disp;
 	void	*img;
 	void	*menu;
+	void	*test;
 	char	*addr;
 	int		height;
 	int		width;
@@ -261,6 +280,7 @@ typedef struct s_scene
 	int			bvh_level; // the index level for bvh binary tree
 	t_list		*unbound; // for plane and maybe more things later
 	t_bvh		*bvh;
+	t_image		*checkerboard;
 }	t_scene;
 
 #endif
