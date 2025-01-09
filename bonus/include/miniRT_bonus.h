@@ -206,6 +206,7 @@ t_vector	parse_vector(char **strs);
 bool		vector_compare(t_vector v1, t_vector v2);
 double		vector_cos(t_vector v1, t_vector v2);
 t_vector	vector_copy(t_vector vec);
+t_vector	vector_abs(t_vector v);
 
 /**
  * tools

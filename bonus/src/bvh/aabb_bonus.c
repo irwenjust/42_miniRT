@@ -15,24 +15,29 @@ t_aabb	box_sphere(t_sphere *sphere)
 t_aabb	box_cylinder(t_cylinder *cy)
 {
 	t_vector	radius_vec;
-	t_vector	start;
-	t_vector	end;
+	t_vector	abs_normal;
+	t_vector	extent_vec;
 	t_aabb		cylinder_box;
-
-	start = vector_sub(cy->center, vector_scale(cy->normal, cy->height * 0.5));
-	end = vector_add(cy->center, vector_scale(cy->normal, cy->height * 0.5));
-	radius_vec = (t_vector){cy->radius, cy->radius, cy->radius};
-	cylinder_box.min = vector_sub(vector_min(start, end), radius_vec);
-	cylinder_box.max = vector_add(vector_max(start, end), radius_vec);
+	
+	// radius_vec = (t_vector){cy->radius, cy->radius, cy->radius};
+	abs_normal = vector_abs(cy->normal);
+	extent_vec = vector_sub((t_vector){1.0, 1.0, 1.0}, abs_normal);
+	radius_vec = vector_scale(extent_vec, cy->radius);
+	cylinder_box.min = vector_sub(vector_min(cy->cap_u, cy->cap_b), radius_vec);
+	cylinder_box.max = vector_add(vector_max(cy->cap_u, cy->cap_b), radius_vec);
 	return (cylinder_box);
 }
 
 t_aabb	box_cone(t_cone *cone)
 {
 	t_vector	radius_vec;
+	t_vector	abs_normal;
+	t_vector	extent_vec;
 	t_aabb	cone_box;
 
-	radius_vec = (t_vector){cone->radius, cone->radius, cone->radius};
+	abs_normal = vector_abs(cone->normal);
+	extent_vec = vector_sub((t_vector){1.0, 1.0, 1.0}, abs_normal);
+	radius_vec = vector_scale(extent_vec, cone->radius);
 	cone_box.min = vector_sub(vector_min(cone->tip, cone->base), radius_vec);
 	cone_box.max = vector_add(vector_max(cone->tip, cone->base), radius_vec);
 	return (cone_box);
