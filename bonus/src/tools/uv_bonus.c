@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:38:26 by likong            #+#    #+#             */
-/*   Updated: 2025/01/08 13:52:24 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/09 15:31:41 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	plane_uv(t_hit *hit, double *u, double *v, int repeat)
 	t_vector	local_point;
 
 	local_point = vector_sub(hit->hit_point, hit->shape->data.plane.center);
+	// printf("u: %f, v: %f\n", *u, *v);
 	u_axis = hit->shape->u_axis;
 	v_axis = hit->shape->v_axis;
 	// printf("after x: %f, y: %f, z: %f\n", u_axis.x, u_axis.y, u_axis.z);
@@ -94,6 +95,7 @@ t_color	uv_get_color(t_image *img, double u, double v)
 	y = (int)(height * v);
 	x = wrap_coordinate(x, width);
 	y = wrap_coordinate(y, height);
+	// printf("x: %d, y: %d, u: %lf, v: %lf\n", img->width, img->height, u, v);
 	return (get_pixel(*img, x, y));
 }
 

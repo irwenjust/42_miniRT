@@ -33,19 +33,19 @@ static bool	is_obscured(t_light *light, t_hit *closest)
 void	check_illumination(t_hit *closest)
 {
 	t_color	color;
-	// t_color	texture;
+	t_color	texture;
 	t_color	final;
 	t_light	*light;
 	int		i;
 
 	i = -1;
-	// check_hit(closest);
-	// texture = add_texture(closest);
+	check_hit(closest);
+	texture = add_texture(closest);
 	color = check_ambient(closest->color);
 	// final = color_multi(color, texture);
-	// if (closest->shape->type == PLANE)
-	// 	final = texture;
-	// else
+	if (closest->shape->type == PLANE)
+		final = texture;
+	else
 		final = color;
 	// final = check_ambient(closest->color);
 	while (++i < s()->light->size)
