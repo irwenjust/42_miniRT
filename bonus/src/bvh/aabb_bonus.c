@@ -31,6 +31,7 @@ t_aabb	shape_box(t_shape *shape)
 {
 	t_aabb	box;
 
+	ft_bzero(&box, sizeof(t_aabb));
 	if (shape->type == SPHERE)
 		box = box_sphere(&(shape->data.sphere));
 	else if (shape->type == CYLINDER)
