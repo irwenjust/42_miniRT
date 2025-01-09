@@ -43,7 +43,10 @@ void	update_scaling(t_key *keys)
 			// shape->box = box_cylinder(&(shape->data.cylinder));
 			// shape->box = shape->data.cylinder.box;
 		}
-		shape->box = shape_box(shape);
+		// else if (shape->type == CONE)
+		// 	scaling_cone(keys, &shape->data.cone);
+		if (shape->type != PLANE)
+			shape->box = shape_box(shape);
 		print_box(shape->box);
 	}
 	else if (s()->menu == LIGHT || s()->menu == VIEW)

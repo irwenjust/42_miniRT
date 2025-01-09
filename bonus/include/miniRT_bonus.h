@@ -150,7 +150,6 @@ void		move_sphere(t_key *keys, t_sphere *sphere);
 void		scaling_sphere(t_key *keys, t_sphere *sphere);
 //plane part
 bool		parse_plane(char **arg, t_fclass *fclass);
-
 void		move_plane(t_key *keys, t_plane *plane);
 void		rotate_plane(t_key *keys, t_plane *plane);
 //bool		inter_real_plane(t_plane *plane, t_ray *ray, double *valid_t);
@@ -161,7 +160,8 @@ void		rotate_cylinder(t_key *keys, t_cylinder *cylinder);
 void		scaling_cylinder(t_key *keys, t_cylinder *cy);
 //cone
 bool	parse_cone(char **arg, t_fclass *fclass);
-
+void	move_cone(t_key *keys, t_cone *cone);
+void	rotate_cone(t_key *keys, t_cone *cone);
 
 /**
  * key hook
@@ -184,6 +184,11 @@ void		update_color(t_key *keys);
 //preset part
 void		switch_preset(int preset);
 void		camera_preset(int preset);
+//reset part
+void		reset_all(void);
+void		reset_camera(void);
+void		reset_lights(void);
+void		reset_shapes(void);
 
 /**
  * vector part
@@ -259,9 +264,10 @@ void		rebuild_bvh(void);
 bool		check_aabb_intersection(t_ray ray, t_aabb box, double max_t);
 bool		check_bvh_intersection(t_ray *ray, t_bvh *node, t_hit *pre_hit);
 //aabb box
-t_aabb		box_sphere(t_sphere *sphere);
-t_aabb		box_cylinder(t_cylinder *cy);
-t_aabb	shape_box(t_shape *shape);
+// t_aabb		box_sphere(t_sphere *sphere);
+// t_aabb		box_cylinder(t_cylinder *cy);
+// t_aabb		box_cone(t_cone *cone);
+t_aabb		shape_box(t_shape *shape);
 
 /**
  * debug
