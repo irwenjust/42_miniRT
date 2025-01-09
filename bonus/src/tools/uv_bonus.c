@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:38:26 by likong            #+#    #+#             */
-/*   Updated: 2025/01/09 15:31:41 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/09 17:55:39 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ t_color	get_pixel(t_image img, int x, int y)
 	t_color	color;
 
 	start = (uint8_t *)(img.data + (y * img.size_line) + (x * (img.bpp / 8)));
-	color.red = (start[2] / 255.0);
-	color.green = (start[1] / 255.0);
-	color.blue = (start[0] / 255.0);
+	color.red = (start[2]);
+	color.green = (start[1]);
+	color.blue = (start[0]);
+	// printf("r: %d, g: %d, b: %d\n", color.red, color.green, color.blue);
 	return (color);
 }
 
@@ -95,7 +96,7 @@ t_color	uv_get_color(t_image *img, double u, double v)
 	y = (int)(height * v);
 	x = wrap_coordinate(x, width);
 	y = wrap_coordinate(y, height);
-	// printf("x: %d, y: %d, u: %lf, v: %lf\n", img->width, img->height, u, v);
+	// printf("x: %d, y: %d, u: %lf, v: %lf\n", x, y, u, v);
 	return (get_pixel(*img, x, y));
 }
 

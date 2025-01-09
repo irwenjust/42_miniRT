@@ -41,10 +41,14 @@ void	check_illumination(t_hit *closest)
 	i = -1;
 	check_hit(closest);
 	texture = add_texture(closest);
+	// printf("r: %d, g: %d, b: %d\n", texture.red, texture.green, texture.blue);
 	color = check_ambient(closest->color);
 	// final = color_multi(color, texture);
 	if (closest->shape->type == PLANE)
-		final = texture;
+	{
+		final = color_multi(color, texture);
+		// printf("r: %d, g: %d, b: %d\n", texture.red, texture.green, texture.blue);
+	}
 	else
 		final = color;
 	// final = check_ambient(closest->color);

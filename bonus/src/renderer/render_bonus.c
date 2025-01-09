@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:48:31 by likong            #+#    #+#             */
-/*   Updated: 2025/01/08 13:58:22 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/09 16:51:13 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_vector	convert_viewport(double x, double y)
 	return (converted);
 }
 
-static void	put_pixel(t_color c, int x, int y)
+void	put_pixel(t_color c, int x, int y)
 {
 	char	*dst;
 

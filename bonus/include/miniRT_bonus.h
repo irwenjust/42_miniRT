@@ -293,5 +293,6 @@ t_color		color_multi(t_color c1, t_color c2);
 //texture part
 t_image		*create_checkerboard(t_color color);
 t_color		add_texture(t_hit *hit);
+void		put_pixel(t_color c, int x, int y);
 
 #endif

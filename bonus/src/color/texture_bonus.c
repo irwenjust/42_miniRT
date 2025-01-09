@@ -6,23 +6,25 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:13:56 by likong            #+#    #+#             */
-/*   Updated: 2025/01/09 15:31:03 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/09 17:56:25 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-static void put_pixel(char *img_data, int pixel, t_color color)
+static void put_test_pixel(char *img_data, int pixel, t_color color)
 {
 	img_data[pixel + 0] = (unsigned char)(color.red * 255);   // Red
     img_data[pixel + 1] = (unsigned char)(color.green * 255); // Green
     img_data[pixel + 2] = (unsigned char)(color.blue * 255);  // Blue
     img_data[pixel + 3] = (unsigned char)(color.alpha * 255); // Alpha
+	// printf("%u, %u, %u, %u\n", img_data[pixel+0], img_data[pixel+1], img_data[pixel+2], img_data[pixel+3]);
 	// char	*dst;
 
 	// (void)pixel;
 	// dst = img->data + (y * img->width + x) * (int)(img->bpp * 0.125);
 	// *(unsigned int *)dst = (color.alpha << 24 | color.red << 16 | color.green << 8 | color.blue);
+	// printf("dst: %u\n", *dst);
 }
 
 static void	init_image(t_image *img, int width, int height)
@@ -60,16 +62,23 @@ t_image	*create_checkerboard(t_color color)
 	init_image(checkerboard, 256, 256);
 	i = -1;
 	// printf("height: %d, width: %d\n", checkerboard->height, checkerboard->width);
-	while (++i < checkerboard->height)
+	while (++i < checkerboard->height - 1)
 	{
 		j = -1;
-		while (++j < checkerboard->width)
+		while (++j < checkerboard->width - 1)
 		{
 			pixel = i * checkerboard->size_line + j * (checkerboard->bpp / 8);
+			// printf("here, pixel: %d\n", pixel);
 			if ((i / 32 + j / 32) % 2 == 0)
-				put_pixel(checkerboard->data, pixel, color);
+			{
+				put_test_pixel(checkerboard->data, pixel, WHITE);
+				// printf("white: %u, %u, %u\n", checkerboard->data[pixel], checkerboard->data[pixel + 1], checkerboard->data[pixel + 2]);
+			}
 			else
-				put_pixel(checkerboard->data, pixel, inverted);
+			{
+				put_test_pixel(checkerboard->data, pixel, BLACK);
+				// printf("black: %u, %u, %u\n", checkerboard->data[pixel], checkerboard->data[pixel + 1], checkerboard->data[pixel + 2]);
+			}
 		}
 	}
 	// printf("Checkerboard allocated at: %p\n", checkerboard);
