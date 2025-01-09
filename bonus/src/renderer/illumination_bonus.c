@@ -33,38 +33,26 @@ static bool	is_obscured(t_light *light, t_hit *closest)
 void	check_illumination(t_hit *closest)
 {
 	t_color	color;
-	t_color	texture;
-	t_color	final;
 	t_light	*light;
 	int		i;
 
 	i = -1;
 	check_hit(closest);
-	texture = add_texture(closest);
-	// printf("r: %d, g: %d, b: %d\n", texture.red, texture.green, texture.blue);
-	color = check_ambient(closest->color);
-	// final = color_multi(color, texture);
 	if (closest->shape->type == PLANE)
-	{
-		final = color_multi(color, texture);
-		// printf("r: %d, g: %d, b: %d\n", texture.red, texture.green, texture.blue);
-	}
+		color = add_texture(closest);
 	else
-		final = color;
-	// final = check_ambient(closest->color);
+		color = closest->color;
+	color = check_ambient(color);
 	while (++i < s()->light->size)
 	{
 		light = fclass_index(s()->light, i);
 		if (!light)
-		{
-			ft_putstr_fd("Cannot find any light\n", 2); //exit??
-			return ;
-		}
+			error_exit("cannot find any light");
 		if (!is_obscured(light, closest))
 		{
-			final = add_color(final, diffuse(light, closest, light->brightness));
-			final = add_color(final, specular(light, closest, light->brightness));
+			color = add_color(color, diffuse(light, closest, light->brightness));
+			color = add_color(color, specular(light, closest, light->brightness));
 		}
 	}
-	closest->color = final;
+	closest->color = color;
 }

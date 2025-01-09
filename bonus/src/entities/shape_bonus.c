@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:41:48 by likong            #+#    #+#             */
-/*   Updated: 2025/01/09 16:12:30 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/09 21:18:02 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 	else if (shape->type == PLANE)
 	{
 		shape->data.plane = *(t_plane *)data;
-		shape->checkerboard = create_checkerboard(WHITE);
+		shape->checkerboard = create_checkerboard(shape->data.plane.color);
 		s()->checkerboard = shape->checkerboard;
 		s()->win.test = shape->checkerboard->img_ptr;
 	}
@@ -65,7 +65,6 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 		shape->data.cone = *(t_cone *)data;
 	if (shape->type != PLANE)
 		shape->box = shape_box(shape);
-	printf("shape type: %i\n", shape->type);
 	print_box(shape->box);
 	return (shape);
 }
@@ -93,10 +92,47 @@ void	move_shape(t_key *keys, t_shape *shape)
 	print_box(shape->box);
 }
 
+static void	rotate_uv(t_key *keys, t_shape *shape)
+{
+	if (keys->key[I])
+	{
+		shape->u_axis = vector_rotate(shape->u_axis, X, ROTATE);
+		shape->v_axis = vector_rotate(shape->v_axis, X, ROTATE);
+	}
+	else if (keys->key[K])
+	{
+		shape->u_axis = vector_rotate(shape->u_axis, X, (-ROTATE));
+		shape->v_axis = vector_rotate(shape->v_axis, X, (-ROTATE));
+	}
+	else if (keys->key[L])
+	{
+		shape->u_axis = vector_rotate(shape->u_axis, Y, ROTATE);
+		shape->v_axis = vector_rotate(shape->v_axis, Y, ROTATE);
+	}
+	else if (keys->key[J])
+	{
+		shape->u_axis = vector_rotate(shape->u_axis, Y, (-ROTATE));
+		shape->v_axis = vector_rotate(shape->v_axis, Y, (-ROTATE));
+	}
+	else if (keys->key[O])
+	{
+		shape->u_axis = vector_rotate(shape->u_axis, Z, ROTATE);
+		shape->v_axis = vector_rotate(shape->v_axis, Z, ROTATE);
+	}
+	else if (keys->key[U])
+	{
+		shape->u_axis = vector_rotate(shape->u_axis, Z, (-ROTATE));
+		shape->v_axis = vector_rotate(shape->v_axis, Z, (-ROTATE));
+	}
+}
+
 void	rotate_shape(t_key *keys, t_shape *shape)
 {
 	if (shape->type == PLANE)
+	{
 		rotate_plane(keys, &(shape->data.plane));
+		rotate_uv(keys, shape);
+	}
 	else if (shape->type == CYLINDER)
 	{
 		rotate_cylinder(keys, &(shape->data.cylinder));
