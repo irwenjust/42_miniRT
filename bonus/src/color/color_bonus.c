@@ -64,8 +64,10 @@ t_color	*get_color(int type, int i)
 			rgb = &shape->data.sphere.color;
 		else if (shape->type == PLANE)
 			rgb = &shape->data.plane.color;
-		else
+		else if (shape->type == CYLINDER)
 			rgb = &shape->data.cylinder.color;
+		else
+			rgb = &shape->data.cone.color;
 	}
 	else if (type == LIGHT)
 		rgb = &((t_light *)(s()->light->array[i]))->color;

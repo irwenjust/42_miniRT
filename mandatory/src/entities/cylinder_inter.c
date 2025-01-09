@@ -20,34 +20,34 @@
  * axis, this len should be smaller than cap radius.
  * 
  * @param vec the vector from cap_u to ray origin
- * @param hit the intersect point of ray with cylinder
- * @param hit_a the vector from cap_u to the mapping hit point on axis
+ * @param hp the intersect point of ray with cylinder
+ * @param cap_hp the vector from cap_u to the mapping hit point on axis
  * @param offset map ray to cylinder axis with t distance, and map vec to axis
  * to get the offset of hit point to cap_u
  * @param len the distance between hit and hit_a
  */
-static bool	check_wall(t_cylinder *cy, t_hit *inter, double t)
+static bool	check_wall(t_cylinder *cy, t_hit *hit, double t)
 {
 	t_vector	vec;
-	t_vector	hit;
-	t_vector	hit_a;
+	t_vector	hp;
+	t_vector	cap_hp;
 	double		offset;
 	double		len;
 
-	if (t < 1e-8 || t > inter->distance)
+	if (t < 1e-8 || t > hit->distance)
 		return (false);
-	hit = point_on_ray(&inter->ray, t);
-	vec = vector_sub(inter->ray.start, cy->cap_u);
-	offset = vector_dot(inter->ray.normal, cy->normal) * t
+	hp = point_on_ray(&hit->ray, t);
+	vec = vector_sub(hit->ray.start, cy->cap_u);
+	offset = vector_dot(hit->ray.normal, cy->normal) * t
 		+ vector_dot(vec, cy->normal);
-	hit_a = vector_add(cy->cap_u, vector_multiple(cy->normal, offset));
-	len = vector_magnitude(vector_sub(hit, hit_a));
+	cap_hp = vector_add(cy->cap_u, vector_scale(cy->normal, offset));
+	len = vector_magnitude(vector_sub(hp, cap_hp));
 	offset -= 1e-8;
 	len -= 1e-8;
 	if (offset >= 0 && offset <= cy->height && len <= cy->radius)
 	{
-		inter->cy_hp = hit_a;
-		inter->distance = t;
+		hit->cy_hp = cap_hp;
+		hit->distance = t;
 		return (true);
 	}
 	return (false);
@@ -57,7 +57,7 @@ static bool	check_wall(t_cylinder *cy, t_hit *inter, double t)
  * @brief check whether there is a intersect point of ray and plane
  * If intersect, check the position of hit point is inside the cap range or not
  */
-static bool	check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
+static bool	check_cap(t_cylinder *cy, t_ray *ray, t_hit *hit, t_vector cap)
 {
 	t_plane		plane;
 	t_hit		cap_inter;
@@ -70,13 +70,13 @@ static bool	check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
 	offset = 1e-8;
 	if (inter_plane(&plane, ray, &cap_inter, &offset))
 	{
-		point = point_on_ray(&inter->ray, cap_inter.distance);
+		point = point_on_ray(&hit->ray, cap_inter.distance);
 		offset = vector_magnitude(vector_sub(point, cap));
 		if (offset <= cy->radius && cap_inter.distance > 1e-8
-			&& cap_inter.distance < inter->distance)
+			&& cap_inter.distance < hit->distance)
 		{
-			inter->cy_hp = cap;
-			inter->distance = cap_inter.distance;
+			hit->cy_hp = cap;
+			hit->distance = cap_inter.distance;
 			return (true);
 		}
 	}

@@ -112,6 +112,17 @@ t_color		diffuse(t_light *light, t_hit *inter, double brightness);
 t_color specular(t_light *light, t_hit *inter, double brightness);
 
 /**
+ * intersection
+ */
+bool		inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter,
+				double *valid_t);
+bool		inter_plane(t_plane *plane, t_ray *ray, t_hit *inter,
+				double *valid_t);
+bool		inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter,
+				double *valid_t);
+bool		inter_cone(t_cone *cone, t_ray *ray, t_hit *hit, double *valid_t);
+
+/**
  * entities
  */
 //ambient part
@@ -135,14 +146,11 @@ void		move_shape(t_key *keys, t_shape *shape);
 void		rotate_shape(t_key *keys, t_shape *shape);
 //sphere part
 bool		parse_sphere(char **tmp, t_fclass *fclass);
-bool		inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter,
-				double *valid_t);
 void		move_sphere(t_key *keys, t_sphere *sphere);
 void		scaling_sphere(t_key *keys, t_sphere *sphere);
 //plane part
 bool		parse_plane(char **arg, t_fclass *fclass);
-bool		inter_plane(t_plane *plane, t_ray *ray, t_hit *inter,
-				double *valid_t);
+
 void		move_plane(t_key *keys, t_plane *plane);
 void		rotate_plane(t_key *keys, t_plane *plane);
 //bool		inter_real_plane(t_plane *plane, t_ray *ray, double *valid_t);
@@ -151,9 +159,6 @@ bool		parse_cylinder(char **arg, t_fclass *fclass);
 void		move_cylinder(t_key *keys, t_cylinder *cylinder);
 void		rotate_cylinder(t_key *keys, t_cylinder *cylinder);
 void		scaling_cylinder(t_key *keys, t_cylinder *cy);
-//cylinder inter
-bool		inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter,
-				double *valid_t);
 //cone
 bool	parse_cone(char **arg, t_fclass *fclass);
 
@@ -186,7 +191,7 @@ void		camera_preset(int preset);
 //vector op basic
 t_vector	vector_add(t_vector v1, t_vector v2);
 t_vector	vector_sub(t_vector v1, t_vector v2);
-t_vector	vector_multi(t_vector v1, double scalar);
+t_vector	vector_scale(t_vector a, double scalar);
 t_vector	vector_min(t_vector a, t_vector b);
 t_vector	vector_max(t_vector a, t_vector b);
 //vector op plus
@@ -194,7 +199,6 @@ double		vector_magnitude(t_vector a);
 t_vector	vector_normalize(t_vector a);
 t_vector	vector_cross(t_vector v1, t_vector v2);
 double		vector_dot(t_vector v1, t_vector v2);
-t_vector	vector_scale(t_vector a, double scalar);
 //vector rotate
 t_vector	vector_rotate(t_vector vec, int axis, double angle);
 //vector tools
@@ -202,6 +206,7 @@ t_vector	parse_vector(char **strs);
 bool		vector_compare(t_vector v1, t_vector v2);
 double		vector_cos(t_vector v1, t_vector v2);
 t_vector	vector_copy(t_vector vec);
+t_vector	vector_abs(t_vector v);
 
 /**
  * tools

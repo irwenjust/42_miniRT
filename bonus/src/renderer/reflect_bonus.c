@@ -30,7 +30,7 @@ t_color specular(t_light *light, t_hit *inter, double brightness)
 	if (inter->shape->shininess < 1.0)
 		return (BLACK);
 	light_dir = vector_sub(light->point, inter->hit_point);
-	camera_dir = vector_normalize(vector_multi(inter->ray.normal, -1));
+	camera_dir = vector_normalize(vector_scale(inter->ray.normal, -1));
 	half_vector = vector_normalize(vector_add(camera_dir, light_dir));
 	cos_angle = fmax(0.0, vector_dot(half_vector, inter->hit_normal));
 	specular_ratio = inter->shape->ks * brightness * pow(cos_angle, inter->shape->shininess);

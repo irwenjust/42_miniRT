@@ -10,34 +10,34 @@
  * axis, this len should be smaller than cap radius.
  * 
  * @param vec the vector from cap_u to ray origin
- * @param hit the intersect point of ray with cylinder
- * @param hit_a the vector from cap_u to the mapping hit point on axis
+ * @param hp the intersect point of ray with cylinder
+ * @param cap_hp the vector from cap_u to the mapping hit point on axis
  * @param offset map ray to cylinder axis with t distance, and map vec to axis
  * to get the offset of hit point to cap_u
  * @param len the distance between hit and hit_a
  */
-static bool	check_wall(t_cylinder *cy, t_hit *inter, double t)
+static bool	check_cy_wall(t_cylinder *cy, t_hit *hit, double t)
 {
 	t_vector	vec;
-	t_vector	hit;
-	t_vector	hit_a;
+	t_vector	hp;
+	t_vector	cap_hp;
 	double		offset;
 	double		len;
 
-	if (t < 1e-8 || t > inter->distance)
+	if (t < 1e-8 || t > hit->distance)
 		return (false);
-	hit = point_on_ray(&inter->ray, t);
-	vec = vector_sub(inter->ray.start, cy->cap_u);
-	offset = vector_dot(inter->ray.normal, cy->normal) * t
+	hp = point_on_ray(&hit->ray, t);
+	vec = vector_sub(hit->ray.start, cy->cap_u);
+	offset = vector_dot(hit->ray.normal, cy->normal) * t
 		+ vector_dot(vec, cy->normal);
-	hit_a = vector_add(cy->cap_u, vector_multi(cy->normal, offset));
-	len = vector_magnitude(vector_sub(hit, hit_a));
+	cap_hp = vector_add(cy->cap_u, vector_scale(cy->normal, offset));
+	len = vector_magnitude(vector_sub(hp, cap_hp));
 	offset -= 1e-8;
 	len -= 1e-8;
 	if (offset >= 0 && offset <= cy->height && len <= cy->radius)
 	{
-		inter->cy_hp = hit_a;
-		inter->distance = t;
+		hit->cy_hp = cap_hp;
+		hit->distance = t;
 		return (true);
 	}
 	return (false);
@@ -47,10 +47,10 @@ static bool	check_wall(t_cylinder *cy, t_hit *inter, double t)
  * @brief check whether there is a intersect point of ray and plane
  * If intersect, check the position of hit point is inside the cap range or not
  */
-static bool	check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
+static bool	check_cy_cap(t_cylinder *cy, t_ray *ray, t_hit *hit, t_vector cap)
 {
 	t_plane		plane;
-	t_hit		cap_inter;
+	t_hit		cap_hit;
 	t_vector	point;
 	double		offset;
 
@@ -58,35 +58,19 @@ static bool	check_cap(t_cylinder *cy, t_ray *ray, t_hit *inter, t_vector cap)
 	plane.normal = cy->normal;
 	plane.color = BLACK;
 	offset = 1e-8;
-	if (inter_plane(&plane, ray, &cap_inter, &offset))
+	if (inter_plane(&plane, ray, &cap_hit, &offset))
 	{
-		point = point_on_ray(&inter->ray, cap_inter.distance);
+		point = point_on_ray(&hit->ray, cap_hit.distance);
 		offset = vector_magnitude(vector_sub(point, cap));
-		if (offset <= cy->radius && cap_inter.distance > 1e-8
-			&& cap_inter.distance < inter->distance)
+		if (offset <= cy->radius && cap_hit.distance > 1e-8
+			&& cap_hit.distance < hit->distance)
 		{
-			inter->cy_hp = cap;
-			inter->distance = cap_inter.distance;
+			hit->cy_hp = cap;
+			hit->distance = cap_hit.distance;
 			return (true);
 		}
 	}
 	return (false);
-}
-
-static void	init_cy_equation(t_cylinder *cylinder, t_ray *ray, t_equation *eq)
-{
-	t_vector	vec;
-	double		dn;
-	double		vn;
-
-	vec = vector_sub(ray->start, cylinder->cap_u);
-	dn = vector_dot(ray->normal, cylinder->normal);
-	vn = vector_dot(vec, cylinder->normal);
-	eq->a = 1 - pow(dn, 2);
-	eq->b = 2 * (vector_dot(ray->normal, vec) - (dn * vn));
-	eq->c = vector_dot(vec, vec) - pow(vn, 2) - pow(cylinder->radius, 2);
-	eq->t1 = -1;
-	eq->t2 = -1;
 }
 
 /**
@@ -99,10 +83,10 @@ static double	hit_cy(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *hit)
 {
 	hit->distance = INFINITY;
 	hit->ray = *ray;
-	if (!check_wall(cy, hit, eq->t1) || !check_wall(cy, hit, eq->t2))
+	if (!check_cy_wall(cy, hit, eq->t1) || !check_cy_wall(cy, hit, eq->t2))
 	{
-		check_cap(cy, ray, hit, cy->cap_u);
-		check_cap(cy, ray, hit, cy->cap_b);
+		check_cy_cap(cy, ray, hit, cy->cap_u);
+		check_cy_cap(cy, ray, hit, cy->cap_b);
 	}
 	if (hit->distance == INFINITY)
 		return (0);
@@ -134,6 +118,22 @@ static double	hit_cy(t_cylinder *cy, t_ray *ray, t_equation *eq, t_hit *hit)
  * @param dn dot_product(D, N), D is ray normal, N is cylinder norml
  * @param vn dot_product(vec, N) 
  */
+static void	init_cy_equation(t_cylinder *cylinder, t_ray *ray, t_equation *eq)
+{
+	t_vector	vec;
+	double		dn;
+	double		vn;
+
+	vec = vector_sub(ray->start, cylinder->cap_u);
+	dn = vector_dot(ray->normal, cylinder->normal);
+	vn = vector_dot(vec, cylinder->normal);
+	eq->a = 1 - pow(dn, 2);
+	eq->b = 2 * (vector_dot(ray->normal, vec) - (dn * vn));
+	eq->c = vector_dot(vec, vec) - pow(vn, 2) - pow(cylinder->radius, 2);
+	eq->t1 = -1;
+	eq->t2 = -1;
+}
+
 bool	inter_cylinder(t_cylinder *cy, t_ray *ray, t_hit *hit, double *valid_t)
 {
 	t_equation	equation;

@@ -34,13 +34,7 @@ static void	print_cylinder(t_cylinder cylinder)
 		cylinder.color.green, cylinder.color.blue);
 }
 
-// t_vector	tip;
-	t_vector	base;
-	// t_vector	normal;
-	// double		radius;
-	// double		height;
-	double		angle;
-	// t_color		color;
+
 
 static void	print_cone(t_cone cone)
 {
@@ -49,6 +43,8 @@ static void	print_cone(t_cone cone)
 		cone.tip.x, cone.tip.y, cone.tip.z);
 	printf("  Base: %.2lf, %.2lf, %.2lf\n", \
 		cone.base.x, cone.base.y, cone.base.z);
+	printf("  Center: %.2lf, %.2lf, %.2lf\n", \
+		cone.center.x, cone.center.y, cone.center.z);
 	printf("  Normal: %.2lf, %.2lf, %.2lf\n", \
 		cone.normal.x, cone.normal.y, cone.normal.z);
 	printf("  Color:  %d, %d, %d\n", cone.color.red,

@@ -42,3 +42,12 @@ inline t_vector	vector_copy(t_vector vec)
 		.z = vec.z
 	});
 }
+
+inline t_vector	vector_abs(t_vector vec)
+{
+	return ((t_vector){
+		.x = fabs(vec.x),
+		.y = fabs(vec.y),
+		.z = fabs(vec.z)
+	});
+}

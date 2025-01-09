@@ -151,6 +151,7 @@ typedef struct s_cone
 {
 	t_vector	tip;
 	t_vector	base;
+	t_vector	center;
 	t_vector	normal;
 	double		radius;
 	double		height;
@@ -224,6 +225,7 @@ typedef struct s_hit
 	t_vector	hit_normal;
 	t_color	color;
 	t_vector	cy_hp;
+	t_vector	co_hp;
 	double	distance;
 	bool	check_hit;
 	double	u;

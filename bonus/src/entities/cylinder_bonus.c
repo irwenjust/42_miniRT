@@ -44,8 +44,8 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 		return (ERROR("cylinder: wrong color value"), false);
 	if (!new_cylinder(arg, &cy))
 		return (ERROR("cylinder: fail to create new cylinder"), false);
-	cy.cap_u = vector_add(cy.center, vector_multi(cy.normal, -cy.height * 0.5));
-	cy.cap_b = vector_add(cy.center, vector_multi(cy.normal, cy.height * 0.5));
+	cy.cap_u = vector_add(cy.center, vector_scale(cy.normal, -cy.height * 0.5));
+	cy.cap_b = vector_add(cy.center, vector_scale(cy.normal, cy.height * 0.5));
 	shape = new_shape(&cy, CYLINDER, fclass->size, s()->shape_nbr[CYLINDER]);
 	shape->ks = ft_atod(arg[6]);
 	shape->shininess = ft_atod(arg[7]);
@@ -74,9 +74,9 @@ void	move_cylinder(t_key *keys, t_cylinder *cy)
 	else if (keys->key[Q])
 		cy->center.z -= 0.3;
 	cy->cap_u = vector_add(cy->center,
-			vector_multi(cy->normal, -cy->height * 0.5));
+			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
-			vector_multi(cy->normal, cy->height * 0.5));
+			vector_scale(cy->normal, cy->height * 0.5));
 	// cy->box = cy->rebuildbox(cy);
 }
 
@@ -95,9 +95,9 @@ void	rotate_cylinder(t_key *keys, t_cylinder *cy)
 	else if (keys->key[U])
 		cy->normal = vector_rotate(cy->normal, Z, (-ROTATE));
 	cy->cap_u = vector_add(cy->center,
-			vector_multi(cy->normal, -cy->height * 0.5));
+			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
-			vector_multi(cy->normal, cy->height * 0.5));
+			vector_scale(cy->normal, cy->height * 0.5));
 	// cy->box = cy->rebuildbox(cy);
 }
 
@@ -112,8 +112,8 @@ void	scaling_cylinder(t_key *keys, t_cylinder *cy)
 	else if (keys->cur_keycode == DOWN && cy->height - 0.1 > 0)
 		cy->height -= 0.1;
 	cy->cap_u = vector_add(cy->center,
-			vector_multi(cy->normal, -cy->height * 0.5));
+			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
-			vector_multi(cy->normal, cy->height * 0.5));
+			vector_scale(cy->normal, cy->height * 0.5));
 	// cy->box = cy->rebuildbox(cy);
 }
