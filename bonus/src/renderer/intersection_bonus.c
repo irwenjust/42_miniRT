@@ -22,13 +22,35 @@ bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter, double *valid_t)
 	*valid_t = 0;
 	if (shape->type == SPHERE)
 		checker = inter_sphere(&shape->data.sphere, ray, inter, valid_t);
-	if (shape->type == PLANE)
+	else if (shape->type == PLANE)
 		checker = inter_plane(&shape->data.plane, ray, inter, valid_t);
-	if (shape->type == CYLINDER)
+	else if (shape->type == CYLINDER)
 		checker = inter_cylinder(&shape->data.cylinder, ray, inter, valid_t);
+	else if (shape->type == CONE)
+		checker = inter_cone(&shape->data.cone, ray, inter, valid_t);
 	if (*valid_t < 0)
 		return (false);
 	return (checker && *valid_t > 0);
+}
+
+t_vector	cone_normal(t_hit *inter)
+{
+	t_vector	point;
+	t_vector	normal;
+	t_vector	tmp;
+	double		len_tip;
+	double		len;
+
+	point = inter->hit_point;
+	len_tip = vector_magnitude(vector_sub(point, inter->shape->data.cone.tip));
+	len = len_tip / cos(inter->shape->data.cone.angle);
+	tmp = vector_add(inter->shape->data.cone.tip, vector_multi(inter->shape->data.cone.normal, len));
+	normal = vector_sub(point, tmp);
+	if (vector_compare(inter->co_hp, inter->shape->data.cone.normal))
+		normal = inter->shape->data.cone.normal;
+	else if (vector_compare(point, inter->shape->data.cone.tip))
+		normal = vector_multi(inter->shape->data.cone.normal, -1);
+	return (normal);
 }
 
 /**
@@ -46,7 +68,7 @@ static t_vector	get_normal(t_hit *inter)
 		normal = inter->shape->data.plane.normal;
 	else if (inter->shape->type == SPHERE)
 		normal = vector_sub(point, inter->shape->data.sphere.center);
-	else
+	else if (inter->shape->type == CYLINDER)
 	{
 		normal = vector_sub(point, inter->cy_hp);
 		if (vector_compare(inter->cy_hp, inter->shape->data.cylinder.cap_u))
@@ -55,6 +77,8 @@ static t_vector	get_normal(t_hit *inter)
 				inter->shape->data.cylinder.cap_b))
 			normal = inter->shape->data.cylinder.normal;
 	}
+	else if (inter->shape->type == CONE)
+		cone_normal(inter);
 	return (vector_normalize(normal));
 }
 

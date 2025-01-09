@@ -112,6 +112,17 @@ t_color		diffuse(t_light *light, t_hit *inter, double brightness);
 t_color specular(t_light *light, t_hit *inter, double brightness);
 
 /**
+ * intersection
+ */
+bool		inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter,
+				double *valid_t);
+bool		inter_plane(t_plane *plane, t_ray *ray, t_hit *inter,
+				double *valid_t);
+bool		inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter,
+				double *valid_t);
+bool		inter_cone(t_cone *cone, t_ray *ray, t_hit *hit, double *valid_t);
+
+/**
  * entities
  */
 //ambient part
@@ -135,14 +146,11 @@ void		move_shape(t_key *keys, t_shape *shape);
 void		rotate_shape(t_key *keys, t_shape *shape);
 //sphere part
 bool		parse_sphere(char **tmp, t_fclass *fclass);
-bool		inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter,
-				double *valid_t);
 void		move_sphere(t_key *keys, t_sphere *sphere);
 void		scaling_sphere(t_key *keys, t_sphere *sphere);
 //plane part
 bool		parse_plane(char **arg, t_fclass *fclass);
-bool		inter_plane(t_plane *plane, t_ray *ray, t_hit *inter,
-				double *valid_t);
+
 void		move_plane(t_key *keys, t_plane *plane);
 void		rotate_plane(t_key *keys, t_plane *plane);
 //bool		inter_real_plane(t_plane *plane, t_ray *ray, double *valid_t);
@@ -151,9 +159,6 @@ bool		parse_cylinder(char **arg, t_fclass *fclass);
 void		move_cylinder(t_key *keys, t_cylinder *cylinder);
 void		rotate_cylinder(t_key *keys, t_cylinder *cylinder);
 void		scaling_cylinder(t_key *keys, t_cylinder *cy);
-//cylinder inter
-bool		inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter,
-				double *valid_t);
 //cone
 bool	parse_cone(char **arg, t_fclass *fclass);
 

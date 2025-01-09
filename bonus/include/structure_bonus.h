@@ -224,6 +224,7 @@ typedef struct s_hit
 	t_vector	hit_normal;
 	t_color	color;
 	t_vector	cy_hp;
+	t_vector	co_hp;
 	double	distance;
 	bool	check_hit;
 	double	u;
