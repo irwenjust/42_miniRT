@@ -55,6 +55,6 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[CONE]++;
 	push_to_fclass(fclass, shape);
-	print_shape(shape);
+	// print_shape(shape);
 	return (true);
 }

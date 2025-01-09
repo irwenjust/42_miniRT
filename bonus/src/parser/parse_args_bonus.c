@@ -59,6 +59,15 @@ void	parse_args(void)
 			free_matrix(tmp);
 			error_exit("mistake happend for file format");
 		}
+		// t_shape *shape;
+		// int j = -1;
+
+		// while (++j < s()->shapes->size)
+		// {
+		// 	shape = s()->shapes->array[j];
+		// 	if (shape->type == PLANE)
+		// 		printf("wtf type: %d, x: %f, ks: %lf,  i: %d, j: %d\n", shape->type, shape->u_axis.x, shape->ks, i, j);
+		// }
 		free_matrix(tmp);
 	}
 	check_counter(counter);

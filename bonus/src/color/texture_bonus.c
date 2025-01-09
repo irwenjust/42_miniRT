@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:13:56 by likong            #+#    #+#             */
-/*   Updated: 2025/01/08 14:17:24 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/09 15:31:03 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	init_image(t_image *img, int width, int height)
 {
 	if (!s()->win.mlx)
 		printf("error\n");
-	printf("mlx: %p\n", s()->win.mlx);
+	// printf("mlx: %p\n", s()->win.mlx);
 	img->img_ptr = mlx_new_image(s()->win.mlx, width, height);
 	if (!img->img_ptr)
 		error_exit("mlx_new_image failed");
@@ -72,15 +72,13 @@ t_image	*create_checkerboard(t_color color)
 				put_pixel(checkerboard->data, pixel, inverted);
 		}
 	}
+	// printf("Checkerboard allocated at: %p\n", checkerboard);
 	return (checkerboard);
 }
 
 t_color	add_texture(t_hit *hit)
 {
 	if (hit->shape->checkerboard)
-	{
-		printf("here\n");
 		return (uv_get_color(hit->shape->checkerboard, hit->u, hit->v));
-	}
 	return (hit->color);
 }
