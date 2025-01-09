@@ -44,7 +44,8 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	if (!new_cone(arg, &cone))
 		return (ERROR("cone: fail to create new cone"), false);
 	cone.angle = atan(cone.radius / cone.height) + 1e-8;
-	cone.base = vector_add(cone.tip, vector_multi(cone.normal, cone.height));
+	cone.base = vector_add(cone.tip, vector_scale(cone.normal, cone.height));
+	cone.center = vector_scale(vector_add(cone.tip, cone.base), 0.5);
 	shape = new_shape(&cone, CONE, fclass->size, s()->shape_nbr[CONE]);
 	shape->ks = ft_atod(arg[6]);
 	shape->shininess = ft_atod(arg[7]);

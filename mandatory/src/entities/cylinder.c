@@ -55,9 +55,9 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	if (!new_cylinder(arg, &cy))
 		return (ERROR("cylinder: fail to create new cylinder"), false);
 	cy.cap_u = vector_add(cy.center,
-			vector_multiple(cy.normal, -cy.height * 0.5));
+			vector_scale(cy.normal, -cy.height * 0.5));
 	cy.cap_b = vector_add(cy.center,
-			vector_multiple(cy.normal, cy.height * 0.5));
+			vector_scale(cy.normal, cy.height * 0.5));
 	shape = new_shape(&cy, CYLINDER, fclass->size, s()->shape_nbr[CYLINDER]);
 	s()->shape_nbr[CYLINDER]++;
 	push_to_fclass(fclass, shape);
@@ -79,9 +79,9 @@ void	move_cylinder(t_key *keys, t_cylinder *cy)
 	else if (keys->key[Q])
 		cy->center.z -= 0.3;
 	cy->cap_u = vector_add(cy->center,
-			vector_multiple(cy->normal, -cy->height * 0.5));
+			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
-			vector_multiple(cy->normal, cy->height * 0.5));
+			vector_scale(cy->normal, cy->height * 0.5));
 	// cy->box = box_cylinder(cy);
 }
 
@@ -100,9 +100,9 @@ void	rotate_cylinder(t_key *keys, t_cylinder *cy)
 	else if (keys->key[U])
 		cy->normal = vector_rotate(cy->normal, Z, (-ROTATE));
 	cy->cap_u = vector_add(cy->center,
-			vector_multiple(cy->normal, -cy->height * 0.5));
+			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
-			vector_multiple(cy->normal, cy->height * 0.5));
+			vector_scale(cy->normal, cy->height * 0.5));
 	// cy->box = box_cylinder(cy);
 }
 
@@ -117,8 +117,8 @@ void	scaling_cylinder(t_key *keys, t_cylinder *cy)
 	else if (keys->cur_keycode == DOWN && cy->height - 0.1 > 0)
 		cy->height -= 0.1;
 	cy->cap_u = vector_add(cy->center,
-			vector_multiple(cy->normal, -cy->height * 0.5));
+			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_b = vector_add(cy->center,
-			vector_multiple(cy->normal, cy->height * 0.5));
+			vector_scale(cy->normal, cy->height * 0.5));
 	// cy->box = box_cylinder(cy);
 }

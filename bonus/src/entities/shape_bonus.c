@@ -63,6 +63,8 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 		shape->data.cone = *(t_cone *)data;
 	if (shape->type != PLANE)
 		shape->box = shape_box(shape);
+	printf("shape type: %i\n", shape->type);
+	print_box(shape->box);
 	return (shape);
 }
 

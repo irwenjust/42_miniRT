@@ -193,7 +193,7 @@ void		camera_preset(int preset);
 //vector op basic
 t_vector	vector_add(t_vector v1, t_vector v2);
 t_vector	vector_sub(t_vector v1, t_vector v2);
-t_vector	vector_multiple(t_vector v1, double scalar);
+t_vector	vector_scale(t_vector a, double scalar);
 t_vector	vector_min(t_vector a, t_vector b);
 t_vector	vector_max(t_vector a, t_vector b);
 //vector op plus
@@ -201,7 +201,6 @@ double		vector_magnitude(t_vector a);
 t_vector	vector_normalize(t_vector a);
 t_vector	vector_cross(t_vector v1, t_vector v2);
 double		vector_dot(t_vector v1, t_vector v2);
-t_vector	vector_scale(t_vector a, double scalar);
 //vector rotate
 t_vector	vector_rotate(t_vector vec, int axis, double angle);
 //vector tools

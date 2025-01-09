@@ -151,6 +151,7 @@ typedef struct s_cone
 {
 	t_vector	tip;
 	t_vector	base;
+	t_vector	center;
 	t_vector	normal;
 	double		radius;
 	double		height;

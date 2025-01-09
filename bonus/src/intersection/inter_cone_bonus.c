@@ -18,7 +18,7 @@ static bool	check_co_wall(t_cone *cone, t_hit *hit, double t)
 	offset -= 1e-8;
 	if (offset >= 0 && offset <= cone->height && angle <= cone->angle)
 	{
-		hit->co_hp = vector_add(cone->tip, vector_multi(cone->normal, offset));
+		hit->co_hp = vector_add(cone->tip, vector_scale(cone->normal, offset));
 		// hit->offset = offset;
 		hit->distance = t;
 		return (true);
@@ -55,11 +55,10 @@ static double	hit_cone(t_cone *cone, t_ray *ray, t_equation *eq, t_hit *hit)
 {
 	hit->distance = INFINITY;
 	hit->ray = *ray;
-	if (!check_co_wall(cone, hit, eq->t1) || !check_co_wall(cone, hit, eq->t2))
-	{
-		check_co_base(cone, ray, hit, cone->base);
-	}
-	if (hit->distance == INFINITY || hit->distance < 0)
+	check_co_wall(cone, hit, eq->t1);
+	check_co_wall(cone, hit, eq->t2);
+	check_co_base(cone, ray, hit, cone->base);
+	if (hit->distance == INFINITY)
 		return (0);
 	return (hit->distance);
 }

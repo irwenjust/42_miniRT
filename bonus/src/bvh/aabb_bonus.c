@@ -30,15 +30,11 @@ t_aabb	box_cylinder(t_cylinder *cy)
 t_aabb	box_cone(t_cone *cone)
 {
 	t_vector	radius_vec;
-	t_vector	base_min;
-	t_vector	base_max;
 	t_aabb	cone_box;
 
 	radius_vec = (t_vector){cone->radius, cone->radius, cone->radius};
-	base_min = vector_sub(cone->base, radius_vec);
-	base_max = vector_add(cone->base, radius_vec);
-	cone_box.min = vector_min(base_min, cone->tip);
-	cone_box.max = vector_max(base_max, cone->tip);
+	cone_box.min = vector_sub(vector_min(cone->tip, cone->base), radius_vec);
+	cone_box.max = vector_add(vector_max(cone->tip, cone->base), radius_vec);
 	return (cone_box);
 }
 
@@ -52,9 +48,6 @@ t_aabb	shape_box(t_shape *shape)
 	else if (shape->type == CYLINDER)
 		box = box_cylinder(&(shape->data.cylinder));
 	else if (shape->type == CONE)
-	{
 		box = box_cone(&(shape->data.cone));
-		print_box(shape->box);
-	}
 	return (box);
 }

@@ -44,12 +44,12 @@ t_vector	cone_normal(t_hit *inter)
 	point = inter->hit_point;
 	len_tip = vector_magnitude(vector_sub(point, inter->shape->data.cone.tip));
 	len = len_tip / cos(inter->shape->data.cone.angle);
-	tmp = vector_add(inter->shape->data.cone.tip, vector_multi(inter->shape->data.cone.normal, len));
+	tmp = vector_add(inter->shape->data.cone.tip, vector_scale(inter->shape->data.cone.normal, len));
 	normal = vector_sub(point, tmp);
 	if (vector_compare(inter->co_hp, inter->shape->data.cone.normal))
 		normal = inter->shape->data.cone.normal;
 	else if (vector_compare(point, inter->shape->data.cone.tip))
-		normal = vector_multi(inter->shape->data.cone.normal, -1);
+		normal = vector_scale(inter->shape->data.cone.normal, -1);
 	return (normal);
 }
 
@@ -72,13 +72,13 @@ static t_vector	get_normal(t_hit *inter)
 	{
 		normal = vector_sub(point, inter->cy_hp);
 		if (vector_compare(inter->cy_hp, inter->shape->data.cylinder.cap_u))
-			normal = vector_multi(inter->shape->data.cylinder.normal, -1);
+			normal = vector_scale(inter->shape->data.cylinder.normal, -1);
 		else if (vector_compare(inter->cy_hp,
 				inter->shape->data.cylinder.cap_b))
 			normal = inter->shape->data.cylinder.normal;
 	}
 	else if (inter->shape->type == CONE)
-		cone_normal(inter);
+		normal = cone_normal(inter);
 	return (vector_normalize(normal));
 }
 

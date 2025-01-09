@@ -66,7 +66,3 @@ inline double	vector_dot(t_vector v1, t_vector v2)
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-inline t_vector	vector_scale(t_vector a, double scalar)
-{
-	return ((t_vector){a.x * scalar, a.y * scalar, a.z * scalar});
-}

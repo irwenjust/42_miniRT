@@ -11,7 +11,7 @@ static t_vector	find_shape_type(t_shape *shape)
 	else if (shape->type == CYLINDER)
 		return (shape->data.cylinder.center);
 	else if (shape->type == CONE)
-		return (shape->data.cone.tip);
+		return (shape->data.cone.center);
 	return ((t_vector){0});
 }
 

@@ -26,8 +26,8 @@ t_ray	make_ray(t_vector cur)
 	t_vector	tmp;
 	t_ray		ray;
 
-	horizontal = vector_multi(s()->normal_w, cur.x * s()->view_w);
-	vertical = vector_multi(s()->normal_h, cur.y * s()->view_h);
+	horizontal = vector_scale(s()->normal_w, cur.x * s()->view_w);
+	vertical = vector_scale(s()->normal_h, cur.y * s()->view_h);
 	tmp = vector_add(vertical, horizontal);
 	tmp = vector_add(tmp, s()->camera.normal);
 	tmp = vector_add(tmp, s()->camera.coordinate);
@@ -44,5 +44,5 @@ t_ray	make_ray(t_vector cur)
  */
 inline t_vector	point_on_ray(t_ray *ray, double t)
 {
-	return (vector_add(ray->start, vector_multi(ray->normal, t)));
+	return (vector_add(ray->start, vector_scale(ray->normal, t)));
 }
