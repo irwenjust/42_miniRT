@@ -23,6 +23,11 @@ static void	display_shape(int x, int y, t_shape *shape)
 		display_clear(x += (9 * 6), y, 0xFFD700,
 			ft_itoa(shape->shape_id[CYLINDER]));
 	}
+	else if (shape->type == CONE)
+	{
+		display(x += (16 * 6), y, 0xFFD700, "Cone");
+		display_clear(x += (5 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[CONE]));
+	}
 	display(x += (4 * 6), y, 0x87CEFA, ">");
 	display(x += (3 * 6), y, 0xFFFFFF, "TAB : To Next Shape");
 }
@@ -37,7 +42,7 @@ static void	display_shape_preset(int x, int y)
 	display(x + (88 * 6), y, 0xFFFFFF, "5 : Forest");
 	display(x + (103 * 6), y, 0xFFFFFF, "6 : Coffee");
 	if (s()->preset == 1)
-		display(x + (22 * 6), y, 0xFFD700, "1 : Soft Dream");
+		display(x + (25 * 6), y, 0xFFD700, "1 : Soft Dream");
 	if (s()->preset == 2)
 		display(x + (41 * 6), y, 0xFFD700, "2 : Sunset");
 	if (s()->preset == 3)
@@ -62,8 +67,10 @@ void	shape_menu(int x, int y)
 		display_color(x, y + 40, &shape->data.sphere.color);
 	else if (shape->type == PLANE)
 		display_color(x, y + 40, &shape->data.plane.color);
-	else
+	else if (shape->type == CYLINDER)
 		display_color(x, y + 40, &shape->data.cylinder.color);
+	else
+		display_color(x, y + 40, &shape->data.cone.color);
 	display_shape_preset(x, y + 60);
 	display_mode(x, y + 80);
 }

@@ -1,7 +1,7 @@
 
 #include "miniRT_bonus.h"
 
-t_aabb	box_sphere(t_sphere *sphere)
+static t_aabb	box_sphere(t_sphere *sphere)
 {
 	t_vector	radius_vec;
 	t_aabb		sphere_box;
@@ -12,7 +12,7 @@ t_aabb	box_sphere(t_sphere *sphere)
 	return (sphere_box);
 }
 
-t_aabb	box_cylinder(t_cylinder *cy)
+static t_aabb	box_cylinder(t_cylinder *cy)
 {
 	t_vector	radius_vec;
 	t_vector	abs_normal;
@@ -28,7 +28,7 @@ t_aabb	box_cylinder(t_cylinder *cy)
 	return (cylinder_box);
 }
 
-t_aabb	box_cone(t_cone *cone)
+static t_aabb	box_cone(t_cone *cone)
 {
 	t_vector	radius_vec;
 	t_vector	abs_normal;

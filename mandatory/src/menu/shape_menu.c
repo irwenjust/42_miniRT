@@ -47,7 +47,7 @@ static void	display_shape_preset(int x, int y)
 	display(x + (88 * 6), y, 0xFFFFFF, "5 : Forest");
 	display(x + (103 * 6), y, 0xFFFFFF, "6 : Coffee");
 	if (s()->preset == 1)
-		display(x + (22 * 6), y, 0xFFD700, "1 : Soft Dream");
+		display(x + (25 * 6), y, 0xFFD700, "1 : Soft Dream");
 	if (s()->preset == 2)
 		display(x + (41 * 6), y, 0xFFD700, "2 : Sunset");
 	if (s()->preset == 3)

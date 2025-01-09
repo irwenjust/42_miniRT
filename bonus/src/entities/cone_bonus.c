@@ -1,7 +1,5 @@
 #include "miniRT_bonus.h"
 
-
-
 static bool	new_cone(char **arg, t_cone *cone)
 {
 	char	**tmp;
@@ -31,7 +29,6 @@ static bool	new_cone(char **arg, t_cone *cone)
 	return (true);
 }
 
-
 bool	parse_cone(char **arg, t_fclass *fclass)
 {
 	t_shape	*shape;
@@ -58,4 +55,41 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	push_to_fclass(fclass, shape);
 	// print_shape(shape);
 	return (true);
+}
+
+void	move_cone(t_key *keys, t_cone *cone)
+{
+	if (keys->key[D])
+		cone->tip.x += 0.3;
+	else if (keys->key[A])
+		cone->tip.x -= 0.3;
+	if (keys->key[W])
+		cone->tip.y += 0.3;
+	else if (keys->key[S])
+		cone->tip.y -= 0.3;
+	else if (keys->key[E])
+		cone->tip.z += 0.3;
+	else if (keys->key[Q])
+		cone->tip.z -= 0.3;
+	cone->base = vector_add(cone->tip, vector_scale(cone->normal, cone->height));
+	cone->center = vector_scale(vector_add(cone->tip, cone->base), 0.5);
+}
+
+void	rotate_cone(t_key *keys, t_cone *cone)
+{
+	if (keys->key[I])
+		cone->normal = vector_rotate(cone->normal, X, ROTATE);
+	else if (keys->key[K])
+		cone->normal = vector_rotate(cone->normal, X, (-ROTATE));
+	else if (keys->key[L])
+		cone->normal = vector_rotate(cone->normal, Y, ROTATE);
+	else if (keys->key[J])
+		cone->normal = vector_rotate(cone->normal, Y, (-ROTATE));
+	else if (keys->key[O])
+		cone->normal = vector_rotate(cone->normal, Z, ROTATE);
+	else if (keys->key[U])
+		cone->normal = vector_rotate(cone->normal, Z, (-ROTATE));
+	cone->base = vector_add(cone->tip, vector_scale(cone->normal, cone->height));
+	cone->center = vector_scale(vector_add(cone->tip, cone->base), 0.5);
+	
 }

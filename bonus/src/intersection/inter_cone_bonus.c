@@ -35,15 +35,17 @@ static bool	check_co_base(t_cone *cone, t_ray *ray, t_hit *hit, t_vector base)
 
 	plane.center = base;
 	plane.normal = cone->normal;
-	plane.color = BLACK;
+	plane.color = cone->color;
 	offset = 1e-8;
 	if (inter_plane(&plane, ray, &base_hit, &offset))
 	{
+		if (base_hit.distance < 1e-8 || base_hit.distance > hit->distance)
+			return (false);
 		point = point_on_ray(&hit->ray, base_hit.distance);
 		offset = vector_magnitude(vector_sub(point, base));
-		if (offset >= 0 && offset <= cone->radius && base_hit.distance > 1e-8 && base_hit.distance < hit->distance)
+		if (offset >= 0 && offset <= cone->radius)
 		{
-			hit->co_hp = base;
+			hit->co_hp = cone->normal;
 			hit->distance = base_hit.distance;
 			return (true);
 		}

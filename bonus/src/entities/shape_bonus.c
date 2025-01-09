@@ -75,7 +75,7 @@ void	move_shape(t_key *keys, t_shape *shape)
 	if (shape->type == SPHERE)
 	{
 		move_sphere(keys, &(shape->data.sphere));
-		shape->box = box_sphere(&(shape->data.sphere));
+		// shape->box = box_sphere(&(shape->data.sphere));
 		// shape->box = shape->data.sphere.box;
 	}
 	else if (shape->type == PLANE)
@@ -83,9 +83,13 @@ void	move_shape(t_key *keys, t_shape *shape)
 	else if (shape->type == CYLINDER)
 	{
 		move_cylinder(keys, &(shape->data.cylinder));
-		shape->box = box_cylinder(&(shape->data.cylinder));
+		// shape->box = box_cylinder(&(shape->data.cylinder));
 		// shape->box = shape->data.cylinder.box;
 	}
+	else if (shape->type == CONE)
+		move_cone(keys, &(shape->data.cone));
+	if (shape->type != PLANE)
+		shape->box = shape_box(shape);
 	print_box(shape->box);
 }
 
@@ -96,9 +100,13 @@ void	rotate_shape(t_key *keys, t_shape *shape)
 	else if (shape->type == CYLINDER)
 	{
 		rotate_cylinder(keys, &(shape->data.cylinder));
-		shape->box = box_cylinder(&(shape->data.cylinder));
+		// shape->box = box_cylinder(&(shape->data.cylinder));
 		// shape->box = shape->data.cylinder.box;
 	}
+	else if (shape->type == CONE)
+		rotate_cone(keys, &(shape->data.cone));
+	if (shape->type != PLANE)
+		shape->box = shape_box(shape);
 	print_box(shape->box);
 }
 
