@@ -24,7 +24,12 @@ t_color	color_create(double r, double g, double b)
 
 t_color	color_sub(t_color c1, t_color c2)
 {
-	return (color_create(c1.red - c2.red, c1.green - c2.green, c1.blue - c2.blue));
+	return ((t_color){
+		.red = ft_within_range(c1.red - c2.red, 0, 255),
+		.green = ft_within_range(c1.green - c2.green, 0, 255),
+		.blue = ft_within_range(c1.blue - c2.blue, 0, 255),
+		.alpha = ft_within_range(0XFF, 0, 255)
+	});
 }
 
 t_color	color_multi(t_color c1, t_color c2)

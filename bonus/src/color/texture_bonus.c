@@ -14,17 +14,16 @@
 
 static void put_test_pixel(char *img_data, int pixel, t_color color)
 {
-	img_data[pixel + 0] = (unsigned char)(color.red * 255);
-    img_data[pixel + 1] = (unsigned char)(color.green * 255);
-    img_data[pixel + 2] = (unsigned char)(color.blue * 255);
-    img_data[pixel + 3] = (unsigned char)(color.alpha * 255);
+	img_data[pixel + 0] = (unsigned char)(color.red);
+    img_data[pixel + 1] = (unsigned char)(color.green);
+    img_data[pixel + 2] = (unsigned char)(color.blue);
+    img_data[pixel + 3] = (unsigned char)(color.alpha);
 }
 
 static void	init_image(t_image *img, int width, int height)
 {
 	if (!s()->win.mlx)
 		printf("error\n");
-	// printf("mlx: %p\n", s()->win.mlx);
 	img->img_ptr = mlx_new_image(s()->win.mlx, width, height);
 	if (!img->img_ptr)
 		error_exit("mlx_new_image failed");
