@@ -23,6 +23,7 @@ void	reset_shapes(void)
 	while (++i < s()->shapes->size)
 		s()->shapes->array[i] = copy_shape(s()->ori_shapes->array[i]);
 }
+
 void	reset_all(void)
 {
 	s()->ambient = copy_ambient(s()->ori_ambient);

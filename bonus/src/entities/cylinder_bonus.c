@@ -28,8 +28,6 @@ static bool	new_cylinder(char **arg, t_cylinder *cy)
 		return (ERROR("cylinder: fail to split color"), false);
 	cy->color = parse_color(tmp);
 	free_matrix(tmp);
-	// cy->box = box_cylinder(cy);
-	// cy->rebuildbox = box_cylinder;
 	return (true);
 }
 
@@ -53,7 +51,7 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 		return (ERROR("sphere: wrong ks value"), false);
 	if (shape->shininess < 1 || shape->shininess > 128)
 		return (ERROR("sphere: wrong shininess value"), false);
-	printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
+	// printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[CYLINDER]++;
 	push_to_fclass(fclass, shape);
 	return (true);
@@ -77,7 +75,6 @@ void	move_cylinder(t_key *keys, t_cylinder *cy)
 			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_e = vector_add(cy->center,
 			vector_scale(cy->normal, cy->height * 0.5));
-	// cy->box = cy->rebuildbox(cy);
 }
 
 void	rotate_cylinder(t_key *keys, t_cylinder *cy)
@@ -98,7 +95,6 @@ void	rotate_cylinder(t_key *keys, t_cylinder *cy)
 			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_e = vector_add(cy->center,
 			vector_scale(cy->normal, cy->height * 0.5));
-	// cy->box = cy->rebuildbox(cy);
 }
 
 void	scaling_cylinder(t_key *keys, t_cylinder *cy)
@@ -115,5 +111,4 @@ void	scaling_cylinder(t_key *keys, t_cylinder *cy)
 			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_e = vector_add(cy->center,
 			vector_scale(cy->normal, cy->height * 0.5));
-	// cy->box = cy->rebuildbox(cy);
 }

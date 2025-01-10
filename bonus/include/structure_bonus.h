@@ -149,6 +149,7 @@ typedef struct s_cylinder
 	// t_aabb		(*rebuildbox)(struct s_cylinder *shape);
 }	t_cylinder;
 
+//normal from tip to base
 typedef struct s_cone
 {
 	t_vector	tip;

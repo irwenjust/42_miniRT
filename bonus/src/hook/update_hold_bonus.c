@@ -32,19 +32,11 @@ void	update_scaling(t_key *keys)
 		if (shape->type == PLANE)
 			return ;
 		else if (shape->type == SPHERE)
-		{
 			scaling_sphere(keys, &shape->data.sphere);
-			// shape->box = box_sphere(&(shape->data.sphere));
-			// shape->box = shape->data.sphere.box;
-		}
 		else if (shape->type == CYLINDER)
-		{
 			scaling_cylinder(keys, &shape->data.cylinder);
-			// shape->box = box_cylinder(&(shape->data.cylinder));
-			// shape->box = shape->data.cylinder.box;
-		}
-		// else if (shape->type == CONE)
-		// 	scaling_cone(keys, &shape->data.cone);
+		else if (shape->type == CONE)
+			scaling_cone(keys, &shape->data.cone);
 		if (shape->type != PLANE)
 			shape->box = shape_box(shape);
 		print_box(shape->box);
@@ -55,7 +47,6 @@ void	update_scaling(t_key *keys)
 		update_camera_fov(keys);
 	rebuild_bvh();
 	control_frame_rate();
-	
 }
 
 void	update_move(t_key *keys)

@@ -19,7 +19,7 @@ void	display(int x, int y, int color, char *text)
 	mlx_string_put(s()->win.mlx, s()->win.disp, x, y, color, text);
 }
 
-void	display_clear(int x, int y, int color, char *text)
+void	display_f(int x, int y, int color, char *text)
 {
 	if (!text)
 		error_exit("Fail in menu display");

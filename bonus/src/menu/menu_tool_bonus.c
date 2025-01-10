@@ -20,7 +20,7 @@ void	display_move_rotate_size(int x, int y)
 	{
 		display(x += (36 * 6), y, 0x87CEFA, "Scaling >");
 		display(x += (11 * 6), y, 0xFFFFFF, "Left/Right : -/+ Radius");
-		if (((t_shape *)(s()->shapes->array[s()->select]))->type == CYLINDER)
+		if (((t_shape *)(s()->shapes->array[s()->select]))->type != SPHERE)
 			display(x, y += 20, 0xFFFFFF, "Down/Up : -/+ Height");
 	}
 }
@@ -29,19 +29,19 @@ void	display_color(int x, int y, t_color *rgb)
 {
 	display(x, y, 0x87CEFA, "Color >");
 	if (s()->select_rgb == 0)
-		display_clear(x += (9 * 6), y, 0xFFD700, ft_itoa(rgb->red));
+		display_f(x += (9 * 6), y, 0xFFD700, ft_itoa(rgb->red));
 	else
-		display_clear(x += (9 * 6), y, 0xFFFFFF, ft_itoa(rgb->red));
+		display_f(x += (9 * 6), y, 0xFFFFFF, ft_itoa(rgb->red));
 	display(x += (ft_intlen(rgb->red) * 6), y, 0xFFFFFF, ", ");
 	if (s()->select_rgb == 1)
-		display_clear(x += (2 * 6), y, 0xFFD700, ft_itoa(rgb->green));
+		display_f(x += (2 * 6), y, 0xFFD700, ft_itoa(rgb->green));
 	else
-		display_clear(x += (2 * 6), y, 0xFFFFFF, ft_itoa(rgb->green));
+		display_f(x += (2 * 6), y, 0xFFFFFF, ft_itoa(rgb->green));
 	display(x += (ft_intlen(rgb->green) * 6), y, 0xFFFFFF, ", ");
 	if (s()->select_rgb == 2)
-		display_clear(x += (2 * 6), y, 0xFFD700, ft_itoa(rgb->blue));
+		display_f(x += (2 * 6), y, 0xFFD700, ft_itoa(rgb->blue));
 	else
-		display_clear(x += (2 * 6), y, 0xFFFFFF, ft_itoa(rgb->blue));
+		display_f(x += (2 * 6), y, 0xFFFFFF, ft_itoa(rgb->blue));
 	display(x += (ft_intlen(rgb->blue) * 6), y, 0x87CEFA, "  >");
 	display(x += (5 * 6), y, 0xFFFFFF, "P : Change Color Channel");
 	display(x += (29 * 6), y, 0xFFFFFF, "[/] : +/- Color Value");
@@ -50,7 +50,7 @@ void	display_color(int x, int y, t_color *rgb)
 void	display_brightness(int x, int y, double brightness)
 {
 	display(x, y, 0x87CEFA, "Brightness >");
-	display_clear(x += (14 * 6), y, 0xFFD700, ft_dtoa_one(brightness));
+	display_f(x += (14 * 6), y, 0xFFD700, ft_dtoa_one(brightness));
 	display(x += (5 * 6), y, 0x87CEFA, ">");
 	display(x += (2 * 6), y, 0xFFFFFF, "Up/Down : +/- Brightness");
 }
