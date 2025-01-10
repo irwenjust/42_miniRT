@@ -23,8 +23,8 @@ static t_aabb	box_cylinder(t_cylinder *cy)
 	abs_normal = vector_abs(cy->normal);
 	extent_vec = vector_sub((t_vector){1.0, 1.0, 1.0}, abs_normal);
 	radius_vec = vector_scale(extent_vec, cy->radius);
-	cylinder_box.min = vector_sub(vector_min(cy->cap_u, cy->cap_b), radius_vec);
-	cylinder_box.max = vector_add(vector_max(cy->cap_u, cy->cap_b), radius_vec);
+	cylinder_box.min = vector_sub(vector_min(cy->cap_s, cy->cap_e), radius_vec);
+	cylinder_box.max = vector_add(vector_max(cy->cap_s, cy->cap_e), radius_vec);
 	return (cylinder_box);
 }
 

@@ -133,12 +133,12 @@ typedef struct s_plane
 typedef struct s_cylinder
 {
 	t_vector	center;
-	t_vector	normal;
+	t_vector	normal; //center -> cap_e
 	double		radius;
 	double		height;
 	t_color		color;
-	t_vector	cap_u;
-	t_vector	cap_b;
+	t_vector	cap_s;
+	t_vector	cap_e;
 	// t_aabb		box;
 	// t_aabb		(*rebuildbox)(struct s_cylinder *shape);
 }	t_cylinder;
