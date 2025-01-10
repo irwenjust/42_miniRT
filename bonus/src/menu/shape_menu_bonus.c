@@ -8,25 +8,22 @@ static void	display_shape(int x, int y, t_shape *shape)
 	if (shape->type == SPHERE)
 	{
 		display(x += (16 * 6), y, 0xFFD700, "Sphere");
-		display_clear(x += (7 * 6), y, 0xFFD700,
-			ft_itoa(shape->shape_id[SPHERE]));
+		display_f(x += (7 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[SPHERE]));
 	}
 	else if (shape->type == PLANE)
 	{
 		display(x += (16 * 6), y, 0xFFD700, "Plane");
-		display_clear(x += (6 * 6), y, 0xFFD700,
-			ft_itoa(shape->shape_id[PLANE]));
+		display_f(x += (6 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[PLANE]));
 	}
 	else if (shape->type == CYLINDER)
 	{
 		display(x += (16 * 6), y, 0xFFD700, "Cylinder");
-		display_clear(x += (9 * 6), y, 0xFFD700,
-			ft_itoa(shape->shape_id[CYLINDER]));
+		display_f(x += (9 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[CYLINDER]));
 	}
 	else if (shape->type == CONE)
 	{
 		display(x += (16 * 6), y, 0xFFD700, "Cone");
-		display_clear(x += (5 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[CONE]));
+		display_f(x += (5 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[CONE]));
 	}
 	display(x += (4 * 6), y, 0x87CEFA, ">");
 	display(x += (3 * 6), y, 0xFFFFFF, "TAB : To Next Shape");

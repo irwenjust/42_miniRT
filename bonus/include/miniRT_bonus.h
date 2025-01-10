@@ -162,6 +162,7 @@ void		scaling_cylinder(t_key *keys, t_cylinder *cy);
 bool	parse_cone(char **arg, t_fclass *fclass);
 void	move_cone(t_key *keys, t_cone *cone);
 void	rotate_cone(t_key *keys, t_cone *cone);
+void	scaling_cone(t_key *keys, t_cone *cone);
 
 /**
  * key hook
@@ -239,7 +240,7 @@ void		check_hit(t_hit *hit);
  */
 void		display_menu(void);
 void		display(int x, int y, int color, char *text);
-void		display_clear(int x, int y, int color, char *text);
+void		display_f(int x, int y, int color, char *text);
 //menu
 void		view_menu(int ori_x, int y);
 void		camera_menu(int ori_x, int y);

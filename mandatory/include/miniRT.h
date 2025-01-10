@@ -234,7 +234,7 @@ t_shape		**shapes_to_arr(t_shape **shapes);
  */
 void		display_menu(void);
 void		display(int x, int y, int color, char *text);
-void		display_clear(int x, int y, int color, char *text);
+void		display_f(int x, int y, int color, char *text);
 //menu
 void		view_menu(int ori_x, int y);
 void		camera_menu(int ori_x, int y);

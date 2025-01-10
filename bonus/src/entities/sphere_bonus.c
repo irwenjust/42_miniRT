@@ -64,8 +64,6 @@ void	move_sphere(t_key *keys, t_sphere *sphere)
 		sphere->center.z += 0.3;
 	else if (keys->key[Q])
 		sphere->center.z -= 0.3;
-	// sphere->box = sphere->rebuildbox(sphere);
-	// printf("move sphere\n");
 }
 
 void	scaling_sphere(t_key *keys, t_sphere *sphere)
