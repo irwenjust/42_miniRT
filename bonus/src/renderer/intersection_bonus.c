@@ -72,10 +72,10 @@ static t_vector	get_normal(t_hit *inter)
 	else if (inter->shape->type == CYLINDER)
 	{
 		normal = vector_sub(point, inter->cy_hp);
-		if (vector_compare(inter->cy_hp, inter->shape->data.cylinder.cap_u))
+		if (vector_compare(inter->cy_hp, inter->shape->data.cylinder.cap_s))
 			normal = vector_scale(inter->shape->data.cylinder.normal, -1);
 		else if (vector_compare(inter->cy_hp,
-				inter->shape->data.cylinder.cap_b))
+				inter->shape->data.cylinder.cap_e))
 			normal = inter->shape->data.cylinder.normal;
 	}
 	else if (inter->shape->type == CONE)

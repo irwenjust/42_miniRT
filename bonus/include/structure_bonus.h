@@ -134,6 +134,8 @@ typedef struct s_plane
 	t_color		color;
 }	t_plane;
 
+//cap_s start
+//cap_e end
 typedef struct s_cylinder
 {
 	t_vector	center;
@@ -141,8 +143,8 @@ typedef struct s_cylinder
 	double		radius;
 	double		height;
 	t_color		color;
-	t_vector	cap_u;
-	t_vector	cap_b;
+	t_vector	cap_s;
+	t_vector	cap_e;
 	// t_aabb		box;
 	// t_aabb		(*rebuildbox)(struct s_cylinder *shape);
 }	t_cylinder;
