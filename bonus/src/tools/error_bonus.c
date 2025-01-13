@@ -30,23 +30,39 @@ void	ft_free(void *ptr)
 // 	}
 // }
 
+void	free_test_matrix(void **matrix)
+{
+	size_t	i;
+
+	i = 0;
+	if (!matrix)
+		return ;
+	while (matrix[i])
+	{
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
+	matrix = NULL;
+}
+
 void	delete_scene(void)
 {
 	delete_fclass(s()->light);
 	delete_fclass(s()->shapes);
 	delete_fclass(s()->ori_light);
 	delete_fclass(s()->ori_shapes);
-	free_matrix(s()->args);
+	free_test_matrix((void **)s()->args);
 	if (s()->win.img)
 		mlx_destroy_image(s()->win.mlx, s()->win.img);
 	if (s()->win.menu)
 		mlx_destroy_image(s()->win.mlx, s()->win.menu);
 	if (s()->win.disp)
 		mlx_destroy_window(s()->win.mlx, s()->win.disp);
-	if (s()->win.checkerboard)
-		mlx_destroy_image(s()->win.mlx, s()->win.checkerboard);
-	if (s()->checkerboard)
-		ft_free(s()->checkerboard);
+	if (s()->win.cboard)
+		mlx_destroy_image(s()->win.mlx, s()->win.cboard);
+	// free_test_matrix((void **)s()->cboard);
+	ft_free(s()->cboard);
 	if (s()->win.mlx)
 	{
 		mlx_do_key_autorepeaton(s()->win.mlx);

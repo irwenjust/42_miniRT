@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:38:26 by likong            #+#    #+#             */
-/*   Updated: 2025/01/09 20:46:32 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/13 13:44:41 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,21 @@ static void	plane_uv(t_hit *hit, double *u, double *v, int repeat)
 	*v = vector_dot(v_axis, local_point) * 0.01;
 	// printf("u: %f, v: %f\n", *u, *v);
 	uv_repeat_wrap(u, v, repeat);
+}
+
+static void	sphere_uv(t_hit *hit, double *u, double *v, int repeat)
+{
+	t_vector	local_point;
+	t_shape		*shape;
+	double		azimuth;
+	double		polar;
+
+	shape = hit->shape;
+	local_point = hit->hit_normal;
+	local_point = (t_vector){
+		vector_dot(local_point, shape->u_axis),
+		vector_dot(local_point, shape->data.sphere.normal),
+		vector_dot(local_point, shape)};
 }
 
 void	add_uv_axis(t_shape *shape, t_vector normal)
@@ -105,6 +120,8 @@ void	find_uv(t_hit *hit)
 	tmp = hit->shape;
 	if (tmp->type == PLANE)
 		plane_uv(hit, &u, &v, 1);
+	else if (tmp->type == SPHERE)
+		sphere_uv(hit, &u, &v, 1);
 	hit->u = u;
 	hit->v = v;
 	// printf("u: %f, v: %f\n", hit->u, hit->v);

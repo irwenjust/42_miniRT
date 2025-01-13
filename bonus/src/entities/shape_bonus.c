@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:41:48 by likong            #+#    #+#             */
-/*   Updated: 2025/01/13 10:52:58 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/13 12:59:20 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_shape	*copy_shape(t_shape *shape)
 	res->shininess = shape->shininess;
 	res->u_axis = shape->u_axis;
 	res->v_axis = shape->v_axis;
-	res->checkerboard = shape->checkerboard;
+	res->cboard = shape->cboard;
 	if (res->type == SPHERE)
 		res->data.sphere = shape->data.sphere;
 	else if (res->type == PLANE)
@@ -53,12 +53,7 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 	if (shape->type == SPHERE)
 		shape->data.sphere = *(t_sphere *)data;
 	else if (shape->type == PLANE)
-	{
 		shape->data.plane = *(t_plane *)data;
-		// shape->checkerboard = create_checkerboard(shape->data.plane.color);
-		// s()->checkerboard = shape->checkerboard;
-		// s()->win.test = shape->checkerboard->img_ptr;
-	}
 	else if (shape->type == CYLINDER)
 		shape->data.cylinder = *(t_cylinder *)data;
 	else if (shape->type == CONE)

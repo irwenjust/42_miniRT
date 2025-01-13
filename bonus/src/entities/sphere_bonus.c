@@ -18,6 +18,7 @@ static bool	new_sphere(char **arg, t_sphere *sphere)
 	if (!tmp)
 		return (ERROR("sphere: fail to split color"), false);
 	sphere->color = parse_color(tmp);
+	sphere->normal = (t_vector){0, 1, 0};
 	free_matrix(tmp);
 	// sphere->box = box_sphere(sphere);
 	// sphere->rebuildbox = box_sphere;
@@ -38,6 +39,7 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	if (!new_sphere(arg, &sphere))
 		return (ERROR("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
+	check_texture(arg, shape);
 	shape->ks = ft_atod(arg[4]);
 	shape->shininess = ft_atod(arg[5]);
 	if (shape->ks < 1e-8 || shape->ks > 1)

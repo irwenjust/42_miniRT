@@ -129,6 +129,7 @@ typedef struct s_light
 typedef struct s_sphere
 {
 	t_vector	center;
+	t_vector	normal;
 	double		radius;
 	t_color		color;
 	// t_aabb		box;
@@ -191,7 +192,7 @@ typedef struct s_shape
 	double			shininess;
 	t_vector		u_axis;
 	t_vector		v_axis;
-	t_image			*checkerboard;
+	t_image			*cboard;
 }	t_shape;
 
 /**
@@ -253,7 +254,7 @@ typedef struct s_windows
 	void	*disp;
 	void	*img;
 	void	*menu;
-	void	*checkerboard;
+	void	*cboard;
 	char	*addr;
 	int		height;
 	int		width;
@@ -307,7 +308,7 @@ typedef struct s_scene
 	int			bvh_level; // the index level for bvh binary tree
 	t_list		*unbound; // for plane and maybe more things later
 	t_bvh		*bvh;
-	t_image		*checkerboard;
+	t_image		*cboard;
 }	t_scene;
 
 #endif
