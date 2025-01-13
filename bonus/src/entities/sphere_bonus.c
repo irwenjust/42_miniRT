@@ -46,8 +46,8 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 		return (ERROR("sphere: wrong ks value"), false);
 	if (shape->shininess < 1 || shape->shininess > 128)
 		return (ERROR("sphere: wrong shininess value"), false);
-	printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[SPHERE]++;
+	add_uv_axis(shape, shape->data.plane.normal);
 	push_to_fclass(fclass, shape);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:38:26 by likong            #+#    #+#             */
-/*   Updated: 2025/01/13 13:44:41 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/13 14:47:42 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,13 @@ static void	sphere_uv(t_hit *hit, double *u, double *v, int repeat)
 	local_point = (t_vector){
 		vector_dot(local_point, shape->u_axis),
 		vector_dot(local_point, shape->data.sphere.normal),
-		vector_dot(local_point, shape)};
+		vector_dot(local_point, shape->v_axis)};
+	local_point = vector_normalize(local_point);
+	azimuth = atan2(local_point.z, local_point.x);
+	polar = acos(local_point.y);
+	*u = (azimuth + PI) / (2 * PI);
+	*v = polar / PI;
+	uv_repeat_wrap(u, v, repeat);
 }
 
 void	add_uv_axis(t_shape *shape, t_vector normal)
