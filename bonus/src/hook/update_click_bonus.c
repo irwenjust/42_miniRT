@@ -21,8 +21,7 @@ void	update_menu(t_key *keys)
 		s()->select = 0;
 		s()->select_rgb = 0;
 		s()->preset = 0;
-		// render();
-		render_thread();
+		render(0);
 	}
 	keys->action = NOTHING;
 }
@@ -47,8 +46,7 @@ void	update_preset(t_key *keys)
 	{
 		s()->preset = preset;
 		switch_preset(preset);
-		// render();
-		render_thread();
+		render(0);
 	}
 	keys->action = NOTHING;
 }
@@ -56,10 +54,7 @@ void	update_preset(t_key *keys)
 void	update_reset(t_key *keys)
 {
 	if (keys->key[R])
-	{
-		// render();
-		render_thread();
-	}
+		render(0);
 	else if (keys->key[G])
 	{
 		if (s()->menu == CAMERA)
@@ -71,8 +66,7 @@ void	update_reset(t_key *keys)
 		if (s()->menu == VIEW)
 			reset_all();
 		s()->preset = 0;
-		// render();
-		render_thread();
+		render(0);
 	}
 	keys->action = NOTHING;
 }

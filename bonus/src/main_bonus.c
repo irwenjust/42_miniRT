@@ -19,7 +19,7 @@ void	control_frame_rate(void)
 	{
 		s()->last_frame_time = current_time;
 		// fake_render();
-		render_thread();
+		render(1);
 	}
 	else
 		usleep(FRAME_TIME - elapsed_time);
@@ -31,9 +31,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error_exit("need and only need one argument");
 	init_scene(argv[1]);
-	
-	// render();
-	render_thread();
+	render(0);
 	
 	mlx_do_key_autorepeatoff(s()->win.mlx);
 	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, press_key, &s()->keys);

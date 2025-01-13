@@ -23,7 +23,7 @@
  * 		x = WIDTH ---> x = 1, the right edge of screen
  * 		x = WIDTH / 2 ---> x = 0, the center of screen
  */
-t_vector	convert_viewport(double x, double y)
+static t_vector	convert_viewport(double x, double y)
 {
 	t_vector	converted;
 
@@ -41,6 +41,62 @@ void	put_pixel(t_color c, int x, int y)
 	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
 }
 
+void	*fake_render_thread(void *arg)
+{
+	t_thread_data	*data;
+	t_hit		closest;
+	t_vector	cur;
+	t_vector	converted_cur;
+	t_ray		ray;
+
+	data = (t_thread_data *)arg;
+	cur.y = data->start_y;
+	while (cur.y < data->end_y)
+	{
+		cur.x = data->start_x;
+		while (cur.x < data->end_x)
+		{
+			closest = init_hit();
+			converted_cur = convert_viewport(cur.x, cur.y);
+			ray = make_ray(converted_cur);
+			if (check_intersection(s()->shapes, &ray, &closest))
+				check_illumination(&closest);
+			put_pixel(closest.color, cur.x, cur.y);
+			cur.x += 3;
+		}
+		cur.y += 3;
+	}
+	return (NULL);
+}
+
+void	*render_thread(void *arg)
+{
+	t_thread_data	*data;
+	t_hit		closest;
+	t_vector	cur;
+	t_vector	converted_cur;
+	t_ray		ray;
+
+	data = (t_thread_data *)arg;
+	cur.y = data->start_y;
+	while (cur.y < data->end_y)
+	{
+		cur.x = data->start_x;
+		while (cur.x < data->end_x)
+		{
+			closest = init_hit();
+			converted_cur = convert_viewport(cur.x, cur.y);
+			ray = make_ray(converted_cur);
+			if (check_intersection(s()->shapes, &ray, &closest))
+				check_illumination(&closest);
+			put_pixel(closest.color, cur.x, cur.y);
+			cur.x++;
+		}
+		cur.y++;
+	}
+	return (NULL);
+}
+
 /**
  * @brief Function to render the shapes and lights
  * Main steps:
@@ -55,53 +111,30 @@ void	put_pixel(t_color c, int x, int y)
  * @param closest The closest intersect point
  * @param ray The ray from camera direct to current viewpoint
  */
-void	render(void)
+void	render(int fake)
 {
-	t_vector	cur;
-	t_vector	converted_cur;
-	t_hit		closest;
-	t_ray		ray;
+	pthread_t		threads[NUM_THREADS];
+	t_thread_data	data[NUM_THREADS];
+	int				i;
 
-	cur.y = -1;
-	while (++cur.y < HEIGHT)
+	i = 0;
+	while (i < NUM_THREADS)
 	{
-		cur.x = -1;
-		while (++cur.x < WIDTH)
-		{
-			closest = init_hit();
-			converted_cur = convert_viewport(cur.x, cur.y);
-			ray = make_ray(converted_cur);
-			if (check_intersection(s()->shapes, &ray, &closest))
-				check_illumination(&closest);
-			put_pixel(closest.color, cur.x, cur.y);
-		}
+		data[i].start_x = 0;
+		data[i].end_x = WIDTH;
+		data[i].start_y = i * (HEIGHT / NUM_THREADS);
+		data[i].end_y = (i + 1) * (HEIGHT / NUM_THREADS);
+		if (fake == 0)
+			pthread_create(&threads[i], NULL, render_thread, &data[i]);
+		else
+			pthread_create(&threads[i], NULL, fake_render_thread, &data[i]);
+		i++;
 	}
-	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
-	display_menu();
-}
-
-void	fake_render(void)
-{
-	t_vector	cur;
-	t_vector	converted_cur;
-	t_hit		closest;
-	t_ray		ray;
-
-	cur.y = 0;
-	while (cur.y < HEIGHT)
+	i = 0;
+	while (i < NUM_THREADS)
 	{
-		cur.x = 0;
-		while (cur.x < WIDTH)
-		{
-			closest = init_hit();
-			converted_cur = convert_viewport(cur.x, cur.y);
-			ray = make_ray(converted_cur);
-			if (check_intersection(s()->shapes, &ray, &closest))
-				check_illumination(&closest);
-			put_pixel(closest.color, cur.x, cur.y);
-			cur.x += 3;
-		}
-		cur.y += 3;
+		pthread_join(threads[i], NULL);
+		i++;
 	}
 	mlx_put_image_to_window(s()->win.mlx, s()->win.disp, s()->win.img, 0, 0);
 	display_menu();
