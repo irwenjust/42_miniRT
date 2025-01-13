@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:41:48 by likong            #+#    #+#             */
-/*   Updated: 2025/01/09 21:18:02 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/13 10:52:58 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 	else if (shape->type == PLANE)
 	{
 		shape->data.plane = *(t_plane *)data;
-		shape->checkerboard = create_checkerboard(shape->data.plane.color);
-		s()->checkerboard = shape->checkerboard;
-		s()->win.test = shape->checkerboard->img_ptr;
+		// shape->checkerboard = create_checkerboard(shape->data.plane.color);
+		// s()->checkerboard = shape->checkerboard;
+		// s()->win.test = shape->checkerboard->img_ptr;
 	}
 	else if (shape->type == CYLINDER)
 		shape->data.cylinder = *(t_cylinder *)data;

@@ -36,20 +36,15 @@ void	delete_scene(void)
 	delete_fclass(s()->shapes);
 	delete_fclass(s()->ori_light);
 	delete_fclass(s()->ori_shapes);
-	// lst_clear(&s()->unbound);
 	free_matrix(s()->args);
-	// if (s()->win.img)
-	// 	mlx_delete_image(s()->win.mlx, s()->win.img);
-	// if (s()->win.mlx)
-	// 	mlx_terminate(s()->win.mlx);
 	if (s()->win.img)
 		mlx_destroy_image(s()->win.mlx, s()->win.img);
 	if (s()->win.menu)
 		mlx_destroy_image(s()->win.mlx, s()->win.menu);
 	if (s()->win.disp)
 		mlx_destroy_window(s()->win.mlx, s()->win.disp);
-	if (s()->win.test)
-		mlx_destroy_image(s()->win.mlx, s()->win.test);
+	if (s()->win.checkerboard)
+		mlx_destroy_image(s()->win.mlx, s()->win.checkerboard);
 	if (s()->checkerboard)
 		ft_free(s()->checkerboard);
 	if (s()->win.mlx)

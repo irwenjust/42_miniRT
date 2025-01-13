@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:13:56 by likong            #+#    #+#             */
-/*   Updated: 2025/01/09 20:52:31 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/13 11:04:56 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,21 @@ t_color	add_texture(t_hit *hit)
 	if (hit->shape->checkerboard)
 		return (uv_get_color(hit->shape->checkerboard, hit->u, hit->v));
 	return (hit->color);
+}
+
+void	check_texture(char **arg, t_shape *shape)
+{
+	if (shape->type == PLANE && ft_strlen(arg[6]) == 1 && arg[6][0] == '1')
+		shape->checkerboard = create_checkerboard(shape->data.plane.color);
+	else if (shape->type == SPHERE && ft_strlen(arg[6]) == 1 && arg[6][0] == '1')
+		shape->checkerboard = create_checkerboard(shape->data.sphere.color);
+	else if (shape->type == CYLINDER && ft_strlen(arg[8]) == 1 && arg[6][0] == '1')
+		shape->checkerboard = create_checkerboard(shape->data.cylinder.color);
+	else if (shape->type == CONE && ft_strlen(arg[8]) == 1 && arg[6][0] == '1')
+		shape->checkerboard = create_checkerboard(shape->data.cone.color);
+	if (shape->checkerboard)
+	{
+		s()->checkerboard = shape->checkerboard;
+		s()->win.checkerboard = shape->checkerboard->img_ptr;
+	}
 }

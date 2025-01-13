@@ -33,13 +33,14 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	t_shape	*shape;
 	t_plane	plane;
 
-	if (ft_matrix_size(arg) != 6 || !check_syntax(arg, "011100"))
+	if (ft_matrix_size(arg) != 7 || !check_syntax(arg, "011100"))
 		return (ERROR("plane: wrong args format"), false);
 	if (!check_rgb(arg[3]))
 		return (ERROR("plane: wrong color value"), false);
 	if (!new_plane(arg, &plane))
 		return (ERROR("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
+	check_texture(arg, shape);
 	shape->ks = ft_atod(arg[4]);
 	shape->shininess = ft_atod(arg[5]);
 	if (shape->ks < 1e-8 || shape->ks > 1)

@@ -245,7 +245,7 @@ typedef struct s_windows
 	void	*disp;
 	void	*img;
 	void	*menu;
-	void	*test;
+	void	*checkerboard;
 	char	*addr;
 	int		height;
 	int		width;

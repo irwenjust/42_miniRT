@@ -29,7 +29,7 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	t_shape		*shape;
 	t_sphere	sphere;
 
-	if (ft_matrix_size(arg) != 6 || !check_syntax(arg, "010100"))
+	if (ft_matrix_size(arg) != 7 || !check_syntax(arg, "010100"))
 		return (ERROR("sphere: wrong args format"), false);
 	// if (ft_atod(arg[2]) * 0.5 < 1e-8)
 	// 	return (ERROR("sphere: wrong radius value"), false);
