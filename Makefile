@@ -37,7 +37,7 @@ TARGETS = $(addprefix $(OBJS_DIR)/, $(OBJS))
 BONUS_SRCS_DIR = bonus/src
 BONUS_SUBDIR = entities fclass hook init intersection menu parser renderer tools vector bvh debug color
 BONUS_VPATH = $(BONUS_SRCS_DIR) $(addprefix $(BONUS_SRCS_DIR)/, $(BONUS_SUBDIR))
-BONUS_SRCS =	main_bonus.c render_thread_bonus.c \
+BONUS_SRCS =	main_bonus.c \
 				ambient_bonus.c camera_bonus.c cone_bonus.c cylinder_bonus.c light_bonus.c plane_bonus.c shape_bonus.c  sphere_bonus.c normal_bonus.c\
 				fclass_bonus.c \
 				hook_bonus.c preset_bonus.c reset_bonus.c update_click_bonus.c update_hold_bonus.c camera_preset_bonus.c \

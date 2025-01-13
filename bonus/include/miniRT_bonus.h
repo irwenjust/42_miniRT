@@ -47,6 +47,7 @@ stdlib: malloc, free
 # include <stdbool.h>
 # include <math.h>
 # include <stdint.h>
+# include <pthread.h>
 # include <sys/time.h>
 # include <X11/X.h>
 # include "mlx.h"
@@ -93,10 +94,7 @@ t_color		parse_color(char **rgb);
  * render
  */
 //renderer
-// void		render(void);
-void		fake_render(void);
-t_vector	convert_viewport(double x, double y);
-void	render_thread(void);
+void		render(int fake);
 //control frame rate
 void		control_frame_rate(void);
 //ray part
