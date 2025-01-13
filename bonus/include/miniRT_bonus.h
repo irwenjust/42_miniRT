@@ -2,6 +2,8 @@
 #ifndef MINIRT_BONUS_H
 # define MINIRT_BONUS_H
 
+# define NUM_THREADS 24
+
 # define SUCCESS 0
 # define FAILURE 1
 
@@ -53,8 +55,6 @@ stdlib: malloc, free
 # include "structure_bonus.h"
 # include "preset_bonus.h"
 
-
-
 /**
  * fake global func
  */
@@ -93,8 +93,10 @@ t_color		parse_color(char **rgb);
  * render
  */
 //renderer
-void		render(void);
+// void		render(void);
 void		fake_render(void);
+t_vector	convert_viewport(double x, double y);
+void	render_thread(void);
 //control frame rate
 void		control_frame_rate(void);
 //ray part

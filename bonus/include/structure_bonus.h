@@ -5,6 +5,14 @@
 
 #include "miniRT_bonus.h"
 
+typedef struct s_thread_data
+{
+	int		start_x;
+	int		end_x;
+	int		start_y;	
+	int		end_y;
+}	t_thread_data;
+
 /*enum*/
 //menu mode
 typedef enum s_menu
