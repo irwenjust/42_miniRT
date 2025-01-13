@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:13:56 by likong            #+#    #+#             */
-/*   Updated: 2025/01/13 13:19:28 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/13 16:22:45 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,12 @@ void	check_texture(char **arg, t_shape *shape)
 		shape->cboard = create_cboard(shape->data.plane.color);
 	else if (shape->type == SPHERE && ft_strlen(arg[6]) == 2 && arg[6][0] == '1')
 		shape->cboard = create_cboard(shape->data.sphere.color);
-	else if (shape->type == CYLINDER && ft_strlen(arg[8]) == 2 && arg[6][0] == '1')
+	else if (shape->type == CYLINDER && ft_strlen(arg[8]) == 2 && arg[8][0] == '1')
 		shape->cboard = create_cboard(shape->data.cylinder.color);
-	else if (shape->type == CONE && ft_strlen(arg[8]) == 2 && arg[6][0] == '1')
+	else if (shape->type == CONE && ft_strlen(arg[8]) == 2 && arg[8][0] == '1')
+	{
+		printf("here\n");
 		shape->cboard = create_cboard(shape->data.cone.color);
+	}
 	// if (shape->type == PLANE)
 }

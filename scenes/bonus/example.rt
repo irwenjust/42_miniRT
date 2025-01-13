@@ -13,17 +13,17 @@ l   -10,8,5   0.7               255,255,255
 
 # Spheres
 #N  Center    Diameter[>0]   Color[0-255]   Ks[0-1]   Shininess[1-128][commom:1,32,128]  checkerboard[0/1]  texture[path]
-sp  0,0,15    5              255,0,0        1       128                                  1
+sp  8,0,15    5              255,0,0        1       128                                  1
 
 # Plane
 #N  Center    Normal[-1,1]   Color[0-255]   Ks[0-1]   Shininess[1-128]                   checkerboard[0/1]  texture[path]
-pl  0,-3,0    0,1,0          255,255,255    0.9       128                                0
+pl  0,-3,20    0,-1,1          255,255,255    0.9       128                                1
 
 # Cylinder
 #N  Center    Normal[-1,1]   Diameter[>0]   Height[>0]   Color[0-255]   Ks[0-1]   Shininess[1-128]  checkerboard[0/1]  texture[path]
-cy  -5,0,20   0,0,1          3              10           190,50,0       1       128                 0
+cy  -5,0,20   0,0,1          3              10           190,50,0       1       128                 1
 # cy  5,0,15    0,1,1          4              8            190,50,0       0.5     10
 
 # Cylinder
 #N  Center    Normal[-1,1]   Diameter[>0]   Height[>0]   Color[0-255]   Ks[0-1]   Shininess[1-128]  checkerboard[0/1]  texture[path]
-co  0,7,20     0,-1,0         8              10          200,50,0       0.8       100               0
+co  0,7,20     0,-1,0         8              10          200,50,0       0.8       100               1

@@ -44,6 +44,7 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	cone.base = vector_add(cone.tip, vector_scale(cone.normal, cone.height));
 	cone.center = vector_scale(vector_add(cone.tip, cone.base), 0.5);
 	shape = new_shape(&cone, CONE, fclass->size, s()->shape_nbr[CONE]);
+	check_texture(arg, shape);
 	shape->ks = ft_atod(arg[6]);
 	shape->shininess = ft_atod(arg[7]);
 	if (shape->ks < 1e-8 || shape->ks > 1)
@@ -52,6 +53,7 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 		return (ERROR("sphere: wrong shininess value"), false);
 	// printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[CONE]++;
+	add_uv_axis(shape, shape->data.plane.normal);
 	push_to_fclass(fclass, shape);
 	// print_shape(shape);
 	return (true);

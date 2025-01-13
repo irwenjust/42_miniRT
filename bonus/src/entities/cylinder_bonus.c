@@ -45,14 +45,15 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	cy.cap_s = vector_add(cy.center, vector_scale(cy.normal, -cy.height * 0.5));
 	cy.cap_e = vector_add(cy.center, vector_scale(cy.normal, cy.height * 0.5));
 	shape = new_shape(&cy, CYLINDER, fclass->size, s()->shape_nbr[CYLINDER]);
+	check_texture(arg, shape);
 	shape->ks = ft_atod(arg[6]);
 	shape->shininess = ft_atod(arg[7]);
 	if (shape->ks < 1e-8 || shape->ks > 1)
 		return (ERROR("sphere: wrong ks value"), false);
 	if (shape->shininess < 1 || shape->shininess > 128)
 		return (ERROR("sphere: wrong shininess value"), false);
-	// printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[CYLINDER]++;
+	add_uv_axis(shape, shape->data.plane.normal);
 	push_to_fclass(fclass, shape);
 	return (true);
 }
