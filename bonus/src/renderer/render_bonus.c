@@ -23,7 +23,7 @@
  * 		x = WIDTH ---> x = 1, the right edge of screen
  * 		x = WIDTH / 2 ---> x = 0, the center of screen
  */
-static t_vector	convert_viewport(double x, double y)
+t_vector	convert_viewport(double x, double y)
 {
 	t_vector	converted;
 
