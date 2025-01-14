@@ -34,7 +34,7 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	t_shape	*shape;
 	t_cone	cone;
 
-	if (ft_matrix_size(arg) != 9 || !check_syntax(arg, "01100100"))
+	if (ft_matrix_size(arg) < 9 || ft_matrix_size(arg) > 10 || !check_syntax(arg, "01100100"))
 		return (ERROR("cone: wrong args format"), false);
 	if (!check_rgb(arg[5]))
 		return (ERROR("cone: wrong color value"), false);

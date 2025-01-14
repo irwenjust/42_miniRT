@@ -33,7 +33,7 @@ static void	init_args(char *file_name)
 		if (!line)
 			break ;
 		if (!ft_strchr("\n#", line[0]))
-			s()->args[i++] = line;
+			s()->args[i++] = save_str_without_newline(line);
 		else
 			free(line);
 	}
@@ -57,11 +57,11 @@ static void	init_windows(void)
 	// (s()->win.mlx) = mlx_init();
 	// if (!s()->win.mlx)
 	// 	error_exit("error happend when create MLX42");
-	s()->win.width = WIDTH;
-	s()->win.height = HEIGHT;
-	(s()->win.disp) = mlx_new_window(s()->win.mlx, WIDTH, HEIGHT, "miniRT");
-	if (!s()->win.disp)
-		error_exit("error happend when create MLX42 windows");
+	// s()->win.width = WIDTH;
+	// s()->win.height = HEIGHT;
+	// (s()->win.disp) = mlx_new_window(s()->win.mlx, WIDTH, HEIGHT, "miniRT");
+	// if (!s()->win.disp)
+	// 	error_exit("error happend when create MLX42 windows");
 	(s()->win.img) = mlx_new_image(s()->win.mlx, s()->win.width,
 			s()->win.height);
 	if (!s()->win.img)
@@ -109,6 +109,11 @@ void	init_scene(char *file_name)
 	(s()->win.mlx) = mlx_init();
 	if (!s()->win.mlx)
 		error_exit("error happend when create MLX42");
+	s()->win.width = WIDTH;
+	s()->win.height = HEIGHT;
+	(s()->win.disp) = mlx_new_window(s()->win.mlx, WIDTH, HEIGHT, "miniRT");
+	if (!s()->win.disp)
+		error_exit("error happend when create MLX42 windows");
 	parse_args();
 	init_viewport();
 	init_windows();

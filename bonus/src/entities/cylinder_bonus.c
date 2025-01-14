@@ -36,7 +36,7 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	t_shape		*shape;
 	t_cylinder	cy;
 
-	if (ft_matrix_size(arg) != 9 || !check_syntax(arg, "01100100"))
+	if (ft_matrix_size(arg) < 9 || ft_matrix_size(arg) > 10 || !check_syntax(arg, "01100100"))
 		return (ERROR("cylinder: wrong args format"), false);
 	if (!check_rgb(arg[5]))
 		return (ERROR("cylinder: wrong color value"), false);

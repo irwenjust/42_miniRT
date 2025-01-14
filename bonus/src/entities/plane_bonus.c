@@ -33,7 +33,7 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	t_shape	*shape;
 	t_plane	plane;
 
-	if (ft_matrix_size(arg) != 7 || !check_syntax(arg, "011100"))
+	if (ft_matrix_size(arg) < 7 || ft_matrix_size(arg) > 8 || !check_syntax(arg, "011100"))
 		return (ERROR("plane: wrong args format"), false);
 	if (!check_rgb(arg[3]))
 		return (ERROR("plane: wrong color value"), false);

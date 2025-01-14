@@ -236,6 +236,8 @@ void		ft_swap_d(double *a, double *b);
 t_shape		**shapes_to_arr(t_shape **shapes);
 void		check_hit(t_hit *hit);
 
+char		*save_str_without_newline(char *str);
+
 /**
  * menu
  */

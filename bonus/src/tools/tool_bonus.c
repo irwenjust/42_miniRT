@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tool_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/14 12:27:23 by likong            #+#    #+#             */
+/*   Updated: 2025/01/14 12:35:09 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -21,6 +31,35 @@ void	ft_swap_d(double *a, double *b)
 	temp = *a;
 	*a = *b;
 	*b = temp;
+}
+
+char	*save_str_without_newline(char *str)
+{
+	size_t	len;
+	size_t	i;
+	size_t	j;
+	char	*res;
+
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str);
+	res = (char *)malloc(len + 1);
+	if (!res)
+	{
+		free(str);
+		return (NULL);
+	}
+	j = 0;
+	i = -1;
+	while (++i < len)
+	{
+		if (str[i] != '\n' && str[i] != '\0')
+			res[j++] = str[i];
+	}
+	res[j] = '\0';
+	free(str);
+	str = NULL;
+	return (res);
 }
 
 t_hit	init_hit(void)

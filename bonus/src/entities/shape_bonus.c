@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:41:48 by likong            #+#    #+#             */
-/*   Updated: 2025/01/14 10:41:04 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/14 14:30:22 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_shape	*copy_shape(t_shape *shape)
 	res->u_axis = shape->u_axis;
 	res->v_axis = shape->v_axis;
 	res->cboard = shape->cboard;
+	res->tex = shape->tex;
 	if (res->type == SPHERE)
 		res->data.sphere = shape->data.sphere;
 	else if (res->type == PLANE)
@@ -121,6 +122,18 @@ static void	rotate_uv(t_key *keys, t_shape *shape)
 	}
 }
 
+// void	update_uv(t_shape *shape)
+// {
+// 	if (shape->type == PLANE)
+// 		add_uv_axis(shape, shape->data.plane.normal);
+// 	else if (shape->type == SPHERE)
+// 		add_uv_axis(shape, shape->data.sphere.normal);
+// 	else if (shape->type == CYLINDER)
+// 		add_uv_axis(shape, shape->data.cylinder.normal);
+// 	else if (shape->type == CONE)
+// 		add_uv_axis(shape, shape->data.cone.normal);
+// }
+
 void	rotate_shape(t_key *keys, t_shape *shape)
 {
 	if (shape->type == PLANE)
@@ -134,6 +147,7 @@ void	rotate_shape(t_key *keys, t_shape *shape)
 	if (shape->type != PLANE)
 		shape->box = shape_box(shape);
 	rotate_uv(keys, shape);
+	// update_uv(shape);
 	print_box(shape->box);
 }
 

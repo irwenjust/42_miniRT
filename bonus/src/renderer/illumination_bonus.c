@@ -38,11 +38,12 @@ void	check_illumination(t_hit *closest)
 
 	i = -1;
 	check_hit(closest);
-	if (closest->shape->cboard)
+	if (closest->shape->cboard || closest->shape->tex)
 		color = add_texture(closest);
 	else
 		color = closest->color;
-	color = check_ambient(color);
+	if (!closest->shape->tex)
+		color = check_ambient(color);
 	while (++i < s()->light->size)
 	{
 		light = fclass_index(s()->light, i);
