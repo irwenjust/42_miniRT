@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:41:48 by likong            #+#    #+#             */
-/*   Updated: 2025/01/13 16:00:46 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/14 10:41:04 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	rotate_shape(t_key *keys, t_shape *shape)
 	if (shape->type == PLANE)
 		rotate_plane(keys, &(shape->data.plane));
 	else if (shape->type == SPHERE)
-		rotate_uv(keys, shape);
+		rotate_sphere(keys, &(shape->data.sphere));
 	else if (shape->type == CYLINDER)
 		rotate_cylinder(keys, &(shape->data.cylinder));
 	else if (shape->type == CONE)

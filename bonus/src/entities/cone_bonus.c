@@ -53,7 +53,7 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 		return (ERROR("sphere: wrong shininess value"), false);
 	// printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[CONE]++;
-	add_uv_axis(shape, shape->data.plane.normal);
+	add_uv_axis(shape, shape->data.cone.normal);
 	push_to_fclass(fclass, shape);
 	// print_shape(shape);
 	return (true);

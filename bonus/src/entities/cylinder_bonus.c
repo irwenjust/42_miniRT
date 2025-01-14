@@ -53,7 +53,7 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	if (shape->shininess < 1 || shape->shininess > 128)
 		return (ERROR("sphere: wrong shininess value"), false);
 	s()->shape_nbr[CYLINDER]++;
-	add_uv_axis(shape, shape->data.plane.normal);
+	add_uv_axis(shape, shape->data.cylinder.normal);
 	push_to_fclass(fclass, shape);
 	return (true);
 }

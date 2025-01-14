@@ -47,9 +47,25 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	if (shape->shininess < 1 || shape->shininess > 128)
 		return (ERROR("sphere: wrong shininess value"), false);
 	s()->shape_nbr[SPHERE]++;
-	add_uv_axis(shape, shape->data.plane.normal);
+	add_uv_axis(shape, shape->data.sphere.normal);
 	push_to_fclass(fclass, shape);
 	return (true);
+}
+
+void	rotate_sphere(t_key *keys, t_sphere *sphere)
+{
+	if (keys->key[I])
+		sphere->normal = vector_rotate(sphere->normal, X, ROTATE);
+	else if (keys->key[K])
+		sphere->normal = vector_rotate(sphere->normal, X, (-ROTATE));
+	else if (keys->key[L])
+		sphere->normal = vector_rotate(sphere->normal, Y, ROTATE);
+	else if (keys->key[J])
+		sphere->normal = vector_rotate(sphere->normal, Y, (-ROTATE));
+	else if (keys->key[O])
+		sphere->normal = vector_rotate(sphere->normal, Z, ROTATE);
+	else if (keys->key[U])
+		sphere->normal = vector_rotate(sphere->normal, Z, (-ROTATE));
 }
 
 void	move_sphere(t_key *keys, t_sphere *sphere)

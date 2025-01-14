@@ -148,6 +148,7 @@ void		rotate_shape(t_key *keys, t_shape *shape);
 bool		parse_sphere(char **tmp, t_fclass *fclass);
 void		move_sphere(t_key *keys, t_sphere *sphere);
 void		scaling_sphere(t_key *keys, t_sphere *sphere);
+void		rotate_sphere(t_key *keys, t_sphere *sphere);
 //plane part
 bool		parse_plane(char **arg, t_fclass *fclass);
 void		move_plane(t_key *keys, t_plane *plane);
