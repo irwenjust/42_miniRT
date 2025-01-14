@@ -28,6 +28,7 @@ t_shape	*copy_shape(t_shape *shape)
 	res->v_axis = shape->v_axis;
 	res->cboard = shape->cboard;
 	res->tex = shape->tex;
+	res->bmp = shape->bmp;
 	if (res->type == SPHERE)
 		res->data.sphere = shape->data.sphere;
 	else if (res->type == PLANE)

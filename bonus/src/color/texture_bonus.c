@@ -104,9 +104,7 @@ t_color	add_texture(t_hit *hit)
 
 t_image	*parse_texture(char *arg)
 {
-	// int		fd;
 	size_t	len;
-	// char	*path;
 	t_image	*tex;
 
 	len = ft_strlen(arg);
@@ -116,16 +114,7 @@ t_image	*parse_texture(char *arg)
 	if (!tex)
 		error_exit("error happend when initial checkboard image");
 	load_image(tex, arg);
-	// shape->tex = tex;
 	return (tex);
-	// path = ft_strdup(arg);
-	// fd = open(path, O_RDONLY);
-	// if (fd < 0)
-	// {
-	// 	free(path);
-	// 	error_exit("cannot open the file");
-	// }
-	// close(fd);
 }
 
 void	check_texture(char **arg, t_shape *shape)
@@ -140,16 +129,12 @@ void	check_texture(char **arg, t_shape *shape)
 		shape->cboard = create_cboard(shape->data.cone.color);
 	if (shape->cboard)
 		return ;
-	else
-	{
-		if (shape->type == PLANE && arg[7])
-			shape->tex = parse_texture(arg[7]);
-		else if (shape->type == SPHERE && arg[7])
-			shape->tex = parse_texture(arg[7]);
-		else if (shape->type == CYLINDER && arg[9])
-			shape->tex = parse_texture(arg[9]);
-		else if (shape->type == CONE && arg[9])
-			shape->tex = parse_texture(arg[9]);
-	}
-	// if (shape->type == PLANE)
+	if ((shape->type == PLANE || shape->type == SPHERE) && arg[7])
+		shape->tex = parse_texture(arg[7]);
+	else if ((shape->type == CYLINDER || shape->type == CONE) && arg[9])
+		shape->tex = parse_texture(arg[9]);
+	if ((shape->type == PLANE || shape->type == SPHERE) && ft_matrix_size(arg) == 9 && arg[8])
+		shape->bmp = parse_texture(arg[8]);
+	else if ((shape->type == CYLINDER || shape->type == CONE) && ft_matrix_size(arg) == 11 && arg[10])
+		shape->bmp = parse_texture(arg[10]);
 }

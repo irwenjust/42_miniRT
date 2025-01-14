@@ -194,6 +194,7 @@ typedef struct s_shape
 	t_vector		v_axis;
 	t_image			*cboard;
 	t_image			*tex;
+	t_image			*bmp;
 }	t_shape;
 
 /**
