@@ -256,7 +256,6 @@ typedef struct s_windows
 	void	*disp;
 	void	*img;
 	void	*menu;
-	void	*cboard;
 	char	*addr;
 	int		height;
 	int		width;
@@ -310,7 +309,6 @@ typedef struct s_scene
 	int			bvh_level; // the index level for bvh binary tree
 	t_list		*unbound; // for plane and maybe more things later
 	t_bvh		*bvh;
-	t_image		*cboard;
 }	t_scene;
 
 #endif

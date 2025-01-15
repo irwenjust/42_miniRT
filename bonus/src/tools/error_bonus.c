@@ -16,20 +16,6 @@ void	ft_free(void *ptr)
 		free(ptr);
 }
 
-// void	lst_clear(t_list **lst)
-// {
-// 	t_list	*res;
-
-// 	if (!lst)
-// 		return ;
-// 	while (*lst)
-// 	{
-// 		res = (*lst)->next;
-// 		free(*lst);
-// 		*lst = res;
-// 	}
-// }
-
 void	free_test_matrix(void **matrix)
 {
 	size_t	i;
@@ -46,10 +32,47 @@ void	free_test_matrix(void **matrix)
 	matrix = NULL;
 }
 
+void free_shape_array(t_shape **shapes)
+{
+	t_shape *shape;
+	int i;
+
+	i = -1;
+	while (shapes[++i])
+	{
+		shape = shapes[i];
+		if (shape->cboard)
+		{
+			mlx_destroy_image(s()->win.mlx, shape->cboard->img_ptr);
+			free(shape->cboard);
+		}
+		if (shape->tex)
+		{
+			mlx_destroy_image(s()->win.mlx, shape->tex->img_ptr);
+			free(shape->tex);
+		}
+		if (shape->bmp)
+		{
+			mlx_destroy_image(s()->win.mlx, shape->bmp->img_ptr);
+			free(shape->bmp);
+		}
+		free(shape);
+	}
+	free(shapes);
+}
+
+void delete_shape(t_fclass *f)
+{
+	if (!f)
+		return;
+	free_shape_array((t_shape **)f->array);
+	free(f);
+}
+
 void	delete_scene(void)
 {
+	delete_shape(s()->shapes);
 	delete_fclass(s()->light);
-	delete_fclass(s()->shapes);
 	delete_fclass(s()->ori_light);
 	delete_fclass(s()->ori_shapes);
 	free_test_matrix((void **)s()->args);
@@ -59,10 +82,6 @@ void	delete_scene(void)
 		mlx_destroy_image(s()->win.mlx, s()->win.menu);
 	if (s()->win.disp)
 		mlx_destroy_window(s()->win.mlx, s()->win.disp);
-	if (s()->win.cboard)
-		mlx_destroy_image(s()->win.mlx, s()->win.cboard);
-	// free_test_matrix((void **)s()->cboard);
-	ft_free(s()->cboard);
 	if (s()->win.mlx)
 	{
 		mlx_do_key_autorepeaton(s()->win.mlx);

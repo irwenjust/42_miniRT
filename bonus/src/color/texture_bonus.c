@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:13:56 by likong            #+#    #+#             */
-/*   Updated: 2025/01/15 10:20:19 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/15 21:02:58 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,25 @@ static void	init_image(t_image *img, int width, int height)
 static void	load_image(t_image *img, char *path)
 {
 	if (!s()->win.mlx)
+	{
+		free(img);
 		error_exit("cannot access mlx");
+	}
 	img->img_ptr = mlx_xpm_file_to_image(s()->win.mlx, path, &img->width, &img->height);
 	if (!img->img_ptr)
+	{
+		free(img);
 		error_exit("cannot initial image from xpm file");
+	}
 	img->data = mlx_get_data_addr(img->img_ptr, &img->bpp,
 			&img->size_line, &img->endian);
 	if (!img->data)
+	{
+		mlx_destroy_image(s()->win.mlx, img->img_ptr);
+		free(img);
 		error_exit("error happend when initial MLX42 image address");
-	// mlx_put_image_to_window(s()->win.mlx, s()->win.disp, img->img_ptr, 0, 0);
+	}
 }
-
-// static t_image	*copy_cboard(t_image *img)
-// {
-// 	t_image	*res;
-
-// 	res = ft_calloc(1, sizeof(t_image));
-// 	if (!res)
-// 		return (NULL);
-// 	*res = *img;
-// 	return (res);
-// }
 
 static t_image	*create_cboard(t_color color)
 {
@@ -87,9 +85,6 @@ static t_image	*create_cboard(t_color color)
 				put_test_pixel(cboard, i, j, inverted);
 		}
 	}
-	// s()->cboard = append_matrix(s()->cboard, cboard, (void *)copy_cboard);
-	s()->cboard = cboard;
-	s()->win.cboard = cboard->img_ptr;
 	return (cboard);
 }
 
