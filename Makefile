@@ -51,7 +51,7 @@ BONUS_SRCS =	main_bonus.c \
 				bvh_bonus.c bvh_tool_bonus.c bvh_intersection_bonus.c aabb_bonus.c \
 				debug_shape_bonus.c \
 				uv_bonus.c \
-				color_bonus.c color_utils_bonus.c texture_bonus.c
+				color_bonus.c color_utils_bonus.c texture_bonus.c bump_bonus.c
 				
 BONUS_OBJS_DIR = objs_bonus
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)

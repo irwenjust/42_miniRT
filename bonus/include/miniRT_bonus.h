@@ -299,4 +299,7 @@ t_color		add_texture(t_hit *hit);
 void		put_pixel(t_color c, int x, int y);
 void		check_texture(char **arg, t_shape *shape);
 
+//bump texture part
+void		check_bump(t_hit *hit);
+
 #endif

@@ -38,6 +38,7 @@ void	check_illumination(t_hit *closest)
 
 	i = -1;
 	check_hit(closest);
+	check_bump(closest);
 	if (closest->shape->cboard || closest->shape->tex)
 		color = add_texture(closest);
 	else
