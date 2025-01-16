@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:32 by yzhan             #+#    #+#             */
-/*   Updated: 2025/01/03 17:57:57 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/16 19:22:59 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,42 +68,6 @@ static t_vector	get_normal(t_hit *inter)
 	}
 	return (vector_normalize(normal));
 }
-
-// bool	check_unbound(t_ray *ray, t_hit *inter)
-// {
-// 	t_list	*unbound;
-// 	t_shape	*shape;
-// 	double	t;
-
-// 	unbound = s()->unbound;
-// 	while (unbound)
-// 	{
-// 		shape = (t_shape *)unbound->content;
-// 		if (shape->type == PLANE)
-// 		{
-// 			if (inter_real_plane(&shape->data.plane, ray, &t) 
-//				&& t < inter->distance)
-// 			{
-// 				inter->distance = t;
-// 				inter->shape = shape;
-// 				inter->check_hit = true;
-// 			}
-// 		}
-// 		unbound = unbound->next;
-// 	}
-// 	return (inter->check_hit);
-// }
-
-// t_color	color_from_hex(unsigned int hex)
-// {
-// 	t_color	color;
-
-// 	color.red = ((hex >> 24) & 0xFF) / 255.0;
-// 	color.green = ((hex >> 16) & 0xFF) / 255.0;
-// 	color.blue = ((hex >> 8) & 0xFF) / 255.0;
-// 	color.alpha = ((hex >> 0) & 0xFF) / 255.0;
-// 	return (color);
-// }
 
 /**
  * @brief Check whether the ray is intersecting with any shapes and

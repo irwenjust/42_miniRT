@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:08:25 by likong            #+#    #+#             */
-/*   Updated: 2024/12/31 12:22:09 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/01/16 18:10:25 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_aabb	shape_box(t_shape *shape)
 {
 	t_aabb	box;
 
+	box.min = (t_vector){INFINITY, INFINITY, INFINITY};
+	box.max = (t_vector){-INFINITY, -INFINITY, -INFINITY};
 	if (shape->type == SPHERE)
 		box = box_sphere(&(shape->data.sphere));
 	else if (shape->type == CYLINDER)
