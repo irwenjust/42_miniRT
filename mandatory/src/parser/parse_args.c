@@ -33,7 +33,10 @@ static bool	parse_line(int counter[3], char **arg)
 	else if (!ft_strcmp("cy", arg[0]))
 		return (parse_cylinder(arg, s()->shapes));
 	else
+	{
+		printf("here\n");
 		return (false);
+	}
 }
 
 static void	check_counter(int counter[3])

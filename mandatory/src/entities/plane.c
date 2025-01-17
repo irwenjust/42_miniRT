@@ -117,13 +117,13 @@ void	move_plane(t_key *keys, t_plane *plane)
 
 void	rotate_plane(t_key *keys, t_plane *plane)
 {
-	if (keys->key[I])
+	if (keys->key[L])
 		plane->normal = vector_rotate(plane->normal, X, ROTATE);
-	else if (keys->key[K])
-		plane->normal = vector_rotate(plane->normal, X, (-ROTATE));
-	else if (keys->key[L])
-		plane->normal = vector_rotate(plane->normal, Y, ROTATE);
 	else if (keys->key[J])
+		plane->normal = vector_rotate(plane->normal, X, (-ROTATE));
+	else if (keys->key[I])
+		plane->normal = vector_rotate(plane->normal, Y, ROTATE);
+	else if (keys->key[K])
 		plane->normal = vector_rotate(plane->normal, Y, (-ROTATE));
 	else if (keys->key[O])
 		plane->normal = vector_rotate(plane->normal, Z, ROTATE);
