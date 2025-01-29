@@ -46,7 +46,7 @@ void	ray_tracer(t_ray *ray, t_hit *closest)
 	if (check_intersection(s()->shapes, &ray, &closest))
 	{
 		check_illumination(&closest);
-		//check reflaction
+		//check reflection
 		//check refraction
 	}
 	else
