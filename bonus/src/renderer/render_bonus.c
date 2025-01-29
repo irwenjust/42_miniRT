@@ -41,6 +41,18 @@ void	put_pixel(t_color c, int x, int y)
 	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
 }
 
+void	ray_tracer(t_ray *ray, t_hit *closest)
+{
+	if (check_intersection(s()->shapes, &ray, &closest))
+	{
+		check_illumination(&closest);
+		//check reflaction
+		//check refraction
+	}
+	else
+		return ;
+}
+
 void	*fake_render_thread(void *arg)
 {
 	t_thread_data	*data;
@@ -56,11 +68,12 @@ void	*fake_render_thread(void *arg)
 		cur.x = data->start_x;
 		while (cur.x < data->end_x)
 		{
-			closest = init_hit();
+			closest = init_hit(); //default color is BLACK, set a background color?
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
-			if (check_intersection(s()->shapes, &ray, &closest))
-				check_illumination(&closest);
+			// if (check_intersection(s()->shapes, &ray, &closest))
+			// 	check_illumination(&closest);
+			ray_tracer(&ray, &closest);
 			put_pixel(closest.color, cur.x, cur.y);
 			cur.x += 3;
 		}
@@ -87,8 +100,9 @@ void	*render_thread(void *arg)
 			closest = init_hit();
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
-			if (check_intersection(s()->shapes, &ray, &closest))
-				check_illumination(&closest);
+			// if (check_intersection(s()->shapes, &ray, &closest))
+			// 	check_illumination(&closest);
+			ray_tracer(&ray, &closest);
 			put_pixel(closest.color, cur.x, cur.y);
 			cur.x++;
 		}
