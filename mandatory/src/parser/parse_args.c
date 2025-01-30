@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:17:27 by likong            #+#    #+#             */
-/*   Updated: 2024/12/31 14:33:25 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/01/30 14:54:17 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,8 @@ void	parse_args(void)
 		free_matrix(tmp);
 	}
 	check_counter(counter);
+	if (s()->shape_nbr[SPHERE] == 0
+		&& s()->shape_nbr[CYLINDER] == 0
+		&& s()->shape_nbr[PLANE] == 0)
+		error_exit("no shapes");
 }

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:48:31 by likong            #+#    #+#             */
-/*   Updated: 2025/01/09 16:51:13 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/30 15:10:29 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	put_pixel(t_color c, int x, int y)
 
 void	ray_tracer(t_ray *ray, t_hit *closest)
 {
-	if (check_intersection(s()->shapes, &ray, &closest))
+	if (check_intersection(s()->shapes, ray, closest))
 	{
-		check_illumination(&closest);
+		check_illumination(closest);
 		//check reflection
 		//check refraction
 	}

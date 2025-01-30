@@ -38,6 +38,11 @@ static void	check_counter(int counter[3])
 		error_exit("No light in the scene");
 	else if (counter[0] > 1 || counter[1] > 1)
 		error_exit("too many ambient/camera/light in the scene");
+	if (s()->shape_nbr[SPHERE] == 0
+		&& s()->shape_nbr[CYLINDER] == 0
+		&& s()->shape_nbr[PLANE] == 0
+		&& s()->shape_nbr[CONE] == 0)
+		error_exit("no shapes");
 }
 
 /*parse args to correct format*/
