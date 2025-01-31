@@ -80,13 +80,13 @@ void	move_cylinder(t_key *keys, t_cylinder *cy)
 
 void	rotate_cylinder(t_key *keys, t_cylinder *cy)
 {
-	if (keys->key[L])
+	if (keys->key[I])
 		cy->normal = vector_rotate(cy->normal, X, ROTATE);
-	else if (keys->key[J])
-		cy->normal = vector_rotate(cy->normal, X, (-ROTATE));
-	else if (keys->key[I])
-		cy->normal = vector_rotate(cy->normal, Y, ROTATE);
 	else if (keys->key[K])
+		cy->normal = vector_rotate(cy->normal, X, (-ROTATE));
+	else if (keys->key[J])
+		cy->normal = vector_rotate(cy->normal, Y, ROTATE);
+	else if (keys->key[L])
 		cy->normal = vector_rotate(cy->normal, Y, (-ROTATE));
 	else if (keys->key[O])
 		cy->normal = vector_rotate(cy->normal, Z, ROTATE);

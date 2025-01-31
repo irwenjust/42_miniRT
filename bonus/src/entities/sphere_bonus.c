@@ -54,13 +54,13 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 
 void	rotate_sphere(t_key *keys, t_sphere *sphere)
 {
-	if (keys->key[L])
+	if (keys->key[I])
 		sphere->normal = vector_rotate(sphere->normal, X, ROTATE);
-	else if (keys->key[J])
-		sphere->normal = vector_rotate(sphere->normal, X, (-ROTATE));
-	else if (keys->key[I])
-		sphere->normal = vector_rotate(sphere->normal, Y, ROTATE);
 	else if (keys->key[K])
+		sphere->normal = vector_rotate(sphere->normal, X, (-ROTATE));
+	else if (keys->key[J])
+		sphere->normal = vector_rotate(sphere->normal, Y, ROTATE);
+	else if (keys->key[L])
 		sphere->normal = vector_rotate(sphere->normal, Y, (-ROTATE));
 	else if (keys->key[O])
 		sphere->normal = vector_rotate(sphere->normal, Z, ROTATE);

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:41:48 by likong            #+#    #+#             */
-/*   Updated: 2025/01/30 14:14:47 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/31 10:27:16 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,22 @@ void	move_shape(t_key *keys, t_shape *shape)
 
 static void	rotate_uv(t_key *keys, t_shape *shape)
 {
-	if (keys->key[L])
+	if (keys->key[I])
 	{
 		shape->u_axis = vector_rotate(shape->u_axis, X, ROTATE);
 		shape->v_axis = vector_rotate(shape->v_axis, X, ROTATE);
 	}
-	else if (keys->key[J])
+	else if (keys->key[K])
 	{
 		shape->u_axis = vector_rotate(shape->u_axis, X, (-ROTATE));
 		shape->v_axis = vector_rotate(shape->v_axis, X, (-ROTATE));
 	}
-	else if (keys->key[I])
+	else if (keys->key[J])
 	{
 		shape->u_axis = vector_rotate(shape->u_axis, Y, ROTATE);
 		shape->v_axis = vector_rotate(shape->v_axis, Y, ROTATE);
 	}
-	else if (keys->key[K])
+	else if (keys->key[L])
 	{
 		shape->u_axis = vector_rotate(shape->u_axis, Y, (-ROTATE));
 		shape->v_axis = vector_rotate(shape->v_axis, Y, (-ROTATE));

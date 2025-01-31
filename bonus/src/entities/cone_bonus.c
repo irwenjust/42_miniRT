@@ -79,13 +79,13 @@ void	move_cone(t_key *keys, t_cone *cone)
 
 void	rotate_cone(t_key *keys, t_cone *cone)
 {
-	if (keys->key[L])
+	if (keys->key[I])
 		cone->normal = vector_rotate(cone->normal, X, ROTATE);
-	else if (keys->key[J])
-		cone->normal = vector_rotate(cone->normal, X, (-ROTATE));
-	else if (keys->key[I])
-		cone->normal = vector_rotate(cone->normal, Y, ROTATE);
 	else if (keys->key[K])
+		cone->normal = vector_rotate(cone->normal, X, (-ROTATE));
+	else if (keys->key[J])
+		cone->normal = vector_rotate(cone->normal, Y, ROTATE);
+	else if (keys->key[L])
 		cone->normal = vector_rotate(cone->normal, Y, (-ROTATE));
 	else if (keys->key[O])
 		cone->normal = vector_rotate(cone->normal, Z, ROTATE);
