@@ -83,42 +83,6 @@ static t_vector	get_normal(t_hit *inter)
 	return (vector_normalize(normal));
 }
 
-// bool	check_unbound(t_ray *ray, t_hit *inter)
-// {
-// 	t_list	*unbound;
-// 	t_shape	*shape;
-// 	double	t;
-
-// 	unbound = s()->unbound;
-// 	while (unbound)
-// 	{
-// 		shape = (t_shape *)unbound->content;
-// 		if (shape->type == PLANE)
-// 		{
-// 			if (inter_real_plane(&shape->data.plane, ray, &t) 
-//				&& t < inter->distance)
-// 			{
-// 				inter->distance = t;
-// 				inter->shape = shape;
-// 				inter->check_hit = true;
-// 			}
-// 		}
-// 		unbound = unbound->next;
-// 	}
-// 	return (inter->check_hit);
-// }
-
-// t_color	color_from_hex(unsigned int hex)
-// {
-// 	t_color	color;
-
-// 	color.red = ((hex >> 24) & 0xFF) / 255.0;
-// 	color.green = ((hex >> 16) & 0xFF) / 255.0;
-// 	color.blue = ((hex >> 8) & 0xFF) / 255.0;
-// 	color.alpha = ((hex >> 0) & 0xFF) / 255.0;
-// 	return (color);
-// }
-
 /**
  * @brief Check whether the ray is intersecting with any shapes and
  * find the closest intersect point.
@@ -145,14 +109,11 @@ bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	tmp = init_hit();
 	if (s()->bvh)
 		tmp.check_hit |= check_bvh_intersection(ray, s()->bvh, &tmp);
-	// tmp.check_hit |= check_unbound(ray, &tmp);
 	if (!tmp.check_hit && s()->shape_nbr[PLANE] == 0)
 		return (false);
 	while (++i < shapes->size)
 	{
 		shape = shapes->array[i];
-		// if (shape->type == PLANE)
-		// 	printf("before shape width: %d\n", shape->checkerboard->width);
 		if (!is_intersect(shape, ray, &tmp, &checker))
 			continue ;
 		if (tmp.distance >= closest->distance)
@@ -160,13 +121,9 @@ bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 		*closest = tmp;
 		closest->ray = *ray;
 		closest->shape = shape;
-		// if (closest->shape->type == PLANE)
-		// 	printf("before shape u_axis x: %f, y: %f, z: %f\nv_axis x: %f, y: %f, z: %f\n",
-		// shape->u_axis.x, shape->u_axis.y, shape->u_axis.z, shape->v_axis.x, shape->v_axis.y, shape->v_axis.z);
 		closest->hit_point = point_on_ray(ray, closest->distance);
 		closest->hit_normal = get_normal(closest);
-		// if (check_unbound(ray, &tmp))
-		// 	break ;
+		// check_refraction(ray, closest);
 	}
 	return (closest->shape != NULL);
 }

@@ -45,7 +45,7 @@ BONUS_SRCS =	main_bonus.c \
 				inter_cone_bonus.c inter_cylinder_bonus.c inter_plane_bonus.c inter_sphere_bonus.c \
 				menu_bonus.c menu_tool_bonus.c camera_menu_bonus.c light_menu_bonus.c shape_menu_bonus.c view_menu_bonus.c \
 				parse_args_bonus.c parse_tool_bonus.c \
-				illumination_bonus.c intersection_bonus.c ray_bonus.c reflect_bonus.c render_bonus.c \
+				illumination_bonus.c intersection_bonus.c ray_bonus.c reflect_bonus.c render_bonus.c refraction_bonus.c \
 				equation_bonus.c error_bonus.c magic_s_bonus.c tool_bonus.c \
 				vector_op_basic_bonus.c vector_op_plus_bonus.c vector_tools_bonus.c vector_rotate_bonus.c \
 				bvh_bonus.c bvh_tool_bonus.c bvh_intersection_bonus.c aabb_bonus.c \

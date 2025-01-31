@@ -6,11 +6,16 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:27:23 by likong            #+#    #+#             */
-/*   Updated: 2025/01/14 12:35:09 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/31 14:52:46 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
+
+double	ft_rand(void)
+{
+	return (rand() / (double) RAND_MAX + 1.0);
+}
 
 t_shape	**shapes_to_arr(t_shape **shapes)
 {

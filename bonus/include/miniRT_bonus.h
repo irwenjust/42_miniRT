@@ -7,6 +7,11 @@
 # define SUCCESS 0
 # define FAILURE 1
 
+# define RAND_MAX 2147483647
+
+# define INSIDE 0
+# define OUTSIDE 1
+
 # define FRAME_RATE 60 //Target frame rate (15 fps)
 # define FRAME_TIME (1000000 / FRAME_RATE)
 
@@ -235,6 +240,7 @@ t_hit		init_hit(void);
 void		ft_swap_d(double *a, double *b);
 t_shape		**shapes_to_arr(t_shape **shapes);
 void		check_hit(t_hit *hit);
+double		ft_rand(void);
 
 char		*save_str_without_newline(char *str);
 
@@ -301,5 +307,8 @@ void		check_texture(char **arg, t_shape *shape);
 
 //bump texture part
 void		check_bump(t_hit *hit);
+
+//refraction part
+void	check_refraction(t_ray *ray, t_hit *hit);
 
 #endif
