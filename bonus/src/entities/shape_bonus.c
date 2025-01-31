@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:41:48 by likong            #+#    #+#             */
-/*   Updated: 2025/01/31 10:27:16 by likong           ###   ########.fr       */
+/*   Updated: 2025/01/31 12:34:56 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,12 @@ static void	rotate_uv(t_key *keys, t_shape *shape)
 		shape->u_axis = vector_rotate(shape->u_axis, Y, (-ROTATE));
 		shape->v_axis = vector_rotate(shape->v_axis, Y, (-ROTATE));
 	}
-	else if (keys->key[O])
+	else if (keys->key[U])
 	{
 		shape->u_axis = vector_rotate(shape->u_axis, Z, ROTATE);
 		shape->v_axis = vector_rotate(shape->v_axis, Z, ROTATE);
 	}
-	else if (keys->key[U])
+	else if (keys->key[O])
 	{
 		shape->u_axis = vector_rotate(shape->u_axis, Z, (-ROTATE));
 		shape->v_axis = vector_rotate(shape->v_axis, Z, (-ROTATE));

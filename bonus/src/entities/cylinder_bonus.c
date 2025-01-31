@@ -88,9 +88,9 @@ void	rotate_cylinder(t_key *keys, t_cylinder *cy)
 		cy->normal = vector_rotate(cy->normal, Y, ROTATE);
 	else if (keys->key[L])
 		cy->normal = vector_rotate(cy->normal, Y, (-ROTATE));
-	else if (keys->key[O])
-		cy->normal = vector_rotate(cy->normal, Z, ROTATE);
 	else if (keys->key[U])
+		cy->normal = vector_rotate(cy->normal, Z, ROTATE);
+	else if (keys->key[O])
 		cy->normal = vector_rotate(cy->normal, Z, (-ROTATE));
 	cy->cap_s = vector_add(cy->center,
 			vector_scale(cy->normal, -cy->height * 0.5));

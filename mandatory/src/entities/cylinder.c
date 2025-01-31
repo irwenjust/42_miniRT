@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:38:02 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/31 12:51:39 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/01/31 12:56:22 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,17 @@ void	move_cylinder(t_key *keys, t_cylinder *cy)
 
 void	rotate_cylinder(t_key *keys, t_cylinder *cy)
 {
-	if (keys->key[L])
+	if (keys->key[I])
 		cy->normal = vector_rotate(cy->normal, X, ROTATE);
-	else if (keys->key[J])
-		cy->normal = vector_rotate(cy->normal, X, (-ROTATE));
-	else if (keys->key[I])
-		cy->normal = vector_rotate(cy->normal, Y, ROTATE);
 	else if (keys->key[K])
+		cy->normal = vector_rotate(cy->normal, X, (-ROTATE));
+	else if (keys->key[J])
+		cy->normal = vector_rotate(cy->normal, Y, ROTATE);
+	else if (keys->key[L])
 		cy->normal = vector_rotate(cy->normal, Y, (-ROTATE));
-	else if (keys->key[O])
-		cy->normal = vector_rotate(cy->normal, Z, ROTATE);
 	else if (keys->key[U])
+		cy->normal = vector_rotate(cy->normal, Z, ROTATE);
+	else if (keys->key[O])
 		cy->normal = vector_rotate(cy->normal, Z, (-ROTATE));
 	cy->cap_s = vector_add(cy->center,
 			vector_scale(cy->normal, -cy->height * 0.5));

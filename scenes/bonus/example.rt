@@ -13,7 +13,8 @@ l   -10,8,5   0.7               255,255,255
 
 # Spheres
 #N  Center    Diameter[>0]   Color[0-255]   Ks[0-1]   Shininess[1-128][commom:1,32,128]  checkerboard[0/1]  texture[path]  Depth[1-10][safe max 3-5]  Reflectivity[0-1]  Refractivity[0-1](对于透明物体，reflec+refrac=1)   IOR(物理折射率，是材料固有特性)  Transmittance(配合IOR使用)
-sp  8,0,15    5              255,255,255      1       128                                 1                 
+sp  8,0,15    5              255,255,255      1       128                                 1                
+# sp  8,0,15    5              255,255,255      1       128                                 0                 textures/test_earth2k.xpm textures/bump.xpm
 
 # Plane
 #N  Center    Normal[-1,1]   Color[0-255]   Ks[0-1]   Shininess[1-128]                   checkerboard[0/1]  texture[path]

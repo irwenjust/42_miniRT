@@ -83,9 +83,9 @@ void	rotate_plane(t_key *keys, t_plane *plane)
 		plane->normal = vector_rotate(plane->normal, Y, ROTATE);
 	else if (keys->key[L])
 		plane->normal = vector_rotate(plane->normal, Y, (-ROTATE));
-	else if (keys->key[O])
-		plane->normal = vector_rotate(plane->normal, Z, ROTATE);
 	else if (keys->key[U])
+		plane->normal = vector_rotate(plane->normal, Z, ROTATE);
+	else if (keys->key[O])
 		plane->normal = vector_rotate(plane->normal, Z, (-ROTATE));
 	printf("rotate plane\n");
 }

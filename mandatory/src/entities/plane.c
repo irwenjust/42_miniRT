@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 15:39:03 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/31 13:19:15 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/01/31 12:55:45 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,17 @@ void	move_plane(t_key *keys, t_plane *plane)
 
 void	rotate_plane(t_key *keys, t_plane *plane)
 {
-	if (keys->key[L])
+	if (keys->key[I])
 		plane->normal = vector_rotate(plane->normal, X, ROTATE);
-	else if (keys->key[J])
-		plane->normal = vector_rotate(plane->normal, X, (-ROTATE));
-	else if (keys->key[I])
-		plane->normal = vector_rotate(plane->normal, Y, ROTATE);
 	else if (keys->key[K])
+		plane->normal = vector_rotate(plane->normal, X, (-ROTATE));
+	else if (keys->key[J])
+		plane->normal = vector_rotate(plane->normal, Y, ROTATE);
+	else if (keys->key[L])
 		plane->normal = vector_rotate(plane->normal, Y, (-ROTATE));
-	else if (keys->key[O])
-		plane->normal = vector_rotate(plane->normal, Z, ROTATE);
 	else if (keys->key[U])
+		plane->normal = vector_rotate(plane->normal, Z, ROTATE);
+	else if (keys->key[O])
 		plane->normal = vector_rotate(plane->normal, Z, (-ROTATE));
 	printf("rotate plane\n");
 }

@@ -62,9 +62,9 @@ void	rotate_sphere(t_key *keys, t_sphere *sphere)
 		sphere->normal = vector_rotate(sphere->normal, Y, ROTATE);
 	else if (keys->key[L])
 		sphere->normal = vector_rotate(sphere->normal, Y, (-ROTATE));
-	else if (keys->key[O])
-		sphere->normal = vector_rotate(sphere->normal, Z, ROTATE);
 	else if (keys->key[U])
+		sphere->normal = vector_rotate(sphere->normal, Z, ROTATE);
+	else if (keys->key[O])
 		sphere->normal = vector_rotate(sphere->normal, Z, (-ROTATE));
 }
 

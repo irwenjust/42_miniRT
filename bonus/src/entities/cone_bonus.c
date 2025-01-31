@@ -87,9 +87,9 @@ void	rotate_cone(t_key *keys, t_cone *cone)
 		cone->normal = vector_rotate(cone->normal, Y, ROTATE);
 	else if (keys->key[L])
 		cone->normal = vector_rotate(cone->normal, Y, (-ROTATE));
-	else if (keys->key[O])
-		cone->normal = vector_rotate(cone->normal, Z, ROTATE);
 	else if (keys->key[U])
+		cone->normal = vector_rotate(cone->normal, Z, ROTATE);
+	else if (keys->key[O])
 		cone->normal = vector_rotate(cone->normal, Z, (-ROTATE));
 	cone->base = vector_add(cone->tip, vector_scale(cone->normal, cone->height));
 	cone->center = vector_scale(vector_add(cone->tip, cone->base), 0.5);

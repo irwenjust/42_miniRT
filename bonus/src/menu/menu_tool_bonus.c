@@ -11,9 +11,9 @@ void	display_move_rotate_size(int x, int y)
 	if (s()->menu != LIGHT)
 	{
 		display(x += (32 * 6), y, 0x87CEFA, "Rotation >");
-		display(x += (12 * 6), y, 0xFFFFFF, "L/J : Rotate +/- around X-axis");
-		display(x += (32 * 6), y, 0xFFFFFF, "I/K : Rotate +/- around Y-axis");
-		display(x += (32 * 6), y, 0xFFFFFF, "O/U : Rotate +/- around Z-axis");
+		display(x += (12 * 6), y, 0xFFFFFF, "L/J : Rotate +/- toward X-axis");
+		display(x += (32 * 6), y, 0xFFFFFF, "I/K : Rotate +/- toward Y-axis");
+		display(x += (32 * 6), y, 0xFFFFFF, "O/U : Rotate +/- toward Z-axis");
 	}
 	if (s()->menu == SHAPE
 		&& ((t_shape *)(s()->shapes->array[s()->select]))->type != PLANE)
