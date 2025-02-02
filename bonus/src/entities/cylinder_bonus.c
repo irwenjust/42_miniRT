@@ -36,7 +36,7 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	t_shape		*shape;
 	t_cylinder	cy;
 
-	if (ft_matrix_size(arg) < 9 || ft_matrix_size(arg) > 10 || !check_syntax(arg, "01100100"))
+	if (ft_matrix_size(arg) < 9 || !check_syntax(arg, "01100100"))
 		return (ERROR("cylinder: wrong args format"), false);
 	if (!check_rgb(arg[5]))
 		return (ERROR("cylinder: wrong color value"), false);
@@ -48,6 +48,8 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	check_texture(arg, shape);
 	shape->ks = ft_atod(arg[6]);
 	shape->shininess = ft_atod(arg[7]);
+	shape->depth = ft_atoi(arg[11]);						  //didn't check the unavaible case
+	shape->refra_idx = ft_atod(arg[13]);
 	if (shape->ks < 1e-8 || shape->ks > 1)
 		return (ERROR("sphere: wrong ks value"), false);
 	if (shape->shininess < 1 || shape->shininess > 128)

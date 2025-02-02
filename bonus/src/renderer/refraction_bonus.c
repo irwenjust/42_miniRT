@@ -6,19 +6,46 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:02:38 by likong            #+#    #+#             */
-/*   Updated: 2025/01/31 17:16:19 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/02 15:27:38 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-static double	get_reflectance(double cos_theta, double ratio)
+double	get_reflectance(double cos_theta, double ratio)
 {
 	double	res;
 
 	res = (1.0 - ratio) / (1.0 + ratio);
 	res = res * res;
 	return (res + (1.0 - res) * pow((1.0 - cos_theta), 5.0));
+}
+
+void	add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit)
+{
+	t_vector	incident_dir;
+	t_vector	normal;
+	double		cos_theta;
+	double		ratio;
+	double		reflectance;
+	
+	incident_dir = vector_normalize(ray->normal);
+	normal = (closest->side == OUTSIDE) 
+					? closest->hit_normal 
+					: vector_scale(closest->hit_normal, -1.0);
+	cos_theta = fabs(vector_dot(incident_dir, normal));
+
+	// 获取菲涅尔反射率
+	ratio = (closest->side == OUTSIDE) 
+					? (1.0 / closest->refra_idx) 
+					: closest->refra_idx;
+	reflectance = get_reflectance(cos_theta, ratio);
+
+	// 能量守恒混合：反射颜色 * 反射率 + 折射颜色 * 透射率
+	closest->color = add_color(
+		add_bright_to_color(closest->color, reflectance),
+		add_bright_to_color(new_hit.color, (1.0 - reflectance) * closest->refractivity)
+	);
 }
 
 static void	get_refraction(t_ray *ray, t_hit *hit, double ratio)
@@ -35,11 +62,11 @@ static void	get_refraction(t_ray *ray, t_hit *hit, double ratio)
 	else
 		normal = vector_scale(hit->hit_normal, -1.0);
 	cos_theta = fmin(vector_dot(vector_scale(ray->normal, -1.0), normal), 1.0);
-	cannot_TIR = (ratio * sqrt(1.0 - cos_theta * cos_theta) > 0);
-	// printf("TIR: %lf\n", ratio);
+	cannot_TIR = (ratio * sqrt(1.0 - cos_theta * cos_theta) > 1.0);
 	if (cannot_TIR || get_reflectance(cos_theta, ratio) > ft_rand())
 	{
-		// printf("count: %d\n", ++count);
+		ray->normal = vector_normalize(vector_sub(ray->normal,
+			vector_scale(hit->hit_normal, 2.0 * vector_dot(ray->normal, hit->hit_normal))));
 		return ;
 	}
 	else
@@ -55,14 +82,16 @@ void	check_refraction(t_ray *ray, t_hit *hit)
 {
 	double	ratio;
 	
-	ratio = 0.0;
+	// ratio = 0.0;
 	if (vector_dot(hit->hit_normal, ray->normal) > 0.0)
 		hit->side = INSIDE;
 	else
 		hit->side = OUTSIDE;
 	if (hit->side == INSIDE)
-		hit->refract = 1.0 - hit->shape->ks;
+		ratio = hit->refra_idx;
 	else
-		hit->refract = 1.0 / (1.0 - hit->shape->ks);
+		ratio = 1.0 / hit->refra_idx;
+	// printf("%lf\n", hit->shape->refra_idx);
 	get_refraction(ray, hit, ratio);
+	ray->normal = vector_normalize(ray->normal);
 }

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:13:56 by likong            #+#    #+#             */
-/*   Updated: 2025/01/31 17:19:30 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/01 18:45:59 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,12 @@ void	check_texture(char **arg, t_shape *shape)
 		shape->cboard = create_cboard(shape->data.cone.color);
 	if (shape->cboard)
 		return ;
-	if ((shape->type == PLANE || shape->type == SPHERE) && arg[8])
-		shape->tex = parse_texture(arg[8]);
-	else if ((shape->type == CYLINDER || shape->type == CONE) && arg[9])
+	if ((shape->type == PLANE || shape->type == SPHERE) && arg[7] && arg[7][0] != '0')
+		shape->tex = parse_texture(arg[7]);
+	else if ((shape->type == CYLINDER || shape->type == CONE) && arg[9] && arg[9][0] != '0')
 		shape->tex = parse_texture(arg[9]);
-	if ((shape->type == PLANE || shape->type == SPHERE) && ft_matrix_size(arg) == 10 && arg[9])
-		shape->bmp = parse_texture(arg[9]);
-	else if ((shape->type == CYLINDER || shape->type == CONE) && ft_matrix_size(arg) == 11 && arg[10])
+	if ((shape->type == PLANE || shape->type == SPHERE) && ft_matrix_size(arg) >= 9 && arg[8] && arg[8][0] != '0')
+		shape->bmp = parse_texture(arg[8]);
+	else if ((shape->type == CYLINDER || shape->type == CONE) && ft_matrix_size(arg) >= 11 && arg[10] && arg[10][0] != '0')
 		shape->bmp = parse_texture(arg[10]);
 }

@@ -309,6 +309,8 @@ void		check_texture(char **arg, t_shape *shape);
 void		check_bump(t_hit *hit);
 
 //refraction part
-void	check_refraction(t_ray *ray, t_hit *hit);
+void		check_refraction(t_ray *ray, t_hit *hit);
+double		get_reflectance(double cos_theta, double ratio);
+void		add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:48:31 by likong            #+#    #+#             */
-/*   Updated: 2025/01/31 17:44:08 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/02 15:43:21 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,56 @@ void	put_pixel(t_color c, int x, int y)
 	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
 }
 
+static t_hit	generate_hit(void)
+{
+	t_hit	new_hit;
+
+	ft_bzero(&new_hit, sizeof(t_hit));
+	new_hit.distance = INFINITY;
+	new_hit.shape = NULL;
+	return (new_hit);
+}
+
+void	set_hit_ray(t_ray *ray, t_ray *new_ray, t_hit *closest, t_hit *new_hit)
+{
+	t_vector	offset;
+	
+	new_hit->depth = closest->depth - 1;
+	double	offset_scale = 1e-4;
+	if (closest->side == OUTSIDE)
+		offset = vector_scale(closest->hit_normal, offset_scale);
+	else
+		offset = vector_scale(closest->hit_normal, -offset_scale);
+	new_ray->start = vector_add(closest->hit_point, offset);
+	new_ray->normal = ray->normal;
+	new_ray->inv_start = (t_vector){1.0 / new_ray->normal.x,
+		1.0 / new_ray->normal.y, 1.0 / new_ray->normal.z};
+}
+
 void	ray_tracer(t_ray *ray, t_hit *closest)
 {
-	if (check_intersection(s()->shapes, ray, closest))
-	{
-		check_illumination(closest);
-		//check reflection
-		// check_refraction(ray, closest);
-	}
-	else
+	t_ray	new_ray;
+	t_hit	new_hit;
+	
+	if (!check_intersection(s()->shapes, ray, closest))
 		return ;
+	//check reflection
+	if (!closest || !closest->shape)
+		return ;
+	closest->refractivity = 1 - closest->shape->ks;
+	closest->refra_idx = closest->shape->refra_idx;
+	closest->depth = closest->shape->depth;
+	check_illumination(closest);
+	if (closest->depth <= 0)
+		return ;
+	if (closest->depth > 0 && closest->refractivity > 0)
+	{
+		new_hit = generate_hit();
+		set_hit_ray(ray, &new_ray, closest, &new_hit);
+		check_refraction(&new_ray, closest);
+		ray_tracer(&new_ray, &new_hit);
+		add_color_by_refra(ray, closest, new_hit);
+	}
 }
 
 void	*fake_render_thread(void *arg)
