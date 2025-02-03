@@ -112,9 +112,8 @@ bool		is_intersect(t_shape *shape, t_ray *ray, t_hit *inter,
 void		find_valid_t(t_equation *equation);
 //illumination part
 void		check_illumination(t_hit *closest);
-//reflect part
-t_color		diffuse(t_light *light, t_hit *inter, double brightness);
-t_color specular(t_light *light, t_hit *inter, double brightness);
+
+
 
 /**
  * intersection
@@ -298,7 +297,6 @@ t_color		uv_get_color(t_image *img, double u, double v);
 //more color utils
 t_color		color_sub(t_color c1, t_color t2);
 t_color		color_create(double r, double g, double b);
-t_color		color_multi(t_color c1, t_color c2);
 
 //texture part
 t_color		add_texture(t_hit *hit);
@@ -312,5 +310,9 @@ void		check_bump(t_hit *hit);
 void		check_refraction(t_ray *ray, t_hit *hit);
 double		get_reflectance(double cos_theta, double ratio);
 void		add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit);
+
+
+void	check_reflection(t_ray *ray, t_hit *closest, t_hit *new_hit);
+void	add_color_by_reflect(t_hit *closest, t_hit new_hit);
 
 #endif
