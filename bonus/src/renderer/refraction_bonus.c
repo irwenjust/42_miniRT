@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:02:38 by likong            #+#    #+#             */
-/*   Updated: 2025/02/02 15:27:38 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/03 12:09:22 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit)
 	ratio = (closest->side == OUTSIDE) 
 					? (1.0 / closest->refra_idx) 
 					: closest->refra_idx;
-	reflectance = get_reflectance(cos_theta, ratio);
+	reflectance = fmax(get_reflectance(cos_theta, ratio), 0.1);
 
 	// 能量守恒混合：反射颜色 * 反射率 + 折射颜色 * 透射率
 	closest->color = add_color(
@@ -82,16 +82,14 @@ void	check_refraction(t_ray *ray, t_hit *hit)
 {
 	double	ratio;
 	
-	// ratio = 0.0;
-	if (vector_dot(hit->hit_normal, ray->normal) > 0.0)
-		hit->side = INSIDE;
-	else
+	if (vector_dot(hit->hit_normal, ray->normal) < 0.0)
 		hit->side = OUTSIDE;
+	else
+		hit->side = INSIDE;
 	if (hit->side == INSIDE)
 		ratio = hit->refra_idx;
 	else
 		ratio = 1.0 / hit->refra_idx;
-	// printf("%lf\n", hit->shape->refra_idx);
 	get_refraction(ray, hit, ratio);
 	ray->normal = vector_normalize(ray->normal);
 }
