@@ -43,8 +43,8 @@ void	add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit)
 
 	// 能量守恒混合：反射颜色 * 反射率 + 折射颜色 * 透射率
 	closest->color = add_color(
-		add_bright_to_color(closest->color, reflectance),
-		add_bright_to_color(new_hit.color, (1.0 - reflectance) * closest->refractivity)
+		multi_color(closest->color, reflectance),
+		multi_color(new_hit.color, (1.0 - reflectance) * closest->refractivity)
 	);
 }
 

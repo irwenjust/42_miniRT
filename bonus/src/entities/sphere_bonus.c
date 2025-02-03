@@ -44,7 +44,7 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	shape->shininess = ft_atod(arg[5]);
 	shape->depth = ft_atoi(arg[9]);						  //didn't check the unavaible case
 	shape->refra_idx = ft_atod(arg[10]);
-	if (shape->ks < 1e-8 || shape->ks > 1)
+	if (shape->ks < 0 || shape->ks > 1)
 		return (ERROR("sphere: wrong ks value"), false);
 	if (shape->shininess < 1 || shape->shininess > 128)
 		return (ERROR("sphere: wrong shininess value"), false);
