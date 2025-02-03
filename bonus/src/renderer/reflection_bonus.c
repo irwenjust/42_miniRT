@@ -43,8 +43,7 @@ void	check_reflection(t_ray *ray, t_hit *closest, t_hit *new_hit)
     check_illumination(new_hit);
     closest->color = add_color(
 		closest->color,
-		add_bright_to_color(new_hit->color, ls
-        ->shape->ks)
+		add_bright_to_color(new_hit->color, closest->shape->ks)
 	);
 
 }
