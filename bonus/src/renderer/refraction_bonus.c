@@ -21,32 +21,32 @@ double	get_reflectance(double cos_theta, double ratio)
 	return (res + (1.0 - res) * pow((1.0 - cos_theta), 5.0));
 }
 
-void	add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit)
-{
-	t_vector	incident_dir;
-	t_vector	normal;
-	double		cos_theta;
-	double		ratio;
-	double		reflectance;
+// void	add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit)
+// {
+// 	t_vector	incident_dir;
+// 	t_vector	normal;
+// 	double		cos_theta;
+// 	double		ratio;
+// 	double		reflectance;
 	
-	incident_dir = vector_normalize(ray->normal);
-	normal = (closest->side == OUTSIDE) 
-					? closest->hit_normal 
-					: vector_scale(closest->hit_normal, -1.0);
-	cos_theta = fabs(vector_dot(incident_dir, normal));
+// 	incident_dir = vector_normalize(ray->normal);
+// 	normal = (closest->side == OUTSIDE) 
+// 					? closest->hit_normal 
+// 					: vector_scale(closest->hit_normal, -1.0);
+// 	cos_theta = fabs(vector_dot(incident_dir, normal));
 
-	// 获取菲涅尔反射率
-	ratio = (closest->side == OUTSIDE) 
-					? (1.0 / closest->refra_idx) 
-					: closest->refra_idx;
-	reflectance = fmax(get_reflectance(cos_theta, ratio), 0.1);
+// 	// 获取菲涅尔反射率
+// 	ratio = (closest->side == OUTSIDE) 
+// 					? (1.0 / closest->refra_idx) 
+// 					: closest->refra_idx;
+// 	reflectance = fmax(get_reflectance(cos_theta, ratio), 0.1);
 
-	// 能量守恒混合：反射颜色 * 反射率 + 折射颜色 * 透射率
-	closest->color = add_color(
-		multi_color(closest->color, reflectance),
-		multi_color(new_hit.color, (1.0 - reflectance) * closest->refractivity)
-	);
-}
+// 	// 能量守恒混合：反射颜色 * 反射率 + 折射颜色 * 透射率
+// 	closest->color = add_color(
+// 		multi_color(closest->color, reflectance),
+// 		multi_color(new_hit.color, (1.0 - reflectance) * closest->refractivity)
+// 	);
+// }
 
 static void	get_refraction(t_ray *ray, t_hit *hit, double ratio)
 {

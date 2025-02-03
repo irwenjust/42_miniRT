@@ -67,14 +67,55 @@ void	set_hit_ray(t_ray *ray, t_ray *new_ray, t_hit *closest, t_hit *new_hit)
 		1.0 / new_ray->normal.y, 1.0 / new_ray->normal.z};
 }
 
+t_vector vector_reflect(t_vector incident, t_vector normal)
+{
+    return vector_sub(incident, 
+        vector_scale(normal, 2.0 * vector_dot(incident, normal)));
+}
+
+void    set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *closest)
+{
+    t_vector offset;
+    double    offset_scale = 1e-4;
+    
+    // 计算反射方向
+    t_vector reflect_dir = vector_reflect(
+        vector_normalize(ray->normal),
+        closest->hit_normal
+    );
+    
+    // 添加法线偏移防止自相交
+    offset = vector_scale(closest->hit_normal, offset_scale);
+    reflect_ray->start = vector_add(closest->hit_point, offset);
+    reflect_ray->normal = reflect_dir;
+    reflect_ray->inv_start = (t_vector){1.0 / reflect_dir.x,
+        1.0 / reflect_dir.y, 1.0 / reflect_dir.z};
+}
+
+double    calculate_fresnel(t_hit *closest)
+{
+    t_vector incident = vector_normalize(closest->ray.normal);
+    t_vector normal = (closest->side == OUTSIDE) ? 
+        closest->hit_normal : 
+        vector_scale(closest->hit_normal, -1.0);
+    
+    double cos_theta = fabs(vector_dot(incident, normal));
+    double ratio = (closest->side == OUTSIDE) ? 
+        (1.0 / closest->refra_idx) : 
+        closest->refra_idx;
+    
+    return get_reflectance(cos_theta, ratio);
+}
+
 void	ray_tracer(t_ray *ray, t_hit *closest)
 {
-	// t_ray	new_ray;
-	// t_hit	new_hit;
+	t_ray	new_ray;
+	t_hit	new_hit;
+	t_ray    reflect_ray; // 新增反射光线
+    t_hit    reflect_hit; // 新增反射交点
 	
 	if (!check_intersection(s()->shapes, ray, closest))
 		return ;
-	//check reflection
 	if (!closest || !closest->shape)
 		return ;
 	closest->refractivity = 1 - closest->shape->ks;
@@ -83,37 +124,64 @@ void	ray_tracer(t_ray *ray, t_hit *closest)
 	check_illumination(closest);
 	if (closest->depth <= 0)
 		return ;
-	if (closest->depth > 0 && closest->refractivity > 0)
-	{
-		// new_hit = generate_hit();
-		// set_hit_ray(ray, &new_ray, closest, &new_hit);
-		// check_refraction(&new_ray, closest);
+
+//DS
+	double reflectance = calculate_fresnel(closest); // 需要实现菲涅尔计算
+    if (closest->depth > 0 && reflectance > 0.01) {
+        set_reflection_ray(ray, &reflect_ray, closest); // 设置反射光线
+        reflect_hit = generate_hit();
+        reflect_hit.depth = closest->depth - 1;
+        ray_tracer(&reflect_ray, &reflect_hit);
+        closest->color = add_color(
+            multi_color(closest->color, 1.0 - reflectance),
+            multi_color(reflect_hit.color, reflectance)
+        );
+    }
+	// 处理折射（现有逻辑调整）
+    if (closest->depth > 0 && closest->refractivity > 0) {
+        new_hit = generate_hit();
+        set_hit_ray(ray, &new_ray, closest, &new_hit);
+        check_refraction(&new_ray, closest);
+        ray_tracer(&new_ray, &new_hit);
+        closest->color = add_color(
+            closest->color,
+            multi_color(new_hit.color, closest->refractivity * (1.0 - reflectance))
+        );
+    }
+
+//GPT
+	// if (closest->depth > 0 && closest->refractivity > 0)
+	// {
+	//  //origin
+	// 	// new_hit = generate_hit();
+	// 	// set_hit_ray(ray, &new_ray, closest, &new_hit);
+	// 	// check_refraction(&new_ray, closest);
 	
-		// ray_tracer(&new_ray, &new_hit);
-		// add_color_by_refra(ray, closest, new_hit);
-		if (closest->shape->ks > 0) // 如果物体有镜面反射
-		{
-			t_ray	reflected_ray;
-			t_hit	reflected_hit = generate_hit();
-			// 计算反射方向
-			reflected_ray.start = vector_add(closest->hit_point,
-				vector_scale(closest->hit_normal, 1e-4)); // 避免自相交
-			reflected_ray.normal = vector_normalize(vector_sub(ray->normal,
-				vector_scale(closest->hit_normal, 2.0 * vector_dot(ray->normal, closest->hit_normal))));
+	// 	// ray_tracer(&new_ray, &new_hit);
+	// 	// add_color_by_refra(ray, closest, new_hit);
+	// 	if (closest->shape->ks > 0) // 如果物体有镜面反射
+	// 	{
+	// 		t_ray	reflected_ray;
+	// 		t_hit	reflected_hit = generate_hit();
+	// 		// 计算反射方向
+	// 		reflected_ray.start = vector_add(closest->hit_point,
+	// 			vector_scale(closest->hit_normal, 1e-4)); // 避免自相交
+	// 		reflected_ray.normal = vector_normalize(vector_sub(ray->normal,
+	// 			vector_scale(closest->hit_normal, 2.0 * vector_dot(ray->normal, closest->hit_normal))));
 
-			// 递归追踪反射光线
-			ray_tracer(&reflected_ray, &reflected_hit);
+	// 		// 递归追踪反射光线
+	// 		ray_tracer(&reflected_ray, &reflected_hit);
 
-			// 计算菲涅尔反射率（已计算）
-			double reflectance = fmax(get_reflectance(fabs(vector_dot(ray->normal, closest->hit_normal)), closest->refra_idx), 0.1);
+	// 		// 计算菲涅尔反射率（已计算）
+	// 		double reflectance = fmax(get_reflectance(fabs(vector_dot(ray->normal, closest->hit_normal)), closest->refra_idx), 0.1);
 
-			// 混合颜色
-			closest->color = add_color(
-				multi_color(closest->color, (1.0 - reflectance) * closest->refractivity), // 折射部分
-				multi_color(reflected_hit.color, reflectance * closest->shape->ks) // 反射部分
-			);
-		}
-	}
+	// 		// 混合颜色
+	// 		closest->color = add_color(
+	// 			multi_color(closest->color, (1.0 - reflectance) * closest->refractivity), // 折射部分
+	// 			multi_color(reflected_hit.color, reflectance * closest->shape->ks) // 反射部分
+	// 		);
+	// 	}
+	// }
 	
 }
 

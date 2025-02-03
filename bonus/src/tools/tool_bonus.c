@@ -69,17 +69,13 @@ char	*save_str_without_newline(char *str)
 
 t_hit	init_hit(void)
 {
-	static t_hit	hit;
-	static bool		init = true;
+	t_hit	hit;
+	
+	ft_bzero(&hit, sizeof(t_hit));
+	hit.color = BLACK;
+	hit.distance = INFINITY;
+	hit.shape = NULL;
 
-	if (init)
-	{
-		ft_bzero(&hit, sizeof(t_hit));
-		hit.color = BLACK;
-		hit.distance = INFINITY;
-		hit.shape = NULL;
-		init = false;
-	}
 	return (hit);
 }
 
