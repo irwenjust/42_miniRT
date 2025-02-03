@@ -22,13 +22,30 @@ t_color	color_create(double r, double g, double b)
 	return (color);
 }
 
-t_color	color_sub(t_color c1, t_color c2)
-{
-	return ((t_color){
-		.red = ft_within_range(c1.red - c2.red, 0, 255),
-		.green = ft_within_range(c1.green - c2.green, 0, 255),
-		.blue = ft_within_range(c1.blue - c2.blue, 0, 255),
-		.alpha = ft_within_range(0XFF, 0, 255)
-	});
-}
 
+
+t_color	*get_color(int type, int i)
+{
+	t_shape	*shape;
+	t_color	*rgb;
+
+	if (type == SHAPE)
+	{
+		shape = s()->shapes->array[i];
+		if (shape->type == SPHERE)
+			rgb = &shape->data.sphere.color;
+		else if (shape->type == PLANE)
+			rgb = &shape->data.plane.color;
+		else if (shape->type == CYLINDER)
+			rgb = &shape->data.cylinder.color;
+		else
+			rgb = &shape->data.cone.color;
+	}
+	else if (type == LIGHT)
+		rgb = &((t_light *)(s()->light->array[i]))->color;
+	else if (type == VIEW)
+		rgb = &(s()->ambient.color);
+	else
+		rgb = NULL;
+	return (rgb);
+}

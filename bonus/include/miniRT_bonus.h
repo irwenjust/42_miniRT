@@ -223,7 +223,7 @@ t_vector	vector_abs(t_vector v);
  * tools
  */
 //color part
-t_color		add_bright_to_color(t_color color, double brightness);
+t_color		multi_color(t_color color, double brightness);
 t_color		add_color(t_color c1, t_color c2);
 t_color		copy_color(t_color c);
 t_color		*get_color(int type, int i);
@@ -295,7 +295,7 @@ void		add_uv_axis(t_shape *shape, t_vector normal);
 t_color		uv_get_color(t_image *img, double u, double v);
 
 //more color utils
-t_color		color_sub(t_color c1, t_color t2);
+t_color		sub_color(t_color c1, t_color t2);
 t_color		color_create(double r, double g, double b);
 
 //texture part

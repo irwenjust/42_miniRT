@@ -16,7 +16,7 @@ t_color	check_ambient(t_color color)
 {
 	t_color	ambient;
 
-	ambient = add_bright_to_color(s()->ambient.color, s()->ambient.brightness);
+	ambient = multi_color(s()->ambient.color, s()->ambient.brightness);
 	return (mix_color(color, ambient));
 }
 
