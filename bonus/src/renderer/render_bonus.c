@@ -41,16 +41,6 @@ void	put_pixel(t_color c, int x, int y)
 	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
 }
 
-static t_hit	generate_hit(void)
-{
-	t_hit	new_hit;
-
-	ft_bzero(&new_hit, sizeof(t_hit));
-	new_hit.distance = INFINITY;
-	new_hit.shape = NULL;
-	return (new_hit);
-}
-
 void	set_hit_ray(t_ray *ray, t_ray *new_ray, t_hit *closest, t_hit *new_hit)
 {
 	t_vector	offset;
@@ -69,7 +59,7 @@ void	set_hit_ray(t_ray *ray, t_ray *new_ray, t_hit *closest, t_hit *new_hit)
 
 void	ray_tracer(t_ray *ray, t_hit *closest)
 {
-	t_ray	new_ray;
+	// t_ray	new_ray;
 	t_hit	new_hit;
 	
 	if (!check_intersection(s()->shapes, ray, closest))
@@ -83,14 +73,19 @@ void	ray_tracer(t_ray *ray, t_hit *closest)
 	check_illumination(closest);
 	if (closest->depth <= 0)
 		return ;
-	if (closest->depth > 0 && closest->refractivity > 0)
+	if (closest->depth > 0 && closest->shape->ks > 0)
 	{
-		new_hit = generate_hit();
-		set_hit_ray(ray, &new_ray, closest, &new_hit);
-		check_refraction(&new_ray, closest);
-		ray_tracer(&new_ray, &new_hit);
-		add_color_by_refra(ray, closest, new_hit);
+		new_hit = init_hit();
+		check_reflection(ray, closest, &new_hit);
 	}
+	// if (closest->depth > 0 && closest->refractivity > 0)
+	// {
+	// 	new_hit = init_hit();
+	// 	set_hit_ray(ray, &new_ray, closest, &new_hit);
+	// 	check_refraction(&new_ray, closest);
+	// 	ray_tracer(&new_ray, &new_hit);
+	// 	add_color_by_refra(ray, closest, new_hit);
+	// }
 }
 
 void	*fake_render_thread(void *arg)
