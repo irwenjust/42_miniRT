@@ -246,6 +246,8 @@ typedef struct s_hit
 	double	distance;
 	double	refra_idx;
 	double	refractivity;
+	double	reflectance;
+	double	transmission;
 	bool	check_hit;
 	bool	side;
 	double	u;

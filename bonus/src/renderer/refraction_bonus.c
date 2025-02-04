@@ -39,14 +39,23 @@
 // 	ratio = (closest->side == OUTSIDE) 
 // 					? (1.0 / closest->refra_idx) 
 // 					: closest->refra_idx;
-// 	reflectance = fmax(get_reflectance(cos_theta, ratio), 0.1);
+// 	reflectance = fmax(calculate_reflectance(cos_theta, 1.0, ratio), 0.1);
 
 // 	// 能量守恒混合：反射颜色 * 反射率 + 折射颜色 * 透射率
 // 	closest->color = add_color(
-// 		multi_color(closest->color, reflectance),
+// 		closest->color,
 // 		multi_color(new_hit.color, (1.0 - reflectance) * closest->refractivity)
 // 	);
+
 // }
+
+void add_refract_color(t_hit *hit, t_hit *refract_hit)
+{
+	hit->color = add_color(
+			multi_color(hit->color, hit->reflectance),
+			multi_color(refract_hit->color, hit->transmission)
+		);
+}
 
 static void	get_refraction(t_ray *ray, t_hit *hit, double ratio)
 {
@@ -78,10 +87,11 @@ static void	get_refraction(t_ray *ray, t_hit *hit, double ratio)
 	ray->normal = vector_normalize(vector_add(perp, para));
 }
 
-static void	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit)
+void	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit, t_hit *refract_hit)
 {
 	t_vector	offset;
 	
+	refract_hit->depth = hit->depth - 1;
 	double	offset_scale = 1e-4;
 	if (hit->side == OUTSIDE)
 		offset = vector_scale(hit->hit_normal, offset_scale);
@@ -93,16 +103,11 @@ static void	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit)
 		1.0 / refract_ray->normal.y, 1.0 / refract_ray->normal.z};
 }
 
-void	check_refraction(t_ray *ray, t_hit *hit, double reflectance)
+void	check_refraction(t_ray *ray, t_hit *hit)
 {
 	double	ratio;
-	t_ray refract_ray;
-    t_hit refract_hit;
-
-	refract_hit = generate_hit();
-    set_refraction_ray(ray, &refract_ray, hit);
-	refract_hit.depth = hit->depth - 1;
-	if (vector_dot(hit->hit_normal, refract_ray.normal) < 0.0)
+	
+	if (vector_dot(hit->hit_normal, ray->normal) < 0.0)
 		hit->side = OUTSIDE;
 	else
 		hit->side = INSIDE;
@@ -110,11 +115,6 @@ void	check_refraction(t_ray *ray, t_hit *hit, double reflectance)
 		ratio = hit->refra_idx;
 	else
 		ratio = 1.0 / hit->refra_idx;
-	get_refraction(&refract_ray, hit, ratio);
-	refract_ray.normal = vector_normalize(refract_ray.normal);
-    ray_tracer(&refract_ray, &refract_hit);
-    hit->color = add_color(
-        hit->color,
-        multi_color(refract_hit.color, hit->refractivity * (1.0 - reflectance))
-    );
+	get_refraction(ray, hit, ratio);
+	ray->normal = vector_normalize(ray->normal);
 }

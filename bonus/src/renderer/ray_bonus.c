@@ -47,18 +47,48 @@ inline t_vector	point_on_ray(t_ray *ray, double t)
 	return (vector_add(ray->start, vector_scale(ray->normal, t)));
 }
 
+void	get_illumination_param(t_hit *hit)
+{
+	hit->refra_idx = hit->shape->refra_idx;
+	hit->refractivity = 1 - hit->shape->ks;
+	hit->depth = hit->shape->depth;
+	if (hit->shape->ks > 0 && hit->shape->transparency == 0)
+        hit->reflectance = hit->shape->ks;
+    else if (hit->shape->ks > 0 && hit->shape->transparency > 0)
+        hit->reflectance = calculate_fresnel(hit);
+    else
+	{
+        hit->reflectance = 0.0;
+	}
+	hit->transmission = hit->shape->transparency * hit->refractivity * (1.0 - hit->reflectance);
+}
+
 void	ray_tracer(t_ray *ray, t_hit *hit)
 {
+	t_ray reflect_ray;
+    t_hit reflect_hit;
+	t_ray refract_ray;
+    t_hit refract_hit;
+
 	if (!check_intersection(s()->shapes, ray, hit))
 		return ;
-	if (!hit || !hit->shape)
-		return ;
-	hit->refractivity = 1 - hit->shape->ks;
-	hit->refra_idx = hit->shape->refra_idx;
-	hit->depth = hit->shape->depth;
+	get_illumination_param(hit);
 	phong_illumination(hit);
 	if (hit->depth <= 0)
 		return ;
-	else
-		global_illumination(ray, hit);
+    if(hit->reflectance > 0.01)
+    {
+		reflect_hit = generate_hit();
+    	set_reflection_ray(ray, &reflect_ray, hit, &reflect_hit);
+        ray_tracer(&reflect_ray, &reflect_hit);
+   		add_reflect_color(hit, &reflect_hit);
+    }
+    if (hit->shape->transparency > 0)
+    {
+		refract_hit = generate_hit();
+    	set_refraction_ray(ray, &refract_ray, hit, &refract_hit);
+        check_refraction(&refract_ray, hit);
+		ray_tracer(&refract_ray, &refract_hit);
+   		add_refract_color(hit, &refract_hit);
+    }
 }

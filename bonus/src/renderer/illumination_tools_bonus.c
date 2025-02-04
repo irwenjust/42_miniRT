@@ -11,7 +11,7 @@ double	calculate_reflectance(double cos_theta, double n1, double n2)
 	return (res + (1.0 - res) * pow((1.0 - cos_theta), 5.0));
 }
 
-static double    calculate_fresnel(t_hit *hit)
+double    calculate_fresnel(t_hit *hit)
 {
 	t_vector	incident_dir;
 	t_vector	normal;
@@ -47,28 +47,4 @@ t_hit	generate_hit(void)
 	return (hit);
 }
 
-void global_illumination(t_ray *ray, t_hit *hit)
-{
-    double reflectance;
-    
-    if (hit->shape->ks > 0 && hit->shape->transparency == 0)
-        reflectance = hit->shape->ks;
-    else if (hit->shape->ks > 0 && hit->shape->transparency > 0)
-        reflectance = calculate_fresnel(hit);
-    else if (hit->shape->ks == 0.0 && hit->shape->transparency == 0)
-        return ;
-    else
-        reflectance = 0.0;
-    if (hit->depth > 0)
-    {
-        if(reflectance > 0)
-        {
-            check_reflection(ray, hit, reflectance);
-        }
-        if (hit->shape->transparency > 0)
-        {
-            check_refraction(ray, hit, reflectance);
-        }
-    }
-}
 

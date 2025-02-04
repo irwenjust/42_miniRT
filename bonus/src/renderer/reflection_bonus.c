@@ -6,12 +6,13 @@ static t_vector vector_reflect(t_vector incident, t_vector normal)
         vector_scale(normal, 2.0 * vector_dot(incident, normal)));
 }
 
-static void    set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *hit)
+void    set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *hit, t_hit *reflect_hit)
 {
     t_vector offset;
     t_vector reflect_dir;
     double    offset_scale = 1e-4;
 
+	reflect_hit->depth = hit->depth - 1;
     // 计算反射方向
     reflect_dir = vector_reflect(ray->normal, hit->hit_normal);
     
@@ -23,17 +24,10 @@ static void    set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *hit)
         1.0 / reflect_dir.y, 1.0 / reflect_dir.z};
 }
 
-void check_reflection(t_ray *ray, t_hit *hit, double reflectance)
+void add_reflect_color(t_hit *hit, t_hit *reflect_hit)
 {
-    t_ray reflect_ray;
-    t_hit reflect_hit;
-
-    reflect_hit = generate_hit();
-    set_reflection_ray(ray, &reflect_ray, hit);
-    reflect_hit.depth = hit->depth - 1;
-    ray_tracer(&reflect_ray, &reflect_hit);
     hit->color = add_color(
-        multi_color(hit->color, 1.0 - reflectance),
-        multi_color(reflect_hit.color, reflectance)
+        multi_color(hit->color, 1.0 - hit->reflectance),
+        multi_color(reflect_hit->color, hit->reflectance)
     );
 }
