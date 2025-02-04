@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2025/01/04 11:13:01 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/04 09:29:58 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define UPVECTOR (t_vector){0.0, 1.0, 0.0}
 # define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
 
-# define ERROR(s) printf("Error: %s\n", s)
+# define ERROR(s) printf("Error\n%s\n", s)
 
 /*
 stdio: printf

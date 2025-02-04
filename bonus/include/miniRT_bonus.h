@@ -38,7 +38,7 @@
 # define UPVECTOR (t_vector){0.0, 1.0, 0.0}
 # define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
 
-# define ERROR(s) printf("Error: %s\n", s)
+# define ERROR(s) printf("Error\n%s\n", s)
 
 /*
 stdio: printf

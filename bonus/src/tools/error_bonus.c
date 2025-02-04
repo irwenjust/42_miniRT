@@ -95,6 +95,6 @@ void	delete_scene(void)
 void	error_exit(char *message)
 {
 	delete_scene();
-	printf("Error: %s\n", message);
+	printf("Error\n%s\n", message);
 	exit(FAILURE);
 }

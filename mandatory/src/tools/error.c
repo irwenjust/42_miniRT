@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:24:37 by likong            #+#    #+#             */
-/*   Updated: 2025/01/07 19:25:03 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/04 09:29:05 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ void	delete_scene(void)
 void	error_exit(char *message)
 {
 	delete_scene();
-	printf("Error: %s\n", message);
+	printf("Error\n%s\n", message);
 	exit(FAILURE);
 }
