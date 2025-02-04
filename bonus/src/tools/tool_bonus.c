@@ -12,11 +12,6 @@
 
 #include "miniRT_bonus.h"
 
-double	ft_rand(void)
-{
-	return (rand() / (double) RAND_MAX + 1.0);
-}
-
 t_shape	**shapes_to_arr(t_shape **shapes)
 {
 	t_shape	**res;
@@ -27,15 +22,6 @@ t_shape	**shapes_to_arr(t_shape **shapes)
 	while (shapes[++i])
 		res[i] = shapes[i];
 	return (res);
-}
-
-void	ft_swap_d(double *a, double *b)
-{
-	double	temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
 }
 
 char	*save_str_without_newline(char *str)
@@ -69,13 +55,17 @@ char	*save_str_without_newline(char *str)
 
 t_hit	init_hit(void)
 {
-	t_hit	hit;
+	static t_hit	hit;
+	static bool		init = true;
 	
-	ft_bzero(&hit, sizeof(t_hit));
-	hit.color = BLACK;
-	hit.distance = INFINITY;
-	hit.shape = NULL;
-
+	if (init)
+	{
+		ft_bzero(&hit, sizeof(t_hit));
+		hit.color = BACKGROUND;
+		hit.distance = INFINITY;
+		hit.shape = NULL;
+		init = false;
+	}
 	return (hit);
 }
 

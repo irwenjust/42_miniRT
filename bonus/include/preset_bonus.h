@@ -50,6 +50,7 @@
 # define MOVE_KEY "wasdqe"
 # define ROTATE_KEY "ijkluo"
 
+# define BACKGROUND (t_color){135, 206, 250, 0}
 /*preset color*/
 # define RED		(t_color){255, 0, 0, 0}
 # define YELLOW		(t_color){255, 255, 0, 0}

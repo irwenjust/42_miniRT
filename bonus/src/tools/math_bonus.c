@@ -47,3 +47,17 @@ double	solve(t_equation *equation)
 	}
 	return (res);
 }
+
+double	ft_rand(void)
+{
+	return (rand() / (double) RAND_MAX + 1.0);
+}
+
+void	ft_swap_d(double *a, double *b)
+{
+	double	temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}

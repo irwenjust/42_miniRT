@@ -49,6 +49,7 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	shape->shininess = ft_atod(arg[7]);
 	shape->depth = ft_atoi(arg[11]);						  //didn't check the unavaible case
 	shape->refra_idx = ft_atod(arg[12]);
+	shape->transparency = ft_atod(arg[13]);
 	if (shape->ks < 0 || shape->ks > 1)
 		return (ERROR("sphere: wrong ks value"), false);
 	if (shape->shininess < 1 || shape->shininess > 128)

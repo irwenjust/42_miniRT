@@ -38,7 +38,7 @@
 # define UPVECTOR (t_vector){0.0, 1.0, 0.0}
 # define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
 
-# define ERROR(s) printf("Error\n%s\n", s)
+# define ERROR(s) printf("Error: %s\n", s)
 
 /*
 stdio: printf
@@ -105,14 +105,21 @@ void		control_frame_rate(void);
 //ray part
 t_ray		make_ray(t_vector cur);
 t_vector	point_on_ray(t_ray *ray, double t);
+void		ray_tracer(t_ray *ray, t_hit *hit);
 //intersect part
 bool		check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest);
 bool		is_intersect(t_shape *shape, t_ray *ray, t_hit *inter,
 				double *valid_t);
 void		find_valid_t(t_equation *equation);
 //illumination part
-void		check_illumination(t_hit *closest);
-
+void		phong_illumination(t_hit *closest);
+void		global_illumination(t_ray *ray, t_hit *hit);
+t_hit		generate_hit(void);
+double		calculate_reflectance(double cos_theta, double n1, double n2);
+//reflection
+void		check_reflection(t_ray *ray, t_hit *hit, double reflectance);
+//refraction part
+void		check_refraction(t_ray *ray, t_hit *hit, double reflectance);
 
 
 /**
@@ -164,10 +171,10 @@ void		move_cylinder(t_key *keys, t_cylinder *cylinder);
 void		rotate_cylinder(t_key *keys, t_cylinder *cylinder);
 void		scaling_cylinder(t_key *keys, t_cylinder *cy);
 //cone
-bool	parse_cone(char **arg, t_fclass *fclass);
-void	move_cone(t_key *keys, t_cone *cone);
-void	rotate_cone(t_key *keys, t_cone *cone);
-void	scaling_cone(t_key *keys, t_cone *cone);
+bool		parse_cone(char **arg, t_fclass *fclass);
+void		move_cone(t_key *keys, t_cone *cone);
+void		rotate_cone(t_key *keys, t_cone *cone);
+void		scaling_cone(t_key *keys, t_cone *cone);
 
 /**
  * key hook
@@ -196,52 +203,6 @@ void		reset_camera(void);
 void		reset_lights(void);
 void		reset_shapes(void);
 
-/**
- * vector part
- */
-//vector op basic
-t_vector	vector_add(t_vector v1, t_vector v2);
-t_vector	vector_sub(t_vector v1, t_vector v2);
-t_vector	vector_scale(t_vector a, double scalar);
-t_vector	vector_min(t_vector a, t_vector b);
-t_vector	vector_max(t_vector a, t_vector b);
-//vector op plus
-double		vector_magnitude(t_vector a);
-t_vector	vector_normalize(t_vector a);
-t_vector	vector_cross(t_vector v1, t_vector v2);
-double		vector_dot(t_vector v1, t_vector v2);
-//vector rotate
-t_vector	vector_rotate(t_vector vec, int axis, double angle);
-//vector tools
-t_vector	parse_vector(char **strs);
-bool		vector_compare(t_vector v1, t_vector v2);
-double		vector_cos(t_vector v1, t_vector v2);
-t_vector	vector_copy(t_vector vec);
-t_vector	vector_abs(t_vector v);
-
-/**
- * tools
- */
-//color part
-t_color		multi_color(t_color color, double brightness);
-t_color		add_color(t_color c1, t_color c2);
-t_color		copy_color(t_color c);
-t_color		*get_color(int type, int i);
-t_color		mix_color(t_color base, t_color light_effect);
-//equation
-double		solve(t_equation *equation);
-//free the scene
-void		delete_scene(void);
-//show error message
-void		error_exit(char *message);
-//others
-t_hit		init_hit(void);
-void		ft_swap_d(double *a, double *b);
-t_shape		**shapes_to_arr(t_shape **shapes);
-void		check_hit(t_hit *hit);
-double		ft_rand(void);
-
-char		*save_str_without_newline(char *str);
 
 /**
  * menu
@@ -273,10 +234,69 @@ void		rebuild_bvh(void);
 bool		check_aabb_intersection(t_ray ray, t_aabb box, double max_t);
 bool		check_bvh_intersection(t_ray *ray, t_bvh *node, t_hit *pre_hit);
 //aabb box
-// t_aabb		box_sphere(t_sphere *sphere);
-// t_aabb		box_cylinder(t_cylinder *cy);
-// t_aabb		box_cone(t_cone *cone);
 t_aabb		shape_box(t_shape *shape);
+
+/**
+ * vector part
+ */
+//vector op basic
+t_vector	vector_add(t_vector v1, t_vector v2);
+t_vector	vector_sub(t_vector v1, t_vector v2);
+t_vector	vector_scale(t_vector a, double scalar);
+t_vector	vector_min(t_vector a, t_vector b);
+t_vector	vector_max(t_vector a, t_vector b);
+//vector op plus
+double		vector_magnitude(t_vector a);
+t_vector	vector_normalize(t_vector a);
+t_vector	vector_cross(t_vector v1, t_vector v2);
+double		vector_dot(t_vector v1, t_vector v2);
+//vector rotate
+t_vector	vector_rotate(t_vector vec, int axis, double angle);
+//vector tools
+t_vector	parse_vector(char **strs);
+bool		vector_compare(t_vector v1, t_vector v2);
+double		vector_cos(t_vector v1, t_vector v2);
+t_vector	vector_copy(t_vector vec);
+t_vector	vector_abs(t_vector v);
+
+/**
+ * color
+ */
+//color calculation
+t_color		add_color(t_color c1, t_color c2);
+t_color		sub_color(t_color c1, t_color c2);
+t_color		multi_color(t_color color, double factor);
+t_color		mix_color(t_color c1, t_color c2);
+//color utils
+t_color		color_create(double r, double g, double b);
+void		put_pixel(t_color c, int x, int y);
+t_color		copy_color(t_color c);
+t_color		*get_color(int type, int i);
+//bump texture part
+void		check_bump(t_hit *hit);
+//texture part
+t_color		add_texture(t_hit *hit);
+void		check_texture(char **arg, t_shape *shape);
+
+/**
+ * tools
+ */
+//math
+double		solve(t_equation *equation);
+double		ft_rand(void);
+void		ft_swap_d(double *a, double *b);
+//free the scene
+void		delete_scene(void);
+//show error message
+void		error_exit(char *message);
+//others
+t_shape		**shapes_to_arr(t_shape **shapes);
+char		*save_str_without_newline(char *str);
+t_hit		init_hit(void);
+void		check_hit(t_hit *hit);
+
+
+
 
 /**
  * debug
@@ -286,7 +306,7 @@ void		print_light(t_light *light);
 void		print_camera(t_camera *camera);
 void		print_box(t_aabb box);
 
-// bool	check_unbound(t_ray *ray, t_hit *inter);
+
 //check normal in different type
 void		check_hit_normal(t_hit *hit);
 
@@ -294,25 +314,10 @@ void		find_uv(t_hit *hit);
 void		add_uv_axis(t_shape *shape, t_vector normal);
 t_color		uv_get_color(t_image *img, double u, double v);
 
-//more color utils
-t_color		sub_color(t_color c1, t_color t2);
-t_color		color_create(double r, double g, double b);
-
-//texture part
-t_color		add_texture(t_hit *hit);
-void		put_pixel(t_color c, int x, int y);
-void		check_texture(char **arg, t_shape *shape);
-
-//bump texture part
-void		check_bump(t_hit *hit);
-
-//refraction part
-void		check_refraction(t_ray *ray, t_hit *hit);
-double		get_reflectance(double cos_theta, double ratio);
-void		add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit);
 
 
-void	check_reflection(t_ray *ray, t_hit *closest, t_hit *new_hit);
-void	add_color_by_reflect(t_hit *closest, t_hit new_hit);
+
+
+
 
 #endif

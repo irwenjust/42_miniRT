@@ -97,7 +97,7 @@ t_color	add_texture(t_hit *hit)
 	return (hit->color);
 }
 
-t_image	*parse_texture(char *arg)
+static t_image	*parse_texture(char *arg)
 {
 	size_t	len;
 	t_image	*tex;
