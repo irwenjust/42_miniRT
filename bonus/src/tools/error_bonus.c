@@ -10,13 +10,13 @@ static void	delete_fclass(t_fclass *fclass)
 	free(fclass);
 }
 
-void	ft_free(void *ptr)
+static void	ft_free(void *ptr)
 {
 	if (ptr)
 		free(ptr);
 }
 
-void	free_test_matrix(void **matrix)
+static void	free_test_matrix(void **matrix)
 {
 	size_t	i;
 
@@ -32,7 +32,7 @@ void	free_test_matrix(void **matrix)
 	matrix = NULL;
 }
 
-void free_shape_array(t_shape **shapes)
+static void free_shape_array(t_shape **shapes)
 {
 	t_shape *shape;
 	int i;
@@ -61,7 +61,7 @@ void free_shape_array(t_shape **shapes)
 	free(shapes);
 }
 
-void delete_shape(t_fclass *f)
+static void delete_shape(t_fclass *f)
 {
 	if (!f)
 		return;

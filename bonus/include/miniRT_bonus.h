@@ -38,7 +38,7 @@
 # define UPVECTOR (t_vector){0.0, 1.0, 0.0}
 # define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
 
-# define ERROR(s) printf("Error\n%s\n", s)
+# define ERROR(s) printf("Error: %s\n", s)
 
 /*
 stdio: printf
@@ -281,19 +281,21 @@ void		check_texture(char **arg, t_shape *shape);
 /**
  * tools
  */
-//equation
+//math
 double		solve(t_equation *equation);
+double		ft_rand(void);
+void		ft_swap_d(double *a, double *b);
 //free the scene
 void		delete_scene(void);
 //show error message
 void		error_exit(char *message);
 //others
-t_hit		init_hit(void);
-void		ft_swap_d(double *a, double *b);
 t_shape		**shapes_to_arr(t_shape **shapes);
-void		check_hit(t_hit *hit);
-double		ft_rand(void);
 char		*save_str_without_newline(char *str);
+t_hit		init_hit(void);
+void		check_hit(t_hit *hit);
+
+
 
 
 /**
