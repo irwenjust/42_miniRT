@@ -16,7 +16,7 @@ sp  0,0,15    5              255,0,0
 
 # Plane
 #N  Center    Normal[-1,1]   Color[0-255]
-# pl  0,0,0    0,0,-1          150,150,150
+pl  0,0,0    0,0,-1          150,150,150
 
 # Cylinder
 #N  Center    Normal[-1,1]   Diameter[>0]   Height[>0]   Color[0-255]
