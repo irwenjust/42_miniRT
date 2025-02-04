@@ -22,7 +22,23 @@ t_color	color_create(double r, double g, double b)
 	return (color);
 }
 
+void	put_pixel(t_color c, int x, int y)
+{
+	char	*dst;
 
+	dst = s()->win.addr + (y * WIDTH + x) * (int)(s()->win.bpp * 0.125);
+	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
+}
+
+t_color	copy_color(t_color c)
+{
+	return ((t_color){
+		.red = ft_within_range(c.red, 0, 255),
+		.green = ft_within_range(c.green, 0, 255),
+		.blue = ft_within_range(c.blue, 0, 255),
+		.alpha = ft_within_range(0XFF, 0, 255)
+	});
+}
 
 t_color	*get_color(int type, int i)
 {

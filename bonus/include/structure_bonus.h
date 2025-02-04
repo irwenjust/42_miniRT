@@ -192,6 +192,7 @@ typedef struct s_shape
 	double			ks;
 	double			shininess;
 	double			refra_idx;
+	double			transparency;
 	t_vector		u_axis;
 	t_vector		v_axis;
 	t_image			*cboard;
@@ -250,6 +251,7 @@ typedef struct s_hit
 	double	u;
 	double	v;
 	int		depth;
+	int		reflect_depth;
 } t_hit;
 
 

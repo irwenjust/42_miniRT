@@ -12,14 +12,14 @@
 
 #include "miniRT_bonus.h"
 
-double	get_reflectance(double cos_theta, double ratio)
-{
-	double	res;
+// double	get_reflectance(double cos_theta, double ratio)
+// {
+// 	double	res;
 
-	res = (1.0 - ratio) / (1.0 + ratio);
-	res = res * res;
-	return (res + (1.0 - res) * pow((1.0 - cos_theta), 5.0));
-}
+// 	res = (1.0 - ratio) / (1.0 + ratio);
+// 	res = res * res;
+// 	return (res + (1.0 - res) * pow((1.0 - cos_theta), 5.0));
+// }
 
 // void	add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit)
 // {
@@ -63,7 +63,7 @@ static void	get_refraction(t_ray *ray, t_hit *hit, double ratio)
 		normal = vector_scale(hit->hit_normal, -1.0);
 	cos_theta = fmin(vector_dot(vector_scale(ray->normal, -1.0), normal), 1.0);
 	cannot_TIR = (ratio * sqrt(1.0 - cos_theta * cos_theta) > 1.0);
-	if (cannot_TIR || get_reflectance(cos_theta, ratio) > ft_rand())
+	if (cannot_TIR || calculate_reflectance(cos_theta, 1.0, ratio) > ft_rand())
 	{
 		ray->normal = vector_normalize(vector_sub(ray->normal,
 			vector_scale(hit->hit_normal, 2.0 * vector_dot(ray->normal, hit->hit_normal))));
@@ -78,11 +78,31 @@ static void	get_refraction(t_ray *ray, t_hit *hit, double ratio)
 	ray->normal = vector_normalize(vector_add(perp, para));
 }
 
-void	check_refraction(t_ray *ray, t_hit *hit)
+static void	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit)
+{
+	t_vector	offset;
+	
+	double	offset_scale = 1e-4;
+	if (hit->side == OUTSIDE)
+		offset = vector_scale(hit->hit_normal, offset_scale);
+	else
+		offset = vector_scale(hit->hit_normal, -offset_scale);
+	refract_ray->start = vector_add(hit->hit_point, offset);
+	refract_ray->normal = ray->normal;
+	refract_ray->inv_start = (t_vector){1.0 / refract_ray->normal.x,
+		1.0 / refract_ray->normal.y, 1.0 / refract_ray->normal.z};
+}
+
+void	check_refraction(t_ray *ray, t_hit *hit, double reflectance)
 {
 	double	ratio;
-	
-	if (vector_dot(hit->hit_normal, ray->normal) < 0.0)
+	t_ray refract_ray;
+    t_hit refract_hit;
+
+	refract_hit = generate_hit();
+    set_refraction_ray(ray, &refract_ray, hit);
+	refract_hit.depth = hit->depth - 1;
+	if (vector_dot(hit->hit_normal, refract_ray.normal) < 0.0)
 		hit->side = OUTSIDE;
 	else
 		hit->side = INSIDE;
@@ -90,6 +110,11 @@ void	check_refraction(t_ray *ray, t_hit *hit)
 		ratio = hit->refra_idx;
 	else
 		ratio = 1.0 / hit->refra_idx;
-	get_refraction(ray, hit, ratio);
-	ray->normal = vector_normalize(ray->normal);
+	get_refraction(&refract_ray, hit, ratio);
+	refract_ray.normal = vector_normalize(refract_ray.normal);
+    ray_tracer(&refract_ray, &refract_hit);
+    hit->color = add_color(
+        hit->color,
+        multi_color(refract_hit.color, hit->refractivity * (1.0 - reflectance))
+    );
 }

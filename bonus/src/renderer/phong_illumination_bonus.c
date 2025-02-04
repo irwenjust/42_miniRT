@@ -65,7 +65,7 @@ static t_color specular(t_light *light, t_hit *inter, double brightness)
 	return (mix_color(multi_color(inter->color, specular_ratio), light->color));
 }
 
-void	check_illumination(t_hit *closest)
+void	phong_illumination(t_hit *closest)
 {
 	t_color	color;
 	t_light	*light;

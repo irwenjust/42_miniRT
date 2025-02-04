@@ -46,3 +46,19 @@ inline t_vector	point_on_ray(t_ray *ray, double t)
 {
 	return (vector_add(ray->start, vector_scale(ray->normal, t)));
 }
+
+void	ray_tracer(t_ray *ray, t_hit *hit)
+{
+	if (!check_intersection(s()->shapes, ray, hit))
+		return ;
+	if (!hit || !hit->shape)
+		return ;
+	hit->refractivity = 1 - hit->shape->ks;
+	hit->refra_idx = hit->shape->refra_idx;
+	hit->depth = hit->shape->depth;
+	phong_illumination(hit);
+	if (hit->depth <= 0)
+		return ;
+	else
+		global_illumination(ray, hit);
+}
