@@ -61,7 +61,7 @@ t_hit	init_hit(void)
 	if (init)
 	{
 		ft_bzero(&hit, sizeof(t_hit));
-		hit.color = BACKGROUND;
+		// hit.color = BACKGROUND;
 		hit.distance = INFINITY;
 		hit.shape = NULL;
 		init = false;

@@ -43,7 +43,7 @@ t_hit	generate_hit(void)
 	ft_bzero(&hit, sizeof(t_hit));
 	hit.distance = INFINITY;
 	hit.shape = NULL;
-    hit.color = BACKGROUND;
+    // hit.color = BACKGROUND;
 	return (hit);
 }
 
