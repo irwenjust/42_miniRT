@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:02:38 by likong            #+#    #+#             */
-/*   Updated: 2025/02/05 15:20:13 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/05 18:19:36 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit, t_hit *refra
 		offset = vector_scale(hit->hit_normal, offset_scale);
 	else
 		offset = vector_scale(hit->hit_normal, -offset_scale);
+	ft_bzero(refract_ray, sizeof(t_ray));
 	refract_ray->start = vector_add(hit->hit_point, offset);
 	refract_ray->normal = ray->normal;
 	refract_ray->inv_start = (t_vector){1.0 / refract_ray->normal.x,

@@ -15,6 +15,7 @@ void    set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *hit, t_hit *re
     reflect_hit->depth = hit->depth - 1;
     // 添加法线偏移防止自相交
     offset = vector_scale(hit->hit_normal, offset_scale);
+    ft_bzero(reflect_ray, sizeof(t_ray));
     reflect_ray->start = vector_add(hit->hit_point, offset);
 	// if (hit->side == OUTSIDE)
 	// 	offset = vector_scale(hit->hit_normal, offset_scale);
