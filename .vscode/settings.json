@@ -2,6 +2,15 @@
 	"C_Cpp.errorSquiggles": "disabled",
 	"files.associations": {
 		"libft.h": "c",
-		"minirt_bonus.h": "c"
+		"minirt_bonus.h": "c",
+		"array": "c",
+		"charconv": "c",
+		"compare": "c",
+		"functional": "c",
+		"ratio": "c",
+		"tuple": "c",
+		"type_traits": "c",
+		"utility": "c",
+		"variant": "c"
 	}
 }

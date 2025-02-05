@@ -61,6 +61,7 @@ void	get_illumination_param(t_hit *hit)
         hit->reflectance = 0.0;
 	}
 	hit->transmission = hit->shape->transparency * hit->refractivity * (1.0 - hit->reflectance);
+	// printf("type: %d, tran: %lf\n", hit->shape->type, hit->transmission);
 }
 
 void	ray_tracer(t_ray *ray, t_hit *hit, int type)
