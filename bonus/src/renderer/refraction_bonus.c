@@ -6,20 +6,20 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:02:38 by likong            #+#    #+#             */
-/*   Updated: 2025/02/04 11:57:44 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/04 17:18:44 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-// double	get_reflectance(double cos_theta, double ratio)
-// {
-// 	double	res;
+double	get_reflectance(double cos_theta, double ratio)
+{
+	double	res;
 
-// 	res = (1.0 - ratio) / (1.0 + ratio);
-// 	res = res * res;
-// 	return (res + (1.0 - res) * pow((1.0 - cos_theta), 5.0));
-// }
+	res = (1.0 - ratio) / (1.0 + ratio);
+	res = res * res;
+	return (res + (1.0 - res) * pow((1.0 - cos_theta), 5.0));
+}
 
 // void	add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit)
 // {
@@ -87,7 +87,7 @@ static void	get_refraction(t_ray *ray, t_hit *hit, double ratio)
 	ray->normal = vector_normalize(vector_add(perp, para));
 }
 
-void	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit, t_hit *refract_hit)
+bool	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit, t_hit *refract_hit)
 {
 	t_vector	offset;
 	
@@ -99,8 +99,9 @@ void	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit, t_hit *refra
 		offset = vector_scale(hit->hit_normal, -offset_scale);
 	refract_ray->start = vector_add(hit->hit_point, offset);
 	refract_ray->normal = ray->normal;
-	refract_ray->inv_start = (t_vector){1.0 / refract_ray->normal.x,
-		1.0 / refract_ray->normal.y, 1.0 / refract_ray->normal.z};
+	// refract_ray->inv_start = (t_vector){1.0 / refract_ray->normal.x,
+	// 	1.0 / refract_ray->normal.y, 1.0 / refract_ray->normal.z};
+	return (true);
 }
 
 void	check_refraction(t_ray *ray, t_hit *hit)

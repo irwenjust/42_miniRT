@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   illumination_tools_bonus.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 16:17:39 by likong            #+#    #+#             */
+/*   Updated: 2025/02/05 09:45:30 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -43,7 +53,7 @@ t_hit	generate_hit(void)
 	ft_bzero(&hit, sizeof(t_hit));
 	hit.distance = INFINITY;
 	hit.shape = NULL;
-    hit.color = BACKGROUND;
+    // hit.color = BACKGROUND;
 	return (hit);
 }
 
