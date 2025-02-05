@@ -10,7 +10,7 @@ void    set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *hit, t_hit *re
 {
     t_vector offset;
     t_vector reflect_dir;
-    double    offset_scale = 1e-4;
+    double    offset_scale = 1e-8;
 
 	reflect_hit->depth = hit->depth - 1;
     // 计算反射方向

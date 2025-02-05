@@ -63,7 +63,7 @@ void	get_illumination_param(t_hit *hit)
 	hit->transmission = hit->shape->transparency * hit->refractivity * (1.0 - hit->reflectance);
 }
 
-void	ray_tracer(t_ray *ray, t_hit *hit)
+void	ray_tracer(t_ray *ray, t_hit *hit, int type)
 {
 	t_ray reflect_ray;
     t_hit reflect_hit;
@@ -76,19 +76,19 @@ void	ray_tracer(t_ray *ray, t_hit *hit)
 	phong_illumination(hit);
 	if (hit->depth <= 0)
 		return ;
-    if(hit->reflectance > 0.01)
+    if(hit->reflectance > 0.01 && type < 2)
     {
 		reflect_hit = generate_hit();
     	set_reflection_ray(ray, &reflect_ray, hit, &reflect_hit);
-        ray_tracer(&reflect_ray, &reflect_hit);
+        ray_tracer(&reflect_ray, &reflect_hit, 1);
    		add_reflect_color(hit, &reflect_hit);
     }
-    if (hit->shape->transparency > 0)
+    if (hit->shape->transparency > 0 && (type == 0 || type == 2))
     {
 		refract_hit = generate_hit();
     	set_refraction_ray(ray, &refract_ray, hit, &refract_hit);
         check_refraction(&refract_ray, hit);
-		ray_tracer(&refract_ray, &refract_hit);
+		ray_tracer(&refract_ray, &refract_hit, 2);
    		add_refract_color(hit, &refract_hit);
     }
 }
