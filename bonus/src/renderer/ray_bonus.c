@@ -92,3 +92,4 @@ void	ray_tracer(t_ray *ray, t_hit *hit, int type)
    		add_refract_color(hit, &refract_hit);
     }
 }
+
