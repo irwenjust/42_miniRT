@@ -116,7 +116,7 @@ void		control_frame_rate(void);
 //ray part
 t_ray		make_ray(t_vector cur);
 t_vector	point_on_ray(t_ray *ray, double t);
-void		ray_tracer(t_ray *ray, t_hit *hit);
+void		ray_tracer(t_ray *ray, t_hit *hit, int type);
 //intersect part
 bool		check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest);
 bool		is_intersect(t_shape *shape, t_ray *ray, t_hit *inter,
