@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   miniRT_bonus.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 16:59:07 by likong            #+#    #+#             */
+/*   Updated: 2025/02/05 18:22:29 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINIRT_BONUS_H
 # define MINIRT_BONUS_H
@@ -38,7 +49,7 @@
 # define UPVECTOR (t_vector){0.0, 1.0, 0.0}
 # define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
 
-# define ERROR(s) printf("Error: %s\n", s)
+# define ERROR(s) printf("Error\n%s\n", s)
 
 /*
 stdio: printf
@@ -126,6 +137,7 @@ void		check_refraction(t_ray *refract_ray, t_hit *hit);
 void		set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit, t_hit *refract_hit);
 void		add_refract_color(t_hit *hit, t_hit *refract_hit);
 void		add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit);
+double		get_reflectance(double cos_theta, double ratio);
 
 /**
  * intersection
