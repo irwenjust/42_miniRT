@@ -53,7 +53,7 @@ static void	*fake_render_thread(void *arg)
 			ray = make_ray(converted_cur);
 			// if (check_intersection(s()->shapes, &ray, &closest))
 			// 	phong_illumination(&closest);
-			ray_tracer(&ray, &closest, 0);
+			ray_tracer(&ray, &closest);
 			put_pixel(closest.color, cur.x, cur.y);
 			cur.x += 3;
 		}
@@ -82,7 +82,7 @@ static void	*render_thread(void *arg)
 			ray = make_ray(converted_cur);
 			// if (check_intersection(s()->shapes, &ray, &closest))
 			// 	phong_illumination(&closest);
-			ray_tracer(&ray, &closest, 0);
+			ray_tracer(&ray, &closest);
 			put_pixel(closest.color, cur.x, cur.y);
 			cur.x++;
 		}
