@@ -3,6 +3,27 @@
 #include "miniRT_bonus.h"
 
 /*check each line of args if valid or not*/
+static bool	validate_line(char **arg)
+{
+	if (!ft_strcmp("A", arg[0]))
+		return (validate_ambient(arg));
+	else if (!ft_strcmp("C", arg[0]))
+		return (validate_camera(arg));
+	else if (!ft_strcmp("L", arg[0]))
+		return (validate_light(arg));
+	else if (!ft_strcmp("sp", arg[0]))
+		return (validate_sphere(arg));
+	else if (!ft_strcmp("pl", arg[0]))
+		return (validate_plane(arg));
+	else if (!ft_strcmp("cy", arg[0]))
+		return (validate_cylinder(arg));
+	else if (!ft_strcmp("co", arg[0]))
+		return (validate_cone(arg));
+	else
+		return (false);
+}
+
+/*parse each line of args*/
 static bool	parse_line(int counter[3], char **arg)
 {
 	if (!ft_strcmp("A", arg[0]))
@@ -59,20 +80,16 @@ void	parse_args(void)
 		tmp = ft_split(s()->args[i], ' ');
 		if (!tmp)
 			error_exit("mistake happend when split file content");
+		if (!validate_line(tmp))
+		{
+			free_matrix(tmp);
+			error_exit("error format in .rt file");
+		}
 		if (!parse_line(counter, tmp))
 		{
 			free_matrix(tmp);
-			error_exit("mistake happend for file format");
+			error_exit("fail to parse line from file");
 		}
-		// t_shape *shape;
-		// int j = -1;
-
-		// while (++j < s()->shapes->size)
-		// {
-		// 	shape = s()->shapes->array[j];
-		// 	if (shape->type == PLANE)
-		// 		printf("wtf type: %d, x: %f, ks: %lf,  i: %d, j: %d\n", shape->type, shape->u_axis.x, shape->ks, i, j);
-		// }
 		free_matrix(tmp);
 	}
 	check_counter(counter);
