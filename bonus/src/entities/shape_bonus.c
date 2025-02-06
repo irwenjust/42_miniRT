@@ -31,7 +31,7 @@ t_shape	*copy_shape(t_shape *shape)
 	res->bmp = shape->bmp;
 	res->refra_idx = shape->refra_idx;
 	res->depth = shape->depth;
-	res->transparency = shape->transparency;
+	// res->transparency = shape->transparency;
 	if (res->type == SPHERE)
 		res->data.sphere = shape->data.sphere;
 	else if (res->type == PLANE)
