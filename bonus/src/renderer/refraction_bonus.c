@@ -12,14 +12,14 @@
 
 #include "miniRT_bonus.h"
 
-double	get_reflectance(double cos_theta, double ratio)
-{
-	double	res;
+// double	get_reflectance(double cos_theta, double ratio)
+// {
+// 	double	res;
 
-	res = (1.0 - ratio) / (1.0 + ratio);
-	res = res * res;
-	return (res + (1.0 - res) * pow((1.0 - cos_theta), 5.0));
-}
+// 	res = (1.0 - ratio) / (1.0 + ratio);
+// 	res = res * res;
+// 	return (res + (1.0 - res) * pow((1.0 - cos_theta), 5.0));
+// }
 
 // void	add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit)
 // {
