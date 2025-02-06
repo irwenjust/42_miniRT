@@ -101,9 +101,18 @@ void		backup_scene(void);
  * parser
  */
 void		parse_args(void);
+//validate
+bool validate_ambient(char **arg);
+bool validate_camera(char **arg);
+bool validate_light(char **arg);
+bool validate_sphere(char **arg);
+bool validate_plane(char **arg);
+bool validate_cylinder(char **arg);
+bool validate_cone(char **arg);
 //parse tool
 bool		check_syntax(char **arg, char *commas);
 bool		check_rgb(char *rgb);
+bool	check_number_arg(char **arg, char *isnbr);
 t_color		parse_color(char **rgb);
 
 /**

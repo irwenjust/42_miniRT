@@ -36,10 +36,10 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	t_shape		*shape;
 	t_cylinder	cy;
 
-	if (ft_matrix_size(arg) < 9 || !check_syntax(arg, "01100100"))
-		return (ERROR("cylinder: wrong args format"), false);
-	if (!check_rgb(arg[5]))
-		return (ERROR("cylinder: wrong color value"), false);
+	// if (ft_matrix_size(arg) < 9 || !check_syntax(arg, "01100100"))
+	// 	return (ERROR("cylinder: wrong args format"), false);
+	// if (!check_rgb(arg[5]))
+	// 	return (ERROR("cylinder: wrong color value"), false);
 	if (!new_cylinder(arg, &cy))
 		return (ERROR("cylinder: fail to create new cylinder"), false);
 	cy.cap_s = vector_add(cy.center, vector_scale(cy.normal, -cy.height * 0.5));
@@ -51,10 +51,10 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	shape->depth = ft_atoi(arg[11]);						  //didn't check the unavaible case
 	shape->refra_idx = ft_atod(arg[12]);
 	shape->transparency = ft_atod(arg[13]);
-	if (shape->ks < 0 || shape->ks > 1)
-		return (ERROR("sphere: wrong ks value"), false);
-	if (shape->shininess < 1 || shape->shininess > 128)
-		return (ERROR("sphere: wrong shininess value"), false);
+	// if (shape->ks < 0 || shape->ks > 1)
+	// 	return (ERROR("sphere: wrong ks value"), false);
+	// if (shape->shininess < 1 || shape->shininess > 128)
+	// 	return (ERROR("sphere: wrong shininess value"), false);
 	s()->shape_nbr[CYLINDER]++;
 	add_uv_axis(shape, shape->data.cylinder.normal);
 	push_to_fclass(fclass, shape);

@@ -34,10 +34,10 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	t_shape	*shape;
 	t_cone	cone;
 
-	if (ft_matrix_size(arg) < 9 || !check_syntax(arg, "01100100"))
-		return (ERROR("cone: wrong args format"), false);
-	if (!check_rgb(arg[5]))
-		return (ERROR("cone: wrong color value"), false);
+	// if (ft_matrix_size(arg) < 9 || !check_syntax(arg, "01100100"))
+	// 	return (ERROR("cone: wrong args format"), false);
+	// if (!check_rgb(arg[5]))
+	// 	return (ERROR("cone: wrong color value"), false);
 	if (!new_cone(arg, &cone))
 		return (ERROR("cone: fail to create new cone"), false);
 	cone.angle = atan(cone.radius / cone.height) + 1e-8;
@@ -50,10 +50,10 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	shape->depth = ft_atoi(arg[11]);						  //didn't check the unavaible case
 	shape->refra_idx = ft_atod(arg[12]);
 	shape->transparency = ft_atod(arg[13]);
-	if (shape->ks < 0 || shape->ks > 1)
-		return (ERROR("sphere: wrong ks value"), false);
-	if (shape->shininess < 1 || shape->shininess > 128)
-		return (ERROR("sphere: wrong shininess value"), false);
+	// if (shape->ks < 0 || shape->ks > 1)
+	// 	return (ERROR("sphere: wrong ks value"), false);
+	// if (shape->shininess < 1 || shape->shininess > 128)
+	// 	return (ERROR("sphere: wrong shininess value"), false);
 	// printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[CONE]++;
 	add_uv_axis(shape, shape->data.cone.normal);

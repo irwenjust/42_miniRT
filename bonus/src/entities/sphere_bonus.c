@@ -30,25 +30,25 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	t_shape		*shape;
 	t_sphere	sphere;
 
-	if (ft_matrix_size(arg) < 7 || !check_syntax(arg, "010100"))  //lose to check if arg size > 8
-		return (ERROR("sphere: wrong args format"), false);
+	// if (ft_matrix_size(arg) < 7 || !check_syntax(arg, "010100"))
+	// 	return (ERROR("sphere: wrong args format"), false);
 	// if (ft_atod(arg[2]) * 0.5 < 1e-8)
 	// 	return (ERROR("sphere: wrong radius value"), false);
-	if (!check_rgb(arg[3]))
-		return (ERROR("sphere: wrong color value"), false);
+	// if (!check_rgb(arg[3]))
+	// 	return (ERROR("sphere: wrong color value"), false);
 	if (!new_sphere(arg, &sphere))
 		return (ERROR("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
 	check_texture(arg, shape);
 	shape->ks = ft_atod(arg[4]);
 	shape->shininess = ft_atod(arg[5]);
-	shape->depth = ft_atoi(arg[9]);						  //didn't check the unavaible case
+	shape->depth = ft_atoi(arg[9]);	
 	shape->refra_idx = ft_atod(arg[10]);
 	shape->transparency = ft_atod(arg[11]);
-	if (shape->ks < 0 || shape->ks > 1)
-		return (ERROR("sphere: wrong ks value"), false);
-	if (shape->shininess < 1 || shape->shininess > 128)
-		return (ERROR("sphere: wrong shininess value"), false);
+	// if (shape->ks < 0 || shape->ks > 1)
+	// 	return (ERROR("sphere: wrong ks value"), false);
+	// if (shape->shininess < 1 || shape->shininess > 128)
+	// 	return (ERROR("sphere: wrong shininess value"), false);
 	s()->shape_nbr[SPHERE]++;
 	add_uv_axis(shape, shape->data.sphere.normal);
 	push_to_fclass(fclass, shape);

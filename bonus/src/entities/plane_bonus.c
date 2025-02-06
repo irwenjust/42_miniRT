@@ -33,10 +33,10 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	t_shape	*shape;
 	t_plane	plane;
 
-	if (ft_matrix_size(arg) < 7 || !check_syntax(arg, "011100"))
-		return (ERROR("plane: wrong args format"), false);
-	if (!check_rgb(arg[3]))
-		return (ERROR("plane: wrong color value"), false);
+	// if (ft_matrix_size(arg) < 7 || !check_syntax(arg, "011100"))
+	// 	return (ERROR("plane: wrong args format"), false);
+	// if (!check_rgb(arg[3]))
+	// 	return (ERROR("plane: wrong color value"), false);
 	if (!new_plane(arg, &plane))
 		return (ERROR("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
@@ -46,17 +46,16 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	shape->depth = ft_atoi(arg[9]);						  //didn't check the unavaible case
 	shape->refra_idx = ft_atod(arg[10]);
 	shape->transparency = ft_atod(arg[11]);
-	if (shape->ks < 0 || shape->ks > 1)
-		return (ERROR("plane: wrong ks value"), false);
-	if (shape->shininess < 1 || shape->shininess > 128)
-		return (ERROR("plane: wrong shininess value"), false);
+	// if (shape->ks < 0 || shape->ks > 1)
+	// 	return (ERROR("plane: wrong ks value"), false);
+	// if (shape->shininess < 1 || shape->shininess > 128)
+	// 	return (ERROR("plane: wrong shininess value"), false);
 	// printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[PLANE]++;
 	add_uv_axis(shape, shape->data.plane.normal);
 	push_to_fclass(fclass, shape);
 	return (true);
 }
-
 
 
 void	move_plane(t_key *keys, t_plane *plane)

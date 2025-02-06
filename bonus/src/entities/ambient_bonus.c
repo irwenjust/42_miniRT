@@ -24,13 +24,13 @@ bool	parse_ambient(int counter[3], char **arg, t_ambient *ambient)
 {
 	char	**rgb;
 
-	if (ft_matrix_size(arg) != 3 || !check_syntax(arg, "001"))
-		return (ERROR("ambient: wrong args format"), false);
+	// if (ft_matrix_size(arg) != 3 || !check_syntax(arg, "001"))
+	// 	return (ERROR("ambient: wrong args format"), false);
 	ambient->brightness = ft_atod(arg[1]);
-	if (ambient->brightness < 0.0 || ambient->brightness > 1.0)
-		return (ERROR("ambient: wrong brightness ratio range"), false);
-	if (!check_rgb(arg[2]))
-		return (ERROR("ambient: wrong color value"), false);
+	// if (ambient->brightness < 0.0 || ambient->brightness > 1.0)
+	// 	return (ERROR("ambient: wrong brightness ratio range"), false);
+	// if (!check_rgb(arg[2]))
+	// 	return (ERROR("ambient: wrong color value"), false);
 	rgb = ft_split(arg[2], ',');
 	if (!rgb)
 		return (ERROR("ambient: fail to split color"), false);
