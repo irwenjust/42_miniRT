@@ -17,11 +17,6 @@ void    set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *hit, t_hit *re
     offset = vector_scale(hit->hit_normal, offset_scale);
     ft_bzero(reflect_ray, sizeof(t_ray));
     reflect_ray->start = vector_add(hit->hit_point, offset);
-	// if (hit->side == OUTSIDE)
-	// 	offset = vector_scale(hit->hit_normal, offset_scale);
-	// else
-	// 	offset = vector_scale(hit->hit_normal, -offset_scale);
-	// reflect_ray->start = vector_add(hit->hit_point, offset);
     // 计算反射方向
     reflect_dir = vector_reflect(ray->normal, hit->hit_normal);
     reflect_ray->normal = vector_normalize(reflect_dir);
