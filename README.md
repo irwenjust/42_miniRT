@@ -16,10 +16,17 @@ Dynamic Bounding Volume Hierarchies: https://box2d.org/files/ErinCatto_DynamicBV
 15. color结构里存的是int，一般光追计算颜色可能会算成浮点数，是否要改成double？
 
 （在新的validate parse arg里添加）
+
 4. 是否检查浮点数越界的问题 （比1.000000000000001更多位）【是指rt里的比如brightness和ks之类的？】
+   
 7. 填充数字的地方未检测用字母                                        (已解决，check_arg_format)
+   
 6. 在检查颜色时未检查浮点数 （如255.999/255.abc） 【rt文件输入颜色是否允许浮点数格式？还是必须整数,同14的问题】
+   
 10. vector和坐标都没有int越界检查  【vector结构里是double】
+    
 12. 如果数字里有 . ，其前后没有数字，也能通过                         (已解决，check_arg_format)
-13. 只有负号或者加号，后面没有数字时，也能通过检查                    （已解决，加在ft_isnum里了）
-14. ks可以是小数，shininess必须是整数？checkerboard只能是0或1？depth是0-5的整数，transparency是0-1的小数？高度直径等设置range为多少【非bug，是否要规定】
+    
+14. 只有负号或者加号，后面没有数字时，也能通过检查                    （已解决，加在ft_isnum里了）
+    
+16. ks可以是小数，shininess必须是整数？checkerboard只能是0或1？depth是0-5的整数，transparency是0-1的小数？高度直径等设置range为多少【非bug，是否要规定】
