@@ -29,6 +29,7 @@
 # define ROTATE 0.1
 
 # define HAS_COMMA '1'
+# define NOT_NBR '2'
 
 # define X 0
 # define Y 1
@@ -110,9 +111,8 @@ bool validate_plane(char **arg);
 bool validate_cylinder(char **arg);
 bool validate_cone(char **arg);
 //parse tool
-bool		check_syntax(char **arg, char *commas);
+bool	check_arg_format(char **arg, char *arg_type);
 bool		check_rgb(char *rgb);
-bool	check_number_arg(char **arg, char *isnbr);
 t_color		parse_color(char **rgb);
 
 /**
