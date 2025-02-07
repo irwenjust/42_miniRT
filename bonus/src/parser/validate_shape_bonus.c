@@ -8,7 +8,7 @@ bool validate_sphere(char **arg)
     //check arg size && nbr arg valid
     if (ft_matrix_size(arg) != 12)
 		return (ERROR("sphere: wrong args format"), false);
-    if (!check_number_arg(arg, "011111100111"))
+    if (!check_arg_format(arg, "210100022000"))
 		return (ERROR("sphere: number arg contains invalid char"), false);
     //check center [vector]
     //check diameter [double]
@@ -40,7 +40,7 @@ bool validate_plane(char **arg)
     //check arg size && nbr arg valid
     if (ft_matrix_size(arg) != 12)
 		return (ERROR("plane: wrong args format"), false);
-    if (!check_number_arg(arg, "011111100111"))
+    if (!check_arg_format(arg, "211100022000"))
 		return (ERROR("plane: number arg contains invalid char"), false);
     //check center [vector]
     //check normal [-1,1]
@@ -70,7 +70,7 @@ bool validate_cylinder(char **arg)
     //check arg size && nbr arg valid
     if (ft_matrix_size(arg) != 14)
 		return (ERROR("cylinder: wrong args format"), false);
-    if (!check_number_arg(arg, "01111111100111"))
+    if (!check_arg_format(arg, "21100100022000"))
 		return (ERROR("cylinder: number arg contains invalid char"), false);
     //check center [vector]
     //check normal [-1.1]
@@ -102,7 +102,7 @@ bool validate_cone(char **arg)
     //check arg size && nbr arg valid
     if (ft_matrix_size(arg) != 14)
 		return (ERROR("cone: wrong args format"), false);
-    if (!check_number_arg(arg, "01111111100111"))
+    if (!check_arg_format(arg, "21100100022000"))
 		return (ERROR("cone: number arg contains invalid char"), false);
     //check center [vector]
     //check normal [-1.1]

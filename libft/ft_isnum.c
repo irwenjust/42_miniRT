@@ -14,17 +14,24 @@
 
 int	ft_isnum(char *str)
 {
-	int	i;
+	int		i;
+	bool	has_nbr;
 
 	i = 0;
+	has_nbr = false;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	while (str[i])
 	{		
 		if (str[i] == '\n')
 			break ;
-		if (!ft_isdigit(str[i++]))
+		if (ft_isdigit(str[i]))
+			has_nbr = true;
+		else
 			return (0);
+		i++;
 	}
+	if (!has_nbr)
+		return (0);
 	return (1);
 }
