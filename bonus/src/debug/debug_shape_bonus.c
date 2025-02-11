@@ -77,11 +77,11 @@ void	print_light(t_light *light)
 
 void	print_camera(t_camera *camera)
 {
-	printf("camera coordinate: %.2lf,%.2lf,%.2lf\n",
+	printf("camera coordinate: %f,%f,%f\n",
 		camera->coordinate.x, camera->coordinate.y, camera->coordinate.z);
-	printf("camera normal: %.2lf,%.2lf,%.2lf\n",
-		camera->normal.x, camera->normal.y, camera->normal.z);
-	printf("camera fov: %d\n", camera->fov);
+	//printf("camera normal: %.2lf,%.2lf,%.2lf\n",
+	//	camera->normal.x, camera->normal.y, camera->normal.z);
+	//printf("camera fov: %d\n", camera->fov);
 }
 
 void	print_box(t_aabb box)

@@ -69,19 +69,19 @@ static t_vector	get_normal(t_hit *inter)
 		normal = inter->shape->data.plane.normal;
 	else if (inter->shape->type == SPHERE)
 	{
-		t_vector center = inter->shape->data.sphere.center;
-		normal = vector_sub(point, center);
+		//t_vector center = inter->shape->data.sphere.center;
+		//normal = vector_sub(point, center);
 		
-		// 计算射线方向到球心的点积
-		t_vector ray_to_center = vector_sub(center, inter->ray.start);
-		double dot = vector_dot(inter->ray.normal, ray_to_center);
+		//// 计算射线方向到球心的点积
+		//t_vector ray_to_center = vector_sub(center, inter->ray.start);
+		//double dot = vector_dot(inter->ray.normal, ray_to_center);
 		
-		// 如果射线方向朝向球心，则法线方向应反向
-		if (dot > 0) {
-			normal = vector_scale(normal, -1.0);
-		}
+		//// 如果射线方向朝向球心，则法线方向应反向
+		//if (dot > 0) {
+		//	normal = vector_scale(normal, -1.0);
+		//}
+		normal = vector_sub(point, inter->shape->data.sphere.center);
 	}
-		// normal = vector_sub(point, inter->shape->data.sphere.center);
 	else if (inter->shape->type == CYLINDER)
 	{
 		normal = vector_sub(point, inter->cy_hp);

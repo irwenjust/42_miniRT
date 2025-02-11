@@ -106,6 +106,7 @@ void	init_scene(char *file_name)
 	init_args(file_name);
 	if (ft_matrix_size(s()->args) == 0)
 		error_exit("the file is empty");
+	//parse_args(); //if error wouldn't show a window
 	(s()->win.mlx) = mlx_init();
 	if (!s()->win.mlx)
 		error_exit("error happend when create MLX42");
@@ -117,7 +118,6 @@ void	init_scene(char *file_name)
 	parse_args();
 	init_viewport();
 	init_windows();
-	// parse_args();                                       //adjust the order, may make another wierd, check it later
 	ft_bzero(&(s()->keys), sizeof(t_key));
 	s()->keys.cur_keycode = -1;
 	s()->menu = VIEW;
