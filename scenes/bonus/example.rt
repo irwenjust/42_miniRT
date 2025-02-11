@@ -1,19 +1,19 @@
 # Ambient lighting
 #N Brightness[0,1] Color[0-255]
-A  0.3             255,255,255.5
+A  0.3             255,255,255
 
 # Camera
 #N Center Normal[-1,1] FOV[0-180,!=]
-C  0,1,0  0,0,1        90
+C  99999999,0,0  0,0,1        90
 
 # Light
 #N  Center    Brightness[0,1]   Color[0-255]
-L   -10,8,5   0.7               255,255,255
+L   99999999.555555,8,5   0.7               255,255,255
 # L   10,20,0   0.6               0,255,255
 
 # Spheres
 #N  Center(1)    Diameter[>0](2)   Color[0-255](3)   Ks[0-1](4)   Shininess[1-128][commom:1,32,128](5)  checkerboard[0/1](6)  texture[path](7)  bump_texture[path](8)  Depth[1-10][safe max 3-5](9)    Refractive_idx(10)
-sp  0,0,15       5                255,255,255          0.1            128                                    0                    0                 0                      1                               1.5   1
+sp 99999999,0,15       5                255,255,255          0.3            128                                    0                    0                 0                      1                               1.5   1
 # sp  -5,-1,15     3                0,0,255           0.1           32                                      0                    0                 0                      3                                1.5   0
 # sp  0,0,14    5              255,255,255      1       128                                 0                 textures/test_earth2k.xpm textures/bump.xpm              1                               1.5   0
 

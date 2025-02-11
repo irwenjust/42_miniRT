@@ -24,6 +24,26 @@ static bool	check_comma(char **token, int comma_nbr, int arg_type)
 	return (valid);
 }
 
+static bool	check_precision(char *nbr, int dot_nbr, char *before_dot)
+{
+	int	length;
+	int	before_len;
+
+	length = ft_strlen(nbr);
+	before_len = ft_strlen(before_dot);
+	if (nbr[0] == '-' || nbr[0] == '+')
+	{
+		length--;
+		before_len--;
+	}
+	if (before_len > 8)
+		return (false);
+	if (dot_nbr == 1 && length > 15)
+		return (false);
+	return (true);
+
+}
+
 static bool	check_nbr(char **nbr)
 {
 	int	i;
@@ -43,7 +63,8 @@ static bool	check_nbr(char **nbr)
 			return (ERROR("check arg format: split error for dot"), false);
 		if (!ft_isnum(token[0]) || (dot_nbr == 1 && !ft_isnum(token[1])))
 			valid = false;
-        //may add check nbr overflow here later
+		if (!check_precision(nbr[i], dot_nbr, token[0]))
+			valid = false;
 		free_matrix(token);
 		if (!valid)
 			return (ERROR("check arg format: invalid number"), false);

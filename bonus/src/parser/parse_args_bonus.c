@@ -92,5 +92,6 @@ void	parse_args(void)
 		}
 		free_matrix(tmp);
 	}
+	//print_camera(&(s()->camera));
 	check_counter(counter);
 }
