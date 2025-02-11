@@ -43,9 +43,8 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	check_texture(arg, shape);
 	shape->ks = ft_atod(arg[4]);
 	shape->shininess = ft_atod(arg[5]);
-	shape->depth = ft_atoi(arg[9]);						  //didn't check the unavaible case
-	shape->refra_idx = ft_atod(arg[10]);
-	shape->transparency = ft_atod(arg[11]);
+	shape->refra_idx = ft_atod(arg[9]);
+	shape->transparency = ft_atod(arg[10]);
 	// if (shape->ks < 0 || shape->ks > 1)
 	// 	return (ERROR("plane: wrong ks value"), false);
 	// if (shape->shininess < 1 || shape->shininess > 128)

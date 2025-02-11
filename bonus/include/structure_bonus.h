@@ -188,7 +188,6 @@ typedef struct s_shape
 	t_shape_type	type;
 	t_shape_data	data;
 	int				shape_id[4];
-	int				depth;
 	double			ks;
 	double			shininess;
 	double			refra_idx;
@@ -252,8 +251,6 @@ typedef struct s_hit
 	bool	side;
 	double	u;
 	double	v;
-	int		depth;
-	int		reflect_depth;
 } t_hit;
 
 
