@@ -51,11 +51,10 @@ static void	get_refraction(t_ray *ray, t_hit *hit, double ratio)
 	ray->normal = vector_normalize(vector_add(perp, para));
 }
 
-void	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit, t_hit *refract_hit)
+void	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit)
 {
 	t_vector	offset;
 	
-	refract_hit->depth = hit->depth - 1;
 	double	offset_scale = 1e-8;
 	if (hit->side == OUTSIDE)
 		offset = vector_scale(hit->hit_normal, offset_scale);

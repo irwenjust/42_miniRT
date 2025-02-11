@@ -140,14 +140,14 @@ double    	calculate_fresnel(t_hit *hit);
 t_hit		generate_hit(void);
 double		calculate_reflectance(double cos_theta, double n1, double n2);
 //reflection
-void    	set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *hit, t_hit *reflect_hit);
+void    	set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *hit);
 void		add_reflect_color(t_hit *hit, t_hit *reflect_hit);
 //refraction part
 void		check_refraction(t_ray *refract_ray, t_hit *hit);
-void		set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit, t_hit *refract_hit);
+void		set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit);
 void		add_refract_color(t_hit *hit, t_hit *refract_hit);
-void		add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit);
-double		get_reflectance(double cos_theta, double ratio);
+//void		add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit);
+//double		get_reflectance(double cos_theta, double ratio);
 
 /**
  * intersection

@@ -51,7 +51,6 @@ void	get_illumination_param(t_hit *hit)
 {
 	hit->refra_idx = hit->shape->refra_idx;
 	hit->refractivity = 1 - hit->shape->ks;
-	hit->depth = hit->shape->depth;
 	if (hit->shape->ks > 0 && hit->shape->transparency == 0)
         hit->reflectance = hit->shape->ks;
     else if (hit->shape->ks > 0 && hit->shape->transparency > 0)
@@ -60,7 +59,7 @@ void	get_illumination_param(t_hit *hit)
 	{
         hit->reflectance = 0.0;
 	}
-	hit->transmission = hit->shape->transparency * hit->refractivity * (1.0 - hit->reflectance);
+	hit->transmission = hit->refractivity * (1.0 - hit->reflectance);
 	// printf("type: %d, tran: %lf\n", hit->shape->type, hit->transmission);
 }
 
@@ -141,14 +140,14 @@ void	ray_tracer(t_ray *ray, t_hit *hit, int depth)
     if(hit->reflectance > 0.01)
     {
 		reflect_hit = generate_hit();
-    	set_reflection_ray(ray, &reflect_ray, hit, &reflect_hit);
+    	set_reflection_ray(ray, &reflect_ray, hit);
         ray_tracer(&reflect_ray, &reflect_hit, depth);
    		add_reflect_color(hit, &reflect_hit);
     }
     if (hit->shape->transparency > 0)
     {
 		refract_hit = generate_hit();
-    	set_refraction_ray(ray, &refract_ray, hit, &refract_hit);
+    	set_refraction_ray(ray, &refract_ray, hit);
         check_refraction(&refract_ray, hit);
 		ray_tracer(&refract_ray, &refract_hit, depth);
    		add_refract_color(hit, &refract_hit);

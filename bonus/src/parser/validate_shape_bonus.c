@@ -1,12 +1,12 @@
 #include "miniRT_bonus.h"
 
 //[0]sp [1]Center [2]Diameter [3]Color [4]Ks [5]Shininess
-//[6]checkerboard [7]texture [8]bump_texture [9]Depth
-//[10]Refractive_idx [11]transparency
+//[6]checkerboard [7]texture [8]bump_texture 
+//[9]Refractive_idx [10]transparency
 bool validate_sphere(char **arg)
 {
     //check arg size && nbr arg valid
-    if (ft_matrix_size(arg) != 12)
+    if (ft_matrix_size(arg) != 11)
 		return (ERROR("sphere: wrong args format"), false);
     if (!check_arg_format(arg, "210100022000"))
 		return (ERROR("sphere: number arg contains invalid char"), false);
@@ -26,19 +26,18 @@ bool validate_sphere(char **arg)
     //check checkerboard[0/1]
     //check texture[path]
     //check bump_texture[path]
-    //check depth[1-3/5]
     //check refractive_idx [double]
     //check transparency [0-1]
     return (true);
 }
 
 //[0]pl [1]Center [2]normal [3]Color [4]Ks [5]Shininess
-//[6]checkerboard [7]texture [8]bump_texture [9]Depth
-//[10]Refractive_idx [11]transparency
+//[6]checkerboard [7]texture [8]bump_texture 
+//[9]Refractive_idx [10]transparency
 bool validate_plane(char **arg)
 {
     //check arg size && nbr arg valid
-    if (ft_matrix_size(arg) != 12)
+    if (ft_matrix_size(arg) != 11)
 		return (ERROR("plane: wrong args format"), false);
     if (!check_arg_format(arg, "211100022000"))
 		return (ERROR("plane: number arg contains invalid char"), false);
@@ -56,19 +55,18 @@ bool validate_plane(char **arg)
     //check checkerboard[0/1]
     //check texture[path]
     //check bump_texture[path]
-    //check depth[1-3/5]
     //check refractive_idx [double]
     //check transparency [0-1]
     return (true);
 }
 
 //[0]cy [1]Center [2]normal [3]Diameter [4]height [5]Color [6]Ks [7]Shininess
-//[8]checkerboard [9]texture [10]bump_texture [11]Depth
-//[12]Refractive_idx [13]transparency
+//[8]checkerboard [9]texture [10]bump_texture 
+//[11]Refractive_idx [12]transparency
 bool validate_cylinder(char **arg)
 {
     //check arg size && nbr arg valid
-    if (ft_matrix_size(arg) != 14)
+    if (ft_matrix_size(arg) != 13)
 		return (ERROR("cylinder: wrong args format"), false);
     if (!check_arg_format(arg, "21100100022000"))
 		return (ERROR("cylinder: number arg contains invalid char"), false);
@@ -88,19 +86,18 @@ bool validate_cylinder(char **arg)
     //check checkerboard[0/1]
     //check texture[path]
     //check bump_texture[path]
-    //check depth[1-3/5]
     //check refractive_idx [double]
     //check transparency [0-1]
     return (true);
 }
 
 //[0]co [1]Center [2]normal [3]Diameter [4]height [5]Color [6]Ks [7]Shininess
-//[8]checkerboard [9]texture [10]bump_texture [11]Depth
-//[12]Refractive_idx [13]transparency
+//[8]checkerboard [9]texture [10]bump_texture 
+//[11]Refractive_idx [12]transparency
 bool validate_cone(char **arg)
 {
     //check arg size && nbr arg valid
-    if (ft_matrix_size(arg) != 14)
+    if (ft_matrix_size(arg) != 13)
 		return (ERROR("cone: wrong args format"), false);
     if (!check_arg_format(arg, "21100100022000"))
 		return (ERROR("cone: number arg contains invalid char"), false);
@@ -120,7 +117,6 @@ bool validate_cone(char **arg)
     //check checkerboard[0/1]
     //check texture[path]
     //check bump_texture[path]
-    //check depth[1-3/5]
     //check refractive_idx [double]
     //check transparency [0-1]
     return (true);
