@@ -7,7 +7,7 @@ Dynamic Bounding Volume Hierarchies: https://box2d.org/files/ErinCatto_DynamicBV
 
 部分目前还需要更新的点：   
 1. 所有向量初始化前需检查是否满足归一化 
-2. 检查环境光时参数如果有错会弹出窗口并关闭（影响体验）【我这好像没有这个问题】
+2. 检查环境光时参数如果有错会弹出窗口并关闭（影响体验）                    （maybe已解决）
 3. ray tracer存在大量conditional jump                              （已解决）
 5. Error格式问题                                                   （已解决）
 8. 灯光字母应为L                                                   （已解决）
