@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:41:48 by likong            #+#    #+#             */
-/*   Updated: 2025/02/11 14:43:25 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/11 14:48:18 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_shape	*copy_shape(t_shape *shape)
 	res->bmp = shape->bmp;
 	res->refra_idx = shape->refra_idx;
 	res->depth = shape->depth;
-	// res->transparency = shape->transparency;
+	res->transparency = shape->transparency;
 	if (res->type == SPHERE)
 		res->data.sphere = shape->data.sphere;
 	else if (res->type == PLANE)
