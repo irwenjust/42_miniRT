@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:48:31 by likong            #+#    #+#             */
-/*   Updated: 2025/02/11 14:36:14 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/12 11:27:35 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	*fake_render_thread(void *arg)
 			ray = make_ray(converted_cur);
 			// if (check_intersection(s()->shapes, &ray, &closest))
 			// 	phong_illumination(&closest);
-			ray_tracer(&ray, &closest, 10);
+			ray_tracer(&ray, &closest, 5);
 			put_pixel(closest.color, cur.x, cur.y);
 			cur.x += 3;
 		}
@@ -82,7 +82,7 @@ static void	*render_thread(void *arg)
 			ray = make_ray(converted_cur);
 			// if (check_intersection(s()->shapes, &ray, &closest))
 			// 	phong_illumination(&closest);
-			ray_tracer(&ray, &closest, 10);
+			ray_tracer(&ray, &closest, 5);
 			put_pixel(closest.color, cur.x, cur.y);
 			cur.x++;
 		}
