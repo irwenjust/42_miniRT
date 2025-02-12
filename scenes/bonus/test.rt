@@ -13,7 +13,7 @@ L   10,20,0   0.6               0,255,255
 
 # Spheres
 #N  Center(1)    Diameter[>0](2)   Color[0-255](3)   Ks[0-1](4)   Shininess[1-128][commom:1,32,128](5)  checkerboard[0/1](6)  texture[path](7)  bump_texture[path](8)   Refractive_idx(9)  Transparency(10)
-sp 0,0,15       5                255,255,255          0.3            1.1                                    0                    0                 0                          1.5            1
+sp 0,0,15       5                255,255,255          0.3            128                                    1                    textures/test_earth2k.xp                 textures/test_earth2k.xpm                          1.5            1
 # sp  -5,-1,15     3                0,0,255           0.1           32                                      0                    0                 0                            1.5          0
 # sp  0,0,14    5              255,255,255      1       128                                 0                 textures/test_earth2k.xpm textures/bump.xpm               1.5                  0
 

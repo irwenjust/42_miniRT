@@ -10,7 +10,7 @@ static void	delete_fclass(t_fclass *fclass)
 	free(fclass);
 }
 
-static void	ft_free(void *ptr)
+void	ft_free(void *ptr)
 {
 	if (ptr)
 		free(ptr);

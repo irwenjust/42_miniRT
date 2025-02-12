@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:13:56 by likong            #+#    #+#             */
-/*   Updated: 2025/02/01 18:45:59 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/12 15:26:02 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,45 +23,43 @@ static void put_test_pixel(t_image *img, int i, int j, t_color color)
     img->data[pixel + 3] = (unsigned char)(color.alpha);
 }
 
-static void	init_image(t_image *img, int width, int height)
+static bool	init_image(t_image *img, int width, int height)
 {
 	if (!s()->win.mlx)
-		error_exit("cannot access mlx");
+		return (ERROR("cannot access mlx"), false);
 	img->img_ptr = mlx_new_image(s()->win.mlx, width, height);
 	if (!img->img_ptr)
-		error_exit("mlx_new_image failed");
+		return (ERROR("mlx_new_image failed"), false);
 	img->width = width;
 	img->height = height;
 	img->data = mlx_get_data_addr(img->img_ptr, &img->bpp,
 			&img->size_line, &img->endian);
 	if (!img->data)
-		error_exit("error happend when initial MLX42 image address");
+	{
+		mlx_destroy_image(s()->win.mlx, img->img_ptr);
+		return (ERROR("error happend when initial MLX42 image address"), false);
+	}
+	return (true);
 }
 
-static void	load_image(t_image *img, char *path)
+static bool	load_image(t_image *img, char *path)
 {
 	if (!s()->win.mlx)
-	{
-		free(img);
-		error_exit("cannot access mlx");
-	}
+		return (ERROR("sphere: fail to create new shpere"), false);
 	img->img_ptr = mlx_xpm_file_to_image(s()->win.mlx, path, &img->width, &img->height);
 	if (!img->img_ptr)
-	{
-		free(img);
-		error_exit("cannot initial image from xpm file");
-	}
+		return (ERROR("cannot initial image from xpm file"), false);
 	img->data = mlx_get_data_addr(img->img_ptr, &img->bpp,
 			&img->size_line, &img->endian);
 	if (!img->data)
 	{
 		mlx_destroy_image(s()->win.mlx, img->img_ptr);
-		free(img);
-		error_exit("error happend when initial MLX42 image address");
+		return (ERROR("error happend when initial MLX42 image address"), false);
 	}
+	return (true);
 }
 
-static t_image	*create_cboard(t_color color)
+static t_image	*create_cboard(t_color color, bool *status)
 {
 	t_image	*cboard;
 	t_color	inverted;
@@ -71,8 +69,9 @@ static t_image	*create_cboard(t_color color)
 	inverted = sub_color(WHITE, color);
 	cboard = (t_image *)malloc(sizeof(t_image));
 	if (!cboard)
-		error_exit("error happend when initial checkboard image");
-	init_image(cboard, 256, 256);
+		return (ERROR("error happend when initial checkboard image"), NULL);
+	if (!init_image(cboard, 256, 256))
+		ft_free(cboard);
 	i = -1;
 	while (++i < cboard->height - 1)
 	{
@@ -85,6 +84,7 @@ static t_image	*create_cboard(t_color color)
 				put_test_pixel(cboard, i, j, inverted);
 		}
 	}
+	*status = true;
 	return (cboard);
 }
 
@@ -97,39 +97,64 @@ t_color	add_texture(t_hit *hit)
 	return (hit->color);
 }
 
-static t_image	*parse_texture(char *arg)
+static t_image	*parse_texture(char *arg, bool *status)
 {
 	size_t	len;
 	t_image	*tex;
 
 	len = ft_strlen(arg);
-	if (len <= 4)                                          //missed check image format (only allow png)
-		error_exit("The format of texture has mistake");
+	if (len == 1 && arg[0] == '0')
+	{
+		*status = true;
+		return (NULL);
+	}
+	if (len <= 4)
+	{
+		*status = false;
+		return (ERROR("The format of texture has mistake"), NULL);
+	}
 	tex = (t_image *)malloc(sizeof(t_image));
 	if (!tex)
-		error_exit("error happend when initial checkboard image");
-	load_image(tex, arg);
+	{
+		*status = false;
+		return (ERROR("error happend when initial checkboard image"), NULL);
+	}
+	if (!load_image(tex, arg))
+		ft_free(tex);
+	else
+		*status = true;
 	return (tex);
 }
 
-void	check_texture(char **arg, t_shape *shape)
+bool	check_texture(char **arg, t_shape *shape)
 {
+	bool	status;
+	
+	status = false;
 	if (shape->type == PLANE && ft_strlen(arg[6]) == 1 && arg[6][0] == '1')
-		shape->cboard = create_cboard(shape->data.plane.color);
+		shape->cboard = create_cboard(shape->data.plane.color, &status);
 	else if (shape->type == SPHERE && ft_strlen(arg[6]) == 1 && arg[6][0] == '1')
-		shape->cboard = create_cboard(shape->data.sphere.color);
+		shape->cboard = create_cboard(shape->data.sphere.color, &status);
 	else if (shape->type == CYLINDER && ft_strlen(arg[8]) == 1 && arg[8][0] == '1')
-		shape->cboard = create_cboard(shape->data.cylinder.color);
+		shape->cboard = create_cboard(shape->data.cylinder.color, &status);
 	else if (shape->type == CONE && ft_strlen(arg[8]) == 1 && arg[8][0] == '1')
-		shape->cboard = create_cboard(shape->data.cone.color);
+		shape->cboard = create_cboard(shape->data.cone.color, &status);
 	if (shape->cboard)
-		return ;
-	if ((shape->type == PLANE || shape->type == SPHERE) && arg[7] && arg[7][0] != '0')
-		shape->tex = parse_texture(arg[7]);
-	else if ((shape->type == CYLINDER || shape->type == CONE) && arg[9] && arg[9][0] != '0')
-		shape->tex = parse_texture(arg[9]);
-	if ((shape->type == PLANE || shape->type == SPHERE) && ft_matrix_size(arg) >= 9 && arg[8] && arg[8][0] != '0')
-		shape->bmp = parse_texture(arg[8]);
-	else if ((shape->type == CYLINDER || shape->type == CONE) && ft_matrix_size(arg) >= 11 && arg[10] && arg[10][0] != '0')
-		shape->bmp = parse_texture(arg[10]);
+		return (true);
+	if ((shape->type == PLANE || shape->type == SPHERE))
+		shape->tex = parse_texture(arg[7], &status);
+	else if ((shape->type == CYLINDER || shape->type == CONE))
+		shape->tex = parse_texture(arg[9], &status);
+	if (!shape->tex && status == false)
+		return (status);
+	if ((shape->type == PLANE || shape->type == SPHERE))
+		shape->bmp = parse_texture(arg[8], &status);
+	else if ((shape->type == CYLINDER || shape->type == CONE))
+		shape->bmp = parse_texture(arg[10], &status);
+	if (!shape->bmp && status == false)
+	{
+		mlx_destroy_image(s()->win.mlx, shape->tex->img_ptr);
+		ft_free(shape->tex);
+	}
+	return (status);
 }

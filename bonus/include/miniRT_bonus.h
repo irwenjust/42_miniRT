@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:59:07 by likong            #+#    #+#             */
-/*   Updated: 2025/02/11 14:11:14 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/12 15:20:37 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,7 +304,7 @@ t_color		*get_color(int type, int i);
 void		check_bump(t_hit *hit);
 //texture part
 t_color		add_texture(t_hit *hit);
-void		check_texture(char **arg, t_shape *shape);
+bool		check_texture(char **arg, t_shape *shape);
 
 /**
  * tools
@@ -322,6 +322,7 @@ t_shape		**shapes_to_arr(t_shape **shapes);
 char		*save_str_without_newline(char *str);
 t_hit		init_hit(void);
 void		check_hit(t_hit *hit);
+void		ft_free(void *ptr);
 
 
 
