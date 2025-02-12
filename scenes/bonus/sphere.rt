@@ -1,10 +1,15 @@
-A      0.1                                   255,255,255
+#N   Bright   Color
+A    0.1      255,255,255
 
-C      0,0,-40      0,0,1.0          70
-l      50,50,0                 1.0           255,255,255
-l      -50,50,0                1.0           255,255,255
+#N   Center    Normal    FOV
+C    0,0,-40   0,0,1.0   70
 
-#Name  Center     Radius    Color          Ks    Shininess
-sp     0,0,50     15         123,59,255     0.8   100
+#N   Center     Bright   Color
+L    50,50,0    1.0      255,255,255
+L    -50,50,0   1.0      255,255,255
 
-pl     0,-20,0    0,1,0     255,255,255    0.8   100
+#N   Center   DiaM   Color        Ks    Shn  ChkB Tex Bump RI   Transp
+sp   0,0,50   15     123,59,255   0.5   100  0    0   0    1    0
+
+#N   Center    Normal   Color         Ks    Shn   ChkB Tex Bump RI   Transp
+pl   0,-20,0   0,1,0    255,255,255   0.1   100   0    0   0    1    0
