@@ -74,9 +74,9 @@ void	phong_illumination(t_hit *closest)
 	i = -1;
 	check_hit(closest);
 	check_bump(closest);
-	if (closest->shape->cboard || closest->shape->tex)
-		color = add_texture(closest);
-	else
+	//if (closest->shape->cboard || closest->shape->tex)
+	//	color = add_texture(closest);
+	//else
 		color = closest->color;
 	if (!closest->shape->tex)
 		color = check_ambient(color);
@@ -91,5 +91,6 @@ void	phong_illumination(t_hit *closest)
 			color = add_color(color, specular(light, closest, light->brightness));
 		}
 	}
+	color = mix_color(color, add_texture(closest));
 	closest->color = color;
 }
