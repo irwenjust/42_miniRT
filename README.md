@@ -33,6 +33,6 @@ Dynamic Bounding Volume Hierarchies: https://box2d.org/files/ErinCatto_DynamicBV
     
 14. 只有负号或者加号，后面没有数字时，也能通过检查                    （已解决，加在ft_isnum里了）
     
-16. ks可以是小数，shininess必须是整数？checkerboard只能是0或1？depth是0-5的整数，transparency是0-1的小数？高度直径等设置range为多少【非bug，是否要规定】
+16. ks可以是小数，shininess必须是整数？checkerboard只能是0或1？transparency是0-1的小数？高度直径等设置range为多少【非bug，是否要规定】
 
-17. when camera and light both inside or on the surface of a shape, segmentation
+17. when camera and light both inside or on the surface of a shape, segmentation  (dont have this bug now)

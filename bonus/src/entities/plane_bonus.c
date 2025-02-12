@@ -17,8 +17,8 @@ static bool	new_plane(char **arg, t_plane *plane)
 	plane->normal = parse_vector(tmp);
 	if (vector_magnitude(plane->normal) < 1.0 - 1e-8)
 		return (ERROR("plane: normal vector is too small"), false);
-	plane->normal = vector_normalize(plane->normal);
 	plane->normal = vector_add(plane->normal, VEC_MIN);
+	plane->normal = vector_normalize(plane->normal);
 	free_matrix(tmp);
 	tmp = ft_split(arg[3], ',');
 	if (!tmp)

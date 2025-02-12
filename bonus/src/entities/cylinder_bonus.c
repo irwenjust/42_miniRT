@@ -21,8 +21,8 @@ static bool	new_cylinder(char **arg, t_cylinder *cy)
 	free_matrix(tmp);
 	cy->radius = ft_atod(arg[3]) * 0.5;
 	cy->height = ft_atod(arg[4]);
-	if (cy->radius < 1e-8 || cy->height < 1e-8)
-		return (ERROR("cylinder: wrong diameter or height value"), false);
+	//if (cy->radius < 1e-8 || cy->height < 1e-8)
+	//	return (ERROR("cylinder: wrong diameter or height value"), false);
 	tmp = ft_split(arg[5], ',');
 	if (!tmp)
 		return (ERROR("cylinder: fail to split color"), false);
