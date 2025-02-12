@@ -62,6 +62,7 @@ stdlib: malloc, free
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <limits.h>
 # include <math.h>
 # include <stdint.h>
 # include <pthread.h>

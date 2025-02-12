@@ -12,8 +12,8 @@ static bool	new_sphere(char **arg, t_sphere *sphere)
 	sphere->center = parse_vector(tmp);
 	free_matrix(tmp);
 	sphere->radius = ft_atod(arg[2]) * 0.5;
-	if (sphere->radius < 1e-8)
-		return (ERROR("sphere: wrong diameter value"), false);
+	//if (sphere->radius < 1e-8)
+	//	return (ERROR("sphere: wrong diameter value"), false);
 	tmp = ft_split(arg[3], ',');
 	if (!tmp)
 		return (ERROR("sphere: fail to split color"), false);

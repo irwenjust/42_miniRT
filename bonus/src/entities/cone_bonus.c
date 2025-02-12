@@ -19,8 +19,8 @@ static bool	new_cone(char **arg, t_cone *cone)
 	free_matrix(tmp);
 	cone->radius = ft_atod(arg[3]) * 0.5;
 	cone->height = ft_atod(arg[4]);
-	if (cone->radius < 1e-8 || cone->height < 1e-8)
-		return (ERROR("cone: wrong diameter or height value"), false);
+	//if (cone->radius < 1e-8 || cone->height < 1e-8)
+	//	return (ERROR("cone: wrong diameter or height value"), false);
 	tmp = ft_split(arg[5], ',');
 	if (!tmp)
 		return (ERROR("cone: fail to split color"), false);

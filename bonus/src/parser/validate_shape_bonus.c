@@ -24,10 +24,14 @@ bool validate_sphere(char **arg)
     if (ft_atod(arg[5]) < 1 || ft_atod(arg[5]) > 128)
 		return (ERROR("sphere: wrong shininess value"), false);
     //check checkerboard[0/1]
-    //check texture[path]
-    //check bump_texture[path]
+	if (ft_atod(arg[6]) != 0 && ft_atod(arg[6]) != 1)
+		return (ERROR("sphere: wrong checkerboard value"), false);
     //check refractive_idx [double]
+	if (ft_atod(arg[9]) <= 0 || ft_atod(arg[9]) > INT_MAX)
+		return (ERROR("sphere: wrong refractive index"), false);
     //check transparency [0-1]
+	if (ft_atod(arg[10]) != 0 && ft_atod(arg[10]) != 1)
+		return (ERROR("sphere: wrong transparency value"), false);
     return (true);
 }
 
@@ -53,10 +57,14 @@ bool validate_plane(char **arg)
     if (ft_atod(arg[5]) < 1 || ft_atod(arg[5]) > 128)
 		return (ERROR("plane: wrong shininess value"), false);
     //check checkerboard[0/1]
-    //check texture[path]
-    //check bump_texture[path]
+	if (ft_atod(arg[6]) != 0 && ft_atod(arg[6]) != 1)
+		return (ERROR("plane: wrong checkerboard value"), false);
     //check refractive_idx [double]
+	if (ft_atod(arg[9]) <= 0 || ft_atod(arg[9]) > INT_MAX)
+		return (ERROR("plane: wrong refractive index"), false);
     //check transparency [0-1]
+	if (ft_atod(arg[10]) != 0 && ft_atod(arg[10]) != 1)
+		return (ERROR("plane: wrong transparency value"), false);
     return (true);
 }
 
@@ -73,7 +81,11 @@ bool validate_cylinder(char **arg)
     //check center [vector]
     //check normal [-1.1]
     //check diameter [double]
+	if (ft_atod(arg[3]) * 0.5 < 1e-8)
+		return (ERROR("cylinder: wrong radius value"), false);
     //check height [double]
+	if (ft_atod(arg[4]) < 1e-8)
+		return (ERROR("cylinder: wrong height value"), false);
     //check color [0-255]
     if (!check_rgb(arg[5]))
 		return (ERROR("cylinder: wrong color value"), false);
@@ -84,10 +96,14 @@ bool validate_cylinder(char **arg)
     if (ft_atod(arg[7]) < 1 || ft_atod(arg[7]) > 128)
 		return (ERROR("cylinder: wrong shininess value"), false);
     //check checkerboard[0/1]
-    //check texture[path]
-    //check bump_texture[path]
+	if (ft_atod(arg[8]) != 0 && ft_atod(arg[8]) != 1)
+		return (ERROR("cylinder: wrong checkerboard value"), false);
     //check refractive_idx [double]
+	if (ft_atod(arg[11]) <= 0 || ft_atod(arg[1]) > INT_MAX)
+		return (ERROR("cylinder: wrong refractive index"), false);
     //check transparency [0-1]
+	if (ft_atod(arg[12]) != 0 && ft_atod(arg[12]) != 1)
+		return (ERROR("cylinder: wrong transparency value"), false);
     return (true);
 }
 
@@ -104,7 +120,11 @@ bool validate_cone(char **arg)
     //check center [vector]
     //check normal [-1.1]
     //check diameter [double]
+	if (ft_atod(arg[3]) * 0.5 < 1e-8)
+		return (ERROR("cone: wrong radius value"), false);
     //check height [double]
+	if (ft_atod(arg[4]) < 1e-8)
+		return (ERROR("cone: wrong height value"), false);
     //check color [0-255]
     if (!check_rgb(arg[5]))
 		return (ERROR("cone: wrong color value"), false);
@@ -115,9 +135,13 @@ bool validate_cone(char **arg)
     if (ft_atod(arg[7]) < 1 || ft_atod(arg[7]) > 128)
 		return (ERROR("cone: wrong shininess value"), false);
     //check checkerboard[0/1]
-    //check texture[path]
-    //check bump_texture[path]
+	if (ft_atod(arg[8]) != 0 && ft_atod(arg[8]) != 1)
+		return (ERROR("cone: wrong checkerboard value"), false);
     //check refractive_idx [double]
-    //check transparency [0-1]
+	if (ft_atod(arg[11]) <= 0 || ft_atod(arg[11]) > INT_MAX)
+		return (ERROR("cone: wrong refractive index"), false);
+    //check transparency [0/1]
+	if (ft_atod(arg[12]) != 0 && ft_atod(arg[12]) != 1)
+		return (ERROR("cone: wrong transparency value"), false);
     return (true);
 }
