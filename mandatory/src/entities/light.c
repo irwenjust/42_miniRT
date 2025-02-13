@@ -25,6 +25,8 @@ t_light	*copy_light(t_light *light)
 
 static bool	check_light(char **arg)
 {
+	if (ft_matrix_size(arg) != 4 || !check_arg_format(arg, "2101"))
+		return (ERROR("light: wrong args format"), false);
 	if (ft_atod(arg[2]) < 0.0 || ft_atod(arg[2]) > 1.0)
 		return (ERROR("light: wrong brightness ratio range"), false);
 	if (!check_rgb(arg[3]))
@@ -54,8 +56,6 @@ bool	parse_light(int counter[3], char **arg, t_fclass *fclass)
 	char	**rgb;
 	t_light	*light;
 
-	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0101"))
-		return (ERROR("light: wrong args format"), false);
 	if (!check_light(arg))
 		return (false);
 	coord = ft_split(arg[1], ',');

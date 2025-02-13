@@ -21,7 +21,9 @@ bool validate_camera(char **arg)
 		return (ERROR("camera: wrong number of args, [4]"), false);
 	if (!check_arg_format(arg, "2110"))
 		return (ERROR("camera: number arg contains invalid char"), false);
-	if (!ft_isnum(arg[3]) || ft_atoi(arg[3]) < 0 || ft_atoi(arg[3]) > 180)
+	if (!ft_isnum(arg[3]))
+		return (ERROR("camera: FOV is not an int"), false);
+	if (ft_atoi(arg[3]) <= 0 || ft_atoi(arg[3]) >= 180)
 		return (ERROR("camera: FOV is out of range, [0-180,!=]"), false);
 	return (true);
 }

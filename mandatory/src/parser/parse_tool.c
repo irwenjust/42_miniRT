@@ -12,16 +12,16 @@
 
 #include "miniRT.h"
 
-static int	count_symbol(char *str, char c)
-{
-	int	count;
+// static int	count_symbol(char *str, char c)
+// {
+// 	int	count;
 
-	count = 0;
-	while (*str)
-		if (*str++ == c)
-			count++;
-	return (count);
-}
+// 	count = 0;
+// 	while (*str)
+// 		if (*str++ == c)
+// 			count++;
+// 	return (count);
+// }
 
 // static bool	check_nbr(char **nbr)
 // {
@@ -52,34 +52,34 @@ static int	count_symbol(char *str, char c)
 // 	return (true);
 // }
 
-/*check syntax comma and is valid nbr or not*/
-bool	check_syntax(char **arg, char *commas)
-{
-	int		i;
-	char	**token;
-	int		token_size;
-	bool	valid;
+// /*check syntax comma and is valid nbr or not*/
+// bool	check_syntax(char **arg, char *commas)
+// {
+// 	int		i;
+// 	char	**token;
+// 	int		token_size;
+// 	bool	valid;
 
-	i = -1;
-	valid = true;
-	while (arg[++i])
-	{
-		token = ft_split(arg[i], ',');
-		if (!token)
-			return (ERROR("check syntax: split error"), false);
-		token_size = ft_matrix_size(token);
-		if (commas[i] == HAS_COMMA)
-			valid = (count_symbol(arg[i], ',') == 2 && token_size == 3);
-		else
-			valid = (count_symbol(arg[i], ',') == 0 && token_size == 1);
-		// if ((i > 0 && !check_nbr(token)) || token[token_size - 1][0] == '\n')
-		// 	valid = false;
-		free_matrix(token);
-		if (!valid)
-			return (false);
-	}
-	return (true);
-}
+// 	i = -1;
+// 	valid = true;
+// 	while (arg[++i])
+// 	{
+// 		token = ft_split(arg[i], ',');
+// 		if (!token)
+// 			return (ERROR("check syntax: split error"), false);
+// 		token_size = ft_matrix_size(token);
+// 		if (commas[i] == HAS_COMMA)
+// 			valid = (count_symbol(arg[i], ',') == 2 && token_size == 3);
+// 		else
+// 			valid = (count_symbol(arg[i], ',') == 0 && token_size == 1);
+// 		// if ((i > 0 && !check_nbr(token)) || token[token_size - 1][0] == '\n')
+// 		// 	valid = false;
+// 		free_matrix(token);
+// 		if (!valid)
+// 			return (false);
+// 	}
+// 	return (true);
+// }
 
 bool	check_rgb(char *rgb)
 {
@@ -94,6 +94,8 @@ bool	check_rgb(char *rgb)
 		return (ERROR("check rgb: split error"), false);
 	while (token[++i])
 	{
+		if (!ft_isnum(token[i]))
+			valid = false;
 		if (ft_atoi(token[i]) < 0 || ft_atoi(token[i]) > 255)
 			valid = false;
 		if (!valid)

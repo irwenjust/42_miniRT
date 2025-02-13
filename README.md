@@ -36,3 +36,10 @@ Dynamic Bounding Volume Hierarchies: https://box2d.org/files/ErinCatto_DynamicBV
 16. ks可以是小数，shininess必须是整数？checkerboard只能是0或1？transparency是0-1的小数？高度直径等设置range为多少【非bug，是否要规定】
 
 17. when camera and light both inside or on the surface of a shape, segmentation  (dont have this bug now)
+
+Mandatory part
+1.如果某一行后面有空格，args数量会多一个，最后一个是\n，然后报错，是否要让这种是正确的
+
+2.camera fov edit每次加减量现在是10，如果是1视角变化会毕竟慢，不确定bonus卡不卡，要不要改成1
+
+3.相机进圆柱体之后，只能看到盖，看不到壁，之前就有的问题，subject和eva好像都没要求这个
