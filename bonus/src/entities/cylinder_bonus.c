@@ -45,7 +45,8 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	cy.cap_s = vector_add(cy.center, vector_scale(cy.normal, -cy.height * 0.5));
 	cy.cap_e = vector_add(cy.center, vector_scale(cy.normal, cy.height * 0.5));
 	shape = new_shape(&cy, CYLINDER, fclass->size, s()->shape_nbr[CYLINDER]);
-	check_texture(arg, shape);
+	if (check_texture(arg, shape) == false)
+		return (ft_free(shape), false);
 	shape->ks = ft_atod(arg[6]);
 	shape->shininess = ft_atod(arg[7]);
 	shape->refra_idx = ft_atod(arg[11]);

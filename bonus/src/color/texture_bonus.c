@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:13:56 by likong            #+#    #+#             */
-/*   Updated: 2025/02/12 15:26:02 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/13 20:38:20 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static bool	load_image(t_image *img, char *path)
 		mlx_destroy_image(s()->win.mlx, img->img_ptr);
 		return (ERROR("error happend when initial MLX42 image address"), false);
 	}
+	printf("wtf\n");
 	return (true);
 }
 
@@ -119,10 +120,14 @@ static t_image	*parse_texture(char *arg, bool *status)
 		*status = false;
 		return (ERROR("error happend when initial checkboard image"), NULL);
 	}
-	if (!load_image(tex, arg))
-		ft_free(tex);
-	else
+	if (load_image(tex, arg))
 		*status = true;
+	else
+	{
+		ft_free(tex);
+		tex = NULL;                       //?????????????????????????????????
+		*status = false;
+	}
 	return (tex);
 }
 
@@ -153,7 +158,8 @@ bool	check_texture(char **arg, t_shape *shape)
 		shape->bmp = parse_texture(arg[10], &status);
 	if (!shape->bmp && status == false)
 	{
-		mlx_destroy_image(s()->win.mlx, shape->tex->img_ptr);
+		if (shape->tex)
+			mlx_destroy_image(s()->win.mlx, shape->tex->img_ptr);
 		ft_free(shape->tex);
 	}
 	return (status);

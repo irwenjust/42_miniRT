@@ -44,7 +44,8 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	cone.base = vector_add(cone.tip, vector_scale(cone.normal, cone.height));
 	cone.center = vector_scale(vector_add(cone.tip, cone.base), 0.5);
 	shape = new_shape(&cone, CONE, fclass->size, s()->shape_nbr[CONE]);
-	check_texture(arg, shape);
+	if (check_texture(arg, shape) == false)
+		return (ft_free(shape), false);
 	shape->ks = ft_atod(arg[6]);
 	shape->shininess = ft_atod(arg[7]);
 	shape->refra_idx = ft_atod(arg[11]);

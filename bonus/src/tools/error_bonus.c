@@ -14,6 +14,7 @@ void	ft_free(void *ptr)
 {
 	if (ptr)
 		free(ptr);
+	ptr = NULL;
 }
 
 static void	free_test_matrix(void **matrix)

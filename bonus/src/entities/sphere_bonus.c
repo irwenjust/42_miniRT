@@ -40,11 +40,7 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 		return (ERROR("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
 	if (check_texture(arg, shape) == false)
-	{
-		printf("here\n");
-		free(shape);
-		return (false);
-	}
+		return (ft_free(shape), false);
 	shape->ks = ft_atod(arg[4]);
 	shape->shininess = ft_atod(arg[5]);
 	shape->refra_idx = ft_atod(arg[9]);

@@ -40,7 +40,8 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	if (!new_plane(arg, &plane))
 		return (ERROR("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
-	check_texture(arg, shape);
+	if (check_texture(arg, shape) == false)
+		return (ft_free(shape), false);
 	shape->ks = ft_atod(arg[4]);
 	shape->shininess = ft_atod(arg[5]);
 	shape->refra_idx = ft_atod(arg[9]);
