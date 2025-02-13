@@ -47,7 +47,7 @@ void	shape_preset(int preset)
 	j = 0;
 	while (++i < s()->shapes->size)
 	{
-		color = get_color(s()->menu, i);
+		color = get_color(SHAPE, i);
 		if (preset == 1)
 			(*color) = CS1_DREAM[j];
 		else if (preset == 2)
