@@ -64,6 +64,7 @@ void	move_camera(t_key *keys)
 		s()->camera.coordinate.z += 0.3;
 	else if (keys->key[Q])
 		s()->camera.coordinate.z -= 0.3;
+	s()->preset = 0;
 }
 
 void	rotate_camera(t_key *keys)
@@ -81,6 +82,7 @@ void	rotate_camera(t_key *keys)
 	else if (keys->key[U])
 		(s()->camera.normal) = vector_rotate(s()->camera.normal, Z, ROTATE);
 	init_viewport();
+	s()->preset = 0;
 }
 
 void	update_camera_fov(t_key *keys)
@@ -90,4 +92,5 @@ void	update_camera_fov(t_key *keys)
 	else if (keys->cur_keycode == DOWN && s()->camera.fov - 10 > 0)
 		s()->camera.fov -= 10;
 	init_viewport();
+	s()->preset = 0;
 }

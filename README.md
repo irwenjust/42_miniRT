@@ -39,3 +39,5 @@ Dynamic Bounding Volume Hierarchies: https://box2d.org/files/ErinCatto_DynamicBV
 
 Mandatory part
 1.如果某一行后面有空格，args数量会多一个，最后一个是\n，然后报错，是否要让这种是正确的
+
+2.camera fov edit每次加减量现在是10，如果是1视角变化会毕竟慢，不确定bonus卡不卡，要不要改成1
