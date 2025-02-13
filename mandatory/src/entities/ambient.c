@@ -34,7 +34,7 @@ bool	parse_ambient(int counter[3], char **arg, t_ambient *ambient)
 {
 	char	**rgb;
 
-	if (ft_matrix_size(arg) != 3 || !check_syntax(arg, "001"))
+	if (ft_matrix_size(arg) != 3 || !check_arg_format(arg, "201"))
 		return (ERROR("ambient: wrong args format"), false);
 	ambient->brightness = ft_atod(arg[1]);
 	if (ambient->brightness < 0.0 || ambient->brightness > 1.0)

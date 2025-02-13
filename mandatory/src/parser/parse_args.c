@@ -33,10 +33,7 @@ static bool	parse_line(int counter[3], char **arg)
 	else if (!ft_strcmp("cy", arg[0]))
 		return (parse_cylinder(arg, s()->shapes));
 	else
-	{
-		printf("here\n");
 		return (false);
-	}
 }
 
 static void	check_counter(int counter[3])
@@ -49,6 +46,10 @@ static void	check_counter(int counter[3])
 		error_exit("No light in the scene");
 	else if (counter[0] > 1 || counter[1] > 1 || counter[2] > 1)
 		error_exit("too many ambient/camera/light in the scene");
+	if (s()->shape_nbr[SPHERE] == 0
+		&& s()->shape_nbr[CYLINDER] == 0
+		&& s()->shape_nbr[PLANE] == 0)
+		error_exit("no shapes");
 }
 
 /*parse args to correct format*/
@@ -62,7 +63,7 @@ void	parse_args(void)
 	ft_bzero(counter, 3 * sizeof(int));
 	while (s()->args[++i])
 	{
-		tmp = ft_split(s()->args[i], ' '); //如果参数后面有空格，会多一个args"\n"，感觉不用改，就是这个设定
+		tmp = ft_split(s()->args[i], ' ');
 		if (!tmp)
 			error_exit("mistake happend when split file content");
 		if (!parse_line(counter, tmp))
@@ -73,8 +74,4 @@ void	parse_args(void)
 		free_matrix(tmp);
 	}
 	check_counter(counter);
-	if (s()->shape_nbr[SPHERE] == 0
-		&& s()->shape_nbr[CYLINDER] == 0
-		&& s()->shape_nbr[PLANE] == 0)
-		error_exit("no shapes");
 }

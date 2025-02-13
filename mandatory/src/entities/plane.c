@@ -27,8 +27,8 @@ static bool	new_plane(char **arg, t_plane *plane)
 	plane->normal = parse_vector(tmp);
 	if (vector_magnitude(plane->normal) < 1.0 - 1e-8)
 		return (ERROR("plane: normal vector is too small"), false);
-	plane->normal = vector_normalize(plane->normal);
 	plane->normal = vector_add(plane->normal, VEC_MIN);
+	plane->normal = vector_normalize(plane->normal);
 	free_matrix(tmp);
 	tmp = ft_split(arg[3], ',');
 	if (!tmp)
@@ -43,7 +43,7 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	t_shape	*shape;
 	t_plane	plane;
 
-	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0111"))
+	if (ft_matrix_size(arg) != 4 || !check_arg_format(arg, "2111"))
 		return (ERROR("plane: wrong args format"), false);
 	if (!check_rgb(arg[3]))
 		return (ERROR("plane: wrong color value"), false);

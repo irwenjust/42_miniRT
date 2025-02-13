@@ -38,8 +38,6 @@ static bool	new_cylinder(char **arg, t_cylinder *cy)
 		return (ERROR("cylinder: fail to split color"), false);
 	cy->color = parse_color(tmp);
 	free_matrix(tmp);
-	// cy->box = box_cylinder(cy);
-	// cy->rebuildbox = box_cylinder;
 	return (true);
 }
 
@@ -48,7 +46,7 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	t_shape		*shape;
 	t_cylinder	cy;
 
-	if (ft_matrix_size(arg) != 6 || !check_syntax(arg, "011001"))
+	if (ft_matrix_size(arg) != 6 || !check_arg_format(arg, "211001"))
 		return (ERROR("cylinder: wrong args format"), false);
 	if (!check_rgb(arg[5]))
 		return (ERROR("cylinder: wrong color value"), false);

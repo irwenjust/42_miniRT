@@ -26,7 +26,7 @@ bool	parse_camera(char **arg, t_camera *camera)
 	char	**coord;
 	char	**normal;
 
-	if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0110"))
+	if (ft_matrix_size(arg) != 4 || !check_arg_format(arg, "2110"))
 		return (ERROR("camera: wrong args format"), false);
 	coord = ft_split(arg[1], ',');
 	if (!coord)
@@ -37,13 +37,15 @@ bool	parse_camera(char **arg, t_camera *camera)
 	if (!normal)
 		return (ERROR("camera: fail to split normal"), false);
 	camera->normal = parse_vector(normal);
-	camera->normal = vector_add(camera->normal, VEC_MIN);
-	free_matrix(normal);
 	if (vector_magnitude(camera->normal) < 1e-8)
 		return (ERROR("camera: normal vector is too small"), false);
+	camera->normal = vector_add(camera->normal, VEC_MIN);
 	camera->normal = vector_normalize(camera->normal);
+	free_matrix(normal);
+	if (!ft_isnum(arg[3]))
+		return (ERROR("camera: FOV is not an int"), false);
 	camera->fov = ft_atoi(arg[3]);
-	if (camera->fov < 0 || camera->fov > 180)
+	if (camera->fov <= 0 || camera->fov >= 180)
 		return (ERROR("camera: normal vector's visual is out of range"), false);
 	return (camera);
 }
