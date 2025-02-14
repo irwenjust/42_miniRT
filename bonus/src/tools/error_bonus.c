@@ -10,11 +10,13 @@ static void	delete_fclass(t_fclass *fclass)
 	free(fclass);
 }
 
-void	ft_free(void *ptr)
+void	ft_free(void **ptr)
 {
-	if (ptr)
-		free(ptr);
-	ptr = NULL;
+	if (ptr && *ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
 }
 
 static void	free_test_matrix(void **matrix)
@@ -90,7 +92,7 @@ void	delete_scene(void)
 	}
 	if (s()->bvh)
 		free_bvh(&s()->bvh);
-	ft_free(s()->win.mlx);
+	ft_free(&s()->win.mlx);
 }
 
 void	error_exit(char *message)
