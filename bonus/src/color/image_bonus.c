@@ -35,7 +35,8 @@ bool	load_image(t_image *img, char *path)
 {
 	if (!s()->win.mlx)
 		return (ERROR("sphere: fail to create new shpere"), false);
-	img->img_ptr = mlx_xpm_file_to_image(s()->win.mlx, path, &img->width, &img->height);
+	img->img_ptr = mlx_xpm_file_to_image(s()->win.mlx, path,
+			&img->width, &img->height);
 	if (!img->img_ptr)
 		return (ERROR("cannot initial image from xpm file"), false);
 	img->data = mlx_get_data_addr(img->img_ptr, &img->bpp,

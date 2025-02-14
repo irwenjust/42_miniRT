@@ -27,7 +27,7 @@ SRCS =	main.c \
 		equation.c error.c magic_s.c tool.c \
 		vector_op_basic.c vector_op_plus.c vector_tools.c vector_rotate.c \
 		bvh.c bvh_tool.c bvh_intersection.c aabb.c \
-		debug_shape.c 
+		debug_shape.c debug.c
 
 OBJS_DIR = objs
 OBJS = $(SRCS:.c=.o)
@@ -49,7 +49,7 @@ BONUS_SRCS =	main_bonus.c \
 				math_bonus.c error_bonus.c magic_s_bonus.c tool_bonus.c \
 				vector_op_basic_bonus.c vector_op_plus_bonus.c vector_tools_bonus.c vector_rotate_bonus.c \
 				bvh_bonus.c bvh_tool_bonus.c bvh_intersection_bonus.c aabb_bonus.c \
-				debug_shape_bonus.c \
+				debug_shape_bonus.c debug_bonus.c\
 				uv_bonus.c \
 				color_calculate_bonus.c color_utils_bonus.c texture_bonus.c bump_bonus.c image_bonus.c
 				

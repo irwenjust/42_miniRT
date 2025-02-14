@@ -1,9 +1,18 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector_op_basic_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 16:02:40 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 16:02:47 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
 //add, subtract, negat, multiple, divide
-
 inline t_vector	vector_add(t_vector v1, t_vector v2)
 {
 	return ((t_vector){v1.x + v2.x, v1.y + v2.y, v1.z + v2.z});

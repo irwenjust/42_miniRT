@@ -51,7 +51,3 @@ t_color	mix_color(t_color c1, t_color c2)
 		.alpha = c1.alpha
 	});
 }
-
-
-
-

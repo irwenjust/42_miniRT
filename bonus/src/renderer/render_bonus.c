@@ -36,10 +36,10 @@ static t_vector	convert_viewport(double x, double y)
 static void	*fake_render_thread(void *arg)
 {
 	t_thread_data	*data;
-	t_hit		closest;
-	t_vector	cur;
-	t_vector	converted_cur;
-	t_ray		ray;
+	t_hit			closest;
+	t_vector		cur;
+	t_vector		converted_cur;
+	t_ray			ray;
 
 	data = (t_thread_data *)arg;
 	cur.y = data->start_y;
@@ -48,11 +48,9 @@ static void	*fake_render_thread(void *arg)
 		cur.x = data->start_x;
 		while (cur.x < data->end_x)
 		{
-			closest = init_hit(); //default color is BLACK, set a background color?
+			closest = init_hit();
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
-			// if (check_intersection(s()->shapes, &ray, &closest))
-			// 	phong_illumination(&closest);
 			ray_tracer(&ray, &closest, 5);
 			put_pixel(closest.color, cur.x, cur.y);
 			cur.x += 3;
@@ -65,10 +63,10 @@ static void	*fake_render_thread(void *arg)
 static void	*render_thread(void *arg)
 {
 	t_thread_data	*data;
-	t_hit		closest;
-	t_vector	cur;
-	t_vector	converted_cur;
-	t_ray		ray;
+	t_hit			closest;
+	t_vector		cur;
+	t_vector		converted_cur;
+	t_ray			ray;
 
 	data = (t_thread_data *)arg;
 	cur.y = data->start_y;
@@ -80,8 +78,6 @@ static void	*render_thread(void *arg)
 			closest = init_hit();
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
-			// if (check_intersection(s()->shapes, &ray, &closest))
-			// 	phong_illumination(&closest);
 			ray_tracer(&ray, &closest, 5);
 			put_pixel(closest.color, cur.x, cur.y);
 			cur.x++;

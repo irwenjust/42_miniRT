@@ -1,12 +1,22 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light_menu_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:37:48 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:38:58 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-static void display_light(int x, int y)
+static void	display_light(int x, int y)
 {
-    display(x, y, 0xFFD700, "Current Light:");
-    display(x += (16 * 6), y, 0xFFD700, "Light");
-    display(x += (6 * 6), y, 0xFFD700, ft_itoa(s()->select));
+	display(x, y, 0xFFD700, "Current Light:");
+	display(x += (16 * 6), y, 0xFFD700, "Light");
+	display(x += (6 * 6), y, 0xFFD700, ft_itoa(s()->select));
 	display(x += (4 * 6), y, 0x87CEFA, ">");
 	display(x += (3 * 6), y, 0xFFFFFF, "TAB : To Next Shape");
 }

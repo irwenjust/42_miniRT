@@ -104,15 +104,15 @@ void		backup_scene(void);
  */
 void		parse_args(void);
 //validate
-bool validate_ambient(char **arg);
-bool validate_camera(char **arg);
-bool validate_light(char **arg);
-bool validate_sphere(char **arg);
-bool validate_plane(char **arg);
-bool validate_cylinder(char **arg);
-bool validate_cone(char **arg);
+bool		validate_ambient(char **arg);
+bool		validate_camera(char **arg);
+bool		validate_light(char **arg);
+bool		validate_sphere(char **arg);
+bool		validate_plane(char **arg);
+bool		validate_cylinder(char **arg);
+bool		validate_cone(char **arg);
 //parse tool
-bool	check_arg_format(char **arg, char *arg_type);
+bool		check_arg_format(char **arg, char *arg_type);
 bool		check_rgb(char *rgb);
 t_color		parse_color(char **rgb);
 
@@ -136,12 +136,11 @@ void		find_valid_t(t_equation *equation);
 //illumination part
 void		phong_illumination(t_hit *closest);
 //tools
-double    	calculate_fresnel(t_hit *hit);
-
+double		calculate_fresnel(t_hit *hit);
 t_hit		generate_hit(void);
 double		calculate_reflectance(double cos_theta, double n1, double n2);
 //reflection
-void    	set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *hit);
+void		set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *hit);
 void		add_reflect_color(t_hit *hit, t_hit *reflect_hit);
 //refraction part
 void		check_refraction(t_ray *refract_ray, t_hit *hit);
@@ -230,7 +229,6 @@ void		reset_all(void);
 void		reset_camera(void);
 void		reset_lights(void);
 void		reset_shapes(void);
-
 
 /**
  * menu
@@ -327,9 +325,6 @@ t_hit		init_hit(void);
 void		check_hit(t_hit *hit);
 void		ft_free(void **ptr);
 
-
-
-
 /**
  * debug
  */
@@ -338,18 +333,10 @@ void		print_light(t_light *light);
 void		print_camera(t_camera *camera);
 void		print_box(t_aabb box);
 
-
 //check normal in different type
 void		check_hit_normal(t_hit *hit);
-
 void		find_uv(t_hit *hit);
 void		add_uv_axis(t_shape *shape, t_vector normal);
 t_color		uv_get_color(t_image *img, double u, double v);
-
-
-
-
-
-
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cone_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:28:53 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:28:56 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT_bonus.h"
 
 static bool	new_cone(char **arg, t_cone *cone)
@@ -19,8 +31,6 @@ static bool	new_cone(char **arg, t_cone *cone)
 	free_matrix(tmp);
 	cone->radius = ft_atod(arg[3]) * 0.5;
 	cone->height = ft_atod(arg[4]);
-	//if (cone->radius < 1e-8 || cone->height < 1e-8)
-	//	return (ERROR("cone: wrong diameter or height value"), false);
 	tmp = ft_split(arg[5], ',');
 	if (!tmp)
 		return (ERROR("cone: fail to split color"), false);
@@ -34,10 +44,6 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	t_shape	*shape;
 	t_cone	cone;
 
-	// if (ft_matrix_size(arg) < 9 || !check_syntax(arg, "01100100"))
-	// 	return (ERROR("cone: wrong args format"), false);
-	// if (!check_rgb(arg[5]))
-	// 	return (ERROR("cone: wrong color value"), false);
 	if (!new_cone(arg, &cone))
 		return (ERROR("cone: fail to create new cone"), false);
 	cone.angle = atan(cone.radius / cone.height) + 1e-8;
@@ -50,15 +56,9 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	shape->shininess = ft_atod(arg[7]);
 	shape->refra_idx = ft_atod(arg[11]);
 	shape->transparency = ft_atod(arg[12]);
-	// if (shape->ks < 0 || shape->ks > 1)
-	// 	return (ERROR("sphere: wrong ks value"), false);
-	// if (shape->shininess < 1 || shape->shininess > 128)
-	// 	return (ERROR("sphere: wrong shininess value"), false);
-	// printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[CONE]++;
 	add_uv_axis(shape, shape->data.cone.normal);
 	push_to_fclass(fclass, shape);
-	// print_shape(shape);
 	return (true);
 }
 
@@ -76,7 +76,8 @@ void	move_cone(t_key *keys, t_cone *cone)
 		cone->tip.z += 0.3;
 	else if (keys->key[Q])
 		cone->tip.z -= 0.3;
-	cone->base = vector_add(cone->tip, vector_scale(cone->normal, cone->height));
+	cone->base = vector_add(cone->tip,
+			vector_scale(cone->normal, cone->height));
 	cone->center = vector_scale(vector_add(cone->tip, cone->base), 0.5);
 }
 
@@ -94,7 +95,8 @@ void	rotate_cone(t_key *keys, t_cone *cone)
 		cone->normal = vector_rotate(cone->normal, Z, ROTATE);
 	else if (keys->key[O])
 		cone->normal = vector_rotate(cone->normal, Z, (-ROTATE));
-	cone->base = vector_add(cone->tip, vector_scale(cone->normal, cone->height));
+	cone->base = vector_add(cone->tip,
+			vector_scale(cone->normal, cone->height));
 	cone->center = vector_scale(vector_add(cone->tip, cone->base), 0.5);
 }
 
@@ -109,6 +111,7 @@ void	scaling_cone(t_key *keys, t_cone *cone)
 	else if (keys->cur_keycode == DOWN && cone->height - 0.1 > 0)
 		cone->height -= 0.1;
 	cone->angle = atan(cone->radius / cone->height) + 1e-8;
-	cone->base = vector_add(cone->tip, vector_scale(cone->normal, cone->height));
+	cone->base = vector_add(cone->tip,
+			vector_scale(cone->normal, cone->height));
 	cone->center = vector_scale(vector_add(cone->tip, cone->base), 0.5);
 }

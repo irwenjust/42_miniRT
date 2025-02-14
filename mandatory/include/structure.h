@@ -13,7 +13,7 @@
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
 
-#include "miniRT.h"
+# include "miniRT.h"
 
 /*enum*/
 //menu mode
@@ -38,21 +38,20 @@ typedef enum s_key_action
 	RESET,
 	COLOR,
 	QUIT
-} t_key_action;
+}	t_key_action;
 
 //shape type
-typedef enum	s_shape_type
+typedef enum s_shape_type
 {
 	SPHERE,
 	PLANE,
 	CYLINDER
 }	t_shape_type;
 
-
 /*structure*/
 /*basic*/
 //vector and coordinate struct
-typedef struct s_vector 
+typedef struct s_vector
 {
 	double	x;
 	double	y;
@@ -63,7 +62,7 @@ typedef struct s_vector
 typedef struct s_color
 {
 	int	red;
-	int green;
+	int	green;
 	int	blue;
 	int	alpha;
 }	t_color;
@@ -76,7 +75,7 @@ typedef struct s_aabb
 
 /*fclass and entities*/
 //fclass
-typedef struct	s_fclass
+typedef struct s_fclass
 {
 	int		size;
 	void	**array;
@@ -119,8 +118,6 @@ typedef struct s_sphere
 	t_vector	center;
 	double		radius;
 	t_color		color;
-	// t_aabb		box;
-	// t_aabb		(*rebuildbox)(struct s_sphere *shape);
 }	t_sphere;
 
 typedef struct s_plane
@@ -130,17 +127,16 @@ typedef struct s_plane
 	t_color		color;
 }	t_plane;
 
+//normal: center -> cap_e
 typedef struct s_cylinder
 {
 	t_vector	center;
-	t_vector	normal; //center -> cap_e
+	t_vector	normal;
 	double		radius;
 	double		height;
 	t_color		color;
 	t_vector	cap_s;
 	t_vector	cap_e;
-	// t_aabb		box;
-	// t_aabb		(*rebuildbox)(struct s_cylinder *shape);
 }	t_cylinder;
 
 //shape manage
@@ -166,12 +162,12 @@ typedef struct s_shape
  */
 typedef struct s_equation
 {
-	double a;
-	double b;
-	double c;
-	double t1;
-	double t2;
-} t_equation;
+	double	a;
+	double	b;
+	double	c;
+	double	t1;
+	double	t2;
+}	t_equation;
 
 /*render struct*/
 typedef struct s_ray
@@ -179,7 +175,7 @@ typedef struct s_ray
 	t_vector	start;
 	t_vector	normal;
 	t_vector	inv_start;
-} t_ray;
+}	t_ray;
 
 /**
  * @brief Describes an intersection point in the scene between 
@@ -196,22 +192,19 @@ typedef struct s_ray
  */
 typedef struct s_hit
 {
-	t_shape	*shape;
-	t_ray	ray;
+	t_shape		*shape;
+	t_ray		ray;
 	t_vector	hit_point;
 	t_vector	hit_normal;
-	t_color	color;
+	t_color		color;
 	t_vector	cy_hp;
-	double	distance;
-	bool	check_hit;
-} t_hit;
-
+	double		distance;
+	bool		check_hit;
+}	t_hit;
 
 /*macro struct*/
 typedef struct s_windows
 {
-	// mlx_t	*mlx;
-	// mlx_image_t	*img;
 	void	*mlx;
 	void	*disp;
 	void	*img;
@@ -224,15 +217,13 @@ typedef struct s_windows
 	int		endian;
 }	t_windows;
 
-
-
 typedef struct s_key
 {
-	int key[256];
-	int cur_keycode;
-	int action;
-	int is_pressed;
-} t_key;
+	int	key[256];
+	int	cur_keycode;
+	int	action;
+	int	is_pressed;
+}	t_key;
 
 typedef struct s_bvh
 {
@@ -245,30 +236,30 @@ typedef struct s_bvh
 
 typedef struct s_scene
 {
-	char		**args; //map
-	t_ambient	ambient;
-	t_camera	camera;
-	t_fclass	*light;
-	t_fclass	*shapes;
-	int 		shape_nbr[3]; // notsure
-	t_ambient	ori_ambient;
-	t_camera	ori_camera;
-	t_fclass	*ori_light;
-	t_fclass	*ori_shapes;
-	t_key 		keys; //not sure
-	t_menu		menu; //not sure
-	int			select; //not sure
-	int			select_rgb;
-	int			preset; //for test
-	double		view_w;
-	double		view_h;
-	t_vector	normal_w; //go right
-	t_vector	normal_h; //go down
-	t_windows	win;
-	struct timeval last_frame_time;
-	int			bvh_level; // the index level for bvh binary tree
-	t_list		*unbound; // for plane and maybe more things later
-	t_bvh		*bvh;
+	char			**args;
+	t_ambient		ambient;
+	t_camera		camera;
+	t_fclass		*light;
+	t_fclass		*shapes;
+	int				shape_nbr[3];
+	t_ambient		ori_ambient;
+	t_camera		ori_camera;
+	t_fclass		*ori_light;
+	t_fclass		*ori_shapes;
+	t_key			keys;
+	t_menu			menu;
+	int				select;
+	int				select_rgb;
+	int				preset;
+	double			view_w;
+	double			view_h;
+	t_vector		normal_w;
+	t_vector		normal_h;
+	t_windows		win;
+	struct timeval	last_frame_time;
+	int				bvh_level;
+	t_list			*unbound;
+	t_bvh			*bvh;
 }	t_scene;
 
 #endif

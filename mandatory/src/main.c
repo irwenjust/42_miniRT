@@ -45,7 +45,6 @@ int	main(int argc, char **argv)
 	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, press_key, &s()->keys);
 	mlx_hook(s()->win.disp, KeyRelease, KeyReleaseMask,
 		release_key, &s()->keys);
-	// need to adjust later maybe
 	mlx_hook(s()->win.disp, DestroyNotify, StructureNotifyMask, ft_quit, NULL);
 	mlx_loop_hook(s()->win.mlx, update, &s()->keys);
 	mlx_loop(s()->win.mlx);

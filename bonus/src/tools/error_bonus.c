@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:18:23 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:20:18 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -35,10 +45,10 @@ static void	free_test_matrix(void **matrix)
 	matrix = NULL;
 }
 
-static void free_shape_array(t_shape **shapes)
+static void	free_shape_array(t_shape **shapes)
 {
-	t_shape *shape;
-	int i;
+	t_shape	*shape;
+	int		i;
 
 	i = -1;
 	while (shapes[++i])
@@ -64,10 +74,10 @@ static void free_shape_array(t_shape **shapes)
 	free(shapes);
 }
 
-static void delete_shape(t_fclass *f)
+static void	delete_shape(t_fclass *f)
 {
 	if (!f)
-		return;
+		return ;
 	free_shape_array((t_shape **)f->array);
 	free(f);
 }

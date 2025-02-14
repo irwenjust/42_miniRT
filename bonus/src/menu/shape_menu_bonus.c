@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shape_menu_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:38:15 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:39:29 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -18,7 +28,8 @@ static void	display_shape(int x, int y, t_shape *shape)
 	else if (shape->type == CYLINDER)
 	{
 		display(x += (16 * 6), y, 0xFFD700, "Cylinder");
-		display_f(x += (9 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[CYLINDER]));
+		display_f(x += (9 * 6), y, 0xFFD700,
+			ft_itoa(shape->shape_id[CYLINDER]));
 	}
 	else if (shape->type == CONE)
 	{

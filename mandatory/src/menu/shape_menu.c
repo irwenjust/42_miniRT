@@ -28,7 +28,8 @@ static void	display_shape(int x, int y, t_shape *shape)
 	else if (shape->type == CYLINDER)
 	{
 		display(x += (16 * 6), y, 0xFFD700, "Cylinder");
-		display_f(x += (9 * 6), y, 0xFFD700, ft_itoa(shape->shape_id[CYLINDER]));
+		display_f(x += (9 * 6), y, 0xFFD700,
+			ft_itoa(shape->shape_id[CYLINDER]));
 	}
 	display(x += (4 * 6), y, 0x87CEFA, ">");
 	display(x += (3 * 6), y, 0xFFFFFF, "TAB : To Next Shape");

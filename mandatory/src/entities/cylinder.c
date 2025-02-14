@@ -80,7 +80,6 @@ void	move_cylinder(t_key *keys, t_cylinder *cy)
 			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_e = vector_add(cy->center,
 			vector_scale(cy->normal, cy->height * 0.5));
-	// cy->box = box_cylinder(cy);
 }
 
 void	rotate_cylinder(t_key *keys, t_cylinder *cy)
@@ -101,7 +100,6 @@ void	rotate_cylinder(t_key *keys, t_cylinder *cy)
 			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_e = vector_add(cy->center,
 			vector_scale(cy->normal, cy->height * 0.5));
-	// cy->box = box_cylinder(cy);
 }
 
 void	scaling_cylinder(t_key *keys, t_cylinder *cy)
@@ -118,5 +116,4 @@ void	scaling_cylinder(t_key *keys, t_cylinder *cy)
 			vector_scale(cy->normal, -cy->height * 0.5));
 	cy->cap_e = vector_add(cy->center,
 			vector_scale(cy->normal, cy->height * 0.5));
-	// cy->box = box_cylinder(cy);
 }

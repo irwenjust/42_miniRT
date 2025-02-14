@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   intersection_bonus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:47:45 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:47:48 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -44,7 +55,8 @@ t_vector	cone_normal(t_hit *inter)
 	point = inter->hit_point;
 	len_tip = vector_magnitude(vector_sub(point, inter->shape->data.cone.tip));
 	len = len_tip / cos(inter->shape->data.cone.angle);
-	tmp = vector_add(inter->shape->data.cone.tip, vector_scale(inter->shape->data.cone.normal, len));
+	tmp = vector_add(inter->shape->data.cone.tip,
+			vector_scale(inter->shape->data.cone.normal, len));
 	normal = vector_sub(point, tmp);
 	if (vector_compare(inter->co_hp, inter->shape->data.cone.normal))
 		normal = inter->shape->data.cone.normal;
@@ -62,6 +74,9 @@ static t_vector	get_normal(t_hit *inter)
 {
 	t_vector	point;
 	t_vector	normal;
+	t_vector	center;
+	t_vector	ray_to_center;
+	double		dot;
 
 	point = inter->hit_point;
 	normal = (t_vector){0, 0, 0};
@@ -69,17 +84,12 @@ static t_vector	get_normal(t_hit *inter)
 		normal = inter->shape->data.plane.normal;
 	else if (inter->shape->type == SPHERE)
 	{
-		t_vector center = inter->shape->data.sphere.center;
+		center = inter->shape->data.sphere.center;
 		normal = vector_sub(point, center);
-		
-		// 计算射线方向到球心的点积
-		t_vector ray_to_center = vector_sub(center, inter->ray.start);
-		double dot = vector_dot(inter->ray.normal, ray_to_center);
-		
-		// 如果射线方向朝向球心，则法线方向应反向
-		if (dot > 0) {
+		ray_to_center = vector_sub(center, inter->ray.start);
+		dot = vector_dot(inter->ray.normal, ray_to_center);
+		if (dot > 0)
 			normal = vector_scale(normal, -1.0);
-		}
 		// normal = vector_sub(point, inter->shape->data.sphere.center);
 	}
 	else if (inter->shape->type == CYLINDER)
