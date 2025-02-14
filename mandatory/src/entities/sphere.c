@@ -29,8 +29,6 @@ static bool	new_sphere(char **arg, t_sphere *sphere)
 		return (ERROR("sphere: fail to split color"), false);
 	sphere->color = parse_color(tmp);
 	free_matrix(tmp);
-	// sphere->box = box_sphere(sphere);
-	// sphere->rebuildbox = box_sphere;
 	return (true);
 }
 
@@ -116,8 +114,6 @@ void	move_sphere(t_key *keys, t_sphere *sphere)
 		sphere->center.z += 0.3;
 	else if (keys->key[Q])
 		sphere->center.z -= 0.3;
-	// sphere->box = box_sphere(sphere);
-	// printf("move sphere\n");
 }
 
 void	scaling_sphere(t_key *keys, t_sphere *sphere)

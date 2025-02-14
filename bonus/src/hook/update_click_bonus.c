@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update_click_bonus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:33:06 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:33:10 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -42,7 +52,7 @@ void	update_preset(t_key *keys)
 			break ;
 		}
 	}
-	if (preset >= 0 && s()->preset != preset)
+	if (preset > 0 && preset <= 6 && s()->preset != preset)
 	{
 		s()->preset = preset;
 		switch_preset(preset);

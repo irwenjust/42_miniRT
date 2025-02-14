@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sphere_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:29:19 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:29:23 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -12,16 +22,12 @@ static bool	new_sphere(char **arg, t_sphere *sphere)
 	sphere->center = parse_vector(tmp);
 	free_matrix(tmp);
 	sphere->radius = ft_atod(arg[2]) * 0.5;
-	//if (sphere->radius < 1e-8)
-	//	return (ERROR("sphere: wrong diameter value"), false);
 	tmp = ft_split(arg[3], ',');
 	if (!tmp)
 		return (ERROR("sphere: fail to split color"), false);
 	sphere->color = parse_color(tmp);
 	sphere->normal = (t_vector){0, 1, 0};
 	free_matrix(tmp);
-	// sphere->box = box_sphere(sphere);
-	// sphere->rebuildbox = box_sphere;
 	return (true);
 }
 
@@ -30,12 +36,6 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	t_shape		*shape;
 	t_sphere	sphere;
 
-	// if (ft_matrix_size(arg) < 7 || !check_syntax(arg, "010100"))
-	// 	return (ERROR("sphere: wrong args format"), false);
-	// if (ft_atod(arg[2]) * 0.5 < 1e-8)
-	// 	return (ERROR("sphere: wrong radius value"), false);
-	// if (!check_rgb(arg[3]))
-	// 	return (ERROR("sphere: wrong color value"), false);
 	if (!new_sphere(arg, &sphere))
 		return (ERROR("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
@@ -45,10 +45,6 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	shape->shininess = ft_atod(arg[5]);
 	shape->refra_idx = ft_atod(arg[9]);
 	shape->transparency = ft_atod(arg[10]);
-	// if (shape->ks < 0 || shape->ks > 1)
-	// 	return (ERROR("sphere: wrong ks value"), false);
-	// if (shape->shininess < 1 || shape->shininess > 128)
-	// 	return (ERROR("sphere: wrong shininess value"), false);
 	s()->shape_nbr[SPHERE]++;
 	add_uv_axis(shape, shape->data.sphere.normal);
 	push_to_fclass(fclass, shape);

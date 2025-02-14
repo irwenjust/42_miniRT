@@ -83,30 +83,7 @@ static void	init_windows(void)
 			&s()->win.line_len, &s()->win.endian);
 	if (!s()->win.addr)
 		error_exit("error happend when initial MLX42 image address");
-	
 }
-
-// void printTree(t_bvh *root, int space) {
-//     // Base case
-//     if (root == NULL)
-//         return;
-
-//     // Increase distance between levels
-//     space += 5;
-
-//     // Print right subtree first (for visual alignment)
-//     printTree(root->right, space);
-
-//     // Print the current node after space
-//     printf("\n");
-//     for (int i = 5; i < space; i++) {
-//         printf(" "); // Print space for alignment
-//     }
-//     printf("%d\n", root->id);
-
-//     // Print left subtree
-//     printTree(root->left, space);
-// }
 
 void	init_scene(char *file_name)
 {

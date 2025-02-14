@@ -43,17 +43,9 @@ void	update_scaling(t_key *keys)
 		if (shape->type == PLANE)
 			return ;
 		else if (shape->type == SPHERE)
-		{
 			scaling_sphere(keys, &shape->data.sphere);
-			// shape->box = box_sphere(&(shape->data.sphere));
-			// shape->box = shape->data.sphere.box;
-		}
 		else if (shape->type == CYLINDER)
-		{
 			scaling_cylinder(keys, &shape->data.cylinder);
-			// shape->box = box_cylinder(&(shape->data.cylinder));
-			// shape->box = shape->data.cylinder.box;
-		}
 		shape->box = shape_box(shape);
 		print_box(shape->box);
 	}
@@ -118,31 +110,3 @@ void	update_color(t_key *keys)
 	s()->preset = 0;
 	control_frame_rate();
 }
-
-// void update_color(t_key *keys)
-// {
-//     t_color *rgb;
-
-//     rgb = get_color();
-//     if (rgb == NULL)
-//         return ;
-//     if (keys->key[C_INC])
-//     {
-//         if (s()->select_rgb == 0 && rgb->red < 255)
-//             rgb->red++;
-//         else if (s()->select_rgb == 1 && rgb->green < 255)
-//             rgb->green++;
-//         else if (s()->select_rgb == 2 && rgb->blue < 255)
-//             rgb->blue++;
-//     }
-//     else if (keys->key[C_DEC])
-//     {
-//         if (s()->select_rgb == 0 && rgb->red > 0)
-//             rgb->red--;
-//         else if (s()->select_rgb == 1 && rgb->green > 0)
-//             rgb->green--;
-//         else if (s()->select_rgb == 2 && rgb->blue > 0)
-//             rgb->blue--;
-//     }        
-//     control_frame_rate();
-// }

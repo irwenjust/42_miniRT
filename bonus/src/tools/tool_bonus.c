@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:27:23 by likong            #+#    #+#             */
-/*   Updated: 2025/01/31 14:52:46 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/14 15:21:37 by yzhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ t_hit	init_hit(void)
 {
 	static t_hit	hit;
 	static bool		init = true;
-	
+
 	if (init)
 	{
 		ft_bzero(&hit, sizeof(t_hit));
-		// hit.color = BACKGROUND;
+		hit.color = hex_to_color(BACKGROUND);
 		hit.distance = INFINITY;
 		hit.shape = NULL;
 		init = false;
@@ -71,7 +71,8 @@ t_hit	init_hit(void)
 
 void	check_hit(t_hit *hit)
 {
-	hit->hit_point = vector_add(hit->ray.start, vector_scale(hit->ray.normal, hit->distance));
+	hit->hit_point = vector_add(hit->ray.start,
+			vector_scale(hit->ray.normal, hit->distance));
 	check_hit_normal(hit);
 	find_uv(hit);
 }

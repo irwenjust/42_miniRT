@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:09:47 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:09:52 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -75,28 +85,6 @@ static void	init_windows(void)
 		error_exit("error happend when initial MLX42 menu");
 }
 
-// void printTree(t_bvh *root, int space) {
-//     // Base case
-//     if (root == NULL)
-//         return;
-
-//     // Increase distance between levels
-//     space += 5;
-
-//     // Print right subtree first (for visual alignment)
-//     printTree(root->right, space);
-
-//     // Print the current node after space
-//     printf("\n");
-//     for (int i = 5; i < space; i++) {
-//         printf(" "); // Print space for alignment
-//     }
-//     printf("%d\n", root->id);
-
-//     // Print left subtree
-//     printTree(root->left, space);
-// }
-
 void	init_scene(char *file_name)
 {
 	ft_bzero(s(), sizeof(t_scene));
@@ -106,7 +94,6 @@ void	init_scene(char *file_name)
 	init_args(file_name);
 	if (ft_matrix_size(s()->args) == 0)
 		error_exit("the file is empty");
-	//parse_args(); //if error wouldn't show a window
 	(s()->win.mlx) = mlx_init();
 	if (!s()->win.mlx)
 		error_exit("error happend when create MLX42");

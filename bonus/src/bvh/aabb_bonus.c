@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   aabb_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:07:14 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:07:18 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -16,7 +27,7 @@ static t_aabb	box_cylinder(t_cylinder *cy)
 {
 	t_vector	radius_vec;
 	t_aabb		cylinder_box;
-	
+
 	radius_vec = (t_vector){cy->radius, cy->radius, cy->radius};
 	cylinder_box.min = vector_sub(vector_min(cy->cap_s, cy->cap_e), radius_vec);
 	cylinder_box.max = vector_add(vector_max(cy->cap_s, cy->cap_e), radius_vec);
@@ -26,7 +37,7 @@ static t_aabb	box_cylinder(t_cylinder *cy)
 static t_aabb	box_cone(t_cone *cone)
 {
 	t_vector	radius_vec;
-	t_aabb	cone_box;
+	t_aabb		cone_box;
 
 	radius_vec = (t_vector){cone->radius, cone->radius, cone->radius};
 	cone_box.min = vector_sub(vector_min(cone->tip, cone->base), radius_vec);

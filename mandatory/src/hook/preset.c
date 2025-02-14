@@ -12,23 +12,23 @@
 
 #include "miniRT.h"
 
-void	light_preset(int preset)
+static void	light_preset(int preset)
 {
 	t_light	*light;
 
 	light = s()->light->array[s()->select];
 	if (preset == 1)
-		light->color = WARM_W;
+		light->color = hex_to_color(WARM_W);
 	else if (preset == 2)
-		light->color = COLD_W;
+		light->color = hex_to_color(COLD_W);
 	else if (preset == 3)
-		light->color = SUNSET;
+		light->color = hex_to_color(SUNSET);
 	else if (preset == 4)
-		light->color = MOON;
+		light->color = hex_to_color(MOON);
 	else if (preset == 5)
-		light->color = CYERPK;
+		light->color = hex_to_color(CYERPK);
 	else if (preset == 6)
-		light->color = TOXIC;
+		light->color = hex_to_color(TOXIC);
 	if (preset == 1 || preset == 2 || preset == 5)
 		light->brightness = 1.0;
 	else if (preset == 3 || preset == 6)
@@ -37,36 +37,36 @@ void	light_preset(int preset)
 		light->brightness = 0.4;
 }
 
-void	shape_preset(int preset)
+static void	shape_preset(int preset)
 {
-	int		i;
-	int		j;
-	t_color	*color;
+	int				i;
+	int				j;
+	t_color			*color;
+	unsigned int	*color_palette;
 
+	if (preset == 1)
+		color_palette = (unsigned int []){CS1_C1, CS1_C2, CS1_C3, CS1_C4};
+	else if (preset == 2)
+		color_palette = (unsigned int []){CS2_C1, CS2_C2, CS2_C3, CS2_C4};
+	else if (preset == 3)
+		color_palette = (unsigned int []){CS3_C1, CS3_C2, CS3_C3, CS3_C4};
+	else if (preset == 4)
+		color_palette = (unsigned int []){CS4_C1, CS4_C2, CS4_C3, CS4_C4};
+	else if (preset == 5)
+		color_palette = (unsigned int []){CS5_C1, CS5_C2, CS5_C3, CS5_C4};
+	else
+		color_palette = (unsigned int []){CS6_C1, CS6_C2, CS6_C3, CS6_C4};
 	i = -1;
 	j = 0;
 	while (++i < s()->shapes->size)
 	{
 		color = get_color(SHAPE, i);
-		if (preset == 1)
-			(*color) = CS1_DREAM[j];
-		else if (preset == 2)
-			(*color) = CS2_SUNSET[j];
-		else if (preset == 3)
-			(*color) = CS3_FIRE[j];
-		else if (preset == 4)
-			(*color) = CS4_BLUES[j];
-		else if (preset == 5)
-			(*color) = CS5_FOREST[j];
-		else if (preset == 6)
-			(*color) = CS6_COFFEE[j];
-		j++;
-		if (j >= 4)
-			j = 0;
+		*color = hex_to_color(color_palette[j]);
+		j = (j + 1) % 4;
 	}
 }
 
-void	view_preset(int preset)
+static void	view_preset(int preset)
 {
 	camera_preset(preset);
 	light_preset(preset);

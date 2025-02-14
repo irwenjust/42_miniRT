@@ -43,3 +43,40 @@ Mandatory part
 2.camera fov edit每次加减量现在是10，如果是1视角变化会毕竟慢，不确定bonus卡不卡，要不要改成1
 
 3.相机进圆柱体之后，只能看到盖，看不到壁，之前就有的问题，subject和eva好像都没要求这个
+
+4.if plane normal is 0,-1,0, light is above the plane, and camera is above too, which means we see the back of this plane, the color would be dark than the plane's real color. is it ok?
+if ambient is 0, the plane show balck
+but if the normal is 0,1,0, the plane is always light,even the back side compare to light.
+"
+# Ambient lighting
+#N  Brightness[0,1]  Color[0-255]
+A   0              255,255,255
+
+# Camera
+#N  Center   Normal[-1,1]  FOV[0-180,!=]
+C   0,0,-5   0,0,1         100
+
+# Light
+#N  Center  Brightness[0,1]  Color[0-255]
+L   0,20,10   0.7              255,255,255
+
+# Spheres
+#N  Center   Diameter[>0]  Color[0-255]
+sp  0,0,15   5             255,0,0
+
+# Plane
+#N  Center   Normal[-1,1]  Color[0-255]
+pl  0,-5,0   0,-1,0        255,255,255
+
+# Cylinder
+#N  Center   Normal[-1,1]  Diameter[>0]  Height[>0]  Color[0-255]
+cy  -8,0,10   0,0,1        3             10          190,50,0
+"
+
+**IMPORTANT**
+5. in .h file, the line as below are all wrong in norminette
+	# define WARM_W		(t_color){255, 239, 214, 0}
+	# define RADIAN(angle) ((angle * PI) / 180.0f)
+	# define UPVECTOR (t_vector){0.0, 1.0, 0.0}
+	# define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
+	# define FRAME_TIME (1000000 / FRAME_RATE)

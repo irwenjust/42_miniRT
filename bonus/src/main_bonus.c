@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:10:57 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:11:41 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -18,7 +28,6 @@ void	control_frame_rate(void)
 	if (elapsed_time >= FRAME_TIME)
 	{
 		s()->last_frame_time = current_time;
-		// fake_render();
 		render(1);
 	}
 	else
@@ -32,12 +41,10 @@ int	main(int argc, char **argv)
 		error_exit("need and only need one argument");
 	init_scene(argv[1]);
 	render(0);
-	
 	mlx_do_key_autorepeatoff(s()->win.mlx);
 	mlx_hook(s()->win.disp, KeyPress, KeyPressMask, press_key, &s()->keys);
 	mlx_hook(s()->win.disp, KeyRelease, KeyReleaseMask,
 		release_key, &s()->keys);
-	// need to adjust later maybe
 	mlx_hook(s()->win.disp, DestroyNotify, StructureNotifyMask, ft_quit, NULL);
 	mlx_loop_hook(s()->win.mlx, update, &s()->keys);
 	mlx_loop(s()->win.mlx);

@@ -12,7 +12,7 @@
 
 #include "miniRT_bonus.h"
 
-t_color	color_create(double r, double g, double b)
+t_color	color_create(double r, double g, double b) //not used anywhere??
 {
 	t_color	color;
 
@@ -22,12 +22,25 @@ t_color	color_create(double r, double g, double b)
 	return (color);
 }
 
+t_color hex_to_color(unsigned int hex)
+{
+	t_color color;
+
+	color.red = (hex >> 24) & 0xFF;
+	color.green = (hex >> 16) & 0xFF;
+	color.blue = (hex >> 8) & 0xFF;
+	color.alpha = hex & 0xFF;
+
+	return color;
+}
+
 void	put_pixel(t_color c, int x, int y)
 {
 	char	*dst;
 
 	dst = s()->win.addr + (y * WIDTH + x) * (int)(s()->win.bpp * 0.125);
-	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
+	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16
+			| c.green << 8 | c.blue);
 }
 
 t_color	copy_color(t_color c)

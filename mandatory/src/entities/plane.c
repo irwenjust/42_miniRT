@@ -131,18 +131,3 @@ void	rotate_plane(t_key *keys, t_plane *plane)
 		plane->normal = vector_rotate(plane->normal, Z, (-ROTATE));
 	printf("rotate plane\n");
 }
-
-// bool	inter_real_plane(t_plane *plane, t_ray *ray, double *valid_t)
-// {
-// 	double		numerator;
-// 	double		denominator;
-// 	t_vector	vec;
-
-// 	denominator = vector_dot(ray->normal, plane->normal);
-// 	if (fabs(denominator) < 1e-6)
-// 		return (false);
-// 	vec = vector_sub(plane->center, ray->start);
-// 	numerator = vector_dot(vec, plane->normal);
-// 	*valid_t = numerator / denominator;
-// 	return (*valid_t > 0.0);
-// }

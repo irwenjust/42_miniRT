@@ -1,10 +1,20 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder_bonus.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:29:37 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:30:00 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
 static bool	new_cylinder(char **arg, t_cylinder *cy)
 {
-	char **tmp;
+	char	**tmp;
 
 	tmp = ft_split(arg[1], ',');
 	if (!tmp)
@@ -21,8 +31,6 @@ static bool	new_cylinder(char **arg, t_cylinder *cy)
 	free_matrix(tmp);
 	cy->radius = ft_atod(arg[3]) * 0.5;
 	cy->height = ft_atod(arg[4]);
-	//if (cy->radius < 1e-8 || cy->height < 1e-8)
-	//	return (ERROR("cylinder: wrong diameter or height value"), false);
 	tmp = ft_split(arg[5], ',');
 	if (!tmp)
 		return (ERROR("cylinder: fail to split color"), false);
@@ -36,10 +44,6 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	t_shape		*shape;
 	t_cylinder	cy;
 
-	// if (ft_matrix_size(arg) < 9 || !check_syntax(arg, "01100100"))
-	// 	return (ERROR("cylinder: wrong args format"), false);
-	// if (!check_rgb(arg[5]))
-	// 	return (ERROR("cylinder: wrong color value"), false);
 	if (!new_cylinder(arg, &cy))
 		return (ERROR("cylinder: fail to create new cylinder"), false);
 	cy.cap_s = vector_add(cy.center, vector_scale(cy.normal, -cy.height * 0.5));
@@ -51,10 +55,6 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	shape->shininess = ft_atod(arg[7]);
 	shape->refra_idx = ft_atod(arg[11]);
 	shape->transparency = ft_atod(arg[12]);
-	// if (shape->ks < 0 || shape->ks > 1)
-	// 	return (ERROR("sphere: wrong ks value"), false);
-	// if (shape->shininess < 1 || shape->shininess > 128)
-	// 	return (ERROR("sphere: wrong shininess value"), false);
 	s()->shape_nbr[CYLINDER]++;
 	add_uv_axis(shape, shape->data.cylinder.normal);
 	push_to_fclass(fclass, shape);

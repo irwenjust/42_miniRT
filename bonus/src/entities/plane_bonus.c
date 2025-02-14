@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   plane_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:29:09 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:29:14 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -33,10 +43,6 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	t_shape	*shape;
 	t_plane	plane;
 
-	// if (ft_matrix_size(arg) < 7 || !check_syntax(arg, "011100"))
-	// 	return (ERROR("plane: wrong args format"), false);
-	// if (!check_rgb(arg[3]))
-	// 	return (ERROR("plane: wrong color value"), false);
 	if (!new_plane(arg, &plane))
 		return (ERROR("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
@@ -46,17 +52,11 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	shape->shininess = ft_atod(arg[5]);
 	shape->refra_idx = ft_atod(arg[9]);
 	shape->transparency = ft_atod(arg[10]);
-	// if (shape->ks < 0 || shape->ks > 1)
-	// 	return (ERROR("plane: wrong ks value"), false);
-	// if (shape->shininess < 1 || shape->shininess > 128)
-	// 	return (ERROR("plane: wrong shininess value"), false);
-	// printf("ks %f, shininess %f\n", shape->ks, shape->shininess);
 	s()->shape_nbr[PLANE]++;
 	add_uv_axis(shape, shape->data.plane.normal);
 	push_to_fclass(fclass, shape);
 	return (true);
 }
-
 
 void	move_plane(t_key *keys, t_plane *plane)
 {
@@ -91,18 +91,3 @@ void	rotate_plane(t_key *keys, t_plane *plane)
 		plane->normal = vector_rotate(plane->normal, Z, (-ROTATE));
 	printf("rotate plane\n");
 }
-
-// bool	inter_real_plane(t_plane *plane, t_ray *ray, double *valid_t)
-// {
-// 	double		numerator;
-// 	double		denominator;
-// 	t_vector	vec;
-
-// 	denominator = vector_dot(ray->normal, plane->normal);
-// 	if (fabs(denominator) < 1e-6)
-// 		return (false);
-// 	vec = vector_sub(plane->center, ray->start);
-// 	numerator = vector_dot(vec, plane->normal);
-// 	*valid_t = numerator / denominator;
-// 	return (*valid_t > 0.0);
-// }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_nbr_bonus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:16:20 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:17:38 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT_bonus.h"
 
 static int	count_symbol(char *str, char c)
@@ -41,12 +53,11 @@ static bool	check_precision(char *nbr, int dot_nbr, char *before_dot)
 	if (dot_nbr == 1 && length > 15)
 		return (false);
 	return (true);
-
 }
 
 static bool	check_nbr(char **nbr)
 {
-	int	i;
+	int		i;
 	char	**token;
 	int		dot_nbr;
 	bool	valid;
@@ -75,7 +86,7 @@ static bool	check_nbr(char **nbr)
 /*check syntax comma and is valid nbr or not*/
 bool	check_arg_format(char **arg, char *arg_type)
 {
-	int	i;
+	int		i;
 	char	**token;
 	int		comma_nbr;
 	bool	valid;

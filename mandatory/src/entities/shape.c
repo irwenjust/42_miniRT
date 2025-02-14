@@ -23,19 +23,11 @@ t_shape	*copy_shape(t_shape *shape)
 	res->type = shape->type;
 	res->shape_id[res->type] = shape->shape_id[shape->type];
 	if (res->type == SPHERE)
-	{
 		res->data.sphere = shape->data.sphere;
-		// res->box = box_sphere(&(shape->data.sphere));
-		// res->box = shape->data.sphere.box;
-	}
 	else if (res->type == PLANE)
 		res->data.plane = shape->data.plane;
 	else if (res->type == CYLINDER)
-	{
 		res->data.cylinder = shape->data.cylinder;
-		// res->box = box_cylinder(&(shape->data.cylinder));
-		// res->box = shape->data.cylinder.box;
-	}
 	if (res->type != PLANE)
 		res->box = shape_box(shape);
 	return (res);
@@ -52,19 +44,11 @@ t_shape	*new_shape(void *data, t_shape_type type, int id, int shape_id)
 	shape->type = type;
 	shape->shape_id[type] = shape_id;
 	if (shape->type == SPHERE)
-	{
 		shape->data.sphere = *(t_sphere *)data;
-		// shape->box = box_sphere(&(shape->data.sphere));
-		// shape->box = shape->data.sphere.box;
-	}
 	else if (shape->type == PLANE)
 		shape->data.plane = *(t_plane *)data;
 	else if (shape->type == CYLINDER)
-	{
 		shape->data.cylinder = *(t_cylinder *)data;
-		// shape->box = box_cylinder(&(shape->data.cylinder));
-		// shape->box = shape->data.cylinder.box;
-	}
 	if (shape->type != PLANE)
 		shape->box = shape_box(shape);
 	return (shape);
@@ -76,7 +60,6 @@ void	move_shape(t_key *keys, t_shape *shape)
 	{
 		move_sphere(keys, &(shape->data.sphere));
 		shape->box = box_sphere(&(shape->data.sphere));
-		// shape->box = shape->data.sphere.box;
 	}
 	else if (shape->type == PLANE)
 		move_plane(keys, &(shape->data.plane));
@@ -84,7 +67,6 @@ void	move_shape(t_key *keys, t_shape *shape)
 	{
 		move_cylinder(keys, &(shape->data.cylinder));
 		shape->box = box_cylinder(&(shape->data.cylinder));
-		// shape->box = shape->data.cylinder.box;
 	}
 	print_box(shape->box);
 }
@@ -97,7 +79,6 @@ void	rotate_shape(t_key *keys, t_shape *shape)
 	{
 		rotate_cylinder(keys, &(shape->data.cylinder));
 		shape->box = box_cylinder(&(shape->data.cylinder));
-		// shape->box = shape->data.cylinder.box;
 	}
 	print_box(shape->box);
 }

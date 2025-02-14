@@ -95,7 +95,6 @@ bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	tmp = init_hit();
 	if (s()->bvh)
 		tmp.check_hit |= check_bvh_intersection(ray, s()->bvh, &tmp);
-	// tmp.check_hit |= check_unbound(ray, &tmp);
 	if (!tmp.check_hit && s()->shape_nbr[PLANE] == 0)
 		return (false);
 	while (++i < shapes->size)
@@ -110,8 +109,6 @@ bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 		closest->shape = shape;
 		closest->hit_point = point_on_ray(ray, closest->distance);
 		closest->hit_normal = get_normal(closest);
-		// if (check_unbound(ray, &tmp))
-		// 	break ;
 	}
 	return (closest->shape != NULL);
 }

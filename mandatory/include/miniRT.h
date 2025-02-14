@@ -65,8 +65,6 @@ stdlib: malloc, free
 # include "structure.h"
 # include "preset.h"
 
-
-
 /**
  * fake global func
  */
@@ -100,7 +98,7 @@ void		parse_args(void);
 bool		check_syntax(char **arg, char *commas);
 bool		check_rgb(char *rgb);
 t_color		parse_color(char **rgb);
-bool	check_arg_format(char **arg, char *arg_type);
+bool		check_arg_format(char **arg, char *arg_type);
 
 /**
  * render
@@ -157,7 +155,6 @@ bool		inter_plane(t_plane *plane, t_ray *ray, t_hit *inter,
 				double *valid_t);
 void		move_plane(t_key *keys, t_plane *plane);
 void		rotate_plane(t_key *keys, t_plane *plane);
-//bool		inter_real_plane(t_plane *plane, t_ray *ray, double *valid_t);
 //cylinder part
 bool		parse_cylinder(char **arg, t_fclass *fclass);
 void		move_cylinder(t_key *keys, t_cylinder *cylinder);
@@ -217,7 +214,7 @@ t_vector	vector_copy(t_vector vec);
 //color part
 t_color		add_bright_to_color(t_color color, double brightness);
 t_color		add_color(t_color c1, t_color c2);
-t_color		copy_color(t_color c);
+t_color		hex_to_color(unsigned int hex);
 t_color		*get_color(int type, int i);
 t_color		mix_color(t_color base, t_color light_effect);
 //equation
@@ -263,7 +260,7 @@ bool		check_bvh_intersection(t_ray *ray, t_bvh *node, t_hit *pre_hit);
 //aabb box
 t_aabb		box_sphere(t_sphere *sphere);
 t_aabb		box_cylinder(t_cylinder *cy);
-t_aabb	shape_box(t_shape *shape);
+t_aabb		shape_box(t_shape *shape);
 
 /**
  * debug
@@ -272,7 +269,5 @@ void		print_shape(t_shape *shape);
 void		print_light(t_light *light);
 void		print_camera(t_camera *camera);
 void		print_box(t_aabb box);
-
-// bool	check_unbound(t_ray *ray, t_hit *inter);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inter_cone_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:34:21 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:34:23 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT_bonus.h"
 
 static bool	check_co_wall(t_cone *cone, t_hit *hit, double t)
@@ -12,14 +24,14 @@ static bool	check_co_wall(t_cone *cone, t_hit *hit, double t)
 		return (false);
 	hp = point_on_ray(&hit->ray, t);
 	vec = vector_sub(hit->ray.start, cone->tip);
-	offset = vector_dot(hit->ray.normal, cone->normal) * t + vector_dot(vec, cone->normal);
+	offset = vector_dot(hit->ray.normal, cone->normal) * t
+		+ vector_dot(vec, cone->normal);
 	tip_hp = vector_sub(hp, cone->tip);
 	angle = acos(vector_cos(cone->normal, tip_hp)) - 1e-8;
 	offset -= 1e-8;
 	if (offset >= 0 && offset <= cone->height && angle <= cone->angle)
 	{
 		hit->co_hp = vector_add(cone->tip, vector_scale(cone->normal, offset));
-		// hit->offset = offset;
 		hit->distance = t;
 		return (true);
 	}
@@ -68,11 +80,15 @@ static double	hit_cone(t_cone *cone, t_ray *ray, t_equation *eq, t_hit *hit)
 static void	init_cone_equation(t_cone *cone, t_ray *ray, t_equation *eq)
 {
 	t_vector	vec;
-	
+
 	vec = vector_sub(ray->start, cone->tip);
-	eq->a = pow(vector_dot(ray->normal, cone->normal), 2) - pow(cos(cone->angle), 2);
-	eq->b = 2.0f * (vector_dot(ray->normal, cone->normal) * vector_dot(vec, cone->normal) - vector_dot(ray->normal, vec) * pow(cos(cone->angle), 2));
-	eq->c = pow(vector_dot(vec, cone->normal), 2) - vector_dot(vec, vec) * pow(cos(cone->angle), 2);
+	eq->a = pow(vector_dot(ray->normal, cone->normal), 2)
+		- pow(cos(cone->angle), 2);
+	eq->b = 2.0f * (vector_dot(ray->normal, cone->normal)
+			* vector_dot(vec, cone->normal) - vector_dot(ray->normal, vec)
+			* pow(cos(cone->angle), 2));
+	eq->c = pow(vector_dot(vec, cone->normal), 2) - vector_dot(vec, vec)
+		* pow(cos(cone->angle), 2);
 	eq->t1 = -1;
 	eq->t2 = -1;
 }
@@ -83,7 +99,7 @@ bool	inter_cone(t_cone *cone, t_ray *ray, t_hit *hit, double *valid_t)
 	double		distance;
 
 	init_cone_equation(cone, ray, &eq);
-	if (solve(&eq) != -1  && (eq.t1 > 1e-8 || eq.t2 > 1e-8))
+	if (solve(&eq) != -1 && (eq.t1 > 1e-8 || eq.t2 > 1e-8))
 	{
 		distance = hit_cone(cone, ray, &eq, hit);
 		if (distance > 0.0f)

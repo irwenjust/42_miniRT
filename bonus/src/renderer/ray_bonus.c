@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_bonus.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:42:58 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:46:17 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -52,83 +62,22 @@ void	get_illumination_param(t_hit *hit)
 	hit->refra_idx = hit->shape->refra_idx;
 	hit->refractivity = 1 - hit->shape->ks;
 	if (hit->shape->ks > 0 && hit->shape->transparency == 0)
-        hit->reflectance = hit->shape->ks;
-    else if (hit->shape->ks > 0 && hit->shape->transparency > 0)
-        hit->reflectance = calculate_fresnel(hit);
-    else
+		hit->reflectance = hit->shape->ks;
+	else if (hit->shape->ks > 0 && hit->shape->transparency > 0)
+		hit->reflectance = calculate_fresnel(hit);
+	else
 	{
-        hit->reflectance = 0.0;
+		hit->reflectance = 0.0;
 	}
 	hit->transmission = hit->refractivity * (1.0 - hit->reflectance);
-	// printf("type: %d, tran: %lf\n", hit->shape->type, hit->transmission);
 }
-
-// void	ray_tracer(t_ray *ray, t_hit *hit, int status)
-// {
-// 	t_ray reflect_ray;
-//     t_hit reflect_hit;
-// 	t_ray refract_ray;
-//     t_hit refract_hit;
-
-// 	if (!check_intersection(s()->shapes, ray, hit))
-// 		return ;
-// 	get_illumination_param(hit);
-// 	phong_illumination(hit);
-// 	if (hit->depth <= 0)
-// 		return ;
-//     if(hit->reflectance > 0.01 && status == 0)
-//     {
-// 		reflect_hit = generate_hit();
-//     	set_reflection_ray(ray, &reflect_ray, hit, &reflect_hit);
-//         ray_tracer(&reflect_ray, &reflect_hit, 0);
-//    		add_reflect_color(hit, &reflect_hit);
-//     }
-//     if (hit->shape->transparency > 0 && status == 1)
-//     {
-// 		refract_hit = generate_hit();
-//     	set_refraction_ray(ray, &refract_ray, hit, &refract_hit);
-//         check_refraction(&refract_ray, hit);
-// 		ray_tracer(&refract_ray, &refract_hit, 1);
-//    		add_refract_color(hit, &refract_hit);
-//     }
-// }
-
-// void	ray_tracer(t_ray *ray, t_hit *hit)
-// {
-// 	t_ray reflect_ray;
-//     t_hit reflect_hit;
-// 	t_ray refract_ray;
-//     t_hit refract_hit;
-
-// 	if (!check_intersection(s()->shapes, ray, hit))
-// 		return ;
-// 	get_illumination_param(hit);
-// 	phong_illumination(hit);
-// 	if (hit->depth <= 0)
-// 		return ;
-//     if(hit->reflectance > 0.01)
-//     {
-// 		reflect_hit = generate_hit();
-//     	set_reflection_ray(ray, &reflect_ray, hit, &reflect_hit);
-//         ray_tracer(&reflect_ray, &reflect_hit);
-//    		add_reflect_color(hit, &reflect_hit);
-//     }
-//     if (hit->shape->transparency > 0)
-//     {
-// 		refract_hit = generate_hit();
-//     	set_refraction_ray(ray, &refract_ray, hit, &refract_hit);
-//         check_refraction(&refract_ray, hit);
-// 		ray_tracer(&refract_ray, &refract_hit);
-//    		add_refract_color(hit, &refract_hit);
-//     }
-// }
 
 void	ray_tracer(t_ray *ray, t_hit *hit, int depth)
 {
-	t_ray reflect_ray;
-    t_hit reflect_hit;
-	t_ray refract_ray;
-    t_hit refract_hit;
+	t_ray	reflect_ray;
+	t_hit	reflect_hit;
+	t_ray	refract_ray;
+	t_hit	refract_hit;
 
 	if (!check_intersection(s()->shapes, ray, hit))
 		return ;
@@ -137,19 +86,19 @@ void	ray_tracer(t_ray *ray, t_hit *hit, int depth)
 	if (depth <= 0)
 		return ;
 	depth--;
-    if(hit->reflectance > 0.01)
-    {
+	if (hit->reflectance > 0.01)
+	{
 		reflect_hit = generate_hit();
-    	set_reflection_ray(ray, &reflect_ray, hit);
-        ray_tracer(&reflect_ray, &reflect_hit, depth);
-   		add_reflect_color(hit, &reflect_hit);
-    }
-    if (hit->shape->transparency > 0)
-    {
+		set_reflection_ray(ray, &reflect_ray, hit);
+		ray_tracer(&reflect_ray, &reflect_hit, depth);
+		add_reflect_color(hit, &reflect_hit);
+	}
+	if (hit->shape->transparency > 0)
+	{
 		refract_hit = generate_hit();
-    	set_refraction_ray(ray, &refract_ray, hit);
-        check_refraction(&refract_ray, hit);
+		set_refraction_ray(ray, &refract_ray, hit);
+		check_refraction(&refract_ray, hit);
 		ray_tracer(&refract_ray, &refract_hit, depth);
-   		add_refract_color(hit, &refract_hit);
-    }
+		add_refract_color(hit, &refract_hit);
+	}
 }

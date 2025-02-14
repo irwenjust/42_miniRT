@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   phong_illumination_bonus.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:53:55 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:53:58 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -14,7 +25,7 @@ static bool	is_obscured(t_light *light, t_hit *closest)
 	ray.start = vector_add(closest->hit_point, VEC_MIN);
 	ray.normal = vector_normalize(vector_sub(light->point, closest->hit_point));
 	tmp.distance = vector_magnitude(
-				vector_sub(light->point, closest->hit_point));
+			vector_sub(light->point, closest->hit_point));
 	while (++i < s()->shapes->size)
 	{
 		shape = fclass_index(s()->shapes, i);
@@ -23,7 +34,7 @@ static bool	is_obscured(t_light *light, t_hit *closest)
 		// if (check_bvh_intersection(&ray, s()->bvh, &tmp) && tmp.distance <
 			// is_intersect(shape, &ray, &tmp) && 
 		// 	vector_magnitude(vector_sub(light->point, closest->hit_point)))
-		if (is_intersect(shape, &ray, &tmp, &valid_t) && tmp.distance 
+		if (is_intersect(shape, &ray, &tmp, &valid_t) && tmp.distance
 			< vector_magnitude(vector_sub(light->point, closest->hit_point)))
 			return (true);
 	}
@@ -47,7 +58,7 @@ static t_color	diffuse(t_light *light, t_hit *inter, double brightness)
 	return (color);
 }
 
-static t_color specular(t_light *light, t_hit *inter, double brightness)
+static t_color	specular(t_light *light, t_hit *inter, double brightness)
 {
 	t_vector	light_dir;
 	t_vector	camera_dir;
@@ -56,12 +67,13 @@ static t_color specular(t_light *light, t_hit *inter, double brightness)
 	double		specular_ratio;
 
 	if (inter->shape->shininess < 1.0)
-		return (BLACK);
+		return (hex_to_color(BLACK));
 	light_dir = vector_sub(light->point, inter->hit_point);
 	camera_dir = vector_normalize(vector_scale(inter->ray.normal, -1));
 	half_vector = vector_normalize(vector_add(camera_dir, light_dir));
 	cos_angle = fmax(0.0, vector_dot(half_vector, inter->hit_normal));
-	specular_ratio = inter->shape->ks * brightness * pow(cos_angle, inter->shape->shininess);
+	specular_ratio = inter->shape->ks * brightness
+		* pow(cos_angle, inter->shape->shininess);
 	return (mix_color(multi_color(inter->color, specular_ratio), light->color));
 }
 
@@ -74,9 +86,6 @@ void	phong_illumination(t_hit *closest)
 	i = -1;
 	check_hit(closest);
 	check_bump(closest);
-	//if (closest->shape->cboard || closest->shape->tex)
-	//	color = add_texture(closest);
-	//else
 	color = closest->color;
 	if (!closest->shape->tex)
 		color = check_ambient(color);
@@ -84,7 +93,7 @@ void	phong_illumination(t_hit *closest)
 	{
 		light = fclass_index(s()->light, i);
 		if (!light)
-			error_exit("cannot find any light");
+			error_exit("cannot find any light"); //need this check?
 		if (!is_obscured(light, closest))
 		{
 			color = add_color(color, diffuse(light, closest, light->brightness));

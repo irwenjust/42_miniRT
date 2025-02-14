@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inter_cylinder_bonus.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:34:30 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:34:33 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -56,7 +66,7 @@ static bool	check_cy_cap(t_cylinder *cy, t_ray *ray, t_hit *hit, t_vector cap)
 
 	plane.center = cap;
 	plane.normal = cy->normal;
-	plane.color = BLACK;
+	plane.color = hex_to_color(BLACK);
 	offset = 1e-8;
 	if (inter_plane(&plane, ray, &cap_hit, &offset))
 	{

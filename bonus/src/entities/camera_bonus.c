@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/14 15:29:29 by yzhan             #+#    #+#             */
+/*   Updated: 2025/02/14 15:29:32 by yzhan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
@@ -16,8 +26,6 @@ bool	parse_camera(char **arg, t_camera *camera)
 	char	**coord;
 	char	**normal;
 
-	// if (ft_matrix_size(arg) != 4 || !check_syntax(arg, "0110"))
-	// 	return (ERROR("camera: wrong args format"), false);
 	coord = ft_split(arg[1], ',');
 	if (!coord)
 		return (ERROR("camera: fail to split coordinate"), false);
@@ -33,8 +41,6 @@ bool	parse_camera(char **arg, t_camera *camera)
 	camera->normal = vector_normalize(camera->normal);
 	free_matrix(normal);
 	camera->fov = ft_atoi(arg[3]);
-	// if (camera->fov < 0 || camera->fov > 180)
-	// 	return (ERROR("camera: normal vector's visual is out of range"), false);
 	return (camera);
 }
 
