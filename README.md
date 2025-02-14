@@ -47,7 +47,7 @@ Mandatory part
 4.if plane normal is 0,-1,0, light is above the plane, and camera is above too, which means we see the back of this plane, the color would be dark than the plane's real color. is it ok?
 if ambient is 0, the plane show balck
 but if the normal is 0,1,0, the plane is always light,even the back side compare to light.
-"
+```
 # Ambient lighting
 #N  Brightness[0,1]  Color[0-255]
 A   0              255,255,255
@@ -71,12 +71,14 @@ pl  0,-5,0   0,-1,0        255,255,255
 # Cylinder
 #N  Center   Normal[-1,1]  Diameter[>0]  Height[>0]  Color[0-255]
 cy  -8,0,10   0,0,1        3             10          190,50,0
-"
+```
 
-**IMPORTANT**
+## IMPORTANT
 5. in .h file, the line as below are all wrong in norminette
-	# define WARM_W		(t_color){255, 239, 214, 0}
-	# define RADIAN(angle) ((angle * PI) / 180.0f)
-	# define UPVECTOR (t_vector){0.0, 1.0, 0.0}
-	# define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
-	# define FRAME_TIME (1000000 / FRAME_RATE)
+```
+# define WARM_W		(t_color){255, 239, 214, 0}
+# define RADIAN(angle) ((angle * PI) / 180.0f)
+# define UPVECTOR (t_vector){0.0, 1.0, 0.0}
+# define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
+# define FRAME_TIME (1000000 / FRAME_RATE)
+```
