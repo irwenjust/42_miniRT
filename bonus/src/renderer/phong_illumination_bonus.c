@@ -67,7 +67,7 @@ static t_color	specular(t_light *light, t_hit *inter, double brightness)
 	double		specular_ratio;
 
 	if (inter->shape->shininess < 1.0)
-		return (BLACK);
+		return (hex_to_color(BLACK));
 	light_dir = vector_sub(light->point, inter->hit_point);
 	camera_dir = vector_normalize(vector_scale(inter->ray.normal, -1));
 	half_vector = vector_normalize(vector_add(camera_dir, light_dir));

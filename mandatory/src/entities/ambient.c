@@ -12,12 +12,22 @@
 
 #include "miniRT.h"
 
+static t_color	copy_ambient_color(t_color c)
+{
+	return ((t_color){
+		.red = ft_within_range(c.red, 0, 255),
+		.green = ft_within_range(c.green, 0, 255),
+		.blue = ft_within_range(c.blue, 0, 255),
+		.alpha = ft_within_range(0XFF, 0, 255)
+	});
+}
+
 t_ambient	copy_ambient(t_ambient ambient)
 {
 	t_ambient	dst;
 
 	dst.brightness = ambient.brightness;
-	dst.color = copy_color(ambient.color);
+	dst.color = copy_ambient_color(ambient.color);
 	return (dst);
 }
 

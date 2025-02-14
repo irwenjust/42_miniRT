@@ -52,7 +52,7 @@ void	update_preset(t_key *keys)
 			break ;
 		}
 	}
-	if (preset >= 0 && s()->preset != preset)
+	if (preset > 0 && preset <= 6 && s()->preset != preset)
 	{
 		s()->preset = preset;
 		switch_preset(preset);

@@ -30,7 +30,7 @@ static t_image	*create_cboard(t_color color, bool *status)
 	int		i;
 	int		j;
 
-	inverted = sub_color(WHITE, color);
+	inverted = sub_color(hex_to_color(WHITE), color);
 	cboard = (t_image *)malloc(sizeof(t_image));
 	if (!cboard)
 		return (ERROR("error happend when initial checkboard image"), NULL);

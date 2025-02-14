@@ -72,3 +72,11 @@ pl  0,-5,0   0,-1,0        255,255,255
 #N  Center   Normal[-1,1]  Diameter[>0]  Height[>0]  Color[0-255]
 cy  -8,0,10   0,0,1        3             10          190,50,0
 "
+
+**IMPORTANT**
+5. in .h file, the line as below are all wrong in norminette
+	# define WARM_W		(t_color){255, 239, 214, 0}
+	# define RADIAN(angle) ((angle * PI) / 180.0f)
+	# define UPVECTOR (t_vector){0.0, 1.0, 0.0}
+	# define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
+	# define FRAME_TIME (1000000 / FRAME_RATE)

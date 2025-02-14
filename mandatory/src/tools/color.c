@@ -12,6 +12,18 @@
 
 #include "miniRT.h"
 
+t_color hex_to_color(unsigned int hex)
+{
+	t_color color;
+
+	color.red = (hex >> 24) & 0xFF;
+	color.green = (hex >> 16) & 0xFF;
+	color.blue = (hex >> 8) & 0xFF;
+	color.alpha = hex & 0xFF;
+
+	return color;
+}
+
 t_color	add_bright_to_color(t_color color, double brightness)
 {
 	return ((t_color){
@@ -39,16 +51,6 @@ t_color	mix_color(t_color c1, t_color c2)
 		.green = ft_within_range(c1.green * c2.green / 255.0, 0, 255),
 		.blue = ft_within_range(c1.blue * c2.blue / 255.0, 0, 255),
 		.alpha = c1.alpha
-	});
-}
-
-t_color	copy_color(t_color c)
-{
-	return ((t_color){
-		.red = ft_within_range(c.red, 0, 255),
-		.green = ft_within_range(c.green, 0, 255),
-		.blue = ft_within_range(c.blue, 0, 255),
-		.alpha = ft_within_range(0XFF, 0, 255)
 	});
 }
 

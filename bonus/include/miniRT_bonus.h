@@ -146,8 +146,6 @@ void		add_reflect_color(t_hit *hit, t_hit *reflect_hit);
 void		check_refraction(t_ray *refract_ray, t_hit *hit);
 void		set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit);
 void		add_refract_color(t_hit *hit, t_hit *refract_hit);
-//void		add_color_by_refra(t_ray *ray, t_hit *closest, t_hit new_hit);
-//double		get_reflectance(double cos_theta, double ratio);
 
 /**
  * intersection
@@ -295,6 +293,7 @@ t_color		multi_color(t_color color, double factor);
 t_color		mix_color(t_color c1, t_color c2);
 //color utils
 t_color		color_create(double r, double g, double b);
+t_color		hex_to_color(unsigned int hex);
 void		put_pixel(t_color c, int x, int y);
 t_color		copy_color(t_color c);
 t_color		*get_color(int type, int i);
