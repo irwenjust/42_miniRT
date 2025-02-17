@@ -25,21 +25,18 @@ void	find_valid_t(t_equation *equation)
 /**
  * @brief Find the intersect point for each shape
  */
-bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter, double *valid_t)
+bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter)
 {
 	bool	checker;
 
 	checker = false;
-	*valid_t = 0;
 	if (shape->type == SPHERE)
-		checker = inter_sphere(&shape->data.sphere, ray, inter, valid_t);
+		checker = inter_sphere(&shape->data.sphere, ray, inter);
 	if (shape->type == PLANE)
-		checker = inter_plane(&shape->data.plane, ray, inter, valid_t);
+		checker = inter_plane(&shape->data.plane, ray, inter);
 	if (shape->type == CYLINDER)
-		checker = inter_cylinder(&shape->data.cylinder, ray, inter, valid_t);
-	if (*valid_t < 0)
-		return (false);
-	return (checker && *valid_t > 0);
+		checker = inter_cylinder(&shape->data.cylinder, ray, inter);
+	return (checker);
 }
 
 /**
@@ -53,7 +50,6 @@ static t_vector	get_normal(t_hit *inter)
 	t_vector	normal;
 
 	point = inter->hit_point;
-	normal = (t_vector){0, 0, 0};
 	if (inter->shape->type == PLANE)
 		normal = inter->shape->data.plane.normal;
 	else if (inter->shape->type == SPHERE)
@@ -88,7 +84,6 @@ bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	int		i;
 	t_shape	*shape;
 	t_hit	tmp;
-	double	checker;
 
 	i = -1;
 	if (!shapes)
@@ -101,9 +96,8 @@ bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 	while (++i < shapes->size)
 	{
 		shape = shapes->array[i];
-		if (!is_intersect(shape, ray, &tmp, &checker))
-			continue ;
-		if (tmp.distance >= closest->distance)
+		if (!is_intersect(shape, ray, &tmp)
+			|| tmp.distance >= closest->distance)
 			continue ;
 		*closest = tmp;
 		closest->ray = *ray;

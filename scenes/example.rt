@@ -1,10 +1,10 @@
 # Ambient lighting
 #N  Brightness[0,1]  Color[0-255]
-A   0              255,255,255
+A   0.3              255,255,255
 
 # Camera
 #N  Center   Normal[-1,1]  FOV[0-180,!=]
-C   0,0,-5   0,0,1         100
+C   0,0,-5   0,0,1         90
 
 # Light
 #N  Center  Brightness[0,1]  Color[0-255]
@@ -16,7 +16,7 @@ sp  0,0,15   5             255,255,255
 
 # Plane
 #N  Center   Normal[-1,1]  Color[0-255]
-pl  0,-3,30   0,1,0        255,255,255
+pl  0,-3,20   0,1,0        255,255,255
 
 # Cylinder
 #N  Center   Normal[-1,1]  Diameter[>0]  Height[>0]  Color[0-255]

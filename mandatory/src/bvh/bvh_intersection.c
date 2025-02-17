@@ -15,9 +15,7 @@
 //May need to check more later
 static inline bool	update_hit(t_ray *ray, t_bvh *node, t_hit *hit)
 {
-	double	current_t;
-
-	if (is_intersect(node->shapes, ray, hit, &current_t))
+	if (is_intersect(node->shapes, ray, hit))
 	{
 		return (true);
 	}

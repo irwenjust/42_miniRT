@@ -38,7 +38,8 @@ static void	put_pixel(t_color c, int x, int y)
 	char	*dst;
 
 	dst = s()->win.addr + (y * WIDTH + x) * (int)(s()->win.bpp * 0.125);
-	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16 | c.green << 8 | c.blue);
+	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16
+			| c.green << 8 | c.blue);
 }
 
 /**
@@ -71,8 +72,6 @@ void	render(void)
 			closest = init_hit();
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
-			// if (check_bvh_intersection(&ray, s()->bvh, &closest)
-			// 	&& check_intersection(s()->shapes, &ray, &closest))
 			if (check_intersection(s()->shapes, &ray, &closest))
 				check_illumination(&closest);
 			put_pixel(closest.color, cur.x, cur.y);
@@ -98,8 +97,6 @@ void	fake_render(void)
 			closest = init_hit();
 			converted_cur = convert_viewport(cur.x, cur.y);
 			ray = make_ray(converted_cur);
-			// if (check_bvh_intersection(&ray, s()->bvh, &closest)
-			// 	&& check_intersection(s()->shapes, &ray, &closest))
 			if (check_intersection(s()->shapes, &ray, &closest))
 				check_illumination(&closest);
 			put_pixel(closest.color, cur.x, cur.y);

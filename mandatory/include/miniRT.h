@@ -111,8 +111,7 @@ t_ray		make_ray(t_vector cur);
 t_vector	point_on_ray(t_ray *ray, double t);
 //intersect part
 bool		check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest);
-bool		is_intersect(t_shape *shape, t_ray *ray, t_hit *inter,
-				double *valid_t);
+bool		is_intersect(t_shape *shape, t_ray *ray, t_hit *inter);
 void		find_valid_t(t_equation *equation);
 //illumination part
 void		check_illumination(t_hit *closest);
@@ -143,14 +142,12 @@ void		move_shape(t_key *keys, t_shape *shape);
 void		rotate_shape(t_key *keys, t_shape *shape);
 //sphere part
 bool		parse_sphere(char **tmp, t_fclass *fclass);
-bool		inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter,
-				double *valid_t);
+bool		inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter);
 void		move_sphere(t_key *keys, t_sphere *sphere);
 void		scaling_sphere(t_key *keys, t_sphere *sphere);
 //plane part
 bool		parse_plane(char **arg, t_fclass *fclass);
-bool		inter_plane(t_plane *plane, t_ray *ray, t_hit *inter,
-				double *valid_t);
+bool		inter_plane(t_plane *plane, t_ray *ray, t_hit *inter);
 void		move_plane(t_key *keys, t_plane *plane);
 void		rotate_plane(t_key *keys, t_plane *plane);
 //cylinder part
@@ -159,8 +156,7 @@ void		move_cylinder(t_key *keys, t_cylinder *cylinder);
 void		rotate_cylinder(t_key *keys, t_cylinder *cylinder);
 void		scaling_cylinder(t_key *keys, t_cylinder *cy);
 //cylinder inter
-bool		inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter,
-				double *valid_t);
+bool		inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter);
 
 /**
  * key hook
