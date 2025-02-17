@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:59:07 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 11:36:21 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:50:28 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 // # define RADIAN(angle) ((angle * PI) / 180.0f)
 
 // # define UPVECTOR (t_vector){0.0, 1.0, 0.0}
-# define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
+// # define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
 
 // # define ERROR(s) printf("Error\n%s\n", s)
 
@@ -325,7 +325,6 @@ char		*save_str_without_newline(char *str);
 t_hit		init_hit(void);
 void		check_hit(t_hit *hit);
 double		calculate_radius(double angle);
-
 
 /**
  * debug
