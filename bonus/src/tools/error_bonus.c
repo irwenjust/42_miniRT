@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:18:23 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 15:20:18 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:12:34 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,11 @@ void	delete_scene(void)
 void	error_exit(char *message)
 {
 	delete_scene();
-	printf("Error\n%s\n", message);
+	printf("error\n%s\n", message);
 	exit(FAILURE);
+}
+
+void	error(char *str)
+{
+	printf("error\n%s\n", str);
 }

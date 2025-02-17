@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:29:01 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 15:29:04 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:11:46 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,18 @@ bool	parse_light(int counter[3], char **arg, t_fclass *fclass)
 
 	coord = ft_split(arg[1], ',');
 	if (!coord)
-		return (ERROR("light: fail to split coordinate"), false);
+		return (error("light: fail to split coordinate"), false);
 	rgb = ft_split(arg[3], ',');
 	if (!rgb)
 	{
 		free_matrix(coord);
-		return (ERROR("light: fail to split color"), false);
+		return (error("light: fail to split color"), false);
 	}
 	light = new_light(coord, arg[2], rgb);
 	free_matrix(coord);
 	free_matrix(rgb);
 	if (!light)
-		return (ERROR("light: fail to create new light"), false);
+		return (error("light: fail to create new light"), false);
 	push_to_fclass(fclass, light);
 	counter[2]++;
 	return (true);

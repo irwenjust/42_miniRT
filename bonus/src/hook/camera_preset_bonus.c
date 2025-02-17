@@ -24,7 +24,7 @@ static t_vector	camera_position(t_vector min, t_vector max, int preset)
 	vec.z = (min.z + max.z) / 2;
 	diagonal = sqrt(pow(max.x - min.x, 2) + pow(max.y - min.y, 2)
 			+ pow(max.z - min.z, 2));
-	camera_distance = (diagonal / 2) / tan(RADIAN(45) / 2.0);
+	camera_distance = (diagonal / 2) / tan(calculate_radius(45) / 2.0);
 	camera_distance += diagonal * 0.2;
 	if (preset == 1)
 		vec.z = min.z - camera_distance;

@@ -22,7 +22,7 @@ bool	check_rgb(char *rgb)
 	valid = true;
 	token = ft_split(rgb, ',');
 	if (!token)
-		return (ERROR("check rgb: split error"), false);
+		return (error("check rgb: split error"), false);
 	while (token[++i])
 	{
 		if (!ft_isnum(token[i]))
@@ -34,6 +34,6 @@ bool	check_rgb(char *rgb)
 	}
 	free_matrix(token);
 	if (!valid)
-		return (ERROR("check rgb: not an int/out of range, [0-255]"), false);
+		return (error("check rgb: not an int/out of range, [0-255]"), false);
 	return (valid);
 }

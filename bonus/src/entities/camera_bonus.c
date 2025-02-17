@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:29:29 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 15:29:32 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:11:28 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ bool	parse_camera(char **arg, t_camera *camera)
 
 	coord = ft_split(arg[1], ',');
 	if (!coord)
-		return (ERROR("camera: fail to split coordinate"), false);
+		return (error("camera: fail to split coordinate"), false);
 	camera->coordinate = parse_vector(coord);
 	free_matrix(coord);
 	normal = ft_split(arg[2], ',');
 	if (!normal)
-		return (ERROR("camera: fail to split normal"), false);
+		return (error("camera: fail to split normal"), false);
 	camera->normal = parse_vector(normal);
 	if (vector_magnitude(camera->normal) < 1.0 - 1e-8)
-		return (ERROR("camera: normal vector is too small"), false);
+		return (error("camera: normal vector is too small"), false);
 	camera->normal = vector_add(camera->normal, VEC_MIN);
 	camera->normal = vector_normalize(camera->normal);
 	free_matrix(normal);

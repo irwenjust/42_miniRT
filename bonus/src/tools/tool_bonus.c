@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:27:23 by likong            #+#    #+#             */
-/*   Updated: 2025/02/14 15:21:37 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 10:05:59 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,9 @@ void	check_hit(t_hit *hit)
 			vector_scale(hit->ray.normal, hit->distance));
 	check_hit_normal(hit);
 	find_uv(hit);
+}
+
+double	calculate_radius(double angle)
+{
+	return ((angle * PI) / 180.0);
 }

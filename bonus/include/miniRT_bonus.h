@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:59:07 by likong            #+#    #+#             */
-/*   Updated: 2025/02/14 11:54:27 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:36:21 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define INSIDE 0
 # define OUTSIDE 1
 
-# define FRAME_RATE 60 //Target frame rate (15 fps)
-# define FRAME_TIME (1000000 / FRAME_RATE)
+# define FRAME_RATE 25 //Target frame rate (15 fps)
+# define FRAME_TIME 40000
 
 # define ROTATE 0.1
 
@@ -40,17 +40,15 @@
 //about windows setting (16:9)
 # define SCALE 0.5625
 # define WIDTH 1600
-# define HEIGHT (WIDTH * SCALE)
-# define INVWIDTH 1.0f / WIDTH
-# define INVHEIGHT 1.0f / HEIGHT
+# define HEIGHT 900
 
 # define PI 3.141592653589f
-# define RADIAN(angle) ((angle * PI) / 180.0f)
+// # define RADIAN(angle) ((angle * PI) / 180.0f)
 
-# define UPVECTOR (t_vector){0.0, 1.0, 0.0}
+// # define UPVECTOR (t_vector){0.0, 1.0, 0.0}
 # define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
 
-# define ERROR(s) printf("Error\n%s\n", s)
+// # define ERROR(s) printf("Error\n%s\n", s)
 
 /*
 stdio: printf
@@ -318,12 +316,16 @@ void		ft_swap_d(double *a, double *b);
 void		delete_scene(void);
 //show error message
 void		error_exit(char *message);
+void		ft_free(void **ptr);
+void		error(char *str);
+
 //others
 t_shape		**shapes_to_arr(t_shape **shapes);
 char		*save_str_without_newline(char *str);
 t_hit		init_hit(void);
 void		check_hit(t_hit *hit);
-void		ft_free(void **ptr);
+double		calculate_radius(double angle);
+
 
 /**
  * debug

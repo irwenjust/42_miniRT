@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ambient_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:28:44 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 15:28:48 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:11:24 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	parse_ambient(int counter[3], char **arg, t_ambient *ambient)
 	ambient->brightness = ft_atod(arg[1]);
 	rgb = ft_split(arg[2], ',');
 	if (!rgb)
-		return (ERROR("ambient: fail to split color"), false);
+		return (error("ambient: fail to split color"), false);
 	ambient->color = parse_color(rgb);
 	free_matrix(rgb);
 	counter[0]++;

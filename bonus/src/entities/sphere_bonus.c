@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:29:19 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 15:29:23 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:11:58 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static bool	new_sphere(char **arg, t_sphere *sphere)
 
 	tmp = ft_split(arg[1], ',');
 	if (!tmp)
-		return (ERROR("sphere: fail to split coordinate"), false);
+		return (error("sphere: fail to split coordinate"), false);
 	sphere->center = parse_vector(tmp);
 	free_matrix(tmp);
 	sphere->radius = ft_atod(arg[2]) * 0.5;
 	tmp = ft_split(arg[3], ',');
 	if (!tmp)
-		return (ERROR("sphere: fail to split color"), false);
+		return (error("sphere: fail to split color"), false);
 	sphere->color = parse_color(tmp);
 	sphere->normal = (t_vector){0, 1, 0};
 	free_matrix(tmp);
@@ -37,7 +37,7 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	t_sphere	sphere;
 
 	if (!new_sphere(arg, &sphere))
-		return (ERROR("sphere: fail to create new shpere"), false);
+		return (error("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
 	if (check_texture(arg, shape) == false)
 		return (ft_free((void **)&shape), false);

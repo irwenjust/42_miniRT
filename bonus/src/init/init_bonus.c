@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:09:47 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 15:09:52 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:35:43 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ static void	init_args(char *file_name)
 
 void	init_viewport(void)
 {
-	s()->view_w = tan(RADIAN(s()->camera.fov * 0.5));
+	s()->view_w = tan(calculate_radius(s()->camera.fov * 0.5));
 	s()->view_h = s()->view_w * SCALE;
+	s()->view_invw = 1.0 / WIDTH;
+	s()->view_invh = 1.0 / HEIGHT;
 	(s()->normal_w) = vector_normalize(
-			vector_cross(s()->camera.normal, UPVECTOR));
+			vector_cross(s()->camera.normal, (t_vector){0.0, 1.0, 0.0}));
 	(s()->normal_h) = vector_normalize(
 			vector_cross(s()->camera.normal, s()->normal_w));
 	(s()->normal_w) = vector_normalize(

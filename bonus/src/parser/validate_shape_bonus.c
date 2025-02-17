@@ -18,23 +18,23 @@
 bool	validate_sphere(char **arg)
 {
 	if (ft_matrix_size(arg) != 11)
-		return (ERROR("sphere: wrong args format"), false);
+		return (error("sphere: wrong args format"), false);
 	if (!check_arg_format(arg, "210100022000"))
-		return (ERROR("sphere: number arg contains invalid char"), false);
+		return (error("sphere: number arg contains invalid char"), false);
 	if (ft_atod(arg[2]) * 0.5 < 1e-8)
-		return (ERROR("sphere: wrong radius value"), false);
+		return (error("sphere: wrong radius value"), false);
 	if (!check_rgb(arg[3]))
-		return (ERROR("sphere: wrong color value"), false);
+		return (error("sphere: wrong color value"), false);
 	if (ft_atod(arg[4]) < 0 || ft_atod(arg[4]) > 1)
-		return (ERROR("sphere: wrong ks value"), false);
+		return (error("sphere: wrong ks value"), false);
 	if (!ft_isnum(arg[5]) || ft_atod(arg[5]) < 1 || ft_atod(arg[5]) > 128)
-		return (ERROR("sphere: wrong shininess value"), false);
+		return (error("sphere: wrong shininess value"), false);
 	if (ft_atod(arg[6]) != 0 && ft_atod(arg[6]) != 1)
-		return (ERROR("sphere: wrong checkerboard value"), false);
+		return (error("sphere: wrong checkerboard value"), false);
 	if (ft_atod(arg[9]) <= 0 || ft_atod(arg[9]) > INT_MAX)
-		return (ERROR("sphere: wrong refractive index"), false);
+		return (error("sphere: wrong refractive index"), false);
 	if (ft_atod(arg[10]) != 0 && ft_atod(arg[10]) != 1)
-		return (ERROR("sphere: wrong transparency value"), false);
+		return (error("sphere: wrong transparency value"), false);
 	return (true);
 }
 
@@ -44,21 +44,21 @@ bool	validate_sphere(char **arg)
 bool	validate_plane(char **arg)
 {
 	if (ft_matrix_size(arg) != 11)
-		return (ERROR("plane: wrong args format"), false);
+		return (error("plane: wrong args format"), false);
 	if (!check_arg_format(arg, "211100022000"))
-		return (ERROR("plane: number arg contains invalid char"), false);
+		return (error("plane: number arg contains invalid char"), false);
 	if (!check_rgb(arg[3]))
-		return (ERROR("plane: wrong color value"), false);
+		return (error("plane: wrong color value"), false);
 	if (ft_atod(arg[4]) < 0 || ft_atod(arg[4]) > 1)
-		return (ERROR("plane: wrong ks value"), false);
+		return (error("plane: wrong ks value"), false);
 	if (!ft_isnum(arg[5]) || ft_atod(arg[5]) < 1 || ft_atod(arg[5]) > 128)
-		return (ERROR("plane: wrong shininess value"), false);
+		return (error("plane: wrong shininess value"), false);
 	if (ft_atod(arg[6]) != 0 && ft_atod(arg[6]) != 1)
-		return (ERROR("plane: wrong checkerboard value"), false);
+		return (error("plane: wrong checkerboard value"), false);
 	if (ft_atod(arg[9]) <= 0 || ft_atod(arg[9]) > INT_MAX)
-		return (ERROR("plane: wrong refractive index"), false);
+		return (error("plane: wrong refractive index"), false);
 	if (ft_atod(arg[10]) != 0 && ft_atod(arg[10]) != 1)
-		return (ERROR("plane: wrong transparency value"), false);
+		return (error("plane: wrong transparency value"), false);
 	return (true);
 }
 
@@ -68,25 +68,25 @@ bool	validate_plane(char **arg)
 bool	validate_cylinder(char **arg)
 {
 	if (ft_matrix_size(arg) != 13)
-		return (ERROR("cylinder: wrong args format"), false);
+		return (error("cylinder: wrong args format"), false);
 	if (!check_arg_format(arg, "21100100022000"))
-		return (ERROR("cylinder: number arg contains invalid char"), false);
+		return (error("cylinder: number arg contains invalid char"), false);
 	if (ft_atod(arg[3]) * 0.5 < 1e-8)
-		return (ERROR("cylinder: wrong radius value"), false);
+		return (error("cylinder: wrong radius value"), false);
 	if (ft_atod(arg[4]) < 1e-8)
-		return (ERROR("cylinder: wrong height value"), false);
+		return (error("cylinder: wrong height value"), false);
 	if (!check_rgb(arg[5]))
-		return (ERROR("cylinder: wrong color value"), false);
+		return (error("cylinder: wrong color value"), false);
 	if (ft_atod(arg[6]) < 0 || ft_atod(arg[6]) > 1)
-		return (ERROR("cylinder: wrong ks value"), false);
+		return (error("cylinder: wrong ks value"), false);
 	if (!ft_isnum(arg[7]) || ft_atod(arg[7]) < 1 || ft_atod(arg[7]) > 128)
-		return (ERROR("cylinder: wrong shininess value"), false);
+		return (error("cylinder: wrong shininess value"), false);
 	if (ft_atod(arg[8]) != 0 && ft_atod(arg[8]) != 1)
-		return (ERROR("cylinder: wrong checkerboard value"), false);
+		return (error("cylinder: wrong checkerboard value"), false);
 	if (ft_atod(arg[11]) <= 0 || ft_atod(arg[1]) > INT_MAX)
-		return (ERROR("cylinder: wrong refractive index"), false);
+		return (error("cylinder: wrong refractive index"), false);
 	if (ft_atod(arg[12]) != 0 && ft_atod(arg[12]) != 1)
-		return (ERROR("cylinder: wrong transparency value"), false);
+		return (error("cylinder: wrong transparency value"), false);
 	return (true);
 }
 
@@ -96,24 +96,24 @@ bool	validate_cylinder(char **arg)
 bool	validate_cone(char **arg)
 {
 	if (ft_matrix_size(arg) != 13)
-		return (ERROR("cone: wrong args format"), false);
+		return (error("cone: wrong args format"), false);
 	if (!check_arg_format(arg, "21100100022000"))
-		return (ERROR("cone: number arg contains invalid char"), false);
+		return (error("cone: number arg contains invalid char"), false);
 	if (ft_atod(arg[3]) * 0.5 < 1e-8)
-		return (ERROR("cone: wrong radius value"), false);
+		return (error("cone: wrong radius value"), false);
 	if (ft_atod(arg[4]) < 1e-8)
-		return (ERROR("cone: wrong height value"), false);
+		return (error("cone: wrong height value"), false);
 	if (!check_rgb(arg[5]))
-		return (ERROR("cone: wrong color value"), false);
+		return (error("cone: wrong color value"), false);
 	if (ft_atod(arg[6]) < 0 || ft_atod(arg[6]) > 1)
-		return (ERROR("cone: wrong ks value"), false);
+		return (error("cone: wrong ks value"), false);
 	if (!ft_isnum(arg[7]) || ft_atod(arg[7]) < 1 || ft_atod(arg[7]) > 128)
-		return (ERROR("cone: wrong shininess value"), false);
+		return (error("cone: wrong shininess value"), false);
 	if (ft_atod(arg[8]) != 0 && ft_atod(arg[8]) != 1)
-		return (ERROR("cone: wrong checkerboard value"), false);
+		return (error("cone: wrong checkerboard value"), false);
 	if (ft_atod(arg[11]) <= 0 || ft_atod(arg[11]) > INT_MAX)
-		return (ERROR("cone: wrong refractive index"), false);
+		return (error("cone: wrong refractive index"), false);
 	if (ft_atod(arg[12]) != 0 && ft_atod(arg[12]) != 1)
-		return (ERROR("cone: wrong transparency value"), false);
+		return (error("cone: wrong transparency value"), false);
 	return (true);
 }

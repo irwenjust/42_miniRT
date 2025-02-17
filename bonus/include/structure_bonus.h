@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:08:43 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 16:08:48 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 10:20:19 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,6 +307,8 @@ typedef struct s_scene
 	int				preset;
 	double			view_w;
 	double			view_h;
+	double			view_invw;
+	double			view_invh;
 	t_vector		normal_w;
 	t_vector		normal_h;
 	t_windows		win;

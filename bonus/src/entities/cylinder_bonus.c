@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:29:37 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 15:30:00 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:11:41 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,22 @@ static bool	new_cylinder(char **arg, t_cylinder *cy)
 
 	tmp = ft_split(arg[1], ',');
 	if (!tmp)
-		return (ERROR("cylinder: fail to split coordinate"), false);
+		return (error("cylinder: fail to split coordinate"), false);
 	cy->center = parse_vector(tmp);
 	free_matrix(tmp);
 	tmp = ft_split(arg[2], ',');
 	if (!tmp)
-		return (ERROR("cylinder: fail to split normal"), false);
+		return (error("cylinder: fail to split normal"), false);
 	cy->normal = parse_vector(tmp);
 	if (vector_magnitude(cy->normal) < 1.0 - 1e-8)
-		return (ERROR("cylinder: normal vector is too small"), false);
+		return (error("cylinder: normal vector is too small"), false);
 	cy->normal = vector_normalize(cy->normal);
 	free_matrix(tmp);
 	cy->radius = ft_atod(arg[3]) * 0.5;
 	cy->height = ft_atod(arg[4]);
 	tmp = ft_split(arg[5], ',');
 	if (!tmp)
-		return (ERROR("cylinder: fail to split color"), false);
+		return (error("cylinder: fail to split color"), false);
 	cy->color = parse_color(tmp);
 	free_matrix(tmp);
 	return (true);
@@ -45,7 +45,7 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	t_cylinder	cy;
 
 	if (!new_cylinder(arg, &cy))
-		return (ERROR("cylinder: fail to create new cylinder"), false);
+		return (error("cylinder: fail to create new cylinder"), false);
 	cy.cap_s = vector_add(cy.center, vector_scale(cy.normal, -cy.height * 0.5));
 	cy.cap_e = vector_add(cy.center, vector_scale(cy.normal, cy.height * 0.5));
 	shape = new_shape(&cy, CYLINDER, fclass->size, s()->shape_nbr[CYLINDER]);

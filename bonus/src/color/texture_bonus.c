@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:13:56 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 09:56:43 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:11:13 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_image	*create_cboard(t_color color, bool *status)
 	inverted = sub_color(hex_to_color(WHITE), color);
 	cboard = (t_image *)malloc(sizeof(t_image));
 	if (!cboard)
-		return (ERROR("error happend when initial checkboard image"), NULL);
+		return (error("error happend when initial checkboard image"), NULL);
 	if (!init_image(cboard, 256, 256))
 		ft_free((void **)&cboard);
 	i = -1;
@@ -66,12 +66,12 @@ static t_image	*parse_texture(char *arg, bool *status)
 	if (len == 1 && arg[0] == '0')
 		return (*status = true, NULL);
 	if (len <= 4)
-		return (*status = false, ERROR("The texture format has mistake"), NULL);
+		return (*status = false, error("The texture format has mistake"), NULL);
 	tex = (t_image *)malloc(sizeof(t_image));
 	if (!tex)
 	{
 		*status = false;
-		return (ERROR("error happend when initial checkboard image"), NULL);
+		return (error("error happend when initial checkboard image"), NULL);
 	}
 	if (load_image(tex, arg))
 		return (*status = true, tex);

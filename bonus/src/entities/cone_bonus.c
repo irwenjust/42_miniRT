@@ -18,22 +18,22 @@ static bool	new_cone(char **arg, t_cone *cone)
 
 	tmp = ft_split(arg[1], ',');
 	if (!tmp)
-		return (ERROR("cone: fail to split tip coordinate"), false);
+		return (error("cone: fail to split tip coordinate"), false);
 	cone->tip = parse_vector(tmp);
 	free_matrix(tmp);
 	tmp = ft_split(arg[2], ',');
 	if (!tmp)
-		return (ERROR("cone: fail to split normal"), false);
+		return (error("cone: fail to split normal"), false);
 	cone->normal = parse_vector(tmp);
 	if (vector_magnitude(cone->normal) < 1.0 - 1e-8)
-		return (ERROR("cone: normal vector is too small"), false);
+		return (error("cone: normal vector is too small"), false);
 	cone->normal = vector_normalize(cone->normal);
 	free_matrix(tmp);
 	cone->radius = ft_atod(arg[3]) * 0.5;
 	cone->height = ft_atod(arg[4]);
 	tmp = ft_split(arg[5], ',');
 	if (!tmp)
-		return (ERROR("cone: fail to split color"), false);
+		return (error("cone: fail to split color"), false);
 	cone->color = parse_color(tmp);
 	free_matrix(tmp);
 	return (true);
@@ -45,7 +45,7 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	t_cone	cone;
 
 	if (!new_cone(arg, &cone))
-		return (ERROR("cone: fail to create new cone"), false);
+		return (error("cone: fail to create new cone"), false);
 	cone.angle = atan(cone.radius / cone.height) + 1e-8;
 	cone.base = vector_add(cone.tip, vector_scale(cone.normal, cone.height));
 	cone.center = vector_scale(vector_add(cone.tip, cone.base), 0.5);

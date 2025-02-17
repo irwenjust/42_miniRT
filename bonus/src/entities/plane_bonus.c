@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:29:09 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/17 09:55:12 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:11:52 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ static bool	new_plane(char **arg, t_plane *plane)
 
 	tmp = ft_split(arg[1], ',');
 	if (!tmp)
-		return (ERROR("plane: fail to split coordinate"), false);
+		return (error("plane: fail to split coordinate"), false);
 	plane->center = parse_vector(tmp);
 	free_matrix(tmp);
 	tmp = ft_split(arg[2], ',');
 	if (!tmp)
-		return (ERROR("plane: fail to split normal"), false);
+		return (error("plane: fail to split normal"), false);
 	plane->normal = parse_vector(tmp);
 	if (vector_magnitude(plane->normal) < 1.0 - 1e-8)
-		return (ERROR("plane: normal vector is too small"), false);
+		return (error("plane: normal vector is too small"), false);
 	plane->normal = vector_add(plane->normal, VEC_MIN);
 	plane->normal = vector_normalize(plane->normal);
 	free_matrix(tmp);
 	tmp = ft_split(arg[3], ',');
 	if (!tmp)
-		return (ERROR("plane: fail to split color"), false);
+		return (error("plane: fail to split color"), false);
 	plane->color = parse_color(tmp);
 	free_matrix(tmp);
 	return (true);
@@ -44,10 +44,10 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	t_plane	plane;
 
 	if (!new_plane(arg, &plane))
-		return (ERROR("plane: fail to create new plane"), false);
+		return (error("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
 	if (check_texture(arg, shape) == false)
-		return (ft_free((void **)&shape), ERROR("plane: fail to create new plane"), false);
+		return (ft_free((void **)&shape), error("plane: fail to create new plane"), false);
 	shape->ks = ft_atod(arg[4]);
 	shape->shininess = ft_atod(arg[5]);
 	shape->refra_idx = ft_atod(arg[9]);

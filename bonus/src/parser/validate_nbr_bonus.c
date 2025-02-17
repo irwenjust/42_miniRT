@@ -68,17 +68,17 @@ static bool	check_nbr(char **nbr)
 	{
 		dot_nbr = count_symbol(nbr[i], '.');
 		if (dot_nbr > 1)
-			return (ERROR("check arg format: too many dots in nbr"), false);
+			return (error("check arg format: too many dots in nbr"), false);
 		token = ft_split(nbr[i], '.');
 		if (!token)
-			return (ERROR("check arg format: split error for dot"), false);
+			return (error("check arg format: split error for dot"), false);
 		if (!ft_isnum(token[0]) || (dot_nbr == 1 && !ft_isnum(token[1])))
 			valid = false;
 		if (!check_precision(nbr[i], dot_nbr, token[0]))
 			valid = false;
 		free_matrix(token);
 		if (!valid)
-			return (ERROR("check arg format: invalid number"), false);
+			return (error("check arg format: invalid number"), false);
 	}
 	return (true);
 }
@@ -99,10 +99,10 @@ bool	check_arg_format(char **arg, char *arg_type)
 			continue ;
 		comma_nbr = count_symbol(arg[i], ',');
 		if (comma_nbr != 0 && comma_nbr != 2)
-			return (ERROR("check arg format: wrong comma nbr"), false);
+			return (error("check arg format: wrong comma nbr"), false);
 		token = ft_split(arg[i], ',');
 		if (!token)
-			return (ERROR("check arg format: split error for comma"), false);
+			return (error("check arg format: split error for comma"), false);
 		if (!check_comma(token, comma_nbr, arg_type[i]) || !check_nbr(token))
 			valid = false;
 		free_matrix(token);
