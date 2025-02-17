@@ -6,42 +6,42 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:32:17 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 13:33:03 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:43:55 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
+static void	set_rotate_value(t_shape *shape, int axis, double angle)
+{
+	shape->u_axis = vector_rotate(shape->u_axis, axis, angle);
+	shape->v_axis = vector_rotate(shape->v_axis, axis, angle);
+}
+
 void	rotate_uv(t_key *keys, t_shape *shape)
 {
 	if (keys->key[I])
-	{
-		shape->u_axis = vector_rotate(shape->u_axis, X, ROTATE);
-		shape->v_axis = vector_rotate(shape->v_axis, X, ROTATE);
-	}
+		set_rotate_value(shape, X, ROTATE);
 	else if (keys->key[K])
-	{
-		shape->u_axis = vector_rotate(shape->u_axis, X, (-ROTATE));
-		shape->v_axis = vector_rotate(shape->v_axis, X, (-ROTATE));
-	}
+		set_rotate_value(shape, X, (-ROTATE));
 	else if (keys->key[J])
-	{
-		shape->u_axis = vector_rotate(shape->u_axis, Y, ROTATE);
-		shape->v_axis = vector_rotate(shape->v_axis, Y, ROTATE);
-	}
+		set_rotate_value(shape, Y, ROTATE);
 	else if (keys->key[L])
-	{
-		shape->u_axis = vector_rotate(shape->u_axis, Y, (-ROTATE));
-		shape->v_axis = vector_rotate(shape->v_axis, Y, (-ROTATE));
-	}
+		set_rotate_value(shape, Y, (-ROTATE));
 	else if (keys->key[U])
-	{
-		shape->u_axis = vector_rotate(shape->u_axis, Z, ROTATE);
-		shape->v_axis = vector_rotate(shape->v_axis, Z, ROTATE);
-	}
+		set_rotate_value(shape, Z, ROTATE);
 	else if (keys->key[O])
-	{
-		shape->u_axis = vector_rotate(shape->u_axis, Z, (-ROTATE));
-		shape->v_axis = vector_rotate(shape->v_axis, Z, (-ROTATE));
-	}
+		set_rotate_value(shape, Z, (-ROTATE));
+}
+
+t_color	get_pixel(t_image img, int x, int y)
+{
+	uint8_t	*start;
+	t_color	color;
+
+	start = (uint8_t *)(img.data + (y * img.size_line) + (x * (img.bpp / 8)));
+	color.red = (start[2]);
+	color.green = (start[1]);
+	color.blue = (start[0]);
+	return (color);
 }

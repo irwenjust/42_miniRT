@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:59:07 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 15:29:16 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:44:11 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,9 +342,13 @@ void		uv_repeat_wrap(double *u, double *v, int repeat);
 
 //uv for different shape
 void		cone_uv(t_hit *hit, double *u, double *v, int repeat);
+void		cylinder_uv(t_hit *hit, double *u, double *v, int repeat);
+void		sphere_uv(t_hit *hit, double *u, double *v, int repeat);
+void		plane_uv(t_hit *hit, double *u, double *v, int repeat);
 
 //uv tools
 void		rotate_uv(t_key *keys, t_shape *shape);
+t_color		get_pixel(t_image img, int x, int y);
 
 //normal part
 t_vector	cone_normal(t_hit *inter);

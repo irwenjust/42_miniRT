@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:19:25 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 15:22:51 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:46:42 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static void	slide_mapping(t_vector apex, t_hit *hit, double *u, double *v)
 {
-	t_vector point;
-	double dist_along_axis;
-	double fraction;
-	double azimuth;
+	t_vector	point;
+	double		dist_along_axis;
+	double		fraction;
+	double		azimuth;
 
 	point = vector_sub(hit->hit_point, apex);
 	dist_along_axis = vector_dot(point, hit->shape->data.cone.normal);
 	fraction = dist_along_axis / hit->shape->data.cone.height;
 	azimuth = atan2(vector_dot(point, hit->shape->v_axis),
-		vector_dot(point, hit->shape->u_axis));
+			vector_dot(point, hit->shape->u_axis));
 	if (azimuth < 0.0)
 		azimuth += 2.0 * M_PI;
 	*u = azimuth / (2.0 * M_PI);
@@ -48,15 +48,17 @@ void	cone_uv(t_hit *hit, double *u, double *v, int repeat)
 	t_vector	apex;
 	t_vector	base_center;
 	double		alignment;
-	
-    apex = vector_sub(hit->shape->data.cone.center, vector_scale(
-			hit->shape->data.cone.normal, hit->shape->data.cone.height * 0.5));
-    base_center = vector_add(hit->shape->data.cone.center, vector_scale(
-			hit->shape->data.cone.normal, hit->shape->data.cone.height * 0.5));
+
+	apex = vector_sub(hit->shape->data.cone.center, vector_scale(
+				hit->shape->data.cone.normal,
+				hit->shape->data.cone.height * 0.5));
+	base_center = vector_add(hit->shape->data.cone.center, vector_scale(
+				hit->shape->data.cone.normal,
+				hit->shape->data.cone.height * 0.5));
 	alignment = fabs(vector_dot(hit->normal, hit->shape->data.cone.normal));
-    if (alignment > (1.0 - 1e-6))
+	if (alignment > (1.0 - 1e-6))
 		cap_mapping(base_center, hit, u, v);
-    else
+	else
 		slide_mapping(apex, hit, u, v);
 	uv_repeat_wrap(u, v, repeat);
 }
