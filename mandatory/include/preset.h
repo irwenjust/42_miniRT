@@ -112,12 +112,4 @@
 # define CYERPK 0xE682FFFF
 # define TOXIC  0x0DDC35FF
 
-/*camera preset*/
-# define C_FRONT (t_vector){0, 0, 1}
-# define C_BACK (t_vector){0, 0, -1}
-# define C_TOP (t_vector){0, -1, 0}
-# define C_BOTTOM (t_vector){0, 1, 0}
-# define C_LEFT (t_vector){1, 0, 0}
-# define C_RIGHT (t_vector){-1, 0, 0}
-
 #endif
