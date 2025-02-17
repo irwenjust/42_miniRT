@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:13:56 by likong            #+#    #+#             */
-/*   Updated: 2025/02/14 12:05:28 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 09:56:43 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_image	*parse_texture(char *arg, bool *status)
 	if (len == 1 && arg[0] == '0')
 		return (*status = true, NULL);
 	if (len <= 4)
-		return (*status = true, ERROR("The texture format has mistake"), NULL);
+		return (*status = false, ERROR("The texture format has mistake"), NULL);
 	tex = (t_image *)malloc(sizeof(t_image));
 	if (!tex)
 	{
@@ -81,9 +81,8 @@ static t_image	*parse_texture(char *arg, bool *status)
 
 bool	check_texture(char **arg, t_shape *shape)
 {
-	bool	status;
+	static bool	status = false;
 
-	status = false;
 	if (shape->type == PLANE && arg[6][0] == '1')
 		shape->cboard = create_cboard(shape->data.plane.color, &status);
 	else if (shape->type == SPHERE && arg[6][0] == '1')
