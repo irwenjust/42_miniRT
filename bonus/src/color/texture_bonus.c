@@ -6,21 +6,17 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:13:56 by likong            #+#    #+#             */
-/*   Updated: 2025/02/14 10:25:03 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/14 12:05:28 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-static void	put_test_pixel(t_image *img, int i, int j, t_color color)
+static void	delete_texture(t_shape *shape)
 {
-	int	pixel;
-
-	pixel = i * img->size_line + j * (img->bpp / 8);
-	img->data[pixel + 0] = (unsigned char)(color.red);
-	img->data[pixel + 1] = (unsigned char)(color.green);
-	img->data[pixel + 2] = (unsigned char)(color.blue);
-	img->data[pixel + 3] = (unsigned char)(color.alpha);
+	if (shape->tex)
+		mlx_destroy_image(s()->win.mlx, shape->tex->img_ptr);
+	ft_free((void **)&shape->tex);
 }
 
 static t_image	*create_cboard(t_color color, bool *status)
@@ -88,13 +84,13 @@ bool	check_texture(char **arg, t_shape *shape)
 	bool	status;
 
 	status = false;
-	if (shape->type == PLANE && ft_strlen(arg[6]) == 1 && arg[6][0] == '1')
+	if (shape->type == PLANE && arg[6][0] == '1')
 		shape->cboard = create_cboard(shape->data.plane.color, &status);
-	else if (shape->type == SPHERE && ft_strlen(arg[6]) == 1 && arg[6][0] == '1')
+	else if (shape->type == SPHERE && arg[6][0] == '1')
 		shape->cboard = create_cboard(shape->data.sphere.color, &status);
-	else if (shape->type == CYLINDER && ft_strlen(arg[8]) == 1 && arg[8][0] == '1')
+	else if (shape->type == CYLINDER && arg[8][0] == '1')
 		shape->cboard = create_cboard(shape->data.cylinder.color, &status);
-	else if (shape->type == CONE && ft_strlen(arg[8]) == 1 && arg[8][0] == '1')
+	else if (shape->type == CONE && arg[8][0] == '1')
 		shape->cboard = create_cboard(shape->data.cone.color, &status);
 	if (shape->cboard)
 		return (true);
@@ -109,10 +105,6 @@ bool	check_texture(char **arg, t_shape *shape)
 	else if ((shape->type == CYLINDER || shape->type == CONE))
 		shape->bmp = parse_texture(arg[10], &status);
 	if (!shape->bmp && status == false)
-	{
-		if (shape->tex)
-			mlx_destroy_image(s()->win.mlx, shape->tex->img_ptr);
-		ft_free((void **)&shape->tex);
-	}
+		delete_texture(shape);
 	return (status);
 }

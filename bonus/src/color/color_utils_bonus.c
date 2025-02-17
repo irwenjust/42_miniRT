@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:33:24 by likong            #+#    #+#             */
-/*   Updated: 2025/01/09 20:32:54 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 09:37:35 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,15 @@ t_color	*get_color(int type, int i)
 	else
 		rgb = NULL;
 	return (rgb);
+}
+
+void	put_test_pixel(t_image *img, int i, int j, t_color color)
+{
+	int	pixel;
+
+	pixel = i * img->size_line + j * (img->bpp / 8);
+	img->data[pixel + 0] = (unsigned char)(color.red);
+	img->data[pixel + 1] = (unsigned char)(color.green);
+	img->data[pixel + 2] = (unsigned char)(color.blue);
+	img->data[pixel + 3] = (unsigned char)(color.alpha);
 }

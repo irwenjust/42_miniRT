@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:59:07 by likong            #+#    #+#             */
-/*   Updated: 2025/02/14 10:20:19 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/14 11:54:27 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,7 @@ t_color		hex_to_color(unsigned int hex);
 void		put_pixel(t_color c, int x, int y);
 t_color		copy_color(t_color c);
 t_color		*get_color(int type, int i);
+void		put_test_pixel(t_image *img, int i, int j, t_color color);
 //bump texture part
 void		check_bump(t_hit *hit);
 //texture part
