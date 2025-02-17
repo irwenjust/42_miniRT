@@ -53,6 +53,7 @@ static t_vector	get_normal(t_hit *inter)
 	t_vector	normal;
 
 	point = inter->hit_point;
+	normal = (t_vector){0, 0, 0};
 	if (inter->shape->type == PLANE)
 		normal = inter->shape->data.plane.normal;
 	else if (inter->shape->type == SPHERE)

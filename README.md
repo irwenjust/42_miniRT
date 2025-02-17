@@ -38,13 +38,13 @@ Dynamic Bounding Volume Hierarchies: https://box2d.org/files/ErinCatto_DynamicBV
 17. when camera and light both inside or on the surface of a shape, segmentation  (dont have this bug now)
 
 Mandatory part
-1.如果某一行后面有空格，args数量会多一个，最后一个是\n，然后报错，是否要让这种是正确的
+1. 如果某一行后面有空格，args数量会多一个，最后一个是\n，然后报错，是否要让这种是正确的 (已解决)
 
-2.camera fov edit每次加减量现在是10，如果是1视角变化会毕竟慢，不确定bonus卡不卡，要不要改成1
+2. camera fov edit每次加减量现在是10，如果是1视角变化会毕竟慢，不确定bonus卡不卡，要不要改成1 (已解决)
 
-3.相机进圆柱体之后，只能看到盖，看不到壁，之前就有的问题，subject和eva好像都没要求这个
+3. 相机进圆柱体之后，只能看到盖，看不到壁，之前就有的问题，subject和eva好像都没要求这个
 
-4.if plane normal is 0,-1,0, light is above the plane, and camera is above too, which means we see the back of this plane, the color would be dark than the plane's real color. is it ok?
+4. if plane normal is 0,-1,0, light is above the plane, and camera is above too, which means we see the back of this plane, the color would be dark than the plane's real color. is it ok?
 if ambient is 0, the plane show balck
 but if the normal is 0,1,0, the plane is always light,even the back side compare to light.
 ```
@@ -74,7 +74,7 @@ cy  -8,0,10   0,0,1        3             10          190,50,0
 ```
 
 ## IMPORTANT
-5. in .h file, the line as below are all wrong in norminette
+5. in .h file, the line as below are all wrong in norminette  (已解决)
 ```
 # define WARM_W		(t_color){255, 239, 214, 0}
 # define RADIAN(angle) ((angle * PI) / 180.0f)
@@ -82,3 +82,5 @@ cy  -8,0,10   0,0,1        3             10          190,50,0
 # define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
 # define FRAME_TIME (1000000 / FRAME_RATE)
 ```
+
+6. normal range is -1 to 1, is input range or after parse

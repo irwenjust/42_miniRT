@@ -41,11 +41,31 @@ static bool	is_obscured(t_light *light, t_hit *closest)
 	return (false);
 }
 
+void	check_hit_normal(t_hit *hit)
+{
+	if (hit->shape->type == PLANE)
+		hit->hit_normal = hit->shape->data.plane.normal;
+	if (vector_dot(hit->ray.normal, hit->hit_normal) > 0)
+	{
+		hit->check_hit = true;
+		hit->hit_normal = vector_scale(hit->hit_normal, -1);
+	}
+}
+
+void	check_hit(t_hit *hit)
+{
+	hit->hit_point = vector_add(hit->ray.start,
+			vector_scale(hit->ray.normal, hit->distance));
+	check_hit_normal(hit);
+	//find_uv(hit);
+}
+
 void	check_illumination(t_hit *closest)
 {
 	t_color	color;
 	t_light	*light;
 
+	check_hit(closest);
 	light = fclass_index(s()->light, 0);
 	if (!light)
 	{
