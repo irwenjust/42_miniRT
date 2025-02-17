@@ -16,7 +16,7 @@
 # define SUCCESS 0
 # define FAILURE 1
 
-# define FRAME_RATE 25 //Target frame rate (15 fps)
+# define FRAME_RATE 25
 //(1000000 / FRAME_RATE)
 # define FRAME_TIME 40000
 
@@ -29,20 +29,11 @@
 # define Y 1
 # define Z 2
 
-// # define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
-
 //about windows setting (16:9)
-// # define SCALE 0.5625
-# define WIDTH 1600.0
-# define HEIGHT 900.0
+# define WIDTH 1600
+# define HEIGHT 900
 
 # define PI 3.141592653589f
-// # define RADIAN(angle) ((angle * PI) / 180.0f)
-
-// # define UPVECTOR (t_vector){0.0, 1.0, 0.0}
-// # define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
-
-// # define ERROR(s) printf("Error\n%s\n", s)
 
 /*
 stdio: printf
@@ -94,7 +85,6 @@ void		backup_scene(void);
  */
 void		parse_args(void);
 //parse tool
-bool		check_syntax(char **arg, char *commas);
 bool		check_rgb(char *rgb);
 t_color		parse_color(char **rgb);
 bool		check_arg_format(char **arg, char *arg_type);

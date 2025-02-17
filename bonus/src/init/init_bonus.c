@@ -53,10 +53,12 @@ static void	init_args(char *file_name)
 void	init_viewport(void)
 {
 	t_vector	tmp;
+	double		scale;
 
 	tmp = (t_vector){0.0001, 0.0001, 0.0001};
 	s()->view_w = tan(calculate_radius(s()->camera.fov * 0.5));
-	s()->view_h = s()->view_w * (HEIGHT / WIDTH);
+	scale = (double)HEIGHT / (double)WIDTH;
+	s()->view_h = s()->view_w * (scale);
 	s()->view_invw = 1.0 / WIDTH;
 	s()->view_invh = 1.0 / HEIGHT;
 	s()->vec_min = tmp;
