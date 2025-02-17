@@ -16,8 +16,9 @@
 # define SUCCESS 0
 # define FAILURE 1
 
-# define FRAME_RATE 60 //Target frame rate (15 fps)
-# define FRAME_TIME (1000000 / FRAME_RATE)
+# define FRAME_RATE 25 //Target frame rate (15 fps)
+//(1000000 / FRAME_RATE)
+# define FRAME_TIME 40000
 
 # define ROTATE 0.1
 

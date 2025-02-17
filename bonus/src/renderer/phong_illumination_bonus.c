@@ -18,7 +18,6 @@ static bool	is_obscured(t_light *light, t_hit *closest)
 	t_ray	ray;
 	t_hit	tmp;
 	t_shape	*shape;
-	double	valid_t;
 
 	i = -1;
 	tmp = init_hit();
@@ -31,7 +30,7 @@ static bool	is_obscured(t_light *light, t_hit *closest)
 		shape = fclass_index(s()->shapes, i);
 		if (shape->id == closest->shape->id)
 			continue ;
-		if (is_intersect(shape, &ray, &tmp, &valid_t) && tmp.distance
+		if (is_intersect(shape, &ray, &tmp) && tmp.distance
 			< vector_magnitude(vector_sub(light->point, closest->hit_point)))
 			return (true);
 	}
