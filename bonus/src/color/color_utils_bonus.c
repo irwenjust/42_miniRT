@@ -27,7 +27,7 @@ void	put_pixel(t_color c, int x, int y)
 {
 	char	*dst;
 
-	dst = s()->win.addr + (y * WIDTH + x) * (int)(s()->win.bpp * 0.125);
+	dst = s()->win.addr + (y * (int)WIDTH + x) * (int)(s()->win.bpp * 0.125);
 	*(unsigned int *)dst = (c.alpha << 24 | c.red << 16
 			| c.green << 8 | c.blue);
 }
