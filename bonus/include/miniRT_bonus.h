@@ -39,8 +39,8 @@
 
 //about windows setting (16:9)
 // # define SCALE 0.5625
-# define WIDTH 1600
-# define HEIGHT 900
+# define WIDTH 1600.0
+# define HEIGHT 900.0
 
 # define PI 3.141592653589f
 // # define RADIAN(angle) ((angle * PI) / 180.0f)
