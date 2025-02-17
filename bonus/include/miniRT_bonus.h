@@ -128,8 +128,7 @@ void		ray_tracer(t_ray *ray, t_hit *hit, int status);
 // void		ray_tracer(t_ray *ray, t_hit *hit);
 //intersect part
 bool		check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest);
-bool		is_intersect(t_shape *shape, t_ray *ray, t_hit *inter,
-				double *valid_t);
+bool		is_intersect(t_shape *shape, t_ray *ray, t_hit *inter);
 void		find_valid_t(t_equation *equation);
 //illumination part
 void		phong_illumination(t_hit *closest);
@@ -148,13 +147,10 @@ void		add_refract_color(t_hit *hit, t_hit *refract_hit);
 /**
  * intersection
  */
-bool		inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter,
-				double *valid_t);
-bool		inter_plane(t_plane *plane, t_ray *ray, t_hit *inter,
-				double *valid_t);
-bool		inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter,
-				double *valid_t);
-bool		inter_cone(t_cone *cone, t_ray *ray, t_hit *hit, double *valid_t);
+bool		inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter);
+bool		inter_plane(t_plane *plane, t_ray *ray, t_hit *inter);
+bool		inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter);
+bool		inter_cone(t_cone *cone, t_ray *ray, t_hit *hit);
 
 /**
  * entities

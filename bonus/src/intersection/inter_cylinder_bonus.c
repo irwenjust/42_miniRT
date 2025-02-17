@@ -68,7 +68,7 @@ static bool	check_cy_cap(t_cylinder *cy, t_ray *ray, t_hit *hit, t_vector cap)
 	plane.normal = cy->normal;
 	plane.color = hex_to_color(BLACK);
 	offset = 1e-8;
-	if (inter_plane(&plane, ray, &cap_hit, &offset))
+	if (inter_plane(&plane, ray, &cap_hit))
 	{
 		point = point_on_ray(&hit->ray, cap_hit.distance);
 		offset = vector_magnitude(vector_sub(point, cap));
@@ -144,7 +144,7 @@ static void	init_cy_equation(t_cylinder *cylinder, t_ray *ray, t_equation *eq)
 	eq->t2 = -1;
 }
 
-bool	inter_cylinder(t_cylinder *cy, t_ray *ray, t_hit *hit, double *valid_t)
+bool	inter_cylinder(t_cylinder *cy, t_ray *ray, t_hit *hit)
 {
 	t_equation	equation;
 	double		distance;
@@ -158,8 +158,7 @@ bool	inter_cylinder(t_cylinder *cy, t_ray *ray, t_hit *hit, double *valid_t)
 			hit->distance = distance;
 			hit->color = cy->color;
 			find_valid_t(&equation);
-			*valid_t = equation.t1;
-			return (*valid_t > 0);
+			return (equation.t1 > 1e-8);
 		}
 	}
 	return (false);

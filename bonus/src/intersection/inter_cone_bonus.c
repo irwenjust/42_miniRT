@@ -49,7 +49,7 @@ static bool	check_co_base(t_cone *cone, t_ray *ray, t_hit *hit, t_vector base)
 	plane.normal = cone->normal;
 	plane.color = cone->color;
 	offset = 1e-8;
-	if (inter_plane(&plane, ray, &base_hit, &offset))
+	if (inter_plane(&plane, ray, &base_hit))
 	{
 		if (base_hit.distance < 1e-8 || base_hit.distance > hit->distance)
 			return (false);
@@ -93,7 +93,7 @@ static void	init_cone_equation(t_cone *cone, t_ray *ray, t_equation *eq)
 	eq->t2 = -1;
 }
 
-bool	inter_cone(t_cone *cone, t_ray *ray, t_hit *hit, double *valid_t)
+bool	inter_cone(t_cone *cone, t_ray *ray, t_hit *hit)
 {
 	t_equation	eq;
 	double		distance;
@@ -107,8 +107,7 @@ bool	inter_cone(t_cone *cone, t_ray *ray, t_hit *hit, double *valid_t)
 			hit->distance = distance;
 			hit->color = cone->color;
 			find_valid_t(&eq);
-			*valid_t = eq.t1;
-			return (*valid_t > 0);
+			return (eq.t1 > 1e-8);
 		}
 	}
 	return (false);

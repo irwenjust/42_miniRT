@@ -36,7 +36,7 @@
  * @param equation equation structure
  * @param vec the vector from ray origin to sphere center point
  */
-bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit, double *valid_t)
+bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 {
 	t_equation	equation;
 	t_vector	vec;
@@ -55,8 +55,7 @@ bool	inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit, double *valid_t)
 			hit->distance = equation.t2;
 		hit->color = sphere->color;
 		find_valid_t(&equation);
-		*valid_t = equation.t1;
-		return (*valid_t > 1e-8);
+		return (equation.t1 > 1e-8);
 	}
 	return (false);
 }
