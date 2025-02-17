@@ -25,7 +25,7 @@ static t_vector	camera_position(t_vector min, t_vector max, int preset)
 	diagonal = sqrt(pow(max.x - min.x, 2) + pow(max.y - min.y, 2)
 			+ pow(max.z - min.z, 2));
 	camera_distance = (diagonal / 2) / tan(RADIAN(45) / 2.0);
-	camera_distance += diagonal * 0.2;
+	camera_distance += diagonal;
 	if (preset == 1)
 		vec.z = min.z - camera_distance;
 	else if (preset == 2)
@@ -41,25 +41,43 @@ static t_vector	camera_position(t_vector min, t_vector max, int preset)
 	return ((t_vector){vec.x, vec.y, vec.z});
 }
 
+static t_vector	get_camera_dir(int preset)
+{
+	if (preset == 1)
+		return ((t_vector){0, 0, 1});
+	else if (preset == 2)
+		return ((t_vector){0, 0, -1});
+	else if (preset == 3)
+		return ((t_vector){0, -1, 0});
+	else if (preset == 4)
+		return ((t_vector){0, 1, 0});
+	else if (preset == 5)
+		return ((t_vector){1, 0, 0});
+	else
+		return ((t_vector){-1, 0, 0});
+}
+
 void	camera_preset(int preset)
 {
 	t_camera	new_camera;
+	t_vector	dir;
 
 	new_camera = copy_camera(s()->camera);
 	new_camera.coordinate = camera_position(s()->bvh->box.min,
 			s()->bvh->box.max, preset);
+	dir = get_camera_dir(preset);
 	if (preset == 1)
-		new_camera.normal = vector_normalize(vector_add(C_FRONT, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
 	else if (preset == 2)
-		new_camera.normal = vector_normalize(vector_add(C_BACK, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
 	else if (preset == 3)
-		new_camera.normal = vector_normalize(vector_add(C_TOP, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
 	else if (preset == 4)
-		new_camera.normal = vector_normalize(vector_add(C_BOTTOM, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
 	else if (preset == 5)
-		new_camera.normal = vector_normalize(vector_add(C_LEFT, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
 	else if (preset == 6)
-		new_camera.normal = vector_normalize(vector_add(C_RIGHT, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
 	new_camera.fov = 45;
 	s()->camera = copy_camera(new_camera);
 	init_viewport();
