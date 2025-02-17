@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:40:33 by likong            #+#    #+#             */
-/*   Updated: 2024/12/31 12:52:50 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:43:45 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ t_light	*copy_light(t_light *light)
 static bool	check_light(char **arg)
 {
 	if (ft_matrix_size(arg) != 4 || !check_arg_format(arg, "2101"))
-		return (ERROR("light: wrong args format"), false);
+		return (error("light: wrong args format"), false);
 	if (ft_atod(arg[2]) < 0.0 || ft_atod(arg[2]) > 1.0)
-		return (ERROR("light: wrong brightness ratio range"), false);
+		return (error("light: wrong brightness ratio range"), false);
 	if (!check_rgb(arg[3]))
-		return (ERROR("light: wrong color value"), false);
+		return (error("light: wrong color value"), false);
 	return (true);
 }
 
@@ -60,18 +60,18 @@ bool	parse_light(int counter[3], char **arg, t_fclass *fclass)
 		return (false);
 	coord = ft_split(arg[1], ',');
 	if (!coord)
-		return (ERROR("light: fail to split coordinate"), false);
+		return (error("light: fail to split coordinate"), false);
 	rgb = ft_split(arg[3], ',');
 	if (!rgb)
 	{
 		free_matrix(coord);
-		return (ERROR("light: fail to split color"), false);
+		return (error("light: fail to split color"), false);
 	}
 	light = new_light(coord, arg[2], rgb);
 	free_matrix(coord);
 	free_matrix(rgb);
 	if (!light)
-		return (ERROR("light: fail to create new light"), false);
+		return (error("light: fail to create new light"), false);
 	push_to_fclass(fclass, light);
 	counter[2]++;
 	return (true);

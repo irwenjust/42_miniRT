@@ -67,17 +67,17 @@ void	camera_preset(int preset)
 			s()->bvh->box.max, preset);
 	dir = get_camera_dir(preset);
 	if (preset == 1)
-		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, s()->vec_min));
 	else if (preset == 2)
-		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, s()->vec_min));
 	else if (preset == 3)
-		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, s()->vec_min));
 	else if (preset == 4)
-		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, s()->vec_min));
 	else if (preset == 5)
-		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, s()->vec_min));
 	else if (preset == 6)
-		new_camera.normal = vector_normalize(vector_add(dir, VEC_MIN));
+		new_camera.normal = vector_normalize(vector_add(dir, s()->vec_min));
 	new_camera.fov = 45;
 	s()->camera = copy_camera(new_camera);
 	init_viewport();

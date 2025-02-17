@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 15:39:03 by yzhan             #+#    #+#             */
-/*   Updated: 2025/01/31 12:55:45 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:43:49 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ static bool	new_plane(char **arg, t_plane *plane)
 
 	tmp = ft_split(arg[1], ',');
 	if (!tmp)
-		return (ERROR("plane: fail to split coordinate"), false);
+		return (error("plane: fail to split coordinate"), false);
 	plane->center = parse_vector(tmp);
 	free_matrix(tmp);
 	tmp = ft_split(arg[2], ',');
 	if (!tmp)
-		return (ERROR("plane: fail to split normal"), false);
+		return (error("plane: fail to split normal"), false);
 	plane->normal = parse_vector(tmp);
 	if (vector_magnitude(plane->normal) < 1.0 - 1e-8)
-		return (ERROR("plane: normal vector is too small"), false);
-	plane->normal = vector_add(plane->normal, VEC_MIN);
+		return (error("plane: normal vector is too small"), false);
+	plane->normal = vector_add(plane->normal, s()->vec_min);
 	plane->normal = vector_normalize(plane->normal);
 	free_matrix(tmp);
 	tmp = ft_split(arg[3], ',');
 	if (!tmp)
-		return (ERROR("plane: fail to split color"), false);
+		return (error("plane: fail to split color"), false);
 	plane->color = parse_color(tmp);
 	free_matrix(tmp);
 	return (true);
@@ -44,11 +44,11 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	t_plane	plane;
 
 	if (ft_matrix_size(arg) != 4 || !check_arg_format(arg, "2111"))
-		return (ERROR("plane: wrong args format"), false);
+		return (error("plane: wrong args format"), false);
 	if (!check_rgb(arg[3]))
-		return (ERROR("plane: wrong color value"), false);
+		return (error("plane: wrong color value"), false);
 	if (!new_plane(arg, &plane))
-		return (ERROR("plane: fail to create new plane"), false);
+		return (error("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
 	s()->shape_nbr[PLANE]++;
 	push_to_fclass(fclass, shape);

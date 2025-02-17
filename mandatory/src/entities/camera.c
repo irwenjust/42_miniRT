@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:28:51 by likong            #+#    #+#             */
-/*   Updated: 2024/12/31 13:06:19 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:43:37 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,26 @@ bool	parse_camera(char **arg, t_camera *camera)
 	char	**normal;
 
 	if (ft_matrix_size(arg) != 4 || !check_arg_format(arg, "2110"))
-		return (ERROR("camera: wrong args format"), false);
+		return (error("camera: wrong args format"), false);
 	coord = ft_split(arg[1], ',');
 	if (!coord)
-		return (ERROR("camera: fail to split coordinate"), false);
+		return (error("camera: fail to split coordinate"), false);
 	camera->coordinate = parse_vector(coord);
 	free_matrix(coord);
 	normal = ft_split(arg[2], ',');
 	if (!normal)
-		return (ERROR("camera: fail to split normal"), false);
+		return (error("camera: fail to split normal"), false);
 	camera->normal = parse_vector(normal);
 	if (vector_magnitude(camera->normal) < 1e-8)
-		return (ERROR("camera: normal vector is too small"), false);
-	camera->normal = vector_add(camera->normal, VEC_MIN);
+		return (error("camera: normal vector is too small"), false);
+	camera->normal = vector_add(camera->normal, s()->vec_min);
 	camera->normal = vector_normalize(camera->normal);
 	free_matrix(normal);
 	if (!ft_isnum(arg[3]))
-		return (ERROR("camera: FOV is not an int"), false);
+		return (error("camera: FOV is not an int"), false);
 	camera->fov = ft_atoi(arg[3]);
 	if (camera->fov <= 0 || camera->fov >= 180)
-		return (ERROR("camera: normal vector's visual is out of range"), false);
+		return (error("camera: normal vector's visual is out of range"), false);
 	return (camera);
 }
 

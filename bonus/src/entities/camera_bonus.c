@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:29:29 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/17 11:11:28 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:39:43 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	parse_camera(char **arg, t_camera *camera)
 	camera->normal = parse_vector(normal);
 	if (vector_magnitude(camera->normal) < 1.0 - 1e-8)
 		return (error("camera: normal vector is too small"), false);
-	camera->normal = vector_add(camera->normal, VEC_MIN);
+	camera->normal = vector_add(camera->normal, s()->vec_min);
 	camera->normal = vector_normalize(camera->normal);
 	free_matrix(normal);
 	camera->fov = ft_atoi(arg[3]);

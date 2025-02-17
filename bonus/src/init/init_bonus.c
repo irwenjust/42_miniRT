@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:09:47 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/17 11:35:43 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:39:26 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	init_viewport(void)
 	s()->view_h = s()->view_w * SCALE;
 	s()->view_invw = 1.0 / WIDTH;
 	s()->view_invh = 1.0 / HEIGHT;
+	s()->vec_min = (t_vector){0.0001, 0.0001, 0.0001};
 	(s()->normal_w) = vector_normalize(
 			vector_cross(s()->camera.normal, (t_vector){0.0, 1.0, 0.0}));
 	(s()->normal_h) = vector_normalize(

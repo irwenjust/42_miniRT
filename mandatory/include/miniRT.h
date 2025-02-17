@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2025/02/04 09:29:58 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:47:46 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,15 @@
 //about windows setting (16:9)
 # define SCALE 0.5625
 # define WIDTH 1600
-# define HEIGHT (WIDTH * SCALE)
-# define INVWIDTH 1.0f / WIDTH
-# define INVHEIGHT 1.0f / HEIGHT
+# define HEIGHT 900
 
 # define PI 3.141592653589f
-# define RADIAN(angle) ((angle * PI) / 180.0f)
+// # define RADIAN(angle) ((angle * PI) / 180.0f)
 
-# define UPVECTOR (t_vector){0.0, 1.0, 0.0}
-# define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
+// # define UPVECTOR (t_vector){0.0, 1.0, 0.0}
+// # define VEC_MIN (t_vector){0.0001, 0.0001, 0.0001}
 
-# define ERROR(s) printf("Error\n%s\n", s)
+// # define ERROR(s) printf("Error\n%s\n", s)
 
 /*
 stdio: printf
@@ -223,10 +221,12 @@ double		solve(t_equation *equation);
 void		delete_scene(void);
 //show error message
 void		error_exit(char *message);
+void		error(char *str);
 //others
 t_hit		init_hit(void);
 void		ft_swap_d(double *a, double *b);
 t_shape		**shapes_to_arr(t_shape **shapes);
+double		calculate_radius(double angle);
 
 /**
  * menu

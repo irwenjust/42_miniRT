@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_illumination_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:53:55 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 15:53:58 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:40:01 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool	is_obscured(t_light *light, t_hit *closest)
 
 	i = -1;
 	tmp = init_hit();
-	ray.start = vector_add(closest->hit_point, VEC_MIN);
+	ray.start = vector_add(closest->hit_point, s()->vec_min);
 	ray.normal = vector_normalize(vector_sub(light->point, closest->hit_point));
 	tmp.distance = vector_magnitude(
 			vector_sub(light->point, closest->hit_point));

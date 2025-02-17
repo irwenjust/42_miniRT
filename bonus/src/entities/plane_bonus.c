@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:29:09 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/17 11:11:52 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:39:48 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	new_plane(char **arg, t_plane *plane)
 	plane->normal = parse_vector(tmp);
 	if (vector_magnitude(plane->normal) < 1.0 - 1e-8)
 		return (error("plane: normal vector is too small"), false);
-	plane->normal = vector_add(plane->normal, VEC_MIN);
+	plane->normal = vector_add(plane->normal, s()->vec_min);
 	plane->normal = vector_normalize(plane->normal);
 	free_matrix(tmp);
 	tmp = ft_split(arg[3], ',');

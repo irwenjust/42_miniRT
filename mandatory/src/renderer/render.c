@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:15 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/31 14:45:00 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:47:41 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static t_vector	convert_viewport(double x, double y)
 {
 	t_vector	converted;
 
-	converted.x = ((x * INVWIDTH) * 2.0f) - 1;
-	converted.y = ((y * INVHEIGHT) * 2.0f) - 1;
+	converted.x = ((x * s()->view_invw) * 2.0f) - 1;
+	converted.y = ((y * s()->view_invh) * 2.0f) - 1;
 	converted.z = 0;
 	return (converted);
 }

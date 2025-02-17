@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 14:55:29 by yzhan             #+#    #+#             */
-/*   Updated: 2024/12/31 14:34:14 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:44:09 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@
 // 	{
 // 		dot_nbr = count_symbol(nbr[i], '.');
 // 		if (dot_nbr > 1)
-// 			return (ERROR("check nbr: too many dots"), false);
+// 			return (error("check nbr: too many dots"), false);
 // 		else
 // 		{
 // 			token = ft_split(nbr[i], '.');
 // 			if (!token)
-// 				return (ERROR("check nbr: split error"), false);
+// 				return (error("check nbr: split error"), false);
 // 		}
 // 		if (!ft_isnum(token[0]) || (dot_nbr == 1 && !ft_isnum(token[1])))
 // 			valid = false;
 // 		free_matrix(token);
 // 		if (!valid)
-// 			return (ERROR("check nbr: not number"), false);
+// 			return (error("check nbr: not number"), false);
 // 	}
 // 	return (true);
 // }
@@ -66,7 +66,7 @@
 // 	{
 // 		token = ft_split(arg[i], ',');
 // 		if (!token)
-// 			return (ERROR("check syntax: split error"), false);
+// 			return (error("check syntax: split error"), false);
 // 		token_size = ft_matrix_size(token);
 // 		if (commas[i] == HAS_COMMA)
 // 			valid = (count_symbol(arg[i], ',') == 2 && token_size == 3);
@@ -91,7 +91,7 @@ bool	check_rgb(char *rgb)
 	valid = true;
 	token = ft_split(rgb, ',');
 	if (!token)
-		return (ERROR("check rgb: split error"), false);
+		return (error("check rgb: split error"), false);
 	while (token[++i])
 	{
 		if (!ft_isnum(token[i]))
@@ -103,7 +103,7 @@ bool	check_rgb(char *rgb)
 	}
 	free_matrix(token);
 	if (!valid)
-		return (ERROR("check rgb: wrong rgb number"), false);
+		return (error("check rgb: wrong rgb number"), false);
 	return (valid);
 }
 

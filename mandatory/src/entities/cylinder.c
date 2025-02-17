@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:38:02 by yzhan             #+#    #+#             */
-/*   Updated: 2025/01/31 12:56:22 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:43:41 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,24 @@ static bool	new_cylinder(char **arg, t_cylinder *cy)
 
 	tmp = ft_split(arg[1], ',');
 	if (!tmp)
-		return (ERROR("cylinder: fail to split coordinate"), false);
+		return (error("cylinder: fail to split coordinate"), false);
 	cy->center = parse_vector(tmp);
 	free_matrix(tmp);
 	tmp = ft_split(arg[2], ',');
 	if (!tmp)
-		return (ERROR("cylinder: fail to split normal"), false);
+		return (error("cylinder: fail to split normal"), false);
 	cy->normal = parse_vector(tmp);
 	if (vector_magnitude(cy->normal) < 1.0 - 1e-8)
-		return (ERROR("cylinder: normal vector is too small"), false);
+		return (error("cylinder: normal vector is too small"), false);
 	cy->normal = vector_normalize(cy->normal);
 	free_matrix(tmp);
 	cy->radius = ft_atod(arg[3]) * 0.5;
 	cy->height = ft_atod(arg[4]);
 	if (cy->radius < 1e-8 || cy->height < 1e-8)
-		return (ERROR("cylinder: wrong diameter or height value"), false);
+		return (error("cylinder: wrong diameter or height value"), false);
 	tmp = ft_split(arg[5], ',');
 	if (!tmp)
-		return (ERROR("cylinder: fail to split color"), false);
+		return (error("cylinder: fail to split color"), false);
 	cy->color = parse_color(tmp);
 	free_matrix(tmp);
 	return (true);
@@ -47,11 +47,11 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	t_cylinder	cy;
 
 	if (ft_matrix_size(arg) != 6 || !check_arg_format(arg, "211001"))
-		return (ERROR("cylinder: wrong args format"), false);
+		return (error("cylinder: wrong args format"), false);
 	if (!check_rgb(arg[5]))
-		return (ERROR("cylinder: wrong color value"), false);
+		return (error("cylinder: wrong color value"), false);
 	if (!new_cylinder(arg, &cy))
-		return (ERROR("cylinder: fail to create new cylinder"), false);
+		return (error("cylinder: fail to create new cylinder"), false);
 	cy.cap_s = vector_add(cy.center,
 			vector_scale(cy.normal, -cy.height * 0.5));
 	cy.cap_e = vector_add(cy.center,

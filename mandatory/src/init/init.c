@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:24:56 by likong            #+#    #+#             */
-/*   Updated: 2025/01/13 12:25:32 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:46:49 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ static void	init_args(char *file_name)
 
 void	init_viewport(void)
 {
-	s()->view_w = tan(RADIAN(s()->camera.fov * 0.5));
+	s()->view_w = tan(calculate_radius(s()->camera.fov * 0.5));
 	s()->view_h = s()->view_w * SCALE;
+	s()->view_invw = 1.0 / WIDTH;
+	s()->view_invh = 1.0 / HEIGHT;
 	(s()->normal_w) = vector_normalize(
-			vector_cross(s()->camera.normal, UPVECTOR));
+			vector_cross(s()->camera.normal, (t_vector){0.0, 1.0, 0.0}));
 	(s()->normal_h) = vector_normalize(
 			vector_cross(s()->camera.normal, s()->normal_w));
 	(s()->normal_w) = vector_normalize(

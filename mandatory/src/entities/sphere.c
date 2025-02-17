@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:50:15 by likong            #+#    #+#             */
-/*   Updated: 2024/12/31 13:20:53 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:43:53 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ static bool	new_sphere(char **arg, t_sphere *sphere)
 
 	tmp = ft_split(arg[1], ',');
 	if (!tmp)
-		return (ERROR("sphere: fail to split coordinate"), false);
+		return (error("sphere: fail to split coordinate"), false);
 	sphere->center = parse_vector(tmp);
 	free_matrix(tmp);
 	sphere->radius = ft_atod(arg[2]) * 0.5;
 	if (sphere->radius < 1e-8)
-		return (ERROR("sphere: wrong diameter value"), false);
+		return (error("sphere: wrong diameter value"), false);
 	tmp = ft_split(arg[3], ',');
 	if (!tmp)
-		return (ERROR("sphere: fail to split color"), false);
+		return (error("sphere: fail to split color"), false);
 	sphere->color = parse_color(tmp);
 	free_matrix(tmp);
 	return (true);
@@ -38,13 +38,13 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	t_sphere	sphere;
 
 	if (ft_matrix_size(arg) != 4 || !check_arg_format(arg, "2101"))
-		return (ERROR("sphere: wrong args format"), false);
+		return (error("sphere: wrong args format"), false);
 	if (ft_atod(arg[2]) * 0.5 < 1e-8)
-		return (ERROR("sphere: wrong radius value"), false);
+		return (error("sphere: wrong radius value"), false);
 	if (!check_rgb(arg[3]))
-		return (ERROR("sphere: wrong color value"), false);
+		return (error("sphere: wrong color value"), false);
 	if (!new_sphere(arg, &sphere))
-		return (ERROR("sphere: fail to create new shpere"), false);
+		return (error("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
 	s()->shape_nbr[SPHERE]++;
 	push_to_fclass(fclass, shape);

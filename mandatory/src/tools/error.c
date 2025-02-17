@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:24:37 by likong            #+#    #+#             */
-/*   Updated: 2025/02/14 10:48:13 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:44:27 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ void	delete_scene(void)
 	if (s()->bvh)
 		free_bvh(&s()->bvh);
 	ft_free(&s()->win.mlx);
+}
+
+void	error(char *str)
+{
+	printf("error\n%s\n", str);
 }
 
 void	error_exit(char *message)

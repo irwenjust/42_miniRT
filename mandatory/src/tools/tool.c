@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:15:24 by likong            #+#    #+#             */
-/*   Updated: 2024/12/31 14:48:56 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 11:45:36 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,9 @@ t_hit	init_hit(void)
 		init = false;
 	}
 	return (hit);
+}
+
+double	calculate_radius(double angle)
+{
+	return ((angle * PI) / 180.0);
 }

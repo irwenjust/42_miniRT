@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:51 by likong            #+#    #+#             */
-/*   Updated: 2025/01/15 10:45:04 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 11:47:08 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,8 +253,11 @@ typedef struct s_scene
 	int				preset;
 	double			view_w;
 	double			view_h;
+	double			view_invw;
+	double			view_invh;
 	t_vector		normal_w;
 	t_vector		normal_h;
+	t_vector		vec_min;
 	t_windows		win;
 	struct timeval	last_frame_time;
 	int				bvh_level;
