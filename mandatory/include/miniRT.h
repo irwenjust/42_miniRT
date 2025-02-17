@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 11:47:46 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 16:28:30 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 // # define MIN(a, b)	((a) * (a < b) + (b) * (b < a))
 
 //about windows setting (16:9)
-# define SCALE 0.5625
+// # define SCALE 0.5625
 # define WIDTH 1600
 # define HEIGHT 900
 

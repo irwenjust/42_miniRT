@@ -47,7 +47,6 @@ void	update_scaling(t_key *keys)
 		else if (shape->type == CYLINDER)
 			scaling_cylinder(keys, &shape->data.cylinder);
 		shape->box = shape_box(shape);
-		print_box(shape->box);
 	}
 	else if (s()->menu == LIGHT || s()->menu == VIEW)
 		update_brightness(keys);

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:49:56 by likong            #+#    #+#             */
-/*   Updated: 2024/12/31 12:54:19 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 16:23:12 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	move_shape(t_key *keys, t_shape *shape)
 		move_cylinder(keys, &(shape->data.cylinder));
 		shape->box = box_cylinder(&(shape->data.cylinder));
 	}
-	print_box(shape->box);
 }
 
 void	rotate_shape(t_key *keys, t_shape *shape)
@@ -80,5 +79,4 @@ void	rotate_shape(t_key *keys, t_shape *shape)
 		rotate_cylinder(keys, &(shape->data.cylinder));
 		shape->box = box_cylinder(&(shape->data.cylinder));
 	}
-	print_box(shape->box);
 }

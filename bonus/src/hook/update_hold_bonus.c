@@ -50,7 +50,6 @@ void	update_scaling(t_key *keys)
 			scaling_cone(keys, &shape->data.cone);
 		if (shape->type != PLANE)
 			shape->box = shape_box(shape);
-		print_box(shape->box);
 	}
 	else if (s()->menu == LIGHT || s()->menu == VIEW)
 		update_brightness(keys);

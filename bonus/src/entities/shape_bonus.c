@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:41:48 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 14:00:44 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 16:22:59 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	move_shape(t_key *keys, t_shape *shape)
 		move_cone(keys, &(shape->data.cone));
 	if (shape->type != PLANE)
 		shape->box = shape_box(shape);
-	print_box(shape->box);
 }
 
 void	rotate_shape(t_key *keys, t_shape *shape)
@@ -101,5 +100,4 @@ void	rotate_shape(t_key *keys, t_shape *shape)
 	if (shape->type != PLANE)
 		shape->box = shape_box(shape);
 	rotate_uv(keys, shape);
-	print_box(shape->box);
 }

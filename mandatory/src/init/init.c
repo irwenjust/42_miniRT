@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:24:56 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 11:46:49 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 16:28:27 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	init_viewport(void)
 	t_vector	tmp;
 
 	s()->view_w = tan(calculate_radius(s()->camera.fov * 0.5));
-	s()->view_h = s()->view_w * SCALE;
+	s()->view_h = s()->view_w * (WIDTH / HEIGHT);
 	s()->view_invw = 1.0 / WIDTH;
 	s()->view_invh = 1.0 / HEIGHT;
 	tmp = (t_vector){0.0001, 0.0001, 0.0001};
