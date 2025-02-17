@@ -52,10 +52,14 @@ static void	init_args(char *file_name)
 
 void	init_viewport(void)
 {
+	t_vector	tmp;
+
 	s()->view_w = tan(calculate_radius(s()->camera.fov * 0.5));
 	s()->view_h = s()->view_w * SCALE;
 	s()->view_invw = 1.0 / WIDTH;
 	s()->view_invh = 1.0 / HEIGHT;
+	tmp = (t_vector){0.0001, 0.0001, 0.0001};
+	s()->vec_min = tmp;
 	(s()->normal_w) = vector_normalize(
 			vector_cross(s()->camera.normal, (t_vector){0.0, 1.0, 0.0}));
 	(s()->normal_h) = vector_normalize(

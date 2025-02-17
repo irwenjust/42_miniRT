@@ -29,32 +29,13 @@ void	ft_free(void **ptr)
 	}
 }
 
-// void	lst_clear(t_list **lst)
-// {
-// 	t_list	*res;
-
-// 	if (!lst)
-// 		return ;
-// 	while (*lst)
-// 	{
-// 		res = (*lst)->next;
-// 		free(*lst);
-// 		*lst = res;
-// 	}
-// }
-
 void	delete_scene(void)
 {
 	delete_fclass(s()->light);
 	delete_fclass(s()->shapes);
 	delete_fclass(s()->ori_light);
 	delete_fclass(s()->ori_shapes);
-	// lst_clear(&s()->unbound);
 	free_matrix(s()->args);
-	// if (s()->win.img)
-	// 	mlx_delete_image(s()->win.mlx, s()->win.img);
-	// if (s()->win.mlx)
-	// 	mlx_terminate(s()->win.mlx);
 	if (s()->win.img)
 		mlx_destroy_image(s()->win.mlx, s()->win.img);
 	if (s()->win.menu)

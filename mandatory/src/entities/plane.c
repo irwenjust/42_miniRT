@@ -73,7 +73,7 @@ bool	parse_plane(char **arg, t_fclass *fclass)
  * 
  * @param vec ray origin to plane center (O-C)
  */
-bool	inter_plane(t_plane *plane, t_ray *ray, t_hit *inter, double *valid_t)
+bool	inter_plane(t_plane *plane, t_ray *ray, t_hit *inter)
 {
 	t_equation	equation;
 	t_vector	vec;
@@ -91,8 +91,7 @@ bool	inter_plane(t_plane *plane, t_ray *ray, t_hit *inter, double *valid_t)
 			inter->distance = equation.t1;
 			inter->color = plane->color;
 			find_valid_t(&equation);
-			*valid_t = equation.t1;
-			return (true);
+			return (equation.t1 > 1e-8);
 		}
 	}
 	return (false);
