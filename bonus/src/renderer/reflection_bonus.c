@@ -25,10 +25,10 @@ void	set_reflection_ray(t_ray *ray, t_ray *reflect_ray, t_hit *hit)
 	double		offset_scale;
 
 	offset_scale = 1e-8;
-	offset = vector_scale(hit->hit_normal, offset_scale);
+	offset = vector_scale(hit->normal, offset_scale);
 	ft_bzero(reflect_ray, sizeof(t_ray));
 	reflect_ray->start = vector_add(hit->hit_point, offset);
-	reflect_dir = vector_reflect(ray->normal, hit->hit_normal);
+	reflect_dir = vector_reflect(ray->normal, hit->normal);
 	reflect_ray->normal = vector_normalize(reflect_dir);
 }
 

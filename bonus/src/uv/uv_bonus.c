@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:38:26 by likong            #+#    #+#             */
-/*   Updated: 2025/01/13 17:11:50 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:28:41 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,10 @@ static void	plane_uv(t_hit *hit, double *u, double *v, int repeat)
 	t_vector	local_point;
 
 	local_point = vector_sub(hit->hit_point, hit->shape->data.plane.center);
-	// printf("u: %f, v: %f\n", *u, *v);
 	u_axis = hit->shape->u_axis;
 	v_axis = hit->shape->v_axis;
-	// printf("after x: %f, y: %f, z: %f\n", u_axis.x, u_axis.y, u_axis.z);
 	*u = vector_dot(u_axis, local_point) * 0.01;
 	*v = vector_dot(v_axis, local_point) * 0.01;
-	// printf("u: %f, v: %f\n", *u, *v);
 	uv_repeat_wrap(u, v, repeat);
 }
 
@@ -49,7 +46,7 @@ static void	sphere_uv(t_hit *hit, double *u, double *v, int repeat)
 	double		polar;
 
 	shape = hit->shape;
-	local_point = hit->hit_normal;
+	local_point = hit->normal;
 	local_point = (t_vector){
 		vector_dot(local_point, shape->u_axis),
 		vector_dot(local_point, shape->data.sphere.normal),
@@ -64,80 +61,29 @@ static void	sphere_uv(t_hit *hit, double *u, double *v, int repeat)
 
 static void	cylinder_uv(t_hit *hit, double *u, double *v, int repeat)
 {
-	t_vector	local_point;
-	t_vector	u_axis;
-	t_vector	v_axis;
+	t_vector	point;
+	t_vector	ua;
+	t_vector	va;
 	double		azimuth;
 	double		height;
 
-	u_axis = hit->shape->u_axis;
-	v_axis = hit->shape->v_axis;
-	local_point = vector_sub(hit->hit_point, hit->shape->data.cylinder.center);
-	height = vector_dot(local_point, hit->shape->data.cylinder.normal);
+	ua = hit->shape->u_axis;
+	va = hit->shape->v_axis;
+	point = vector_sub(hit->hit_point, hit->shape->data.cylinder.center);
+	height = vector_dot(point, hit->shape->data.cylinder.normal);
 	height = hit->shape->data.cylinder.height / 2 + height;
-	if (fabs(vector_dot(hit->hit_normal, hit->shape->data.cylinder.normal)) > 1 - 1e-6)
+	if (fabs(vector_dot(hit->normal, hit->shape->data.cylinder.normal))
+		> 1 - 1e-6)
 	{
-		*u = (vector_dot(local_point, u_axis) / hit->shape->data.cylinder.radius + 1) / 2;
-		*v = (vector_dot(local_point, v_axis) / hit->shape->data.cylinder.radius + 1) / 2;
+		*u = (vector_dot(point, ua) / hit->shape->data.cylinder.radius + 1) / 2;
+		*v = (vector_dot(point, va) / hit->shape->data.cylinder.radius + 1) / 2;
 	}
 	else
 	{
-		azimuth = atan2(vector_dot(local_point, v_axis), vector_dot(local_point, u_axis));
+		azimuth = atan2(vector_dot(point, va), vector_dot(point, ua));
 		*u = (azimuth + PI) / (2 * PI);
 		*v = height / hit->shape->data.cylinder.height;
 	}
-	uv_repeat_wrap(u, v, repeat);
-}
-
-static inline t_vector vector_mul(t_vector v, double s)
-{
-    t_vector out = {v.x * s, v.y * s, v.z * s};
-    return out;
-}
-
-static void cone_uv(t_hit *hit, double *u, double *v, int repeat)
-{
-    t_vector	apex;
-	t_vector	base_center;
-    apex = vector_sub(hit->shape->data.cone.center,
-            vector_mul(hit->shape->data.cone.normal, hit->shape->data.cone.height * 0.5));
-    base_center = vector_add(hit->shape->data.cone.center,
-                             vector_mul(hit->shape->data.cone.normal,
-                                        hit->shape->data.cone.height * 0.5));
-
-    double alignment = fabs(vector_dot(hit->hit_normal,
-                                       hit->shape->data.cone.normal));
-
-    const double ALMOST_ONE = 1.0 - 1e-6;
-
-    if (alignment > ALMOST_ONE)
-    {
-        t_vector local_point = vector_sub(hit->hit_point, base_center);
-
-        double px = vector_dot(local_point, hit->shape->u_axis);
-        double py = vector_dot(local_point, hit->shape->v_axis);
-
-        *u = (px / hit->shape->data.cone.radius + 1.0) * 0.5;
-        *v = (py / hit->shape->data.cone.radius + 1.0) * 0.5;
-    }
-    else
-    {
-        t_vector local_point = vector_sub(hit->hit_point, apex);
-
-        double dist_along_axis = vector_dot(local_point,
-                                            hit->shape->data.cone.normal);
-        double fraction = dist_along_axis / hit->shape->data.cone.height;
-
-        double x = vector_dot(local_point, hit->shape->u_axis);
-        double y = vector_dot(local_point, hit->shape->v_axis);
-        double azimuth = atan2(y, x);   // in [-π..π]
-
-        if (azimuth < 0.0)
-            azimuth += 2.0 * M_PI;
-
-        *u = azimuth / (2.0 * M_PI);
-        *v = fraction;
-    }
 	uv_repeat_wrap(u, v, repeat);
 }
 

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:09:47 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/17 11:39:26 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 13:45:04 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,14 @@ static void	init_args(char *file_name)
 
 void	init_viewport(void)
 {
+	t_vector	tmp;
+
+	tmp = (t_vector){0.0001, 0.0001, 0.0001};
 	s()->view_w = tan(calculate_radius(s()->camera.fov * 0.5));
 	s()->view_h = s()->view_w * SCALE;
 	s()->view_invw = 1.0 / WIDTH;
 	s()->view_invh = 1.0 / HEIGHT;
-	s()->vec_min = (t_vector){0.0001, 0.0001, 0.0001};
+	s()->vec_min = tmp;
 	(s()->normal_w) = vector_normalize(
 			vector_cross(s()->camera.normal, (t_vector){0.0, 1.0, 0.0}));
 	(s()->normal_h) = vector_normalize(
@@ -67,14 +70,6 @@ void	init_viewport(void)
 
 static void	init_windows(void)
 {
-	// (s()->win.mlx) = mlx_init();
-	// if (!s()->win.mlx)
-	// 	error_exit("error happend when create MLX42");
-	// s()->win.width = WIDTH;
-	// s()->win.height = HEIGHT;
-	// (s()->win.disp) = mlx_new_window(s()->win.mlx, WIDTH, HEIGHT, "miniRT");
-	// if (!s()->win.disp)
-	// 	error_exit("error happend when create MLX42 windows");
 	(s()->win.img) = mlx_new_image(s()->win.mlx, s()->win.width,
 			s()->win.height);
 	if (!s()->win.img)

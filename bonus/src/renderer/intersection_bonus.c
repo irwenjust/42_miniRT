@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:47:45 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 15:47:48 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 14:22:00 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,6 @@ bool	is_intersect(t_shape *shape, t_ray *ray, t_hit *inter, double *valid_t)
 	return (checker && *valid_t > 0);
 }
 
-t_vector	cone_normal(t_hit *inter)
-{
-	t_vector	point;
-	t_vector	normal;
-	t_vector	tmp;
-	double		len_tip;
-	double		len;
-
-	point = inter->hit_point;
-	len_tip = vector_magnitude(vector_sub(point, inter->shape->data.cone.tip));
-	len = len_tip / cos(inter->shape->data.cone.angle);
-	tmp = vector_add(inter->shape->data.cone.tip,
-			vector_scale(inter->shape->data.cone.normal, len));
-	normal = vector_sub(point, tmp);
-	if (vector_compare(inter->co_hp, inter->shape->data.cone.normal))
-		normal = inter->shape->data.cone.normal;
-	else if (vector_compare(point, inter->shape->data.cone.tip))
-		normal = vector_scale(inter->shape->data.cone.normal, -1);
-	return (normal);
-}
-
 /**
  * @brief get the normal vector at the intersection point of ray and shape
  * For cylinder, if the hit_point is on caps, the normaal is constant
@@ -72,35 +51,15 @@ t_vector	cone_normal(t_hit *inter)
  */
 static t_vector	get_normal(t_hit *inter)
 {
-	t_vector	point;
 	t_vector	normal;
-	t_vector	center;
-	t_vector	ray_to_center;
-	double		dot;
 
-	point = inter->hit_point;
 	normal = (t_vector){0, 0, 0};
 	if (inter->shape->type == PLANE)
 		normal = inter->shape->data.plane.normal;
 	else if (inter->shape->type == SPHERE)
-	{
-		center = inter->shape->data.sphere.center;
-		normal = vector_sub(point, center);
-		ray_to_center = vector_sub(center, inter->ray.start);
-		dot = vector_dot(inter->ray.normal, ray_to_center);
-		if (dot > 0)
-			normal = vector_scale(normal, -1.0);
-		// normal = vector_sub(point, inter->shape->data.sphere.center);
-	}
+		normal = sphere_normal(inter);
 	else if (inter->shape->type == CYLINDER)
-	{
-		normal = vector_sub(point, inter->cy_hp);
-		if (vector_compare(inter->cy_hp, inter->shape->data.cylinder.cap_s))
-			normal = vector_scale(inter->shape->data.cylinder.normal, -1);
-		else if (vector_compare(inter->cy_hp,
-				inter->shape->data.cylinder.cap_e))
-			normal = inter->shape->data.cylinder.normal;
-	}
+		normal = cylinder_normal(inter);
 	else if (inter->shape->type == CONE)
 		normal = cone_normal(inter);
 	return (vector_normalize(normal));
@@ -145,7 +104,7 @@ bool	check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest)
 		closest->ray = *ray;
 		closest->shape = shape;
 		closest->hit_point = point_on_ray(ray, closest->distance);
-		closest->hit_normal = get_normal(closest);
+		closest->normal = get_normal(closest);
 	}
 	return (closest->shape != NULL);
 }

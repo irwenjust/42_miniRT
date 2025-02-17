@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 10:30:03 by likong            #+#    #+#             */
-/*   Updated: 2025/01/15 11:44:11 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 14:21:17 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	check_bump(t_hit *hit)
 		adjust_normal = vector_add(vector_scale(shape->u_axis, -pd_u),
 				vector_scale(shape->v_axis, -pd_v));
 		adjust_normal = vector_scale(adjust_normal, 3);
-		hit->hit_normal = vector_add(hit->hit_normal, adjust_normal);
-		hit->hit_normal = vector_normalize(hit->hit_normal);
+		hit->normal = vector_add(hit->normal, adjust_normal);
+		hit->normal = vector_normalize(hit->normal);
 	}
 }

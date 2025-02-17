@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:29:09 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/17 11:39:48 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 13:37:07 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 		return (error("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
 	if (check_texture(arg, shape) == false)
-		return (ft_free((void **)&shape), error("plane: fail to create new plane"), false);
+		return (ft_free((void **)&shape), false);
 	shape->ks = ft_atod(arg[4]);
 	shape->shininess = ft_atod(arg[5]);
 	shape->refra_idx = ft_atod(arg[9]);

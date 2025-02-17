@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:42:58 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 15:46:17 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/17 14:14:59 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,8 @@ void	ray_tracer(t_ray *ray, t_hit *hit, int depth)
 		return ;
 	get_illumination_param(hit);
 	phong_illumination(hit);
-	if (depth <= 0)
+	if (depth-- <= 0)
 		return ;
-	depth--;
 	if (hit->reflectance > 0.01)
 	{
 		reflect_hit = generate_hit();
@@ -97,7 +96,6 @@ void	ray_tracer(t_ray *ray, t_hit *hit, int depth)
 	{
 		refract_hit = generate_hit();
 		set_refraction_ray(ray, &refract_ray, hit);
-		check_refraction(&refract_ray, hit);
 		ray_tracer(&refract_ray, &refract_hit, depth);
 		add_refract_color(hit, &refract_hit);
 	}

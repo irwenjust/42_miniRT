@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:59:07 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 11:50:28 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:29:16 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,7 +290,6 @@ t_color		sub_color(t_color c1, t_color c2);
 t_color		multi_color(t_color color, double factor);
 t_color		mix_color(t_color c1, t_color c2);
 //color utils
-t_color		color_create(double r, double g, double b);
 t_color		hex_to_color(unsigned int hex);
 void		put_pixel(t_color c, int x, int y);
 t_color		copy_color(t_color c);
@@ -339,5 +338,17 @@ void		check_hit_normal(t_hit *hit);
 void		find_uv(t_hit *hit);
 void		add_uv_axis(t_shape *shape, t_vector normal);
 t_color		uv_get_color(t_image *img, double u, double v);
+void		uv_repeat_wrap(double *u, double *v, int repeat);
+
+//uv for different shape
+void		cone_uv(t_hit *hit, double *u, double *v, int repeat);
+
+//uv tools
+void		rotate_uv(t_key *keys, t_shape *shape);
+
+//normal part
+t_vector	cone_normal(t_hit *inter);
+t_vector	cylinder_normal(t_hit *inter);
+t_vector	sphere_normal(t_hit *inter);
 
 #endif

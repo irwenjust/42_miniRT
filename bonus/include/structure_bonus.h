@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:08:43 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/17 11:38:58 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 14:21:02 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ typedef struct s_ray
  * @param shape The shape that was hit
  * @param ray The ray that hit the shape
  * @param hit_point The intersection point
- * @param hit_normal The normal of the shape in the intersection point
+ * @param normal The normal of the shape in the intersection point
  * @param color The color of the hit shape
  * @param cy_hp Used to know where the ray hit in a cylinder's axis
  * @param distance The distance between the hit the ray's origin
@@ -241,7 +241,7 @@ typedef struct s_hit
 	t_shape		*shape;
 	t_ray		ray;
 	t_vector	hit_point;
-	t_vector	hit_normal;
+	t_vector	normal;
 	t_color		color;
 	t_vector	cy_hp;
 	t_vector	co_hp;
@@ -315,7 +315,6 @@ typedef struct s_scene
 	t_windows		win;
 	struct timeval	last_frame_time;
 	int				bvh_level;
-	t_list			*unbound; // for plane and maybe more things later
 	t_bvh			*bvh;
 }	t_scene;
 

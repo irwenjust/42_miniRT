@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:17:39 by likong            #+#    #+#             */
-/*   Updated: 2025/02/05 17:06:36 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 14:21:54 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@ double	calculate_fresnel(t_hit *hit)
 
 	incident_dir = vector_normalize(hit->ray.normal);
 	if (hit->side == OUTSIDE)
-		normal = hit->hit_normal;
+		normal = hit->normal;
 	else
-	{
-		normal = vector_scale(hit->hit_normal, -1.0);
-	}
+		normal = vector_scale(hit->normal, -1.0);
 	cos_theta = fabs(vector_dot(incident_dir, normal));
 	if (hit->side == OUTSIDE)
 		reflectance = calculate_reflectance(cos_theta, 1.0, hit->refra_idx);

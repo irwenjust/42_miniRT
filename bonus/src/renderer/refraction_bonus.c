@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:02:38 by likong            #+#    #+#             */
-/*   Updated: 2025/02/05 18:19:36 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 14:22:20 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,15 @@ static void	get_refraction(t_ray *ray, t_hit *hit, double ratio)
 	bool		cannot_tir;
 
 	if (hit->side == OUTSIDE)
-		normal = hit->hit_normal;
+		normal = hit->normal;
 	else
-		normal = vector_scale(hit->hit_normal, -1.0);
+		normal = vector_scale(hit->normal, -1.0);
 	cos_theta = fmin(vector_dot(vector_scale(ray->normal, -1.0), normal), 1.0);
 	cannot_tir = (ratio * sqrt(1.0 - cos_theta * cos_theta) > 1.0);
 	if (cannot_tir || calculate_reflectance(cos_theta, 1.0, ratio) > ft_rand())
 	{
-		ray->normal = vector_normalize(vector_sub(ray->normal,
-					vector_scale(hit->hit_normal, 2.0
-						* vector_dot(ray->normal, hit->hit_normal))));
+		ray->normal = vector_normalize(vector_sub(ray->normal, vector_scale
+					(hit->normal, 2.0 * vector_dot(ray->normal, hit->normal))));
 		return ;
 	}
 	else
@@ -50,28 +49,11 @@ static void	get_refraction(t_ray *ray, t_hit *hit, double ratio)
 	ray->normal = vector_normalize(vector_add(perp, para));
 }
 
-void	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit)
-{
-	t_vector	offset;
-	double		offset_scale;
-
-	offset_scale = 1e-8;
-	if (hit->side == OUTSIDE)
-		offset = vector_scale(hit->hit_normal, offset_scale);
-	else
-		offset = vector_scale(hit->hit_normal, -offset_scale);
-	ft_bzero(refract_ray, sizeof(t_ray));
-	refract_ray->start = vector_add(hit->hit_point, offset);
-	refract_ray->normal = ray->normal;
-	refract_ray->inv_start = (t_vector){1.0 / refract_ray->normal.x,
-		1.0 / refract_ray->normal.y, 1.0 / refract_ray->normal.z};
-}
-
 void	check_refraction(t_ray *ray, t_hit *hit)
 {
 	double	ratio;
 
-	if (vector_dot(hit->hit_normal, ray->normal) < 0.0)
+	if (vector_dot(hit->normal, ray->normal) < 0.0)
 		hit->side = OUTSIDE;
 	else
 		hit->side = INSIDE;
@@ -81,4 +63,22 @@ void	check_refraction(t_ray *ray, t_hit *hit)
 		ratio = 1.0 / hit->refra_idx;
 	get_refraction(ray, hit, ratio);
 	ray->normal = vector_normalize(ray->normal);
+}
+
+void	set_refraction_ray(t_ray *ray, t_ray *refract_ray, t_hit *hit)
+{
+	t_vector	offset;
+	double		offset_scale;
+
+	offset_scale = 1e-8;
+	if (hit->side == OUTSIDE)
+		offset = vector_scale(hit->normal, offset_scale);
+	else
+		offset = vector_scale(hit->normal, -offset_scale);
+	ft_bzero(refract_ray, sizeof(t_ray));
+	refract_ray->start = vector_add(hit->hit_point, offset);
+	refract_ray->normal = ray->normal;
+	refract_ray->inv_start = (t_vector){1.0 / refract_ray->normal.x,
+		1.0 / refract_ray->normal.y, 1.0 / refract_ray->normal.z};
+	check_refraction(refract_ray, hit);
 }

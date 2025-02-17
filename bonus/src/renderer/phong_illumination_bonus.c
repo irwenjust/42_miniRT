@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:53:55 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/17 11:40:01 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/17 14:22:08 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ static bool	is_obscured(t_light *light, t_hit *closest)
 		shape = fclass_index(s()->shapes, i);
 		if (shape->id == closest->shape->id)
 			continue ;
-		// if (check_bvh_intersection(&ray, s()->bvh, &tmp) && tmp.distance <
-			// is_intersect(shape, &ray, &tmp) && 
-		// 	vector_magnitude(vector_sub(light->point, closest->hit_point)))
 		if (is_intersect(shape, &ray, &tmp, &valid_t) && tmp.distance
 			< vector_magnitude(vector_sub(light->point, closest->hit_point)))
 			return (true);
@@ -41,7 +38,7 @@ static bool	is_obscured(t_light *light, t_hit *closest)
 	return (false);
 }
 
-static t_color	diffuse(t_light *light, t_hit *inter, double brightness)
+static t_color	diff(t_light *light, t_hit *inter, double brightness)
 {
 	t_vector	light_dir;
 	t_color		color;
@@ -51,14 +48,14 @@ static t_color	diffuse(t_light *light, t_hit *inter, double brightness)
 
 	light_dir = vector_sub(light->point, inter->hit_point);
 	attenuation = fmin(1.0, 60.0 / vector_magnitude(light_dir));
-	cos_angle = vector_cos(inter->hit_normal, light_dir);
+	cos_angle = vector_cos(inter->normal, light_dir);
 	diffuse_ratio = fmax(0.0, brightness * cos_angle * attenuation);
 	color = multi_color(inter->color, diffuse_ratio);
 	color = mix_color(color, light->color);
 	return (color);
 }
 
-static t_color	specular(t_light *light, t_hit *inter, double brightness)
+static t_color	spec(t_light *light, t_hit *inter, double brightness)
 {
 	t_vector	light_dir;
 	t_vector	camera_dir;
@@ -71,7 +68,7 @@ static t_color	specular(t_light *light, t_hit *inter, double brightness)
 	light_dir = vector_sub(light->point, inter->hit_point);
 	camera_dir = vector_normalize(vector_scale(inter->ray.normal, -1));
 	half_vector = vector_normalize(vector_add(camera_dir, light_dir));
-	cos_angle = fmax(0.0, vector_dot(half_vector, inter->hit_normal));
+	cos_angle = fmax(0.0, vector_dot(half_vector, inter->normal));
 	specular_ratio = inter->shape->ks * brightness
 		* pow(cos_angle, inter->shape->shininess);
 	return (mix_color(multi_color(inter->color, specular_ratio), light->color));
@@ -93,11 +90,11 @@ void	phong_illumination(t_hit *closest)
 	{
 		light = fclass_index(s()->light, i);
 		if (!light)
-			error_exit("cannot find any light"); //need this check?
+			error_exit("cannot find any light");
 		if (!is_obscured(light, closest))
 		{
-			color = add_color(color, diffuse(light, closest, light->brightness));
-			color = add_color(color, specular(light, closest, light->brightness));
+			color = add_color(color, diff(light, closest, light->brightness));
+			color = add_color(color, spec(light, closest, light->brightness));
 		}
 	}
 	if (closest->shape->cboard || closest->shape->tex)
