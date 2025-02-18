@@ -25,10 +25,10 @@ static bool	new_cone(char **arg, t_cone *cone)
 	if (!tmp)
 		return (error("cone: fail to split normal"), false);
 	cone->normal = parse_vector(tmp);
+	free_matrix(tmp);
 	if (vector_magnitude(cone->normal) < 1.0 - 1e-8)
 		return (error("cone: normal vector is too small"), false);
 	cone->normal = vector_normalize(cone->normal);
-	free_matrix(tmp);
 	cone->radius = ft_atod(arg[3]) * 0.5;
 	cone->height = ft_atod(arg[4]);
 	tmp = ft_split(arg[5], ',');

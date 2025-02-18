@@ -37,8 +37,8 @@
 # define Z 2
 
 //about windows setting (16:9)
-# define WIDTH 1600
-# define HEIGHT 900
+# define WIDTH 160
+# define HEIGHT 90
 
 # define PI 3.141592653589f
 
