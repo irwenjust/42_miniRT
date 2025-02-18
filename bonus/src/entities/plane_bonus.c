@@ -46,6 +46,8 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	if (!new_plane(arg, &plane))
 		return (error("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
+	if (!shape)
+		return (error("plane: fail to create new shape"), false);
 	if (check_texture(arg, shape) == false)
 		return (ft_free((void **)&shape), false);
 	shape->ks = ft_atod(arg[4]);

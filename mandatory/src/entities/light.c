@@ -68,6 +68,8 @@ bool	parse_light(int counter[3], char **arg, t_fclass *fclass)
 		return (error("light: fail to split color"), false);
 	}
 	light = new_light(coord, arg[2], rgb);
+	if (!light)
+		return (error("light: fail to create new shape"), false);
 	free_matrix(coord);
 	free_matrix(rgb);
 	if (!light)

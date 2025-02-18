@@ -50,6 +50,8 @@ bool	parse_cone(char **arg, t_fclass *fclass)
 	cone.base = vector_add(cone.tip, vector_scale(cone.normal, cone.height));
 	cone.center = vector_scale(vector_add(cone.tip, cone.base), 0.5);
 	shape = new_shape(&cone, CONE, fclass->size, s()->shape_nbr[CONE]);
+	if (!shape)
+		return (error("cone: fail to create new shape"), false);
 	if (check_texture(arg, shape) == false)
 		return (ft_free((void **)&shape), false);
 	shape->ks = ft_atod(arg[6]);

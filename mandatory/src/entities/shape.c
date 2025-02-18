@@ -29,7 +29,7 @@ t_shape	*copy_shape(t_shape *shape)
 	else if (res->type == CYLINDER)
 		res->data.cylinder = shape->data.cylinder;
 	if (res->type != PLANE)
-		res->box = shape_box(shape);
+		res->box = shape_box(res);
 	return (res);
 }
 

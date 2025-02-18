@@ -12,6 +12,7 @@
 		"type_traits": "c",
 		"utility": "c",
 		"variant": "c",
-		"math.h": "c"
+		"math.h": "c",
+		"minirt.h": "c"
 	}
 }

@@ -57,6 +57,8 @@ bool	parse_cylinder(char **arg, t_fclass *fclass)
 	cy.cap_e = vector_add(cy.center,
 			vector_scale(cy.normal, cy.height * 0.5));
 	shape = new_shape(&cy, CYLINDER, fclass->size, s()->shape_nbr[CYLINDER]);
+	if (!shape)
+		return (error("cylinder: fail to create new shape"), false);
 	s()->shape_nbr[CYLINDER]++;
 	push_to_fclass(fclass, shape);
 	return (true);

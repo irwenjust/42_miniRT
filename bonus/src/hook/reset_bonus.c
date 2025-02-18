@@ -24,7 +24,22 @@ void	reset_lights(void)
 
 	i = -1;
 	while (++i < s()->light->size)
+	{
+		free(s()->light->array[i]);
 		s()->light->array[i] = copy_light(s()->ori_light->array[i]);
+	}
+}
+
+static void	copy_shape_data(t_shape *shape, t_shape *ori)
+{
+	if (shape->type == SPHERE)
+		shape->data.sphere = ori->data.sphere;
+	else if (shape->type == PLANE)
+		shape->data.plane = ori->data.plane;
+	else if (shape->type == CYLINDER)
+		shape->data.cylinder = ori->data.cylinder;
+	if (shape->type != PLANE)
+		shape->box = shape_box(shape);
 }
 
 void	reset_shapes(void)
@@ -33,7 +48,9 @@ void	reset_shapes(void)
 
 	i = -1;
 	while (++i < s()->shapes->size)
-		s()->shapes->array[i] = copy_shape(s()->ori_shapes->array[i]);
+	{
+		copy_shape_data(s()->shapes->array[i], s()->ori_shapes->array[i]);
+	}
 }
 
 void	reset_all(void)

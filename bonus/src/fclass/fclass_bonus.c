@@ -32,7 +32,7 @@ void	push_to_fclass(t_fclass *fclass, void *element)
 }
 
 t_fclass	*fclass_new(void *(*cpy)(void *), int (*cmp)(void *, void *),
-	void (*print)(void *), void (*del)(void *))
+	void (*del)(void *), void (*print)(void *))
 {
 	t_fclass	*res;
 

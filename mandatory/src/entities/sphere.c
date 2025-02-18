@@ -46,6 +46,8 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	if (!new_sphere(arg, &sphere))
 		return (error("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
+	if (!shape)
+		return (error("sphere: fail to create new shape"), false);
 	s()->shape_nbr[SPHERE]++;
 	push_to_fclass(fclass, shape);
 	return (true);

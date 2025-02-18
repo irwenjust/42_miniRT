@@ -16,7 +16,7 @@ static void	display_light(int x, int y)
 {
 	display(x, y, 0xFFD700, "Current Light:");
 	display(x += (16 * 6), y, 0xFFD700, "Light");
-	display(x += (6 * 6), y, 0xFFD700, ft_itoa(s()->select));
+	display_f(x += (6 * 6), y, 0xFFD700, ft_itoa(s()->select));
 	display(x += (4 * 6), y, 0x87CEFA, ">");
 	display(x += (3 * 6), y, 0xFFFFFF, "TAB : To Next Shape");
 }

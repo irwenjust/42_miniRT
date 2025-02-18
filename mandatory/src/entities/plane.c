@@ -50,6 +50,8 @@ bool	parse_plane(char **arg, t_fclass *fclass)
 	if (!new_plane(arg, &plane))
 		return (error("plane: fail to create new plane"), false);
 	shape = new_shape(&plane, PLANE, fclass->size, s()->shape_nbr[PLANE]);
+	if (!shape)
+		return (error("plane: fail to create new shape"), false);
 	s()->shape_nbr[PLANE]++;
 	push_to_fclass(fclass, shape);
 	return (true);
