@@ -20,7 +20,7 @@ static void	delete_fclass(t_fclass *fclass)
 	free(fclass);
 }
 
-void	ft_free(void **ptr)
+static void	ft_free(void **ptr)
 {
 	if (ptr && *ptr)
 	{

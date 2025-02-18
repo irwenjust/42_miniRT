@@ -76,6 +76,7 @@ void	update_reset(t_key *keys)
 		if (s()->menu == VIEW)
 			reset_all();
 		s()->preset = 0;
+		rebuild_bvh();
 		render(0);
 	}
 	keys->action = NOTHING;

@@ -61,30 +61,34 @@ void	update_preset(t_key *keys)
 	keys->action = NOTHING;
 }
 
+void	copy_shape_data(t_shape *shape, t_shape *ori)
+{
+	if (shape->type == SPHERE)
+		shape->data.sphere = ori->data.sphere;
+	else if (shape->type == PLANE)
+		shape->data.plane = ori->data.plane;
+	else if (shape->type == CYLINDER)
+		shape->data.cylinder = ori->data.cylinder;
+	if (shape->type != PLANE)
+		shape->box = shape_box(shape);
+}
+
 void	update_reset(t_key *keys)
 {
-	int	i;
-
 	if (keys->key[R])
 		render();
 	else if (keys->key[G])
 	{
-		if (s()->menu == CAMERA || s()->menu == VIEW)
-		{
-			s()->camera = copy_camera(s()->ori_camera);
-			init_viewport();
-		}
-		if (s()->menu == LIGHT || s()->menu == VIEW)
-			s()->light->array[0] = copy_light(s()->ori_light->array[0]);
-		if (s()->menu == SHAPE || s()->menu == VIEW)
-		{
-			i = -1;
-			while (++i < s()->shapes->size)
-				s()->shapes->array[i] = copy_shape(s()->ori_shapes->array[i]);
-		}
+		if (s()->menu == CAMERA)
+			reset_camera();
+		if (s()->menu == LIGHT)
+			reset_lights();
+		if (s()->menu == SHAPE)
+			reset_shapes();
 		if (s()->menu == VIEW)
-			s()->ambient = copy_ambient(s()->ori_ambient);
+			reset_all();
 		s()->preset = 0;
+		rebuild_bvh();
 		render();
 	}
 	keys->action = NOTHING;

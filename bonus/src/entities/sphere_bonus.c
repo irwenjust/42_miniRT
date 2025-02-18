@@ -39,6 +39,8 @@ bool	parse_sphere(char **arg, t_fclass *fclass)
 	if (!new_sphere(arg, &sphere))
 		return (error("sphere: fail to create new shpere"), false);
 	shape = new_shape(&sphere, SPHERE, fclass->size, s()->shape_nbr[SPHERE]);
+	if (!shape)
+		return (error("sphere: fail to create new shape"), false);
 	if (check_texture(arg, shape) == false)
 		return (ft_free((void **)&shape), false);
 	shape->ks = ft_atod(arg[4]);

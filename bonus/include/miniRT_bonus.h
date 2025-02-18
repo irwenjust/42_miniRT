@@ -37,8 +37,8 @@
 # define Z 2
 
 //about windows setting (16:9)
-# define WIDTH 1600
-# define HEIGHT 900
+# define WIDTH 160
+# define HEIGHT 90
 
 # define PI 3.141592653589f
 
@@ -74,7 +74,7 @@ t_scene		*s(void);
  */
 //New function for fake class
 t_fclass	*fclass_new(void *(*cpy)(void *), int (*cmp)(void *, void *),
-				void (*print)(void *), void (*del)(void *));
+				void (*del)(void *), void (*print)(void *));
 void		push_to_fclass(t_fclass *fclass, void *element);
 void		*fclass_index(t_fclass *fclass, int i);
 
