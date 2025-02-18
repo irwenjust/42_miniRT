@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:59:07 by likong            #+#    #+#             */
-/*   Updated: 2025/02/18 13:48:36 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/18 14:38:42 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@
 # define Z 2
 
 //about windows setting (16:9)
-# define WIDTH 160
-# define HEIGHT 90
+# define WIDTH 1600
+# define HEIGHT 900
 
 # define PI 3.141592653589f
 
