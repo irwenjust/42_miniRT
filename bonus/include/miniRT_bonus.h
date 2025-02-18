@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:59:07 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 16:28:12 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/18 09:46:58 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,6 @@ t_vector	parse_vector(char **strs);
 bool		vector_compare(t_vector v1, t_vector v2);
 double		vector_cos(t_vector v1, t_vector v2);
 t_vector	vector_copy(t_vector vec);
-t_vector	vector_abs(t_vector v);
 
 /**
  * color

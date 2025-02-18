@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_tools_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:03:15 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 16:03:18 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/18 09:42:13 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,5 @@ inline t_vector	vector_copy(t_vector vec)
 		.x = vec.x,
 		.y = vec.y,
 		.z = vec.z
-	});
-}
-
-inline t_vector	vector_abs(t_vector vec)
-{
-	return ((t_vector){
-		.x = fabs(vec.x),
-		.y = fabs(vec.y),
-		.z = fabs(vec.z)
 	});
 }
