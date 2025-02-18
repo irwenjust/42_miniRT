@@ -25,11 +25,11 @@ static bool	new_plane(char **arg, t_plane *plane)
 	if (!tmp)
 		return (error("plane: fail to split normal"), false);
 	plane->normal = parse_vector(tmp);
+	free_matrix(tmp);
 	if (vector_magnitude(plane->normal) < 1.0 - 1e-8)
 		return (error("plane: normal vector is too small"), false);
 	plane->normal = vector_add(plane->normal, s()->vec_min);
 	plane->normal = vector_normalize(plane->normal);
-	free_matrix(tmp);
 	tmp = ft_split(arg[3], ',');
 	if (!tmp)
 		return (error("plane: fail to split color"), false);

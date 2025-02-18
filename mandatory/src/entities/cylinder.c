@@ -25,10 +25,10 @@ static bool	new_cylinder(char **arg, t_cylinder *cy)
 	if (!tmp)
 		return (error("cylinder: fail to split normal"), false);
 	cy->normal = parse_vector(tmp);
+	free_matrix(tmp);
 	if (vector_magnitude(cy->normal) < 1.0 - 1e-8)
 		return (error("cylinder: normal vector is too small"), false);
 	cy->normal = vector_normalize(cy->normal);
-	free_matrix(tmp);
 	cy->radius = ft_atod(arg[3]) * 0.5;
 	cy->height = ft_atod(arg[4]);
 	if (cy->radius < 1e-8 || cy->height < 1e-8)
