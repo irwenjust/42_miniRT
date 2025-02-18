@@ -6,33 +6,11 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:54:26 by likong            #+#    #+#             */
-/*   Updated: 2024/12/31 14:53:50 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/18 10:06:07 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-static long	get_time_diff(struct timeval *start, struct timeval *end)
-{
-	return (((end->tv_sec - start->tv_sec) * 1000000L)
-		+ (end->tv_usec - start->tv_usec));
-}
-
-void	control_frame_rate(void)
-{
-	struct timeval	current_time;
-	long			elapsed_time;
-
-	gettimeofday(&current_time, NULL);
-	elapsed_time = get_time_diff(&s()->last_frame_time, &current_time);
-	if (elapsed_time >= FRAME_TIME)
-	{
-		s()->last_frame_time = current_time;
-		fake_render();
-	}
-	else
-		usleep(FRAME_TIME - elapsed_time);
-}
 
 int	main(int argc, char **argv)
 {

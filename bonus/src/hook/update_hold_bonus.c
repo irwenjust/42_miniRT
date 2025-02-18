@@ -112,31 +112,3 @@ void	update_color(t_key *keys)
 	s()->preset = 0;
 	control_frame_rate();
 }
-
-// void update_color(t_key *keys)
-// {
-//     t_color *rgb;
-
-//     rgb = get_color();
-//     if (rgb == NULL)
-//         return ;
-//     if (keys->key[C_INC])
-//     {
-//         if (s()->select_rgb == 0 && rgb->red < 255)
-//             rgb->red++;
-//         else if (s()->select_rgb == 1 && rgb->green < 255)
-//             rgb->green++;
-//         else if (s()->select_rgb == 2 && rgb->blue < 255)
-//             rgb->blue++;
-//     }
-//     else if (keys->key[C_DEC])
-//     {
-//         if (s()->select_rgb == 0 && rgb->red > 0)
-//             rgb->red--;
-//         else if (s()->select_rgb == 1 && rgb->green > 0)
-//             rgb->green--;
-//         else if (s()->select_rgb == 2 && rgb->blue > 0)
-//             rgb->blue--;
-//     }        
-//     control_frame_rate();
-// }

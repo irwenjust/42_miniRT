@@ -36,7 +36,6 @@ void	update_menu(t_key *keys)
 	keys->action = NOTHING;
 }
 
-/*FOR TEST, need to update later*/
 void	update_preset(t_key *keys)
 {
 	int	i;

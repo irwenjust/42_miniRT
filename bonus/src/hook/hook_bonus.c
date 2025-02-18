@@ -48,7 +48,6 @@ int	press_key(int keycode, t_key *keys)
 	return (0);
 }
 
-/**/
 int	release_key(int keycode, t_key *keys)
 {
 	if (keys->cur_keycode == keycode)
@@ -62,7 +61,6 @@ int	release_key(int keycode, t_key *keys)
 	return (0);
 }
 
-//may change to void
 int	ft_quit(void)
 {
 	delete_scene();

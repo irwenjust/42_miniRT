@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 09:24:56 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 16:28:27 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/18 10:06:17 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	init_scene(char *file_name)
 	ft_bzero(&(s()->keys), sizeof(t_key));
 	s()->keys.cur_keycode = -1;
 	s()->menu = VIEW;
-	gettimeofday(&s()->last_frame_time, NULL);
 	rebuild_bvh();
 	backup_scene();
 }

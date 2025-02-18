@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 15:26:51 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 11:47:08 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/18 10:07:03 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,9 +259,7 @@ typedef struct s_scene
 	t_vector		normal_h;
 	t_vector		vec_min;
 	t_windows		win;
-	struct timeval	last_frame_time;
 	int				bvh_level;
-	t_list			*unbound;
 	t_bvh			*bvh;
 }	t_scene;
 

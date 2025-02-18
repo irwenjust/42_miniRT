@@ -6,13 +6,12 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:13:15 by likong            #+#    #+#             */
-/*   Updated: 2024/12/31 12:25:06 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/18 10:16:50 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-//May need to check more later
 static inline bool	update_hit(t_ray *ray, t_bvh *node, t_hit *hit)
 {
 	if (is_intersect(node->shapes, ray, hit))

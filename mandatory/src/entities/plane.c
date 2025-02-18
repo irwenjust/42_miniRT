@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 15:39:03 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/17 12:49:16 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/18 10:18:24 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void	move_plane(t_key *keys, t_plane *plane)
 		plane->center.z += 0.3;
 	else if (keys->key[Q])
 		plane->center.z -= 0.3;
-	printf("move plane\n");
 }
 
 void	rotate_plane(t_key *keys, t_plane *plane)
@@ -128,5 +127,4 @@ void	rotate_plane(t_key *keys, t_plane *plane)
 		plane->normal = vector_rotate(plane->normal, Z, ROTATE);
 	else if (keys->key[O])
 		plane->normal = vector_rotate(plane->normal, Z, (-ROTATE));
-	printf("rotate plane\n");
 }

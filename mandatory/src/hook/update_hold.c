@@ -53,7 +53,7 @@ void	update_scaling(t_key *keys)
 	else if (s()->menu == CAMERA)
 		update_camera_fov(keys);
 	rebuild_bvh();
-	control_frame_rate();
+	fake_render();
 }
 
 void	update_move(t_key *keys)
@@ -67,7 +67,7 @@ void	update_move(t_key *keys)
 	else
 		return ;
 	rebuild_bvh();
-	control_frame_rate();
+	fake_render();
 }
 
 void	update_rotate(t_key *keys)
@@ -79,7 +79,7 @@ void	update_rotate(t_key *keys)
 	else
 		return ;
 	rebuild_bvh();
-	control_frame_rate();
+	fake_render();
 }
 
 void	update_color(t_key *keys)
@@ -107,5 +107,5 @@ void	update_color(t_key *keys)
 	if ((*color_channel) < 0)
 		(*color_channel) = 255;
 	s()->preset = 0;
-	control_frame_rate();
+	fake_render();
 }

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:25:28 by likong            #+#    #+#             */
-/*   Updated: 2025/02/17 16:28:30 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/18 10:15:33 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 # define SUCCESS 0
 # define FAILURE 1
-
-# define FRAME_RATE 25
-//(1000000 / FRAME_RATE)
-# define FRAME_TIME 40000
 
 # define ROTATE 0.1
 
@@ -47,7 +43,6 @@ stdlib: malloc, free
 # include <stdbool.h>
 # include <math.h>
 # include <stdint.h>
-# include <sys/time.h>
 # include <X11/X.h>
 # include "mlx.h"
 # include "libft.h"
@@ -95,17 +90,19 @@ bool		check_arg_format(char **arg, char *arg_type);
 //renderer
 void		render(void);
 void		fake_render(void);
-//control frame rate
-void		control_frame_rate(void);
+
 //ray part
 t_ray		make_ray(t_vector cur);
 t_vector	point_on_ray(t_ray *ray, double t);
+
 //intersect part
 bool		check_intersection(t_fclass *shapes, t_ray *ray, t_hit *closest);
 bool		is_intersect(t_shape *shape, t_ray *ray, t_hit *inter);
 void		find_valid_t(t_equation *equation);
+
 //illumination part
 void		check_illumination(t_hit *closest);
+
 //reflect part
 t_color		diffuse(t_light *light, t_hit *inter, double k);
 
@@ -116,36 +113,43 @@ t_color		diffuse(t_light *light, t_hit *inter, double k);
 bool		parse_ambient(int counter[3], char **tmp, t_ambient *ambient);
 t_color		check_ambient(t_color color);
 t_ambient	copy_ambient(t_ambient ambient);
+
 //camera part
 t_camera	copy_camera(t_camera camera);
 bool		parse_camera(char **tmp, t_camera *camera);
 void		move_camera(t_key *keys);
 void		rotate_camera(t_key *keys);
 void		update_camera_fov(t_key *keys);
+
 //light part
 t_light		*copy_light(t_light *light);
 bool		parse_light(int counter[3], char **arg, t_fclass *light);
 void		move_light(t_key *keys, t_light *light);
+
 //shape part
 t_shape		*copy_shape(t_shape *shape);
 t_shape		*new_shape(void *data, t_shape_type type, int id, int shape_id);
 void		move_shape(t_key *keys, t_shape *shape);
 void		rotate_shape(t_key *keys, t_shape *shape);
+
 //sphere part
 bool		parse_sphere(char **tmp, t_fclass *fclass);
 bool		inter_sphere(t_sphere *sphere, t_ray *ray, t_hit *inter);
 void		move_sphere(t_key *keys, t_sphere *sphere);
 void		scaling_sphere(t_key *keys, t_sphere *sphere);
+
 //plane part
 bool		parse_plane(char **arg, t_fclass *fclass);
 bool		inter_plane(t_plane *plane, t_ray *ray, t_hit *inter);
 void		move_plane(t_key *keys, t_plane *plane);
 void		rotate_plane(t_key *keys, t_plane *plane);
+
 //cylinder part
 bool		parse_cylinder(char **arg, t_fclass *fclass);
 void		move_cylinder(t_key *keys, t_cylinder *cylinder);
 void		rotate_cylinder(t_key *keys, t_cylinder *cylinder);
 void		scaling_cylinder(t_key *keys, t_cylinder *cy);
+
 //cylinder inter
 bool		inter_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *inter);
 
@@ -157,16 +161,19 @@ int			press_key(int keycode, t_key *keys);
 int			release_key(int keycode, t_key *keys);
 int			ft_quit(void);
 int			update(t_key *keys);
+
 //click action
 void		update_menu(t_key *keys);
 void		update_preset(t_key *keys);
 void		update_reset(t_key *keys);
 void		update_select(t_key *keys);
+
 //hold action
 void		update_scaling(t_key *keys);
 void		update_move(t_key *keys);
 void		update_rotate(t_key *keys);
 void		update_color(t_key *keys);
+
 //preset part
 void		switch_preset(int preset);
 void		camera_preset(int preset);
@@ -180,13 +187,16 @@ t_vector	vector_sub(t_vector v1, t_vector v2);
 t_vector	vector_scale(t_vector a, double scalar);
 t_vector	vector_min(t_vector a, t_vector b);
 t_vector	vector_max(t_vector a, t_vector b);
+
 //vector op plus
 double		vector_magnitude(t_vector a);
 t_vector	vector_normalize(t_vector a);
 t_vector	vector_cross(t_vector v1, t_vector v2);
 double		vector_dot(t_vector v1, t_vector v2);
+
 //vector rotate
 t_vector	vector_rotate(t_vector vec, int axis, double angle);
+
 //vector tools
 t_vector	parse_vector(char **strs);
 bool		vector_compare(t_vector v1, t_vector v2);
@@ -202,13 +212,17 @@ t_color		add_color(t_color c1, t_color c2);
 t_color		hex_to_color(unsigned int hex);
 t_color		*get_color(int type, int i);
 t_color		mix_color(t_color base, t_color light_effect);
+
 //equation
 double		solve(t_equation *equation);
+
 //free the scene
 void		delete_scene(void);
+
 //show error message
 void		error_exit(char *message);
 void		error(char *str);
+
 //others
 t_hit		init_hit(void);
 void		ft_swap_d(double *a, double *b);
@@ -226,6 +240,7 @@ void		view_menu(int ori_x, int y);
 void		camera_menu(int ori_x, int y);
 void		light_menu(int ori_x, int y);
 void		shape_menu(int ori_x, int y);
+
 //menu display tool
 void		display_move_rotate_size(int x, int y);
 void		display_color(int x, int y, t_color *rgb);
@@ -241,9 +256,11 @@ int			find_max_axis(t_aabb box);
 int			split_box(int axis, t_shape **shapes, int amount);
 void		free_bvh(t_bvh **bvh);
 void		rebuild_bvh(void);
+
 //aabb intersection check
 bool		check_aabb_intersection(t_ray ray, t_aabb box, double max_t);
 bool		check_bvh_intersection(t_ray *ray, t_bvh *node, t_hit *pre_hit);
+
 //aabb box
 t_aabb		box_sphere(t_sphere *sphere);
 t_aabb		box_cylinder(t_cylinder *cy);

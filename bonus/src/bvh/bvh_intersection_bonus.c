@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   bvh_intersection_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzhan <yzhan@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:07:43 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/14 15:07:47 by yzhan            ###   ########.fr       */
+/*   Updated: 2025/02/18 10:16:45 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-//May need to check more later
 static inline bool	update_hit(t_ray *ray, t_bvh *node, t_hit *hit)
 {
 	if (is_intersect(node->shapes, ray, hit))
