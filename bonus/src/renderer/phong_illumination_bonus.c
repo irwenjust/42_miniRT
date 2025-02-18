@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:53:55 by yzhan             #+#    #+#             */
-/*   Updated: 2025/02/17 14:22:08 by likong           ###   ########.fr       */
+/*   Updated: 2025/02/18 11:43:22 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,29 +73,36 @@ static t_color	spec(t_light *light, t_hit *inter, double brightness)
 	return (mix_color(multi_color(inter->color, specular_ratio), light->color));
 }
 
+static void	add_light_color(t_hit *hit, t_color *color, int i)
+{
+	t_light	*light;
+
+	light = fclass_index(s()->light, i);
+	if (!light)
+		error_exit("cannot find any light");
+	if (!is_obscured(light, hit))
+	{
+		*color = add_color(*color, diff(light, hit, light->brightness));
+		*color = add_color(*color, spec(light, hit, light->brightness));
+	}
+}
+
 void	phong_illumination(t_hit *closest)
 {
 	t_color	color;
-	t_light	*light;
 	int		i;
 
 	i = -1;
 	check_hit(closest);
 	check_bump(closest);
-	color = closest->color;
+	if (closest->shape->cboard || closest->shape->tex)
+		color = add_texture(closest);
+	else
+		color = closest->color;
 	if (!closest->shape->tex)
 		color = check_ambient(color);
 	while (++i < s()->light->size)
-	{
-		light = fclass_index(s()->light, i);
-		if (!light)
-			error_exit("cannot find any light");
-		if (!is_obscured(light, closest))
-		{
-			color = add_color(color, diff(light, closest, light->brightness));
-			color = add_color(color, spec(light, closest, light->brightness));
-		}
-	}
+		add_light_color(closest, &color, i);
 	if (closest->shape->cboard || closest->shape->tex)
 		color = mix_color(color, add_texture(closest));
 	closest->color = color;
