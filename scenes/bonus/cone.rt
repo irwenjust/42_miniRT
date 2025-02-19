@@ -10,6 +10,8 @@ L    -50,50,0   1.0      255,255,255
 
 #N   Center     Normal    DiaM Height Color       Ks    Shn  ChkB Tex Bump RI   Transp
 co   0,7.5,80   1,-1,-1   10    15    123,59,255  0.5   128  0    0   0    1    0
+co   -15,7.5,80   1,-1,-1   10    15    123,59,255  0.5   128  1    0   0    1    0
+# co   15,7.5,80   1,-1,-1   10    15    123,59,255  0.1   128  1    0   0    1    1
 
 #N   Center    Normal   Color         Ks    Shn   ChkB Tex Bump RI   Transp
-pl   0,-20,0   0,1,0    255,255,255   0.1   100   0    0   0    1    0
+pl   0,-20,0   0,1,0    255,255,255   0.1   100   1    0    0    1    0

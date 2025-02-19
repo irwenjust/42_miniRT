@@ -10,6 +10,8 @@ L    -50,50,0   1.0      255,255,255
 
 #N   Center   DiaM   Color        Ks    Shn  ChkB Tex Bump RI   Transp
 sp   0,0,50   15     123,59,255   0.5   100  0    0   0    1    0
+sp   -20,0,50   15     123,59,255   0.5   100  1    0   0    1    0
+sp   20,0,50   15     123,59,255   0.1   100  1    0   0    1    1
 
 #N   Center    Normal   Color         Ks    Shn   ChkB Tex Bump RI   Transp
 pl   0,-20,0   0,1,0    255,255,255   0.1   100   0    0   0    1    0
