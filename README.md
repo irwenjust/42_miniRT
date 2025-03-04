@@ -3,6 +3,12 @@ Let's start this epic project!
 This project is trying to create a ray tracing simulator by C.   
 The project grade is 125/100.  
 
+### **Recommend to run this project in Linux.**
+
+In WSL, most functions is ok, but the color presets of light and objects cannot be displayed normally, and reset function is wrong.
+
+This may be because our color structure store int data, not double, and it causes precision loss in WSL. However, we found this problem too late, and as the color calculated in renderer is double type, so preset color is correct when running in Linux. So we didn't modify it.
+
 ## **Authorship**
 
 - [**yingzhan11**](https://github.com/yingzhan11) **- yzhan**  
