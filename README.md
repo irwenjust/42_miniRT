@@ -12,7 +12,10 @@ This may be because our color structure store int data, not double, and it cause
 ## **Authorship**
 
 - [**yingzhan11**](https://github.com/yingzhan11) **- yzhan**  
-- [**irwenjust**](https://github.com/irwenjust) **- likong**   
+- [**irwenjust**](https://github.com/irwenjust) **- likong**
+
+## **Demo**
+https://github.com/user-attachments/assets/22dade0a-2ffb-4369-9a2f-4b202669b1f0
 
 ## **Some result image**
 <table align=center>
